@@ -13,7 +13,7 @@ import java.math.BigDecimal;
  */
 //OPZET CHEESE CLASS
 public class Cheese {
-    private int cheeseNumber;
+    private int cheeseID;
     private String cheeseName;
     private BigDecimal price; 
     private int stock;
@@ -21,11 +21,11 @@ public class Cheese {
     
     public Cheese(){};
     
-    public int getCheeseNumber(){
-	return cheeseNumber;
+    public int getCheeseID(){
+	return cheeseID;
     }
-    public void setCheeseNumber(int cheeseNumber) {
-        this.cheeseNumber = cheeseNumber;
+    public void setCheeseID(int cheeseID) {
+        this.cheeseID = cheeseID;
     }
 
 
@@ -58,6 +58,6 @@ public class Cheese {
     
     @Override
     public String toString(){
-	return "Cheese Number: " + cheeseNumber + ". Cheese Data: " + cheeseName + " " + price + " " + stock; 
+	return "Cheese Number: " + cheeseID + ". Cheese Data: " + cheeseName + " " + price + " " + stock; 
     }
 }
