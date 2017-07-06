@@ -11,7 +11,7 @@ import java.math.BigDecimal;
  *
  * @author Gerben
  */
-//OPZET CHEESE CLASS
+// CHEESE POJO
 public class Cheese {
     private int cheeseID;
     private String cheeseName;
@@ -52,12 +52,6 @@ public class Cheese {
     }
     
     
-    public void removeCheese(){
-        //DELETE Cheese FROM DATABASE
-    }
     
-    @Override
-    public String toString(){
-	return "Cheese Number: " + cheeseID + ". Cheese Data: " + cheeseName + " " + price + " " + stock; 
-    }
+    
 }
