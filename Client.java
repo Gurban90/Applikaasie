@@ -3,47 +3,45 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package applikaasie;
+package RSvier;
 
 /**
  *
- * @author Jasper Thielen
+ * @author Gerben
  */
+//OPZET CLIENTPOJO
 public class Client {
-    
-    //private ArrayList clientList;
-    
-    private int clientNumber;
+    private int    clientID;
     private String firstName;
     private String lastName;
-    private String streetName;
-    private String houseNumber;
-    private String postalCode;
-    private String city;
-    private String email;
-    private String deliverStreetName;
-    private String deliveryHouseNumber;
-    private String deliveryCity;
-            
-    public Client(){
-        //set all privates in a question menu? and add it to a arrey
+       
+    public Client() {}
+
+
+    public int getClientID(){
+	return clientID;
     }
+    public void setClientID(int clientID) {
+	this.clientID = clientID;
+    }
+
+
+    public String getFirstName() {
+	return firstName;
+    }
+    public void setFirstName(String firstName) {
+	this.firstName = firstName;
+    }
+
+
+    public String getLastName() {
+	return lastName;
+    }
+    public void setLastName(String lastName) {
+	this.lastName = lastName;
+    }
+
     
-    public void removeClient(){
-        
-    }
-    public void editClient(){
-        
-    }
-    
-    public String searchClient(int clientNumber){
-        //inbetween menu
-        return null;
-    }
-    public String toString(){
-        //Show Client
-        return null;
-    }
-    
-    
+
+   
 }

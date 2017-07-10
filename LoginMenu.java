@@ -27,19 +27,26 @@ public class LoginMenu {
 
             System.out.println("Welcome to Applikaasie...."
                     + "/n" + "1. press 1 to log with a existing account "
-                    //+ "/n" + "2. press 2 if client "
-                    + "/n" + "2. press 2 to exit");
+                    + "/n" + "2. press 2 if client "
+                    + "/n" + "3. press 3 to exit");
 
             choice = input.nextInt();
 
             switch (choice) {
                 case 1:  // Ask for id?
-
+                    
+                    
+                    //accounts class material?
+                    System.out.print("please enter your account number: ");
+                    this.accountNumber = input.nextInt();
+                    
+                    System.out.print("please enter your password");
+                    this.password = input.nextLine();
                     
                     break;
-                //case 2: //open as client?? (what is the acceslevel of a client?
-                    //break;
-                case 2:
+                case 2: //open as client?? (what is the acceslevel of a client?
+                    break;
+                case 3:
                     System.out.println("goodbye...");
                     System.exit(0);
                 default:

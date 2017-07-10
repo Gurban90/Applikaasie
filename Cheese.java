@@ -3,35 +3,55 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package applikaasie;
+package RSvier;
 
 import java.math.BigDecimal;
 
 /**
  *
- * @author Jasper Thielen
+ * @author Gerben
  */
+// CHEESE POJO
 public class Cheese {
-   
-    private int cheeseNumber;
-    private String name;
-    private BigDecimal price; //misschien te groot voor een kaassoort
+    private int cheeseID;
+    private String cheeseName;
+    private BigDecimal price; 
     private int stock;
+    
+    
+    public Cheese(){};
+    
+    public int getCheeseID(){
+	return cheeseID;
+    }
+    public void setCheeseID(int cheeseID) {
+        this.cheeseID = cheeseID;
+    }
 
 
-public Cheese(){
- //get new cheesenumber from database
-}
+    public String getCheeseName() {
+	return cheeseName;
+    }
+    public void setCheeseName(String cheeseName) {
+	this.cheeseName = cheeseName;
+    }
 
-public void removeCheese(){
-    //remove cheese with cheesenumber
-}
-public void editCheese(){
-    //choose wich part you want to edit first?
-}
-public String searchCheese(int cheeseNumber){
-        
-        // a tostring methode of the database 
-    return null;
-}
+
+    public BigDecimal getPrice() {
+	return price;
+    }
+    public void setPrice(BigDecimal price) {
+	this.price = price;
+    }
+
+    public int getStock() {
+	return stock;
+    }
+    public void setStock(int stock) {
+	this.stock = stock;
+    }
+    
+    
+    
+    
 }
