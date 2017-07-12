@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS `Applikaasie`.`Client` (
   `ClientID` INT NOT NULL,
   `FirstName` VARCHAR(45) NULL,
   `LastName` VARCHAR(45) NULL,
+  `E-mail` VARCHAR(45) NULL,
   PRIMARY KEY (`ClientID`))
 ENGINE = InnoDB;
 
@@ -54,7 +55,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Applikaasie`.`Order` (
   `OrderID` INT NOT NULL,
+  `OrderDate` DATETIME NULL,
   `TotalPrice` DECIMAL(6,2) NULL,
+  `ProcessedDate` DATETIME NULL,
   `Client_ClientID` INT NOT NULL,
   PRIMARY KEY (`OrderID`),
   INDEX `fk_Order_Client1_idx` (`Client_ClientID` ASC),
@@ -94,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `Applikaasie`.`Address` (
   CONSTRAINT `fk_Address_Client1`
     FOREIGN KEY (`Client_ClientID`)
     REFERENCES `Applikaasie`.`Client` (`ClientID`)
-    ON DELETE  CASCADE
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Address_AddressType1`
     FOREIGN KEY (`AddressType_AddressTypeID`)
@@ -118,28 +121,11 @@ CREATE TABLE IF NOT EXISTS `Applikaasie`.`OrderDetail` (
   CONSTRAINT `fk_OrderDetail_Cheese`
     FOREIGN KEY (`Cheese_CheeseID`)
     REFERENCES `Applikaasie`.`Cheese` (`CheeseID`)
-    ON DELETE CASCADE
+    ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_OrderDetail_Order1`
     FOREIGN KEY (`Order_OrderID`)
     REFERENCES `Applikaasie`.`Order` (`OrderID`)
-    ON DELETE CASCADE
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `Applikaasie`.`E_Mail`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Applikaasie`.`E_Mail` (
-  `idE_Mail` INT NOT NULL,
-  `E-Mail` VARCHAR(45) NULL,
-  `Client_ClientID` INT NOT NULL,
-  PRIMARY KEY (`idE_Mail`),
-  INDEX `fk_E_Mail_Client1_idx` (`Client_ClientID` ASC),
-  CONSTRAINT `fk_E_Mail_Client1`
-    FOREIGN KEY (`Client_ClientID`)
-    REFERENCES `Applikaasie`.`Client` (`ClientID`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
