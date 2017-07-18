@@ -18,7 +18,7 @@ USE `Applikaasie` ;
 -- Table `Applikaasie`.`Cheese`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Applikaasie`.`Cheese` (
-  `CheeseID` INT NOT NULL,
+  `CheeseID` INT NOT NULL AUTO_INCREMENT,
   `Name` VARCHAR(45) NULL,
   `Price` DECIMAL(6,2) NULL,
   `Stock` VARCHAR(45) NULL,
@@ -30,7 +30,7 @@ ENGINE = InnoDB;
 -- Table `Applikaasie`.`Client`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Applikaasie`.`Client` (
-  `ClientID` INT NOT NULL,
+  `ClientID` INT NOT NULL AUTO_INCREMENT,
   `FirstName` VARCHAR(45) NULL,
   `LastName` VARCHAR(45) NULL,
   `E-mail` VARCHAR(45) NULL,
@@ -42,7 +42,7 @@ ENGINE = InnoDB;
 -- Table `Applikaasie`.`Account`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Applikaasie`.`Account` (
-  `AccountID` INT NOT NULL,
+  `AccountID` INT NOT NULL AUTO_INCREMENT,
   `AccountName` VARCHAR(45) NULL,
   `AccountPassword` VARCHAR(45) NULL,
   `AccountStatus` INT NULL,
@@ -54,7 +54,7 @@ ENGINE = InnoDB;
 -- Table `Applikaasie`.`Order`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Applikaasie`.`Order` (
-  `OrderID` INT NOT NULL,
+  `OrderID` INT NOT NULL AUTO_INCREMENT,
   `OrderDate` DATETIME NULL,
   `TotalPrice` DECIMAL(6,2) NULL,
   `ProcessedDate` DATETIME NULL,
@@ -73,7 +73,7 @@ ENGINE = InnoDB;
 -- Table `Applikaasie`.`AddressType`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Applikaasie`.`AddressType` (
-  `AddressTypeID` INT NOT NULL,
+  `AddressTypeID` INT NOT NULL AUTO_INCREMENT,
   `Type` VARCHAR(45) NULL,
   PRIMARY KEY (`AddressTypeID`))
 ENGINE = InnoDB;
@@ -83,7 +83,7 @@ ENGINE = InnoDB;
 -- Table `Applikaasie`.`Address`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Applikaasie`.`Address` (
-  `AddressID` INT NOT NULL,
+  `AddressID` INT NOT NULL AUTO_INCREMENT,
   `StreetName` VARCHAR(45) NULL,
   `HouseNumber` INT NULL,
   `HouseNumberAddition` VARCHAR(5) NULL,
@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `Applikaasie`.`Address` (
   CONSTRAINT `fk_Address_Client1`
     FOREIGN KEY (`Client_ClientID`)
     REFERENCES `Applikaasie`.`Client` (`ClientID`)
-    ON DELETE CASCADE
+    ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Address_AddressType1`
     FOREIGN KEY (`AddressType_AddressTypeID`)
@@ -111,7 +111,7 @@ ENGINE = InnoDB;
 -- Table `Applikaasie`.`OrderDetail`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Applikaasie`.`OrderDetail` (
-  `OrderDetailID` INT NOT NULL,
+  `OrderDetailID` INT NOT NULL AUTO_INCREMENT,
   `Quantity` INT NULL,
   `Cheese_CheeseID` INT NOT NULL,
   `Order_OrderID` INT NOT NULL,
