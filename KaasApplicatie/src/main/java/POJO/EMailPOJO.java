@@ -11,15 +11,24 @@ package POJO;
  */
 //EMAIL POJO
 public class EMailPOJO {
-    private String e_Mail;
+    private int eMailID;
+    private String eMail;
     
     public EMailPOJO(){};
     
-    public void setE_Mail(String e_Mail) {
-        this.e_Mail = e_Mail;
+    public void seteMail(String eMail) {
+        this.eMail = eMail;
     }
 
-    public String getE_Mail() {
-    return e_Mail;
+    public String getEMail() {
+    return eMail;
+    }
+    public void setEMailID(int eMailID) {
+        this.eMailID = eMailID;
+    }
+
+    public int getEMailID() {
+    return eMailID;
     }
 }
+
