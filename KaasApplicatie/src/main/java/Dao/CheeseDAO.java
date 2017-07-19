@@ -29,6 +29,7 @@ public class CheeseDAO implements CheeseDAOInterface {
 
     @Override
     public Integer AddCheese(CheesePOJO cheese) {
+        logger.info("AddCheese start");
         Integer newID = 0;
         String query = "INSERT INTO Cheese (Name, Price, Stock) VALUES (?,?,?);";
         try {
@@ -52,20 +53,22 @@ public class CheeseDAO implements CheeseDAOInterface {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        logger.info("AddCheese end");
         return newID;
 
     }
 
     @Override
     public List<CheesePOJO> getAllCheese() {
+        logger.info("getAllCheese start");
         String query = "SELECT * FROM Cheese;";
-        List<CheesePOJO> returnedCheeses = new ArrayList<>();                   //Is deze leeg nadat ik hem eerder heb gebruikt?
+        List<CheesePOJO> returnedCheeses = new ArrayList<>();
         try {
             connection = Connector.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                CheesePOJO cheese = new CheesePOJO();               //Kan je steeds een Cheese object aanmaken genaamd cheese?
+                CheesePOJO cheese = new CheesePOJO();
                 cheese.setCheeseID(resultSet.getInt(1));
                 cheese.setCheeseName(resultSet.getString(2));
                 cheese.setPrice(resultSet.getBigDecimal(3));
@@ -73,17 +76,19 @@ public class CheeseDAO implements CheeseDAOInterface {
                 returnedCheeses.add(cheese);
             }
             connection.close();
-
+            resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        logger.info("getAllCheese end");
         return returnedCheeses;
     }
 
     @Override
     public CheesePOJO getCheese(CheesePOJO cheese) {
+        logger.info("getCheese start");
         String query = "SELECT * FROM Cheese WHERE CheeseID=?";
-        CheesePOJO foundCheese = new CheesePOJO();                      //Is deze leeg nadat ik hem eerder heb gebruikt? Moet 
+        CheesePOJO foundCheese = new CheesePOJO();
         try {
             connection = Connector.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
@@ -98,15 +103,17 @@ public class CheeseDAO implements CheeseDAOInterface {
                 foundCheese.setStock(resultSet.getInt(4));
             }
             connection.close();
-
+            resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        logger.info("getCheese end");
         return foundCheese;
     }
 
     @Override
     public void updateCheese(CheesePOJO cheese) {
+        logger.info("updateCheese start");
         String query = "UPDATE Cheese SET Name = ?, Price = ?, Stock = ? WHERE CheeseID=?";
         try {
             connection = Connector.getConnection();
@@ -120,12 +127,33 @@ public class CheeseDAO implements CheeseDAOInterface {
             e.printStackTrace();
 
         }
+        logger.info("updateCheese end");
     }
-    
-    @Override
-    public boolean deleteCheese(CheesePOJO cheese) {
-        String query = "DELETE FROM Cheese WHERE id = ?";
-        ///nog aanvullen
 
+    @Override
+    public void deleteCheese(CheesePOJO cheese) {
+        logger.info("deleteCheese start");
+        String query = "select * from OrderDetail where CheeseID = ?";
+        try {
+            connection = Connector.getConnection();
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, cheese.getCheeseID());
+            ResultSet resultSet = statement.executeQuery();
+
+            if (!resultSet.next()) {
+                query = "DELETE FROM Cheese WHERE CheeseID = ?";
+                statement = connection.prepareStatement(query);
+                statement.setInt(1, cheese.getCheeseID());
+                statement.executeUpdate();
+            } else {
+                System.out.println("Cheese is currently being ordered, delete not possible.");
+            }
+            connection.close();
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+        logger.info("deleteCheese end");
     }
 }

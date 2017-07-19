@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `Applikaasie`.`Address` (
   CONSTRAINT `fk_Address_Client1`
     FOREIGN KEY (`Client_ClientID`)
     REFERENCES `Applikaasie`.`Client` (`ClientID`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Address_AddressType1`
     FOREIGN KEY (`AddressType_AddressTypeID`)
@@ -121,7 +121,7 @@ CREATE TABLE IF NOT EXISTS `Applikaasie`.`OrderDetail` (
   CONSTRAINT `fk_OrderDetail_Cheese`
     FOREIGN KEY (`Cheese_CheeseID`)
     REFERENCES `Applikaasie`.`Cheese` (`CheeseID`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_OrderDetail_Order1`
     FOREIGN KEY (`Order_OrderID`)

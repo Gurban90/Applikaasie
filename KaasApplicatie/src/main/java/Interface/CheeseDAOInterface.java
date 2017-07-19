@@ -23,6 +23,6 @@ public interface CheeseDAOInterface {
     
     public void updateCheese(CheesePOJO cheese);
     
-    public boolean deleteCheese (CheesePOJO cheese);
+    public void deleteCheese (CheesePOJO cheese);
     
 }
