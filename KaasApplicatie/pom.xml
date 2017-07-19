@@ -7,9 +7,9 @@
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
-            <groupId>group.id</groupId>
-            <artifactId>artifact.id</artifactId>
-            <version>1.0</version>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.42</version>
         </dependency>
     </dependencies>
     <properties>
