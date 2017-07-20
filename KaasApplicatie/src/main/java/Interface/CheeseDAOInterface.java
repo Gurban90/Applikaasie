@@ -15,7 +15,7 @@ import java.util.List;
  */
 public interface CheeseDAOInterface {
     
-    public Integer AddCheese(CheesePOJO cheese);
+    public Integer addCheese(CheesePOJO cheese);
     
     public List<CheesePOJO> getAllCheese();
     

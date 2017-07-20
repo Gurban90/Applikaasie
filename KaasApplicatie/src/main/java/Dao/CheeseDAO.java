@@ -29,7 +29,7 @@ public class CheeseDAO implements CheeseDAOInterface {
 
     @Override
     public Integer addCheese(CheesePOJO cheese) {
-         logger.info("addCheese Start");
+        logger.info("addCheese Start");
         Integer newID = 0;
         String query = "INSERT INTO Cheese (Name, Price, Stock) VALUES (?,?,?);";
         try {
@@ -60,15 +60,15 @@ public class CheeseDAO implements CheeseDAOInterface {
 
     @Override
     public List<CheesePOJO> getAllCheese() {
-         logger.info("getAllCheese Start");
+        logger.info("getAllCheese Start");
         String query = "SELECT * FROM Cheese;";
-        List<CheesePOJO> returnedCheeses = new ArrayList<>();                  
+        List<CheesePOJO> returnedCheeses = new ArrayList<>();
         try {
             connection = Connector.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                CheesePOJO cheese = new CheesePOJO();               
+                CheesePOJO cheese = new CheesePOJO();
                 cheese.setCheeseID(resultSet.getInt(1));
                 cheese.setCheeseName(resultSet.getString(2));
                 cheese.setPrice(resultSet.getBigDecimal(3));
@@ -86,9 +86,9 @@ public class CheeseDAO implements CheeseDAOInterface {
 
     @Override
     public CheesePOJO getCheese(CheesePOJO cheese) {
-         logger.info("getCheese Start");
+        logger.info("getCheese Start");
         String query = "SELECT * FROM Cheese WHERE CheeseID=?";
-        CheesePOJO foundCheese = new CheesePOJO();                      
+        CheesePOJO foundCheese = new CheesePOJO();
         try {
             connection = Connector.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
@@ -113,7 +113,7 @@ public class CheeseDAO implements CheeseDAOInterface {
 
     @Override
     public void updateCheese(CheesePOJO cheese) {
-         logger.info("updateCheese Start");
+        logger.info("updateCheese Start");
         String query = "UPDATE Cheese SET Name = ?, Price = ?, Stock = ? WHERE CheeseID=?";
         try {
             connection = Connector.getConnection();
@@ -132,8 +132,8 @@ public class CheeseDAO implements CheeseDAOInterface {
 
     @Override
     public void deleteCheese(CheesePOJO cheese) {
-         logger.info("deleteCheese Start");
-        String query = "select * from OrderDetail where CheeseID = ?";
+        logger.info("deleteCheese Start");
+        String query = "select * from OrderDetail where Cheese_CheeseID = ?";
         try {
             connection = Connector.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
@@ -157,6 +157,3 @@ public class CheeseDAO implements CheeseDAOInterface {
         logger.info("deleteCheese end");
     }
 }
-
-    
-
