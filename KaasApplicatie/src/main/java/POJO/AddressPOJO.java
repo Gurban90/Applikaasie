@@ -46,7 +46,7 @@ public class AddressPOJO {
 
 
     public String getCity() {
-	return postalCode;
+	return city;
     }
     public void setCity(String city) {
 	this.city = city;
