@@ -29,6 +29,7 @@ public class CheeseDAO implements CheeseDAOInterface {
 
     @Override
     public Integer AddCheese(CheesePOJO cheese) {
+         logger.info("AddCheese Start");
         Integer newID = 0;
         String query = "INSERT INTO Cheese (Name, Price, Stock) VALUES (?,?,?);";
         try {
@@ -58,6 +59,7 @@ public class CheeseDAO implements CheeseDAOInterface {
 
     @Override
     public List<CheesePOJO> getAllCheese() {
+         logger.info("getAllCheese Start");
         String query = "SELECT * FROM Cheese;";
         List<CheesePOJO> returnedCheeses = new ArrayList<>();                  
         try {
@@ -82,6 +84,7 @@ public class CheeseDAO implements CheeseDAOInterface {
 
     @Override
     public CheesePOJO getCheese(CheesePOJO cheese) {
+         logger.info("getCheese Start");
         String query = "SELECT * FROM Cheese WHERE CheeseID=?";
         CheesePOJO foundCheese = new CheesePOJO();                      
         try {
@@ -107,6 +110,7 @@ public class CheeseDAO implements CheeseDAOInterface {
 
     @Override
     public void updateCheese(CheesePOJO cheese) {
+         logger.info("updateCheese Start");
         String query = "UPDATE Cheese SET Name = ?, Price = ?, Stock = ? WHERE CheeseID=?";
         try {
             connection = Connector.getConnection();
@@ -124,6 +128,7 @@ public class CheeseDAO implements CheeseDAOInterface {
 
     @Override
     public void deleteCheese(CheesePOJO cheese) {
+         logger.info("deleteCheese Start");
         String query = "select * from OrderDetail where CheeseID = ?";
         try {
             connection = Connector.getConnection();
