@@ -26,11 +26,26 @@ import static org.junit.Assert.*;
  * @author Gerben
  */
 public class CheeseDAOTest {
+    //Gebruikt testDatabase, DomXML verwijst naar andere Database!!!!
 
     CheeseDAO cheesedao = new CheeseDAO();
     private Connection connection;
 
-    public CheeseDAOTest() {
+    @Before
+    public void before() {
+       
+                
+        //Database vullen
+        try {
+            connection = Connector.getConnection();
+            String query = "INSERT INTO Cheese (CheeseID, Name, Price, Stock) VALUES (1, 'Amsterdammer', 9, 8)";
+            Statement statement = connection.createStatement();
+
+            statement.executeUpdate(query);
+            connection.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Test
@@ -44,13 +59,15 @@ public class CheeseDAOTest {
 
         try {
             connection = Connector.getConnection();
-            String query = "SELECT * FROM Cheese";
+            String query = "SELECT * FROM Cheese WHERE CheeseID = 2";
             Statement statement = connection.createStatement();
             ResultSet resultset = statement.executeQuery(query);
             resultset.next();
             assertEquals("Gouda", resultset.getString(2));
             assertEquals(new BigDecimal("13"), resultset.getBigDecimal(3));
             assertEquals(5, resultset.getInt(4));
+            connection.close();
+            resultset.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -69,9 +86,11 @@ public class CheeseDAOTest {
             Statement statement = connection.createStatement();
             ResultSet resultset = statement.executeQuery(query);
             resultset.next();
-            assertEquals("Gouda", resultset.getString(2));
-            assertEquals(new BigDecimal("13"), resultset.getBigDecimal(3));
-            assertEquals(5, resultset.getInt(4));
+            assertEquals("Amsterdammer", resultset.getString(2));
+            assertEquals(new BigDecimal("13"), resultset.getBigDecimal(7));
+            assertEquals(5, resultset.getInt(8));
+            connection.close();
+            resultset.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -83,26 +102,34 @@ public class CheeseDAOTest {
     @Test
     public void testGetCheese() {
         CheesePOJO cheese2 = new CheesePOJO();
-        cheese2.setCheeseName("Bobo");
-        cheese2.setPrice(new BigDecimal("14"));
-        cheese2.setStock(6);
+        cheese2.setCheeseID(1);
+        CheesePOJO testCheese = cheesedao.getCheese(cheese2);
 
-        cheesedao.getCheese(cheese2);
+        assertEquals(1, testCheese.getCheeseID());
+        assertEquals("Amsterdammer", testCheese.getCheeseName());
+        assertEquals(new BigDecimal("9"), testCheese.getPrice());
+        assertEquals(8, testCheese.getStock());
+        
+    }
 
-        try {
+    /*
+   try {
             connection = Connector.getConnection();
-            String query = "SELECT * FROM Cheese WHERE Name = Bobo";
+            String query = "SELECT * FROM Cheese WHERE CheeseID = 8";
             Statement statement = connection.createStatement();
             ResultSet resultset = statement.executeQuery(query);
             resultset.next();
-            assertEquals("Bobo", resultset.getString(2));
-            assertEquals(new BigDecimal("14"), resultset.getBigDecimal(3));
-            assertEquals(6, resultset.getInt(4));
+            assertEquals("Gouda", resultset.getString(2));
+            assertEquals(new BigDecimal("13"), resultset.getBigDecimal(3));
+            assertEquals(5, resultset.getInt(4));
+            connection.close();
+            resultset.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }
-
+}
+     */
     @Test
     public void testUpdateCheese() {
         CheesePOJO cheese3 = new CheesePOJO();
@@ -122,6 +149,8 @@ public class CheeseDAOTest {
             assertEquals("Gobo", resultset.getString(2));
             assertEquals(new BigDecimal("14"), resultset.getBigDecimal(3));
             assertEquals(6, resultset.getInt(4));
+            connection.close();
+            resultset.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -134,7 +163,7 @@ public class CheeseDAOTest {
         cheese4.setCheeseID(2);
 
         cheesedao.deleteCheese(cheese4);
-        
+
         try {
             connection = Connector.getConnection();
             String query = "SELECT * FROM Cheese WHERE CheeseID = 2";
@@ -142,9 +171,36 @@ public class CheeseDAOTest {
             ResultSet resultset = statement.executeQuery(query);
             resultset.next();
             assertEquals(null, resultset.getString("Name"));
-            
+            connection.close();
+            resultset.close();
+
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }
+
+
+
+    @AfterClass
+    public static void after() {
+        //Database Leegmaken
+
+        try {
+            Connection connection = Connector.getConnection();
+
+            Statement statement = connection.createStatement();
+            String query = "DELETE FROM Cheese";
+            statement.addBatch(query);
+            String query2 = "ALTER TABLE Cheese AUTO_INCREMENT = 1";
+            statement.addBatch(query2);
+            statement.executeBatch();
+            connection.commit();
+            connection.close();
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
 }
