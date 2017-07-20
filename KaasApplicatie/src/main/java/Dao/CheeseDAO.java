@@ -28,8 +28,8 @@ public class CheeseDAO implements CheeseDAOInterface {
     private Connection connection;
 
     @Override
-    public Integer AddCheese(CheesePOJO cheese) {
-         logger.info("AddCheese Start");
+    public Integer addCheese(CheesePOJO cheese) {
+         logger.info("addCheese Start");
         Integer newID = 0;
         String query = "INSERT INTO Cheese (Name, Price, Stock) VALUES (?,?,?);";
         try {
@@ -53,6 +53,7 @@ public class CheeseDAO implements CheeseDAOInterface {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        logger.info("addCheese end");
         return newID;
 
     }
@@ -79,6 +80,7 @@ public class CheeseDAO implements CheeseDAOInterface {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        logger.info("getAllCheese end");
         return returnedCheeses;
     }
 
@@ -105,6 +107,7 @@ public class CheeseDAO implements CheeseDAOInterface {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        logger.info("getCheese end");
         return foundCheese;
     }
 
@@ -124,6 +127,7 @@ public class CheeseDAO implements CheeseDAOInterface {
             e.printStackTrace();
 
         }
+        logger.info("updateCheese end");
     }
 
     @Override
@@ -150,6 +154,7 @@ public class CheeseDAO implements CheeseDAOInterface {
             e.printStackTrace();
 
         }
+        logger.info("deleteCheese end");
     }
 }
 

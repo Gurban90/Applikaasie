@@ -40,7 +40,7 @@ public class CheeseDAOTest {
     cheese.setStock(5);
     
     
-    cheesedao.AddCheese(cheese);
+    cheesedao.addCheese(cheese);
     
     try {
             connection = Connector.getConnection();
