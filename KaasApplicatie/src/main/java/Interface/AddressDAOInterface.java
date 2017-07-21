@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface AddressDAOInterface {
     
-    public Integer addAdress(AddressPOJO adress);
+    public Integer addAddress(AddressPOJO adress);
     
     public List<AddressPOJO> getAllAddress();
     

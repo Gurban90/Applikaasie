@@ -11,31 +11,44 @@ package POJO;
  */
 //ADDRESS POJO
 public class AddressPOJO {
-    private String streetname;
+    
+    private int addressID;
+    
     private String housenumber;
+    private String streetname;
     private String postalCode;
     private String city;
+    
+    private String deliveryHouseNumber;
     private String deliveryStreetName;
     private String deliveryPostalCode;
     private String deliveryCity;
     
     public AddressPOJO(){};
     
-    public String getStreetname() {
-	return streetname;
+    public int getAddressID(){
+	return addressID;
     }
-    public void setStreetname(String streetname) {
-	this.streetname = streetname;
+    public void setAddressID(int addressID) {
+        this.addressID = addressID;
     }
-
-
+    
+    
+    
     public String getHouseNumber() {
-	return housenumber;
+        return housenumber;
     }
+    
     public void setHouseNumber(String housenumber) {
 	this.housenumber = housenumber;
        }
-
+    
+    public String getStreetName() {
+	return streetname;
+    }
+    public void setStreetName(String streetname) {
+	this.streetname = streetname;
+    }
 
     public String getPostalCode() {
 	return postalCode;
@@ -51,6 +64,17 @@ public class AddressPOJO {
     public void setCity(String city) {
 	this.city = city;
     }
+    
+    //And now the delivery....
+    
+    
+    public String getDeliveryHouseNumber() {
+        return deliveryHouseNumber;
+    }
+    
+    public void setDeliveryHouseNumber(String deliveryhousenumber) {
+	this.deliveryHouseNumber = deliveryhousenumber;
+       }
 
     
     public String getDeliveryStreetName() {
