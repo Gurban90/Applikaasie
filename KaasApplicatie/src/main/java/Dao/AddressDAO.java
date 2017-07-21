@@ -49,9 +49,9 @@ public class AddressDAO implements AddressDAOInterface {
             statement.executeUpdate();
 
             try (ResultSet resultSet = statement.getGeneratedKeys()) {
-                if (resultSet.next()) {
-                    newID = resultSet.getInt(1); //kijk hier vanavond nog even naar, jasper!
-                    address.setAddressID(newID);
+                if (resultSet.next()) { //skips to next row
+                    newID = resultSet.getInt(1); //selects number from first column of database in row
+                    address.setAddressID(newID); // sets Id
                 } else {
                     throw new SQLException("Creating Address failed, no ID obtained.");
                 }
@@ -66,13 +66,45 @@ public class AddressDAO implements AddressDAOInterface {
 
     }
 
+        @Override
+    public AddressPOJO getAddress(AddressPOJO address) {
+        log.info("getAddress Start");
+        String query = "SELECT * FROM Address WHERE AddressID=?"; // search on id? is there a better way, maybe search on client??
+        AddressPOJO foundAddress = new AddressPOJO();
+        try {
+            connect = Connector.getConnection();
+            PreparedStatement statement = connect.prepareStatement(query);
+            statement.setObject(1, address.getAddressID());
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.isBeforeFirst()) {
+                resultSet.next();
+                foundAddress.setAddressID(resultSet.getInt(1));
+                foundAddress.setHouseNumber(resultSet.getString(2));
+                foundAddress.setStreetName(resultSet.getString(3));
+                foundAddress.setPostalCode(resultSet.getString(4));
+                foundAddress.setCity(resultSet.getString(5));
+                foundAddress.setDeliveryHouseNumber(resultSet.getString(6));
+                foundAddress.setDeliveryStreetName(resultSet.getString(7));
+                foundAddress.setDeliveryPostalCode(resultSet.getString(8));
+                foundAddress.setDeliveryCity(resultSet.getString(9));
+                //works because we dont have to add names to string if all are given?
+
+            }
+            connect.close();
+            resultSet.close();
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        log.info("getAddress end");
+        return foundAddress;
+        
+    }
+    
     @Override
     public List<AddressPOJO> getAllAddress() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public AddressPOJO getAddress(AddressPOJO address) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
