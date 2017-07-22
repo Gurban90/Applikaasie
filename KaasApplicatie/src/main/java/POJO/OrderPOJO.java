@@ -16,9 +16,9 @@ import java.time.LocalDateTime;
 public class OrderPOJO {
     
     private int orderID;
-    private Object orderDetail;
-    private Object cheese;
-    private Object client;
+    private OrderDetailPOJO orderDetail;
+    private CheesePOJO cheese;
+    private ClientPOJO client;
     private BigDecimal totalPrice;
     private LocalDateTime orderDate;
 
@@ -36,27 +36,28 @@ public class OrderPOJO {
         this.orderID = orderID;
     }
 
-    public Object getOrderDetail() {
+    public OrderDetailPOJO getOrderDetail() { //does this need to be a object?
+        
         return orderDetail;
     }
 
-    public void setOrderDetail(Object orderDetail) {
+    public void setOrderDetail(OrderDetailPOJO orderDetail) {
         this.orderDetail = orderDetail;
     }
 
-    public Object getCheese() {
+    public CheesePOJO getCheese() {
         return cheese;
     }
 
-    public void setCheese(Object cheese) {
+    public void setCheese(CheesePOJO cheese) {
         this.cheese = cheese;
     }
 
-    public Object getClient() {
+    public ClientPOJO getClient() {
         return client;
     }
 
-    public void setClient(Object client) {
+    public void setClient(ClientPOJO client) {
         this.client = client;
     }
 

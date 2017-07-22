@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -34,7 +35,7 @@ public class ClientDAO implements ClientDAOInterface {
                 + "(?,?,?);";
         try{
         connect = Connector.getConnection();
-        PreparedStatement statement = connect.prepareStatement(insertClient);
+        PreparedStatement statement = connect.prepareStatement(insertClient, Statement.RETURN_GENERATED_KEYS);
         
         statement.setString(1, client.getFirstName());
         statement.setString(2, client.getLastName());

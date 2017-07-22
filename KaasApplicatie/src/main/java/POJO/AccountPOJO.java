@@ -34,11 +34,11 @@ public class AccountPOJO {
         this.accountName = accountName;
     }
 
-    public String getPassword() {
+    public String getAccountPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setAccountPassword(String password) {
         this.password = password;
     }
 
