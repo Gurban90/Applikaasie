@@ -15,6 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import java.util.logging.Logger;
 import java.util.List;
@@ -69,8 +70,10 @@ public class AddressDAO implements AddressDAOInterface {
         @Override
     public AddressPOJO getAddress(AddressPOJO address) {
         log.info("getAddress Start");
-        String query = "SELECT * FROM Address WHERE AddressID=?"; // search on id? is there a better way, maybe search on client??
+        String query = "SELECT * FROM Address WHERE Client_ClientID=?"; // search on clientID??
+        
         AddressPOJO foundAddress = new AddressPOJO();
+        
         try {
             connect = Connector.getConnection();
             PreparedStatement statement = connect.prepareStatement(query);
@@ -105,17 +108,84 @@ public class AddressDAO implements AddressDAOInterface {
     
     @Override
     public List<AddressPOJO> getAllAddress() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        log.info("getAllAddress Start");
+        String query = "SELECT * FROM Address;";
+        
+        List<AddressPOJO> returnedAddress = new ArrayList<>();
+        
+        try {
+            connect = Connector.getConnection();
+            PreparedStatement statement = connect.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                
+                AddressPOJO foundAddress = new AddressPOJO();
+                
+                foundAddress.setAddressID(resultSet.getInt(1));
+                foundAddress.setHouseNumber(resultSet.getString(2));
+                foundAddress.setStreetName(resultSet.getString(3));
+                foundAddress.setPostalCode(resultSet.getString(4));
+                foundAddress.setCity(resultSet.getString(5));
+                foundAddress.setDeliveryHouseNumber(resultSet.getString(6));
+                foundAddress.setDeliveryStreetName(resultSet.getString(7));
+                foundAddress.setDeliveryPostalCode(resultSet.getString(8));
+                foundAddress.setDeliveryCity(resultSet.getString(9));
+                returnedAddress.add(foundAddress);
+            }
+            connect.close();
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        log.info("getAllCheese end");
+        return returnedAddress;
     }
+    
 
     @Override
     public void updateAddress(AddressPOJO address) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       log.info("updateAddress Start");
+        String query = "UPDATE Address SET HouseNumber = ?, StreetName =? , PostalCode = ?, City =?, DeliveryHouseNumber =?, DeliveryStreetname =?, DeliveryPostalCode =?, DeliveryCity=?  WHERE AdressID=?";
+        try {
+            connect = Connector.getConnection();
+            PreparedStatement updateAdress = connect.prepareStatement(query);
+                updateAdress.setAddressID(1, address.getAddressID());
+                updateAdress.setHouseNumber(2, address.getHouseNumber());
+                updateAdress.setStreetName(3,getStreetName());
+                updateAdress.setPostalCode(4, getPostalCode());
+                updateAdress.setCity(5, getCity());
+                updateAdress.setDeliveryHouseNumber(6,getDeliveryHouseNumber());
+                updateAdress.setDeliveryStreetName(7,getDeliveryStreetName());
+                updateAdress.setDeliveryPostalCode(8,getDeliveryPostalCode());
+                updateAdress.setDeliveryCity(9, getDeliveryCity());
+            updateAdress.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+        log.info("updateAddress end");
     }
 
     @Override
-    public boolean deleteAddress(AddressPOJO address) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void deleteAddress(AddressPOJO address) {
+        log.info("deleteAddress Start");
+        String query = "delete * from Address where Client_Clientid = ?";
+        
+        try {
+            connect = Connector.getConnection();
+            PreparedStatement statement = connect.prepareStatement(query);
+            statement.setInt(1, address.getAddressID());
+            ResultSet resultSet = statement.executeQuery();
+            
+           connect.close();
+            resultSet.close();
+        
+        } catch (SQLException e) {
+            e.printStackTrace();
+        
+        log.info("deleteAdress stop");
+     
     }
-    
+  
+}
 }

@@ -20,5 +20,5 @@ public interface AddressDAOInterface {
     
     public void updateAddress(AddressPOJO address);
     
-    public boolean deleteAddress (AddressPOJO address);
+    public void deleteAddress (AddressPOJO address);
 }
