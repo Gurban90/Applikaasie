@@ -8,8 +8,6 @@ package Dao;
 import DatabaseConnector.Connector;
 import Interface.AddressDAOInterface;
 import POJO.AddressPOJO;
-
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -143,21 +141,21 @@ public class AddressDAO implements AddressDAOInterface {
     
 
     @Override
-    public void updateAddress(AddressPOJO address) {
+    public void updateAddress(int addressID, String housenumber, String streetname, String postalCode, String city, String deliveryHouseNumber, String deliveryStreetName, String deliveryPostalCode, String deliveryCity) {
        log.info("updateAddress Start");
         String query = "UPDATE Address SET HouseNumber = ?, StreetName =? , PostalCode = ?, City =?, DeliveryHouseNumber =?, DeliveryStreetname =?, DeliveryPostalCode =?, DeliveryCity=?  WHERE AdressID=?";
         try {
             connect = Connector.getConnection();
             PreparedStatement updateAdress = connect.prepareStatement(query);
-                updateAdress.setAddressID(1, address.getAddressID());
-                updateAdress.setHouseNumber(2, address.getHouseNumber());
-                updateAdress.setStreetName(3,getStreetName());
-                updateAdress.setPostalCode(4, getPostalCode());
-                updateAdress.setCity(5, getCity());
-                updateAdress.setDeliveryHouseNumber(6,getDeliveryHouseNumber());
-                updateAdress.setDeliveryStreetName(7,getDeliveryStreetName());
-                updateAdress.setDeliveryPostalCode(8,getDeliveryPostalCode());
-                updateAdress.setDeliveryCity(9, getDeliveryCity());
+                updateAdress.setInt(1, addressID );
+                updateAdress.setString(2, housenumber );
+                updateAdress.setString(3, streetname);
+                updateAdress.setString(4, postalCode);
+                updateAdress.setString(5, city);
+                updateAdress.setString(6, deliveryHouseNumber);
+                updateAdress.setString(7,deliveryStreetName);
+                updateAdress.setString(8,deliveryPostalCode);
+                updateAdress.setString(9,deliveryCity);
             updateAdress.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

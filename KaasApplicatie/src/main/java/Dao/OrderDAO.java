@@ -20,11 +20,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.Instant;
-
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-
-import java.util.*;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -40,12 +37,14 @@ public class OrderDAO implements OrderDAOInterface {
     public Integer addOrder(OrderPOJO order) {
         Integer newID = 0;
         
+        log.info("trying to convert date");
         LocalDateTime inODate = order.getOrderDate();
         LocalDateTime inPDate = order.getProcessedDate();
         Instant instantO = inODate.atZone(ZoneId.systemDefault()).toInstant();
         Instant instantP = inPDate.atZone(ZoneId.systemDefault()).toInstant();     
         Date outODate = (Date) Date.from(instantO); //Hier gaat het van Date.java naar (Date).sql maar het geeft geen error meer
         Date outPDate = (Date) Date.from(instantP); //
+        log.info("converting date succesfull??");
         
         log.info("addorder Start");
         String insertOrder = "INSERT INTO Order" 
