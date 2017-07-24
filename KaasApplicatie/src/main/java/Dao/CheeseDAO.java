@@ -140,6 +140,8 @@ public class CheeseDAO implements CheeseDAOInterface {
         logger.info("getCheeseWithName end");
         return foundCheese;
     }
+    
+    
 
     @Override
     public void updateCheese(CheesePOJO cheese) {

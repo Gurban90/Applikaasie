@@ -5,7 +5,9 @@
  */
 package POJO;
 
-import java.math.BigDecimal;
+import Dao.CheeseDAO;
+
+
 /**
  *
  * @author Gerben
@@ -13,11 +15,13 @@ import java.math.BigDecimal;
 //ORDERDETAILPOJO
 public class OrderDetailPOJO {
     private int orderDetailID;
-    private Object cheese;
+    private CheesePOJO cheese;
+    private int cheeseID; 
     private int quantity;
-    private BigDecimal price;
-    
-    
+    private OrderPOJO order;
+    private int orderID;
+
+        
     public OrderDetailPOJO(){}
 
     public int getOrderDetailID() {
@@ -28,13 +32,24 @@ public class OrderDetailPOJO {
         this.orderDetailID = orderDetailID;
     }
 
-    public Object getCheese() {
+     public CheesePOJO getCheese() {
         return cheese;
     }
-
-    public void setCheese(Object cheese) {
+    
+    
+    public void setCheese(CheesePOJO cheese) {
         this.cheese = cheese;
     }
+    
+        
+     public void setCheeseID(int cheeseID) {
+        this.cheeseID = cheeseID;
+    }
+    
+    public Integer getCheeseID() {
+        return cheeseID;
+    }
+    
 
     public int getQuantity() {
         return quantity;
@@ -44,12 +59,20 @@ public class OrderDetailPOJO {
         this.quantity = quantity;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public OrderPOJO getOrder() {
+        return order;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setOrder(OrderPOJO order) {
+        this.order = order;
+    }
+    
+    public Integer getOrderID() {
+        return orderID;
+    }
+
+    public void setOrderID(int orderID) {
+        this.orderID = orderID;
     }
     
 }

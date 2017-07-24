@@ -11,42 +11,44 @@ package POJO;
  */
 //OPZET CLIENTPOJO
 public class ClientPOJO {
-    private int    clientID;
+
+    private int clientID;
     private String firstName;
     private String lastName;
     private String eMail;
-       
-    public ClientPOJO() {}
 
-
-    public int getClientID(){
-	return clientID;
+    public ClientPOJO() {
     }
-    
+
+    public int getClientID() {
+        return clientID;
+    }
+
     public void setClientID(int clientID) {
-	this.clientID = clientID;
+        this.clientID = clientID;
     }
 
     public String getFirstName() {
-	return firstName;
+        return firstName;
     }
+
     public void setFirstName(String firstName) {
-	this.firstName = firstName;
+        this.firstName = firstName;
     }
 
     public String getLastName() {
-	return lastName;
+        return lastName;
     }
-    
+
     public void setLastName(String lastName) {
-	this.lastName = lastName;
+        this.lastName = lastName;
     }
-    
-        public void seteMail(String eMail) {
+
+    public void setEMail(String eMail) {
         this.eMail = eMail;
     }
 
     public String getEMail() {
-    return eMail;
+        return eMail;
     }
 }
