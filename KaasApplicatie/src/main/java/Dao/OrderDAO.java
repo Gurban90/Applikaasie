@@ -16,6 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -33,12 +34,14 @@ public class OrderDAO implements OrderDAOInterface {
         
         log.info("addorder Start");
         String insertOrder = "INSERT INTO Order" 
-                + "(orderDetail, cheese, client, totalPrice, orderDate) VALUES "
-                + "(?,?,?,?,?);";
+                + "(OrderDate, totalPrice, ProcessedDate) VALUES "
+                + "(?,?,?);";
         try{
         connect = Connector.getConnection();
         PreparedStatement statement = connect.prepareStatement(insertOrder, Statement.RETURN_GENERATED_KEYS);
-        
+        statement.setLocalDateTime(1, order.getOrderDate());
+        statement.setBigDecimal(2, order.getTotalPrice());
+        statement.setLocalDateTime(3, order.getProcessedDate());
 
                 
         statement.executeUpdate();

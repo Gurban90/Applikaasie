@@ -21,6 +21,7 @@ public class OrderPOJO {
     private ClientPOJO client;
     private BigDecimal totalPrice;
     private LocalDateTime orderDate;
+    private LocalDateTime processedDate;
 
 
     public OrderPOJO(){
@@ -36,8 +37,7 @@ public class OrderPOJO {
         this.orderID = orderID;
     }
 
-    public OrderDetailPOJO getOrderDetail() { //does this need to be a object?
-        
+    public OrderDetailPOJO getOrderDetail() { 
         return orderDetail;
     }
 
@@ -79,6 +79,13 @@ public class OrderPOJO {
         this.orderDate = orderDate;
     }
     
+    public LocalDateTime getProcessedDate() {
+        return processedDate;
+    }
+
+    public void setProcessedDate(LocalDateTime processedDate) {
+        this.processedDate = processedDate;
+    }
     
         
     }
