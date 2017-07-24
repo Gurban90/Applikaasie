@@ -11,12 +11,20 @@ import Interface.OrderDAOInterface;
 import POJO.ClientPOJO;
 import POJO.OrderDetailPOJO;
 import POJO.OrderPOJO;
+
+
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.Instant;
+
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+
+import java.util.*;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -32,6 +40,13 @@ public class OrderDAO implements OrderDAOInterface {
     public Integer addOrder(OrderPOJO order) {
         Integer newID = 0;
         
+        LocalDateTime inODate = order.getOrderDate();
+        LocalDateTime inPDate = order.getProcessedDate();
+        Instant instantO = inODate.atZone(ZoneId.systemDefault()).toInstant();
+        Instant instantP = inPDate.atZone(ZoneId.systemDefault()).toInstant();     
+        Date outODate = (Date) Date.from(instantO); //Hier gaat het van Date.java naar (Date).sql maar het geeft geen error meer
+        Date outPDate = (Date) Date.from(instantP); //
+        
         log.info("addorder Start");
         String insertOrder = "INSERT INTO Order" 
                 + "(OrderDate, totalPrice, ProcessedDate) VALUES "
@@ -39,11 +54,9 @@ public class OrderDAO implements OrderDAOInterface {
         try{
         connect = Connector.getConnection();
         PreparedStatement statement = connect.prepareStatement(insertOrder, Statement.RETURN_GENERATED_KEYS);
-        statement.setLocalDateTime(1, order.getOrderDate());
+        statement.setDate(1, outODate);
         statement.setBigDecimal(2, order.getTotalPrice());
-        statement.setLocalDateTime(3, order.getProcessedDate());
-
-                
+        statement.setDate(3, outPDate);       
         statement.executeUpdate();
         
         try (ResultSet resultSet = statement.getGeneratedKeys()) {
