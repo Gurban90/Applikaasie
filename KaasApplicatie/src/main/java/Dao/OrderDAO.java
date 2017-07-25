@@ -9,17 +9,11 @@ import DatabaseConnector.Connector;
 import Interface.ClientDAOInterface;
 import Interface.OrderDAOInterface;
 import POJO.OrderPOJO;
-
-
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -36,15 +30,6 @@ public class OrderDAO implements OrderDAOInterface {
     public Integer addOrder(OrderPOJO order) {
         Integer newID = 0;
         
-        log.info("trying to convert date");
-        LocalDateTime inODate = order.getOrderDate();
-        LocalDateTime inPDate = order.getProcessedDate();
-        Instant instantO = inODate.atZone(ZoneId.systemDefault()).toInstant();
-        Instant instantP = inPDate.atZone(ZoneId.systemDefault()).toInstant();     
-        Date outODate = (Date) Date.from(instantO); //Hier gaat het van Date.java naar (Date).sql maar het geeft geen error meer
-        Date outPDate = (Date) Date.from(instantP); //
-        log.info("converting date succesfull??");
-        
         log.info("addorder Start");
         String insertOrder = "INSERT INTO Order" 
                 + "(OrderDate, totalPrice, ProcessedDate) VALUES "
@@ -52,9 +37,9 @@ public class OrderDAO implements OrderDAOInterface {
         try{
         connect = Connector.getConnection();
         PreparedStatement statement = connect.prepareStatement(insertOrder, Statement.RETURN_GENERATED_KEYS);
-        statement.setDate(1, outODate);
+        statement.setDate(1, order.convertLocalDateTime(order.getOrderDate()) );
         statement.setBigDecimal(2, order.getTotalPrice());
-        statement.setDate(3, outPDate);       
+        statement.setDate(3, order.convertLocalDateTime(order.getProcessedDate()));       
         statement.executeUpdate();
         
         try (ResultSet resultSet = statement.getGeneratedKeys()) {
@@ -91,9 +76,9 @@ public class OrderDAO implements OrderDAOInterface {
                 OrderPOJO foundOrder = new OrderPOJO();
                 
                 foundOrder.setOrderID(resultSet.getInt(1));
-                foundOrder.setOrderDate(resultSet.getDate(2));
+                foundOrder.setOrderDate(foundOrder.convertDate(resultSet.getDate(2)));
                 foundOrder.setTotalPrice(resultSet.getBigDecimal(3));
-                foundOrder.setProcessedDate(resultSet.getDate(4));
+                foundOrder.setProcessedDate(foundOrder.convertDate(resultSet.getDate(4)));
                 returnedOrder.add(foundOrder);
             }
             connect.close();
@@ -123,12 +108,14 @@ public class OrderDAO implements OrderDAOInterface {
             statement.setObject(1, order.getOrderID());
             ResultSet resultSet = statement.executeQuery();
 
+           
+            
             if (resultSet.isBeforeFirst()) {
                 resultSet.next();
                 foundOrder.setOrderID(resultSet.getInt(1));
-                foundOrder.setOrderDate(resultSet.getDate(2));
+                foundOrder.setOrderDate(order.convertDate(resultSet.getDate(2)));
                 foundOrder.setTotalPrice(resultSet.getBigDecimal(3));
-                foundOrder.setProcessedDate(resultSet.getDate(4));
+                foundOrder.setProcessedDate(order.convertDate(resultSet.getDate(4)));
 
             }
             connect.close();
@@ -143,8 +130,25 @@ public class OrderDAO implements OrderDAOInterface {
 
     @Override
     public void updateOrder(OrderPOJO order) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        log.info("updateOrder Start");
+        String query = "UPDATE Order SET  WHERE OrderID=?";
+        try {
+            connect = Connector.getConnection();
+            PreparedStatement updateOrder = connect.prepareStatement(query);
+                updateOrder.setInt(1, order.getOrderID());
+                updateOrder.setDate(2, order.convertLocalDateTime(order.getOrderDate()));
+                updateOrder.setBigDecimal(3,  order.getTotalPrice());
+                updateOrder.setDate(4, order.convertLocalDateTime(order.getProcessedDate()) );
+
+            
+            updateOrder.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+        log.info("updateOrder end");
     }
+      
 
 
     @Override
