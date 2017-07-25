@@ -14,5 +14,5 @@ public interface AccountDAOInterface {
     
     public void updateAccount(AccountPOJO account);
     
-    public boolean deleteAccount (AccountPOJO account);
+    public void deleteAccount (AccountPOJO account);
 }

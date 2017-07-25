@@ -8,34 +8,37 @@ package Dao;
 import DatabaseConnector.Connector;
 import Interface.AccountDAOInterface;
 import POJO.AccountPOJO;
+
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
 /**
  *
- * @author Jasper Thielen
+ * @author Jasper Thielen & Gerben
  */
 public class AccountDAO implements AccountDAOInterface {
 
-    Logger log = Logger.getLogger(AccountDAOInterface.class.getName());
-    
-    private Connection connect;
-    
+    Logger logger = Logger.getLogger(AccountDAOInterface.class.getName());
+
+    private Connection connection;
+
     @Override
     public Integer addAccount(AccountPOJO account) {
-        log.info("Start addAccount log");
+        logger.info("Start addAccount log");
         Integer newID = 0;
-        
+
         String query = "INSERT INTO Account (AccountName, AccountPassword, AccountStatus) VALUES (?,?,?);";
-        
+
         try {
-            connect = Connector.getConnection();
-            PreparedStatement statement = connect.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            connection = Connector.getConnection();
+            PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, account.getAccountName());
             statement.setString(2, account.getAccountPassword());
             statement.setInt(3, account.getAccountStatus());
@@ -49,33 +52,103 @@ public class AccountDAO implements AccountDAOInterface {
                     throw new SQLException("Creating Account failed, no ID obtained.");
                 }
             }
-            connect.close();
+            connection.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        log.info("addCheese end");
+        logger.info("addCheese end");
         return newID;
     }
 
     @Override
     public List<AccountPOJO> getAllAccount() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        logger.info("getAllAccount Start");
+        String query = "SELECT * FROM Account;";
+        List<AccountPOJO> returnedAccounts = new ArrayList<>();
+        try {
+            connection = Connector.getConnection();
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                AccountPOJO account = new AccountPOJO();
+                account.setAccountID(resultSet.getInt(1));
+                account.setAccountName(resultSet.getString(2));
+                account.setAccountPassword(resultSet.getString(3));
+                account.setAccountStatus(resultSet.getInt(4));
+                returnedAccounts.add(account);
+            }
+            connection.close();
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        logger.info("getAllAccount end");
+        return returnedAccounts;
+    }
+
+
+@Override
+        public AccountPOJO getAccount(AccountPOJO account) {
+        logger.info("getAccount Start");
+        String query = "SELECT * FROM Account WHERE AccountID=?";
+        AccountPOJO foundaccount = new AccountPOJO();
+        try {
+            connection = Connector.getConnection();
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, account.getAccountID());
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.isBeforeFirst()) {
+                resultSet.next();
+                foundaccount.setAccountID(resultSet.getInt(1));
+                foundaccount.setAccountName(resultSet.getString(2));
+                foundaccount.setAccountPassword(resultSet.getString(3));
+                foundaccount.setAccountStatus(resultSet.getInt(4));
+            }
+            connection.close();
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        logger.info("getAccount end");
+        return foundaccount;
+    }
+    
+
+    @Override
+        public void updateAccount(AccountPOJO account) {
+         logger.info("updateAccount Start");
+        String query = "UPDATE Account SET AccountName = ?, AccountPassword = ?, AccountStatus = ? WHERE AccountID=?";
+        try {
+            connection = Connector.getConnection();
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, account.getAccountName());
+            statement.setString(2, account.getAccountPassword());
+            statement.setInt(3, account.getAccountStatus());
+            statement.setInt(4, account.getAccountID());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+        logger.info("updateAccount end");
     }
 
     @Override
-    public AccountPOJO getAccount(AccountPOJO account) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void updateAccount(AccountPOJO account) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean deleteAccount(AccountPOJO account) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        public void deleteAccount(AccountPOJO account) {
+        logger.info("deleteAccount Start");
+        String query = "DELETE FROM Client WHERE ClientID = ?";
+        try {
+            connection = Connector.getConnection();
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, account.getAccountID());
+            statement.executeUpdate();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        logger.info("deleteAccount end");
     }
     
 }

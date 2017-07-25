@@ -109,7 +109,7 @@ public class OrderDetailDAO implements OrderDetailDAOInterface {
     }
 
     @Override
-    public List<OrderDetailPOJO> getOrderDetail(Integer orderID
+    public List<OrderDetailPOJO> getOrderDetail(OrderDetailPOJO orderdetail
     ) {
         logger.info("getOrderDetail Start");
         String query = "SELECT * FROM OrderDetail WHERE Order_OrderID =?";

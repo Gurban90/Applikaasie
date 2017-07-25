@@ -28,7 +28,7 @@ public class ClientDAO implements ClientDAOInterface {
     private Connection connection;
 
     @Override
-    public Integer AddClient(ClientPOJO client) {
+    public Integer addClient(ClientPOJO client) {
         logger.info("addClient Start");
         Integer newID = 0;
 
@@ -267,15 +267,25 @@ public class ClientDAO implements ClientDAOInterface {
     @Override
     public void deleteClient(ClientPOJO client) {
         logger.info("deleteClient Start");
-        String query = "DELETE FROM Client WHERE ClientID = ?";
+        String query = "select * from OrderDetail where Client_ClientID = ?";
         try {
             connection = Connector.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, client.getClientID());
-            statement.executeUpdate();
+            ResultSet resultSet = statement.executeQuery();
+            if (!resultSet.next()) {
+                query = "DELETE FROM Client WHERE ClientID = ?";
+                statement = connection.prepareStatement(query);
+                statement.setInt(1, client.getClientID());
+                statement.executeUpdate();
+            } else {
+                System.out.println("Client is currently ordering, delete not possible.");
+            }
             connection.close();
+            resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
+
         }
         logger.info("deleteClient end");
     }

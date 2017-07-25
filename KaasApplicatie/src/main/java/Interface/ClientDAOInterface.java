@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface ClientDAOInterface {
 
-    public Integer AddClient(ClientPOJO client);
+    public Integer addClient(ClientPOJO client);
 
     public List<ClientPOJO> getAllClient();
 
