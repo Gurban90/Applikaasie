@@ -32,19 +32,16 @@ public class AddressDAO implements AddressDAOInterface {
     public Integer addAddress(AddressPOJO address) {
         log.info("addAddress Start");
         Integer newID = 0;
-        String query = "INSERT INTO Address (HouseNumber, StreetName , PostalCode, City, DeliveryHouseNumber, DeliveryStreetname, DeliveryPostalCode, DeliveryCity  ) VALUES (?,?,?,?,?,?,?,?);"; 
-//database is nog niet geheel ingevuld, naamgeving is belangrijk?
+        String query = "INSERT INTO Address (HouseNumber, HouseNumberAddition, StreetName , PostalCode, City, ) VALUES (?,?,?,?,?);"; 
+
         try {
             connect = Connector.getConnection();
             PreparedStatement statement = connect.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, address.getHouseNumber());
-            statement.setString(2, address.getStreetName());
-            statement.setString(3, address.getPostalCode());
-            statement.setString(4, address.getCity());
-            statement.setString(5, address.getDeliveryHouseNumber());
-            statement.setString(6, address.getDeliveryPostalCode());
-            statement.setString(7, address.getDeliveryCity());
-            statement.setString(8, address.getDeliveryCity());
+            statement.setInt(1, address.getHouseNumber());
+            statement.setString(2,address.getHouseNumberAddition());
+            statement.setString(3, address.getStreetName());
+            statement.setString(4, address.getPostalCode());
+            statement.setString(5, address.getCity());
             statement.executeUpdate();
 
             try (ResultSet resultSet = statement.getGeneratedKeys()) {
@@ -81,15 +78,12 @@ public class AddressDAO implements AddressDAOInterface {
             if (resultSet.isBeforeFirst()) {
                 resultSet.next();
                 foundAddress.setAddressID(resultSet.getInt(1));
-                foundAddress.setHouseNumber(resultSet.getString(2));
-                foundAddress.setStreetName(resultSet.getString(3));
-                foundAddress.setPostalCode(resultSet.getString(4));
-                foundAddress.setCity(resultSet.getString(5));
-                foundAddress.setDeliveryHouseNumber(resultSet.getString(6));
-                foundAddress.setDeliveryStreetName(resultSet.getString(7));
-                foundAddress.setDeliveryPostalCode(resultSet.getString(8));
-                foundAddress.setDeliveryCity(resultSet.getString(9));
-                //works because we dont have to add names to string if all are given?
+                foundAddress.setHouseNumber(resultSet.getInt(2));
+                foundAddress.setHouseNumberAddition(resultSet.getString(3));
+                foundAddress.setStreetName(resultSet.getString(4));
+                foundAddress.setPostalCode(resultSet.getString(5));
+                foundAddress.setCity(resultSet.getString(6));
+
 
             }
             connect.close();
@@ -120,14 +114,11 @@ public class AddressDAO implements AddressDAOInterface {
                 AddressPOJO foundAddress = new AddressPOJO();
                 
                 foundAddress.setAddressID(resultSet.getInt(1));
-                foundAddress.setHouseNumber(resultSet.getString(2));
-                foundAddress.setStreetName(resultSet.getString(3));
-                foundAddress.setPostalCode(resultSet.getString(4));
-                foundAddress.setCity(resultSet.getString(5));
-                foundAddress.setDeliveryHouseNumber(resultSet.getString(6));
-                foundAddress.setDeliveryStreetName(resultSet.getString(7));
-                foundAddress.setDeliveryPostalCode(resultSet.getString(8));
-                foundAddress.setDeliveryCity(resultSet.getString(9));
+                foundAddress.setHouseNumber(resultSet.getInt(2));
+                foundAddress.setHouseNumberAddition(resultSet.getString(3));
+                foundAddress.setStreetName(resultSet.getString(4));
+                foundAddress.setPostalCode(resultSet.getString(5));
+                foundAddress.setCity(resultSet.getString(6));
                 returnedAddress.add(foundAddress);
             }
             connect.close();
@@ -139,24 +130,21 @@ public class AddressDAO implements AddressDAOInterface {
         return returnedAddress;
     }
     
-
-    @Override
-    public void updateAddress(int addressID, String housenumber, String streetname, String postalCode, String city, String deliveryHouseNumber, String deliveryStreetName, String deliveryPostalCode, String deliveryCity) {
-       log.info("updateAddress Start");
-        String query = "UPDATE Address SET HouseNumber = ?, StreetName =? , PostalCode = ?, City =?, DeliveryHouseNumber =?, DeliveryStreetname =?, DeliveryPostalCode =?, DeliveryCity=?  WHERE AdressID=?";
+@Override
+    public void updateAddress(int addressID, int housenumber, String houseNumberAddition, String streetname, String postalCode, String city, String deliveryHouseNumber, String deliveryStreetName, String deliveryPostalCode, String deliveryCity) {
+        log.info("updateAddress Start");
+        String query = "UPDATE Address SET HouseNumber = ?, HouseNumberAddition =? StreetName =? , PostalCode = ?, City =?  WHERE AdressID=?";
         try {
             connect = Connector.getConnection();
-            PreparedStatement updateAdress = connect.prepareStatement(query);
-                updateAdress.setInt(1, addressID );
-                updateAdress.setString(2, housenumber );
-                updateAdress.setString(3, streetname);
-                updateAdress.setString(4, postalCode);
-                updateAdress.setString(5, city);
-                updateAdress.setString(6, deliveryHouseNumber);
-                updateAdress.setString(7,deliveryStreetName);
-                updateAdress.setString(8,deliveryPostalCode);
-                updateAdress.setString(9,deliveryCity);
-            updateAdress.executeUpdate();
+            PreparedStatement updateAddress = connect.prepareStatement(query);
+                updateAddress.setInt(1, addressID );
+                updateAddress.setInt(2, housenumber );
+                updateAddress.setString(3, houseNumberAddition );
+                updateAddress.setString(3, streetname);
+                updateAddress.setString(4, postalCode);
+                updateAddress.setString(5, city);
+
+            updateAddress.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
 
@@ -183,7 +171,7 @@ public class AddressDAO implements AddressDAOInterface {
         
         log.info("deleteAdress stop");
      
-    }
+        }
   
-}
+    }
 }

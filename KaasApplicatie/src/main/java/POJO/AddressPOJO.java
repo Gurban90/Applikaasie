@@ -14,15 +14,12 @@ public class AddressPOJO {
     
     private int addressID;
     
-    private String housenumber;
+    private int housenumber;
+    private String houseNumberAddition;
     private String streetname;
     private String postalCode;
     private String city;
     
-    private String deliveryHouseNumber;
-    private String deliveryStreetName;
-    private String deliveryPostalCode;
-    private String deliveryCity;
     
     public AddressPOJO(){};
     
@@ -33,15 +30,21 @@ public class AddressPOJO {
         this.addressID = addressID;
     }
     
-    
-    
-    public String getHouseNumber() {
+    public int getHouseNumber() {
         return housenumber;
     }
     
-    public void setHouseNumber(String housenumber) {
+    public void setHouseNumber(int housenumber) {
 	this.housenumber = housenumber;
        }
+    
+    public String getHouseNumberAddition() {
+        return houseNumberAddition;
+    }
+    
+    public void setHouseNumberAddition(String houseNumberAddition) {
+	this.houseNumberAddition = houseNumberAddition;
+       } 
     
     public String getStreetName() {
 	return streetname;
@@ -65,41 +68,4 @@ public class AddressPOJO {
 	this.city = city;
     }
     
-    //And now the delivery....
-    
-    
-    public String getDeliveryHouseNumber() {
-        return deliveryHouseNumber;
-    }
-    
-    public void setDeliveryHouseNumber(String deliveryhousenumber) {
-	this.deliveryHouseNumber = deliveryhousenumber;
-       }
-
-    
-    public String getDeliveryStreetName() {
-        return deliveryStreetName;
-    }
-    public void setDeliveryStreetName(String deliveryStreetName) {
-        this.deliveryStreetName = deliveryStreetName;
-    }
-
-    
-    public String getDeliveryPostalCode() {
-        return deliveryPostalCode;
-    }
-    public void setDeliveryPostalCode(String deliveryPostalCode) {
-        this.deliveryPostalCode = deliveryPostalCode;
-    }
-
-    
-    public String getDeliveryCity() {
-        return deliveryCity;
-    }
-    public void setDeliveryCity(String deliveryCity) {
-        this.deliveryCity = deliveryCity;
-    }
-    
-       
-   
 }

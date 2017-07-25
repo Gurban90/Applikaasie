@@ -8,8 +8,6 @@ package Dao;
 import DatabaseConnector.Connector;
 import Interface.ClientDAOInterface;
 import Interface.OrderDAOInterface;
-import POJO.ClientPOJO;
-import POJO.OrderDetailPOJO;
 import POJO.OrderPOJO;
 
 
@@ -22,6 +20,7 @@ import java.sql.Statement;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -78,22 +77,95 @@ public class OrderDAO implements OrderDAOInterface {
     }
     @Override
     public List<OrderPOJO> getAllOrder() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        log.info("getAllAddress Start");
+        String query = "SELECT * FROM Address;";
+        
+        List<OrderPOJO> returnedOrder = new ArrayList<>();
+        
+        try {
+            connect = Connector.getConnection();
+            PreparedStatement statement = connect.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                
+                OrderPOJO foundOrder = new OrderPOJO();
+                
+                foundOrder.setOrderID(resultSet.getInt(1));
+                foundOrder.setOrderDate(resultSet.getDate(2));
+                foundOrder.setTotalPrice(resultSet.getBigDecimal(3));
+                foundOrder.setProcessedDate(resultSet.getDate(4));
+                returnedOrder.add(foundOrder);
+            }
+            connect.close();
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        log.info("getAllAddress end");
+        return returnedOrder;
     }
+    
+     /*
+    LocalDateTime orderDate;
+    BigDecimal totalPrice;
+    LocalDateTime processedDate;
+    */
+    
 
     @Override
     public OrderPOJO getOrder(OrderPOJO order) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        log.info("getOrder Start");
+        String query = "SELECT * FROM order WHERE orderID=?";
+        OrderPOJO foundOrder = new OrderPOJO();
+        try {
+            connect = Connector.getConnection();
+            PreparedStatement statement = connect.prepareStatement(query);
+            statement.setObject(1, order.getOrderID());
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.isBeforeFirst()) {
+                resultSet.next();
+                foundOrder.setOrderID(resultSet.getInt(1));
+                foundOrder.setOrderDate(resultSet.getDate(2));
+                foundOrder.setTotalPrice(resultSet.getBigDecimal(3));
+                foundOrder.setProcessedDate(resultSet.getDate(4));
+
+            }
+            connect.close();
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        log.info("getorder end");
+        return foundOrder;
     }
+    
 
     @Override
     public void updateOrder(OrderPOJO order) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+
     @Override
-    public boolean deleteOrder(OrderPOJO order) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public void deleteOrder(OrderPOJO order) {
+        log.info("deleteOrder Start");
+        
+        String query = "select * from Order where OrderID = ?";
+        
+        try {
+            connect = Connector.getConnection();
+            PreparedStatement statement = connect.prepareStatement(query);
+            statement.setInt(1, order.getOrderID());
+            ResultSet resultSet = statement.executeQuery();
+
+           connect.close();
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+        log.info("deleteOrder end");
+}
     
 }

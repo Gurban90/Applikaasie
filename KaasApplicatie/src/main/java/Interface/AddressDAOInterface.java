@@ -12,7 +12,7 @@ public interface AddressDAOInterface {
     
     public AddressPOJO getAddress(AddressPOJO address);
     
-    public void updateAddress(int addressID, String housenumber, String streetname, String postalCode, String city, String deliveryHouseNumber, String deliveryStreetName, String deliveryPostalCode, String deliveryCity);
+    public void updateAddress(int addressID, int housenumber, String houseNumberAddition, String streetname, String postalCode, String city, String deliveryHouseNumber, String deliveryStreetName, String deliveryPostalCode, String deliveryCity);
     
     public void deleteAddress (AddressPOJO address);
 }
