@@ -54,10 +54,15 @@ public class ClientDAO implements ClientDAOInterface {
         } catch (SQLException e) {
             e.printStackTrace();
 
-            logger.info("addClient end");
-
-        }
+    
+        }finally{
+                try { connection.close(); } catch (SQLException e) {}
+            }          
+        
+        logger.info("addClient end");
         return newID;
+        
+        
     }
 
     @Override
@@ -77,11 +82,15 @@ public class ClientDAO implements ClientDAOInterface {
                 client.setEMail(resultSet.getString(4));
                 returnedClients.add(client);
             }
-            connection.close();
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }finally{
+                try { connection.close(); } catch (SQLException e) {}
+            }
+        
+        
+        
         logger.info("getAllClient end");
         return returnedClients;
     }
@@ -104,11 +113,13 @@ public class ClientDAO implements ClientDAOInterface {
                 clients.setEMail(resultSet.getString(4));
                 returnedClients.add(clients);
             }
-            connection.close();
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }finally{
+                try { connection.close(); } catch (SQLException e) {}
+            }
+        
         logger.info("getClient end");
         return returnedClients;
     }
@@ -131,11 +142,13 @@ public class ClientDAO implements ClientDAOInterface {
                 client.setEMail(resultSet.getString(4));
                 returnedClients.add(client);
             }
-            connection.close();
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }finally{
+                try { connection.close(); } catch (SQLException e) {}
+            }
+        
         logger.info("getClientWithName end");
         return returnedClients;
     }
@@ -158,11 +171,13 @@ public class ClientDAO implements ClientDAOInterface {
                 client.setEMail(resultSet.getString(4));
                 returnedClients.add(client);
             }
-            connection.close();
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }finally{
+                try { connection.close(); } catch (SQLException e) {}
+            }
+        
         logger.info("getClientWithLastName end");
         return returnedClients;
     }
@@ -185,11 +200,13 @@ public class ClientDAO implements ClientDAOInterface {
                 client.setEMail(resultSet.getString(4));
                 returnedClients.add(client);
             }
-            connection.close();
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }finally{
+                try { connection.close(); } catch (SQLException e) {}
+            }
+        
         logger.info("getClientWithEmail end");
         return returnedClients;
     }
@@ -209,59 +226,11 @@ public class ClientDAO implements ClientDAOInterface {
         } catch (SQLException e) {
             e.printStackTrace();
 
-        }
+        }finally{
+                try { connection.close(); } catch (SQLException e) {}
+            }
+        
         logger.info("updateClient end");
-    }
-
-    @Override
-    public void updateClientFirstName(Integer ClientID, String FirstName) {
-        logger.info("updateClientFirstName Start");
-        String query = "UPDATE Client SET FirstName = ?, WHERE ClientID=?";
-        try {
-            connection = Connector.getConnection();
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, FirstName);
-            statement.setInt(2, ClientID);
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-
-        }
-        logger.info("updateClientFirstName end");
-    }
-
-    @Override
-    public void updateClientLastName(Integer ClientID, String LastName) {
-        logger.info("updateClientLastName Start");
-        String query = "UPDATE Client SET LastName = ?, WHERE ClientID=?";
-        try {
-            connection = Connector.getConnection();
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, LastName);
-            statement.setInt(2, ClientID);
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-
-        }
-        logger.info("updateClientLastName end");
-    }
-
-    @Override
-    public void updateClientEmail(Integer ClientID, String Email) {
-        logger.info("updateClientEmail Start");
-        String query = "UPDATE Client SET E-mail = ?, WHERE ClientID=?";
-        try {
-            connection = Connector.getConnection();
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, Email);
-            statement.setInt(2, ClientID);
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-
-        }
-        logger.info("updateClientEmail end");
     }
 
     @Override
@@ -281,12 +250,13 @@ public class ClientDAO implements ClientDAOInterface {
             } else {
                 System.out.println("Client is currently ordering, delete not possible.");
             }
-            connection.close();
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
 
-        }
+        }finally{
+                try { connection.close(); } catch (SQLException e) {}
+            }
         logger.info("deleteClient end");
     }
 

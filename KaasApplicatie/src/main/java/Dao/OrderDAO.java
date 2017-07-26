@@ -54,12 +54,15 @@ public class OrderDAO implements OrderDAOInterface {
         } catch (SQLException e) {
             e.printStackTrace();
         
+        }finally{
+                try { connect.close(); } catch (SQLException e) {}
+            }
+        
         log.info("addorder end");
-        
-        
-        }
         return newID;
     }
+    
+    
     @Override
     public List<OrderPOJO> getAllOrder() {
         log.info("getAllAddress Start");
@@ -81,11 +84,14 @@ public class OrderDAO implements OrderDAOInterface {
                 foundOrder.setProcessedDate(foundOrder.convertDate(resultSet.getDate(4)));
                 returnedOrder.add(foundOrder);
             }
-            connect.close();
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }finally{
+                try { connect.close(); } catch (SQLException e) {}
+            }
+        
+        
         log.info("getAllAddress end");
         return returnedOrder;
     }
@@ -122,7 +128,11 @@ public class OrderDAO implements OrderDAOInterface {
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }finally{
+                try { connect.close(); } catch (SQLException e) {}
+            }
+        
+        
         log.info("getorder end");
         return foundOrder;
     }
@@ -145,7 +155,11 @@ public class OrderDAO implements OrderDAOInterface {
         } catch (SQLException e) {
             e.printStackTrace();
 
-        }
+        }finally{
+                try { connect.close(); } catch (SQLException e) {}
+            }
+        
+        
         log.info("updateOrder end");
     }
       
@@ -168,7 +182,11 @@ public class OrderDAO implements OrderDAOInterface {
         } catch (SQLException e) {
             e.printStackTrace();
 
-        }
+        }finally{
+                try { connect.close(); } catch (SQLException e) {}
+            }
+        
+        
         log.info("deleteOrder end");
 }
     
