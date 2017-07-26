@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="5" failures="0" name="Dao.ClientDAOTest" time="0.924" errors="0" skipped="0">
+<testsuite tests="5" failures="0" name="Dao.ClientDAOTest" time="0.991" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Java\Java Development Kit and Netbeans\jdk1.8.0_131\jre\bin"/>
@@ -62,9 +62,9 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="Dao.ClientDAOTest" name="testUpdateClient" time="0.798"/>
-  <testcase classname="Dao.ClientDAOTest" name="testDeleteClient" time="0.013"/>
-  <testcase classname="Dao.ClientDAOTest" name="testGetAllClient" time="0.009"/>
-  <testcase classname="Dao.ClientDAOTest" name="testAddClient" time="0.011"/>
-  <testcase classname="Dao.ClientDAOTest" name="testGetClient" time="0.007"/>
+  <testcase classname="Dao.ClientDAOTest" name="testUpdateClient" time="0.876"/>
+  <testcase classname="Dao.ClientDAOTest" name="testDeleteClient" time="0.01"/>
+  <testcase classname="Dao.ClientDAOTest" name="testGetAllClient" time="0.014"/>
+  <testcase classname="Dao.ClientDAOTest" name="testAddClient" time="0.01"/>
+  <testcase classname="Dao.ClientDAOTest" name="testGetClient" time="0.01"/>
 </testsuite>

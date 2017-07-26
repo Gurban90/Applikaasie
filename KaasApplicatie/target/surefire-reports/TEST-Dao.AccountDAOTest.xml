@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="5" failures="1" name="Dao.AccountDAOTest" time="1.044" errors="0" skipped="0">
+<testsuite tests="5" failures="1" name="Dao.AccountDAOTest" time="1.016" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Java\Java Development Kit and Netbeans\jdk1.8.0_131\jre\bin"/>
@@ -62,13 +62,13 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="Dao.AccountDAOTest" name="testGetAccount" time="0.448">
+  <testcase classname="Dao.AccountDAOTest" name="testGetAccount" time="0.4">
     <failure message="expected:&lt;1&gt; but was:&lt;0&gt;" type="java.lang.AssertionError">java.lang.AssertionError: expected:&lt;1&gt; but was:&lt;0&gt;
 	at org.junit.Assert.fail(Assert.java:88)
 	at org.junit.Assert.failNotEquals(Assert.java:834)
 	at org.junit.Assert.assertEquals(Assert.java:645)
 	at org.junit.Assert.assertEquals(Assert.java:631)
-	at Dao.AccountDAOTest.testGetAccount(AccountDAOTest.java:104)
+	at Dao.AccountDAOTest.testGetAccount(AccountDAOTest.java:103)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -101,7 +101,7 @@
 	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:107)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
 </failure>
-    <system-err>Wed Jul 26 15:56:11 CEST 2017 WARN: Establishing SSL connection without server&apos;s identity verification is not recommended. According to MySQL 5.5.45+, 5.6.26+ and 5.7.6+ requirements SSL connection must be established by default if explicit option isn&apos;t set. For compliance with existing applications not using SSL the verifyServerCertificate property is set to &apos;false&apos;. You need either to explicitly disable SSL by setting useSSL=false, or set useSSL=true and provide truststore for server certificate verification.
+    <system-err>Wed Jul 26 16:37:25 CEST 2017 WARN: Establishing SSL connection without server&apos;s identity verification is not recommended. According to MySQL 5.5.45+, 5.6.26+ and 5.7.6+ requirements SSL connection must be established by default if explicit option isn&apos;t set. For compliance with existing applications not using SSL the verifyServerCertificate property is set to &apos;false&apos;. You need either to explicitly disable SSL by setting useSSL=false, or set useSSL=true and provide truststore for server certificate verification.
 com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Unknown column &apos;Pass&apos; in &apos;field list&apos;
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
@@ -118,7 +118,7 @@ com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Unknown column &apos;
 	at com.mysql.jdbc.StatementImpl.executeUpdateInternal(StatementImpl.java:1552)
 	at com.mysql.jdbc.StatementImpl.executeLargeUpdate(StatementImpl.java:2607)
 	at com.mysql.jdbc.StatementImpl.executeUpdate(StatementImpl.java:1480)
-	at Dao.AccountDAOTest.before(AccountDAOTest.java:43)
+	at Dao.AccountDAOTest.before(AccountDAOTest.java:42)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -149,14 +149,14 @@ com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Unknown column &apos;
 	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:175)
 	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:107)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
-Jul 26, 2017 3:56:11 PM Dao.AccountDAO getAccount
+Jul 26, 2017 4:37:26 PM Dao.AccountDAO getAccount
 INFO: getAccount Start
-Jul 26, 2017 3:56:11 PM Dao.AccountDAO getAccount
+Jul 26, 2017 4:37:26 PM Dao.AccountDAO getAccount
 INFO: getAccount end
 </system-err>
   </testcase>
-  <testcase classname="Dao.AccountDAOTest" name="testUpdateAccount" time="0.478"/>
-  <testcase classname="Dao.AccountDAOTest" name="testAddAccount" time="0.022"/>
-  <testcase classname="Dao.AccountDAOTest" name="testDeleteAccount" time="0.02"/>
-  <testcase classname="Dao.AccountDAOTest" name="testGetAllAccount" time="0.006"/>
+  <testcase classname="Dao.AccountDAOTest" name="testUpdateAccount" time="0.491"/>
+  <testcase classname="Dao.AccountDAOTest" name="testAddAccount" time="0.027"/>
+  <testcase classname="Dao.AccountDAOTest" name="testDeleteAccount" time="0.018"/>
+  <testcase classname="Dao.AccountDAOTest" name="testGetAllAccount" time="0.008"/>
 </testsuite>
