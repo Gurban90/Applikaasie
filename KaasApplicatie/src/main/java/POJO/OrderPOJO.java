@@ -20,6 +20,7 @@ public class OrderPOJO {
     
     private int orderID;
     private OrderDetailPOJO orderDetail;
+    private ClientPOJO client;
     private BigDecimal totalPrice;
     private LocalDateTime orderDate;
     private LocalDateTime processedDate;
@@ -46,7 +47,15 @@ public class OrderPOJO {
         this.orderDetail = orderDetail;
     }
 
-  public BigDecimal getTotalPrice() {
+   public ClientPOJO getClient() {
+        return client;
+    }
+
+    public void setClient(ClientPOJO client) {
+        this.client = client;
+    }
+
+    public BigDecimal getTotalPrice() {
         return totalPrice;
     }
 
