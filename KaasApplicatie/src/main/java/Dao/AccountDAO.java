@@ -9,7 +9,6 @@ import DatabaseConnector.Connector;
 import Interface.AccountDAOInterface;
 import POJO.AccountPOJO;
 
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -52,11 +51,16 @@ public class AccountDAO implements AccountDAOInterface {
                     throw new SQLException("Creating Account failed, no ID obtained.");
                 }
             }
-            connection.close();
-
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+
         logger.info("addCheese end");
         return newID;
     }
@@ -87,9 +91,8 @@ public class AccountDAO implements AccountDAOInterface {
         return returnedAccounts;
     }
 
-
-@Override
-        public AccountPOJO getAccount(AccountPOJO account) {
+    @Override
+    public AccountPOJO getAccount(AccountPOJO account) {
         logger.info("getAccount Start");
         String query = "SELECT * FROM Account WHERE AccountID=?";
         AccountPOJO foundaccount = new AccountPOJO();
@@ -114,11 +117,10 @@ public class AccountDAO implements AccountDAOInterface {
         logger.info("getAccount end");
         return foundaccount;
     }
-    
 
     @Override
-        public void updateAccount(AccountPOJO account) {
-         logger.info("updateAccount Start");
+    public void updateAccount(AccountPOJO account) {
+        logger.info("updateAccount Start");
         String query = "UPDATE Account SET AccountName = ?, AccountPassword = ?, AccountStatus = ? WHERE AccountID=?";
         try {
             connection = Connector.getConnection();
@@ -136,7 +138,7 @@ public class AccountDAO implements AccountDAOInterface {
     }
 
     @Override
-        public void deleteAccount(AccountPOJO account) {
+    public void deleteAccount(AccountPOJO account) {
         logger.info("deleteAccount Start");
         String query = "DELETE FROM Client WHERE ClientID = ?";
         try {
@@ -150,5 +152,5 @@ public class AccountDAO implements AccountDAOInterface {
         }
         logger.info("deleteAccount end");
     }
-    
+
 }
