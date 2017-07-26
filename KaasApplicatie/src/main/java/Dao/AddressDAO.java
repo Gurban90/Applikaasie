@@ -75,7 +75,7 @@ public class AddressDAO implements AddressDAOInterface {
     @Override
     public AddressPOJO getAddress(AddressPOJO address) {
         log.info("getAddress Start");
-        String query = "SELECT * FROM Address WHERE Client_ClientID=?"; // search on clientID??
+        String query = "SELECT * FROM Address WHERE AddressID=?";
 
         AddressPOJO foundAddress = new AddressPOJO();
 
@@ -109,6 +109,44 @@ public class AddressDAO implements AddressDAOInterface {
         log.info("getAddress end");
         return foundAddress;
 
+    }
+
+    @Override
+    public List<AddressPOJO> getAddressWithClient(ClientPOJO client) {
+        log.info("getAllAddress Start");
+        String query = "SELECT * FROM Address WHERE Client_ClientID=?";
+
+        List<AddressPOJO> returnedAddress = new ArrayList<>();
+
+        try {
+            connect = Connector.getConnection();
+            PreparedStatement statement = connect.prepareStatement(query);
+            statement.setObject(1, client.getClientID());
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+
+                AddressPOJO foundAddress = new AddressPOJO();
+
+                foundAddress.setAddressID(resultSet.getInt(1));
+                foundAddress.setHouseNumber(resultSet.getInt(2));
+                foundAddress.setHouseNumberAddition(resultSet.getString(3));
+                foundAddress.setStreetName(resultSet.getString(4));
+                foundAddress.setPostalCode(resultSet.getString(5));
+                foundAddress.setCity(resultSet.getString(6));
+                returnedAddress.add(foundAddress);
+            }
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                connect.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        log.info("getAllCheese end");
+        return returnedAddress;
     }
 
     @Override
@@ -354,4 +392,3 @@ public class AddressDAO implements AddressDAOInterface {
     }
 
 }
-

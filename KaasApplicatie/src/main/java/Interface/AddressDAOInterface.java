@@ -3,6 +3,7 @@ package Interface;
 
 import POJO.AddressPOJO;
 import POJO.AddressTypePOJO;
+import POJO.ClientPOJO;
 import java.util.List;
 
 public interface AddressDAOInterface {
@@ -18,6 +19,8 @@ public interface AddressDAOInterface {
     public void deleteAddress (AddressPOJO address);
     
     public Integer addAddressType(AddressTypePOJO adress);
+    
+    public List<AddressPOJO> getAddressWithClient(ClientPOJO client);
     
     public List<AddressTypePOJO> getAllAddressType();
     
