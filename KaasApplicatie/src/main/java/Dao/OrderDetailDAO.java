@@ -70,16 +70,18 @@ public class OrderDetailDAO implements OrderDetailDAOInterface {
             } else {
                 System.out.println("Check cheese, has to exist in database");
             }
-
-            connection.close();
             resultSet.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }finally{
+                try { connection.close(); } catch (SQLException e) {}
+            }
+        
+        
         logger.info("addOrderDetail end");
         return newID;
-
+        
     }
 
     @Override
@@ -99,11 +101,14 @@ public class OrderDetailDAO implements OrderDetailDAOInterface {
                 orderDetail.setOrderID(resultSet.getInt(4));
                 returnedOrderDetail.add(orderDetail);
             }
-            connection.close();
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }finally{
+                try { connection.close(); } catch (SQLException e) {}
+            }
+        
+        
         logger.info("getAllOrderDetail end");
         return returnedOrderDetail;
     }
@@ -126,11 +131,14 @@ public class OrderDetailDAO implements OrderDetailDAOInterface {
                 orderDetail.setOrderID(resultSet.getInt(4));
                 returnedOrderDetail.add(orderDetail);
             }
-            connection.close();
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }finally{
+                try { connection.close(); } catch (SQLException e) {}
+            }
+        
+        
         logger.info("getOrderDetail end");
         return returnedOrderDetail;
     }
@@ -164,12 +172,14 @@ public class OrderDetailDAO implements OrderDetailDAOInterface {
                 System.out.println("Check cheese, has to exist in database");
             }
 
-            connection.close();
             resultSet.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }finally{
+                try { connection.close(); } catch (SQLException e) {}
+            }
+        
         logger.info("updateOrderDetail end");
 
     }
@@ -187,7 +197,9 @@ public class OrderDetailDAO implements OrderDetailDAOInterface {
         } catch (SQLException e) {
             e.printStackTrace();
 
-        }
+        }finally{
+                try { connection.close(); } catch (SQLException e) {}
+            }
         logger.info("updateOrderDetail end");
     }
     
@@ -208,12 +220,14 @@ public class OrderDetailDAO implements OrderDetailDAOInterface {
                 } else {
                     System.out.println("Check order , has to exist in database");
                 }
-            connection.close();
             resultSet.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }finally{
+                try { connection.close(); } catch (SQLException e) {}
+            }
+        
         logger.info("updateOrderDetail end");
 
     }
@@ -235,12 +249,13 @@ public class OrderDetailDAO implements OrderDetailDAOInterface {
                 } else {
                     System.out.println("Check cheese , has to exist in database");
                 }
-            connection.close();
             resultSet.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }finally{
+                try { connection.close(); } catch (SQLException e) {}
+            }
         logger.info("updateOrderDetail end");
 
     }
@@ -256,12 +271,12 @@ public class OrderDetailDAO implements OrderDetailDAOInterface {
             statement.setInt(1, orderdetail.getOrderDetailID());
             statement.executeUpdate();
 
-            connection.close();
-
         } catch (SQLException e) {
             e.printStackTrace();
 
-        }
+        }finally{
+                try { connection.close(); } catch (SQLException e) {}
+            }
         logger.info("deleteOrderDetail end");
     }
 

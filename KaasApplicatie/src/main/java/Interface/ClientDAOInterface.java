@@ -19,12 +19,6 @@ public interface ClientDAOInterface {
 
     public void updateClient(ClientPOJO client);
 
-    public void updateClientFirstName(Integer ClientID, String FirstName);
-
-    public void updateClientLastName(Integer ClientID, String LastName);
-
-    public void updateClientEmail(Integer ClientID, String Email);
-
     public void deleteClient(ClientPOJO client);
 
 }
