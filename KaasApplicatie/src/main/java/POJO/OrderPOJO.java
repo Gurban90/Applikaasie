@@ -20,8 +20,6 @@ public class OrderPOJO {
     
     private int orderID;
     private OrderDetailPOJO orderDetail;
-    private CheesePOJO cheese;
-    private ClientPOJO client;
     private BigDecimal totalPrice;
     private LocalDateTime orderDate;
     private LocalDateTime processedDate;
@@ -48,25 +46,7 @@ public class OrderPOJO {
         this.orderDetail = orderDetail;
     }
 
-    public CheesePOJO getCheese() {
-        return cheese;
-    }
-
-    public void setCheese(CheesePOJO cheese) {
-        this.cheese = cheese;
-    }
-
-    public ClientPOJO getClient() {
-        return client;
-    }
-
-    public void setClient(ClientPOJO client) {
-        this.client = client;
-    }
-
-  
-
-    public BigDecimal getTotalPrice() {
+  public BigDecimal getTotalPrice() {
         return totalPrice;
     }
 
@@ -96,8 +76,7 @@ public class OrderPOJO {
     public LocalDateTime convertDate(java.sql.Date x){
         
        Instant y = x.toInstant();
-       LocalDateTime z = LocalDateTime.ofInstant(y ,
-              ZoneOffset.UTC);
+       LocalDateTime z = LocalDateTime.ofInstant(y , ZoneOffset.UTC);
         
         return z;
     }
