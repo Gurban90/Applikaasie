@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="5" failures="1" name="Dao.AccountDAOTest" time="1.423" errors="0" skipped="0">
+<testsuite tests="5" failures="1" name="Dao.AccountDAOTest" time="0.969" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Java\Java Development Kit and Netbeans\jdk1.8.0_131\jre\bin"/>
@@ -62,7 +62,7 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="Dao.AccountDAOTest" name="testGetAccount" time="0.78">
+  <testcase classname="Dao.AccountDAOTest" name="testGetAccount" time="0.399">
     <failure message="expected:&lt;1&gt; but was:&lt;0&gt;" type="java.lang.AssertionError">java.lang.AssertionError: expected:&lt;1&gt; but was:&lt;0&gt;
 	at org.junit.Assert.fail(Assert.java:88)
 	at org.junit.Assert.failNotEquals(Assert.java:834)
@@ -101,7 +101,7 @@
 	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:107)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
 </failure>
-    <system-err>Wed Jul 26 12:06:39 CEST 2017 WARN: Establishing SSL connection without server&apos;s identity verification is not recommended. According to MySQL 5.5.45+, 5.6.26+ and 5.7.6+ requirements SSL connection must be established by default if explicit option isn&apos;t set. For compliance with existing applications not using SSL the verifyServerCertificate property is set to &apos;false&apos;. You need either to explicitly disable SSL by setting useSSL=false, or set useSSL=true and provide truststore for server certificate verification.
+    <system-err>Wed Jul 26 14:23:58 CEST 2017 WARN: Establishing SSL connection without server&apos;s identity verification is not recommended. According to MySQL 5.5.45+, 5.6.26+ and 5.7.6+ requirements SSL connection must be established by default if explicit option isn&apos;t set. For compliance with existing applications not using SSL the verifyServerCertificate property is set to &apos;false&apos;. You need either to explicitly disable SSL by setting useSSL=false, or set useSSL=true and provide truststore for server certificate verification.
 com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Unknown column &apos;Pass&apos; in &apos;field list&apos;
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
@@ -149,14 +149,14 @@ com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Unknown column &apos;
 	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:175)
 	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:107)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
-Jul 26, 2017 12:06:39 PM Dao.AccountDAO getAccount
+Jul 26, 2017 2:23:58 PM Dao.AccountDAO getAccount
 INFO: getAccount Start
-Jul 26, 2017 12:06:39 PM Dao.AccountDAO getAccount
+Jul 26, 2017 2:23:58 PM Dao.AccountDAO getAccount
 INFO: getAccount end
 </system-err>
   </testcase>
-  <testcase classname="Dao.AccountDAOTest" name="testUpdateAccount" time="0.407"/>
-  <testcase classname="Dao.AccountDAOTest" name="testAddAccount" time="0.015"/>
-  <testcase classname="Dao.AccountDAOTest" name="testDeleteAccount" time="0.014"/>
-  <testcase classname="Dao.AccountDAOTest" name="testGetAllAccount" time="0.019"/>
+  <testcase classname="Dao.AccountDAOTest" name="testUpdateAccount" time="0.478"/>
+  <testcase classname="Dao.AccountDAOTest" name="testAddAccount" time="0.014"/>
+  <testcase classname="Dao.AccountDAOTest" name="testDeleteAccount" time="0.006"/>
+  <testcase classname="Dao.AccountDAOTest" name="testGetAllAccount" time="0.004"/>
 </testsuite>

@@ -2,6 +2,7 @@
 package Interface;
 
 import POJO.AddressPOJO;
+import POJO.AddressTypePOJO;
 import java.util.List;
 
 public interface AddressDAOInterface {
@@ -12,7 +13,17 @@ public interface AddressDAOInterface {
     
     public AddressPOJO getAddress(AddressPOJO address);
     
-    public void updateAddress(int addressID, int housenumber, String houseNumberAddition, String streetname, String postalCode, String city, String deliveryHouseNumber, String deliveryStreetName, String deliveryPostalCode, String deliveryCity);
+    public void updateAddress(AddressPOJO address);
     
     public void deleteAddress (AddressPOJO address);
+    
+    public Integer addAddressType(AddressTypePOJO adress);
+    
+    public List<AddressTypePOJO> getAllAddressType();
+    
+    public AddressTypePOJO getAddressType(AddressTypePOJO address);
+    
+    public void updateAddressType(AddressTypePOJO address);
+    
+    public void deleteAddressType (AddressTypePOJO address);
 }

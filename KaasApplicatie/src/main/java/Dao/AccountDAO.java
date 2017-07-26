@@ -82,10 +82,16 @@ public class AccountDAO implements AccountDAOInterface {
                 account.setAccountStatus(resultSet.getInt(4));
                 returnedAccounts.add(account);
             }
-            connection.close();
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         logger.info("getAllAccount end");
         return returnedAccounts;
@@ -109,10 +115,15 @@ public class AccountDAO implements AccountDAOInterface {
                 foundaccount.setAccountPassword(resultSet.getString(3));
                 foundaccount.setAccountStatus(resultSet.getInt(4));
             }
-            connection.close();
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         logger.info("getAccount end");
         return foundaccount;
@@ -132,7 +143,12 @@ public class AccountDAO implements AccountDAOInterface {
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         logger.info("updateAccount end");
     }
@@ -146,9 +162,14 @@ public class AccountDAO implements AccountDAOInterface {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, account.getAccountID());
             statement.executeUpdate();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         logger.info("deleteAccount end");
     }

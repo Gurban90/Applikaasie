@@ -11,9 +11,9 @@ package POJO;
  */
 //ADDRESS POJO
 public class AddressPOJO {
-    
     private int addressID;
-    
+    private ClientPOJO client;
+    private AddressTypePOJO addresstype;
     private int housenumber;
     private String houseNumberAddition;
     private String streetname;
@@ -22,6 +22,24 @@ public class AddressPOJO {
     
     
     public AddressPOJO(){};
+    
+    
+
+    public AddressTypePOJO getAddresstype() {
+        return addresstype;
+    }
+
+    public void setAddresstype(AddressTypePOJO addresstype) {
+        this.addresstype = addresstype;
+    }
+
+    public ClientPOJO getClient() {
+        return client;
+    }
+
+    public void setClient(ClientPOJO client) {
+        this.client = client;
+    }
     
     public int getAddressID(){
 	return addressID;

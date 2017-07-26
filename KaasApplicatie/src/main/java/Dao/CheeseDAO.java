@@ -50,10 +50,14 @@ public class CheeseDAO implements CheeseDAOInterface {
                     throw new SQLException("Creating Cheese failed, no ID obtained.");
                 }
             }
-            connection.close();
-
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         logger.info("addCheese end");
         return newID;
@@ -77,10 +81,15 @@ public class CheeseDAO implements CheeseDAOInterface {
                 cheese.setStock(resultSet.getInt(4));
                 returnedCheeses.add(cheese);
             }
-            connection.close();
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         logger.info("getAllCheese end");
         return returnedCheeses;
@@ -104,44 +113,19 @@ public class CheeseDAO implements CheeseDAOInterface {
                 foundCheese.setPrice(resultSet.getBigDecimal(3));
                 foundCheese.setStock(resultSet.getInt(4));
             }
-            connection.close();
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         logger.info("getCheese end");
         return foundCheese;
     }
-
-    //NOG GETCHEESE DIE OP NAAM ZOEKT
-    @Override
-    public CheesePOJO getCheese(String cheesename) {
-        logger.info("getCheeseWithName Start");
-        String query = "SELECT * FROM Cheese WHERE Name=?";
-        CheesePOJO foundCheese = new CheesePOJO();
-        try {
-            connection = Connector.getConnection();
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, cheesename);
-            ResultSet resultSet = statement.executeQuery();
-
-            if (resultSet.isBeforeFirst()) {
-                resultSet.next();
-                foundCheese.setCheeseID(resultSet.getInt(1));
-                foundCheese.setCheeseName(resultSet.getString(2));
-                foundCheese.setPrice(resultSet.getBigDecimal(3));
-                foundCheese.setStock(resultSet.getInt(4));
-            }
-            connection.close();
-            resultSet.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        logger.info("getCheeseWithName end");
-        return foundCheese;
-    }
-    
-    
 
     @Override
     public void updateCheese(CheesePOJO cheese) {
@@ -157,60 +141,14 @@ public class CheeseDAO implements CheeseDAOInterface {
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         logger.info("updateCheese end");
-    }
-
-    @Override
-    public void updateCheese(Integer CheeseID, String newName) {
-        logger.info("updateCheeseName Start");
-        String query = "UPDATE Cheese SET Name = ?, WHERE CheeseID=?";
-        try {
-            connection = Connector.getConnection();
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, newName);
-            statement.setInt(2, CheeseID);
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-
-        }
-        logger.info("updateCheeseName end");
-    }
-
-    @Override
-    public void updateCheese(Integer CheeseID, BigDecimal price) {
-        logger.info("updateCheesePrice Start");
-        String query = "UPDATE Cheese SET Price = ?, WHERE CheeseID=?";
-        try {
-            connection = Connector.getConnection();
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setBigDecimal(1, price);
-            statement.setInt(2, CheeseID);
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-
-        }
-        logger.info("updateCheesePrice end");
-    }
-
-    @Override
-    public void updateCheese(Integer CheeseID, Integer stock) {
-        logger.info("updateCheeseStock Start");
-        String query = "UPDATE Cheese SET Stock = ?, WHERE CheeseID=?";
-        try {
-            connection = Connector.getConnection();
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, stock);
-            statement.setInt(2, CheeseID);
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-
-        }
-        logger.info("updateCheeseStock end");
     }
 
     @Override
@@ -231,11 +169,15 @@ public class CheeseDAO implements CheeseDAOInterface {
             } else {
                 System.out.println("Cheese is currently being ordered, delete not possible.");
             }
-            connection.close();
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
-
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         logger.info("deleteCheese end");
     }

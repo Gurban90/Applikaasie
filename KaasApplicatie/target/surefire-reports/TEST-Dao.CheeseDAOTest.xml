@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="9" failures="0" name="Dao.CheeseDAOTest" time="2.217" errors="0" skipped="0">
+<testsuite tests="9" failures="0" name="Dao.CheeseDAOTest" time="1.038" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Java\Java Development Kit and Netbeans\jdk1.8.0_131\jre\bin"/>
@@ -62,13 +62,13 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="Dao.CheeseDAOTest" name="testUpdateCheeseName" time="0.976"/>
-  <testcase classname="Dao.CheeseDAOTest" name="testUpdateCheese" time="0.003"/>
-  <testcase classname="Dao.CheeseDAOTest" name="testDeleteCheese" time="0.506"/>
-  <testcase classname="Dao.CheeseDAOTest" name="testUpdateCheesePrice" time="0.014"/>
-  <testcase classname="Dao.CheeseDAOTest" name="testUpdateCheeseStock" time="0.508"/>
-  <testcase classname="Dao.CheeseDAOTest" name="testGetAllCheese" time="0.004"/>
-  <testcase classname="Dao.CheeseDAOTest" name="testAddCheese" time="0.002"/>
-  <testcase classname="Dao.CheeseDAOTest" name="testGetCheese" time="0.003"/>
-  <testcase classname="Dao.CheeseDAOTest" name="testGetCheeseWithName" time="0.002"/>
+  <testcase classname="Dao.CheeseDAOTest" name="testUpdateCheeseName" time="0.89"/>
+  <testcase classname="Dao.CheeseDAOTest" name="testUpdateCheese" time="0.005"/>
+  <testcase classname="Dao.CheeseDAOTest" name="testDeleteCheese" time="0.025"/>
+  <testcase classname="Dao.CheeseDAOTest" name="testUpdateCheesePrice" time="0.006"/>
+  <testcase classname="Dao.CheeseDAOTest" name="testUpdateCheeseStock" time="0.008"/>
+  <testcase classname="Dao.CheeseDAOTest" name="testGetAllCheese" time="0.007"/>
+  <testcase classname="Dao.CheeseDAOTest" name="testAddCheese" time="0.003"/>
+  <testcase classname="Dao.CheeseDAOTest" name="testGetCheese" time="0.002"/>
+  <testcase classname="Dao.CheeseDAOTest" name="testGetCheeseWithName" time="0.003"/>
 </testsuite>
