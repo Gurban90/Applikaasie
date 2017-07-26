@@ -4,10 +4,12 @@
  * and open the template in the editor.
  */
 package Dao;
+import Helper.Converter;
 
 import DatabaseConnector.Connector;
 import Interface.ClientDAOInterface;
 import Interface.OrderDAOInterface;
+import POJO.ClientPOJO;
 import POJO.OrderPOJO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,6 +27,7 @@ import java.util.logging.Logger;
 public class OrderDAO implements OrderDAOInterface {
     Logger log = Logger.getLogger(ClientDAOInterface.class.getName());
     private Connection connect;
+    private Converter convert;
     
     @Override
     public Integer addOrder(OrderPOJO order) {
@@ -37,9 +40,9 @@ public class OrderDAO implements OrderDAOInterface {
         try{
         connect = Connector.getConnection();
         PreparedStatement statement = connect.prepareStatement(insertOrder, Statement.RETURN_GENERATED_KEYS);
-        statement.setDate(1, order.convertLocalDateTime(order.getOrderDate()) );
+        statement.setDate(1, convert.convertLocalDateTime(order.getOrderDate()) );
         statement.setBigDecimal(2, order.getTotalPrice());
-        statement.setDate(3, order.convertLocalDateTime(order.getProcessedDate()));       
+        statement.setDate(3, convert.convertLocalDateTime(order.getProcessedDate()));       
         statement.executeUpdate();
         
         try (ResultSet resultSet = statement.getGeneratedKeys()) {
@@ -79,9 +82,9 @@ public class OrderDAO implements OrderDAOInterface {
                 OrderPOJO foundOrder = new OrderPOJO();
                 
                 foundOrder.setOrderID(resultSet.getInt(1));
-                foundOrder.setOrderDate(foundOrder.convertDate(resultSet.getDate(2)));
+                foundOrder.setOrderDate(convert.convertDate(resultSet.getDate(2)));
                 foundOrder.setTotalPrice(resultSet.getBigDecimal(3));
-                foundOrder.setProcessedDate(foundOrder.convertDate(resultSet.getDate(4)));
+                foundOrder.setProcessedDate(convert.convertDate(resultSet.getDate(4)));
                 returnedOrder.add(foundOrder);
             }
             resultSet.close();
@@ -119,9 +122,9 @@ public class OrderDAO implements OrderDAOInterface {
             if (resultSet.isBeforeFirst()) {
                 resultSet.next();
                 foundOrder.setOrderID(resultSet.getInt(1));
-                foundOrder.setOrderDate(order.convertDate(resultSet.getDate(2)));
+                foundOrder.setOrderDate(convert.convertDate(resultSet.getDate(2)));
                 foundOrder.setTotalPrice(resultSet.getBigDecimal(3));
-                foundOrder.setProcessedDate(order.convertDate(resultSet.getDate(4)));
+                foundOrder.setProcessedDate(convert.convertDate(resultSet.getDate(4)));
 
             }
             connect.close();
@@ -136,6 +139,39 @@ public class OrderDAO implements OrderDAOInterface {
         log.info("getorder end");
         return foundOrder;
     }
+    @Override
+    public List<OrderPOJO> getOrderWithClient(ClientPOJO client) {
+        log.info("getAllAddress Start");
+        String query = "SELECT * FROM Order WHERE Client_ClientID=?";
+
+        List<OrderPOJO> returnedAddress = new ArrayList<>();
+
+        try {
+            connect = Connector.getConnection();
+            PreparedStatement statement = connect.prepareStatement(query);
+            statement.setObject(1, client.getClientID());
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+
+                OrderPOJO foundOrder = new OrderPOJO();
+
+                foundOrder.setOrderID(resultSet.getInt(1));
+                foundOrder.setOrderDate(convert.convertDate(resultSet.getDate(2)));
+                foundOrder.setTotalPrice(resultSet.getBigDecimal(3));
+                foundOrder.setProcessedDate(convert.convertDate(resultSet.getDate(4)));
+                returnedAddress.add(foundOrder);
+            }
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        
+        } finally {try { connect.close();} catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        log.info("getAllCheese end");
+        return returnedAddress;
+    }
     
 
     @Override
@@ -146,9 +182,9 @@ public class OrderDAO implements OrderDAOInterface {
             connect = Connector.getConnection();
             PreparedStatement updateOrder = connect.prepareStatement(query);
                 updateOrder.setInt(1, order.getOrderID());
-                updateOrder.setDate(2, order.convertLocalDateTime(order.getOrderDate()));
+                updateOrder.setDate(2, convert.convertLocalDateTime(order.getOrderDate()));
                 updateOrder.setBigDecimal(3,  order.getTotalPrice());
-                updateOrder.setDate(4, order.convertLocalDateTime(order.getProcessedDate()) );
+                updateOrder.setDate(4, convert.convertLocalDateTime(order.getProcessedDate()) );
 
             
             updateOrder.executeUpdate();
@@ -188,6 +224,7 @@ public class OrderDAO implements OrderDAOInterface {
         
         
         log.info("deleteOrder end");
-}
+    }  
+ }
     
-}
+

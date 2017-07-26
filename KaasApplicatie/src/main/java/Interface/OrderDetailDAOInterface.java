@@ -13,11 +13,5 @@ public interface OrderDetailDAOInterface {
 
    public List<OrderDetailPOJO> getOrderDetail(OrderDetailPOJO orderdetail);
 
-    public void updateOrderDetail(int OrderDetailID, int quantity);
-
-    public void updateOrderDetail(int OrderDetailID, OrderPOJO order);
-
-    public void updateOrderDetail(int OrderDetailID, CheesePOJO cheese);
-
     public void deleteOrderDetail(OrderDetailPOJO orderDetail);
 }

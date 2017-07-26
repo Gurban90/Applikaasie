@@ -82,23 +82,6 @@ public class OrderPOJO {
     
     //tryout zou eigenlijk een apparte class moeten zijn?
     
-    public LocalDateTime convertDate(java.sql.Date x){
-        
-       Instant y = x.toInstant();
-       LocalDateTime z = LocalDateTime.ofInstant(y , ZoneOffset.UTC);
-        
-        return z;
-    }
-    
-    public java.sql.Date convertLocalDateTime(LocalDateTime x)  {
-        
-        Instant y = x.toInstant(ZoneOffset.UTC);
-        Date z = (java.sql.Date)Date.from(y);
-        
-        
-        return z;
-
-    }
-    
+ 
 }
     
