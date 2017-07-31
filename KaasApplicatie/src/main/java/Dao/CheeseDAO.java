@@ -165,6 +165,7 @@ public class CheeseDAO implements CheeseDAOInterface {
                 statement = connection.prepareStatement(query);
                 statement.setInt(1, cheese.getCheeseID());
                 statement.executeUpdate();
+                System.out.println("Cheese is deleted");
             } else {
                 System.out.println("Cheese is currently being ordered, delete not possible.");
             }

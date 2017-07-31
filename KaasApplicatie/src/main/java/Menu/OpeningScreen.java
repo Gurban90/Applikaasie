@@ -31,9 +31,9 @@ public class OpeningScreen {
             choice = input.nextInt();
 
             switch (choice) {
-                case 1:  // Ask for id?
+                case 1:  //Naar InlogMenu
                     break;
-                case 2: //open as client?? (what is the acceslevel of a client?
+                case 2: //Create Account? Wijzig Account etc.
                     break;
                 case 3:
                     System.out.println("goodbye...");

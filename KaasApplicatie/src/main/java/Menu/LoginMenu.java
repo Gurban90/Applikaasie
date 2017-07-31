@@ -33,7 +33,7 @@ public class LoginMenu {
             choice = input.nextInt();
 
             switch (choice) {
-                case 1:  // Ask for id?
+                case 1:  // Gegevens invullen en controleren, naar Main.
                     
                     
                     //accounts class material?
@@ -44,7 +44,7 @@ public class LoginMenu {
                     this.password = input.nextLine();
                     
                     break;
-                case 2: //open as client?? (what is the acceslevel of a client?
+                case 2: //Nu niet nodig?
                     break;
                 case 3:
                     System.out.println("goodbye...");

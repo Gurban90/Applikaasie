@@ -1,49 +1,52 @@
 package Menu;
 
 import java.util.*;
+import java.util.logging.Logger;
 
 public class ClientMenu {
-    
-    private final boolean loopmenu = true;
+
+    Logger logger = Logger.getLogger(ClientMenu.class.getName());
+
     private Scanner input;
     private int choice;
-    
-    
-    public void ClientMenu(){
-        
+
+    public void clientMenu() {
+
+        logger.info("clientMenu start");
+
         input = new Scanner(System.in);
-        
-        while(loopmenu){
-        
-        System.out.print(" Main menu: " + "\n" 
-                + "1. New Client" + "\n" 
-                + "2. Remove Client" + "\n" 
-                + "3. Edit Client" + "\n" 
-                + "4. search Cheese" + "\n"
-                + "5. return to last menu" + "\n" 
-                + "Please enter your choice: " );
-        
+
+        System.out.print(" Main menu: " + "\n"
+                + "1. New Client" + "\n"
+                + "2. Remove Client" + "\n"
+                + "3. Edit Client" + "\n"
+                + "4. Search Client" + "\n"
+                + "5. Return to last menu" + "\n"
+                + "Please enter your choice: ");
+
         choice = input.nextInt();
-        
-        switch(choice){
+
+        switch (choice) {
             case 1:
-               break ;
+                break;
             case 2:
                 break;
-            case 3: 
+            case 3:
                 break;
-            case 4:  
+            case 4:
                 break;
-            case 5: 
-                return;
-            default: System.out.println("wrong number") ;
-            return;
-                
+            case 5:
+                logger.info("Open MainMenu");
+                MainMenu mainmenu = new MainMenu();
+                mainmenu.mainMenu();
+                break;
+            default:
+                System.out.println("wrong number, try again");
+                ClientMenu clientmenu = new ClientMenu();
+                clientmenu.clientMenu();
+
         }
+        logger.info("clientMenu end");
     }
-        
-        
-}
-    
- 
+
 }

@@ -1,49 +1,50 @@
 package Menu;
 
 import java.util.*;
+import java.util.logging.Logger;
 
 public class OrderMenu {
-    
-    private final boolean loopmenu = true;
+
+    Logger logger = Logger.getLogger(OrderMenu.class.getName());
+
     private Scanner input;
     private int choice;
-    
-    
-    public void OrderMenu(){
-        
+
+    public void OrderMenu() {
+
         input = new Scanner(System.in);
-        
-        while(loopmenu){
-        
-        System.out.print(" Main menu: " + "\n" 
-                + "1. New Order" + "\n" 
-                + "2. Remove Order" + "\n" 
-                + "3. Edit Order" + "\n" 
-                + "4. search order" + "\n"
-                + "5. return to last menu" + "\n" 
-                + "Please enter your choice: " );
-        
+
+        System.out.print(" Order menu: " + "\n"
+                + "1. New Order" + "\n"
+                + "2. Remove Order" + "\n"
+                + "3. Edit Order" + "\n"
+                + "4. Search Order" + "\n"
+                + "5. Return to last menu" + "\n"
+                + "Please enter your choice: ");
+
         choice = input.nextInt();
-        
-        switch(choice){
+
+        switch (choice) {
             case 1:
-               break ;
+                break;
             case 2:
                 break;
-            case 3: 
+            case 3:
                 break;
-            case 4:  
+            case 4:
                 break;
-            case 5: 
-                return;
-            default: System.out.println("wrong number") ;
-            return;
-                
+            case 5:
+                logger.info("Open mainMenu");
+                MainMenu mainmenu = new MainMenu();
+                mainmenu.mainMenu();
+                break;
+            default:
+                System.out.println("wrong number, try again");
+                OrderMenu ordermenu = new OrderMenu();
+                ordermenu.OrderMenu();
+
         }
+        logger.info("OrderMenu end");
     }
-        
-        
-}
-    
- 
+
 }

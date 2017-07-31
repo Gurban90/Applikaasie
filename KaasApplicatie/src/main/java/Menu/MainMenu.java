@@ -6,47 +6,57 @@
 package Menu;
 
 import java.util.*;
+import java.util.logging.Logger;
 
 public class MainMenu {
-    
-    private final boolean loopmenu = true;
+
+    Logger logger = Logger.getLogger(MainMenu.class.getName());
+
     private Scanner input;
     private int choice;
-    
-    
-    public void MainMenu(){
-        
+
+    public void mainMenu() {
+
+        logger.info("mainMenu start");
+
         input = new Scanner(System.in);
-        
-        while(loopmenu){
-        
-        System.out.print(" Main menu: " + "\n" 
-                + "1. Orders" + "\n" 
-                + "2. cheeses" + "\n" 
-                + "3.clients" + "\n" 
-                + "4. exit" + "\n" 
-                + "Please enter your choice: " );
-        
+
+        System.out.print(" Main menu: " + "\n"
+                + "1. Orders" + "\n"
+                + "2. Cheeses" + "\n"
+                + "3. Clients" + "\n"
+                + "4. Exit" + "\n"
+                + "Please enter your choice: ");
+
         choice = input.nextInt();
-        
-        switch(choice){
-            case 1:  //open order menu via constructor?
-               break ;
-            case 2: //open cheeses menu via ..?
+
+        switch (choice) {
+            case 1:
+                logger.info("Open OrderMenu");
+                OrderMenu ordermenu = new OrderMenu();
+                ordermenu.OrderMenu();
                 break;
-            case 3:  //open clients menu ...?
+            case 2:
+                logger.info("Open CheeseMenu");
+                CheeseMenu cheesemenu = new CheeseMenu();
+                cheesemenu.cheeseMenu();
                 break;
-            case 4: 
+            case 3:
+                logger.info("Open ClientMenu");
+                ClientMenu clientmenu = new ClientMenu();
+                clientmenu.clientMenu();
+                break;
+            case 4:
                 System.out.println("goodbye...");
                 System.exit(0);
-            default: System.out.println("wrong number") ;
-            return;
-                
+            default:
+                System.out.println("wrong number, try again");
+                MainMenu mainmenu = new MainMenu();
+                mainmenu.mainMenu();
+
         }
+
+        logger.info("mainMenu end");
     }
-        
-        
-}
-    
- 
+
 }

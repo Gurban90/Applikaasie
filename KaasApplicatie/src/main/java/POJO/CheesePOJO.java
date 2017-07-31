@@ -51,6 +51,11 @@ public class CheesePOJO {
 	this.stock = stock;
     }
     
+    @Override
+    public String toString(){
+        return "CheeseID:"+cheeseID+", CheeseName:" +cheeseName + " Price:"+price+", Stock:" +stock;
+    }
+    
     
     
     
