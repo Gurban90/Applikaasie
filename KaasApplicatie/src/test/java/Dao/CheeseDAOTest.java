@@ -17,7 +17,6 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-
 /**
  *
  * @author Gerben
@@ -30,12 +29,11 @@ public class CheeseDAOTest {
 
     @Before
     public void before() {
-       
-                
+
         //Database vullen
         try {
             connection = Connector.getConnection();
-            String query = "INSERT INTO Cheese (CheeseID, Name, Price, Stock) VALUES (1, 'Amsterdammer', 9, 8)";
+            String query = "INSERT INTO Cheese (Name, Price, Stock) VALUES ('Amsterdammer', 9, 8)";
             Statement statement = connection.createStatement();
 
             statement.executeUpdate(query);
@@ -106,9 +104,9 @@ public class CheeseDAOTest {
         assertEquals("Amsterdammer", testCheese.getCheeseName());
         assertEquals(new BigDecimal("9"), testCheese.getPrice());
         assertEquals(8, testCheese.getStock());
-        
+
     }
-    
+
     @Test
     public void testUpdateCheese() {
         CheesePOJO cheese3 = new CheesePOJO();
@@ -134,8 +132,6 @@ public class CheeseDAOTest {
             ex.printStackTrace();
         }
     }
-    
-    
 
     @Test
     public void testDeleteCheese() {
@@ -160,8 +156,6 @@ public class CheeseDAOTest {
         }
     }
 
-
-
     @AfterClass
     public static void after() {
         //Database Leegmaken
@@ -175,9 +169,8 @@ public class CheeseDAOTest {
             String query2 = "ALTER TABLE Cheese AUTO_INCREMENT = 1";
             statement.addBatch(query2);
             statement.executeBatch();
-            connection.commit();
             connection.close();
-            
+
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

@@ -19,7 +19,6 @@ import org.junit.Before;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
-
 /**
  *
  * @author Gerben
@@ -36,13 +35,14 @@ public class AccountDAOTest {
         //Database vullen
         try {
             connection = Connector.getConnection();
-            String query = "INSERT INTO Account (AccountID, AccountName, AccountPassword, AccountStatus) VALUES (1, 'Bob', Pass, 1)";
+            String query = "INSERT INTO Account (`AccountID`, `AccountName`, `AccountPassword`, `AccountStatus`) VALUES (2, 'Bob', 'Pass', 1)";
             Statement statement = connection.createStatement();
 
             statement.executeUpdate(query);
             connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+            System.out.println("Bij invullen");
         }
     }
 
@@ -57,7 +57,7 @@ public class AccountDAOTest {
 
         try {
             connection = Connector.getConnection();
-            String query = "SELECT * FROM Account WHERE AccountID = 2";
+            String query = "SELECT * FROM Account WHERE AccountID = 3";
             Statement statement = connection.createStatement();
             ResultSet resultset = statement.executeQuery(query);
             resultset.next();
@@ -68,6 +68,7 @@ public class AccountDAOTest {
             resultset.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+            System.out.println("Bij add");
         }
     }
 
@@ -91,16 +92,17 @@ public class AccountDAOTest {
             resultset.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+            System.out.println("Bij getall");
         }
     }
 
     @Test
     public void testGetAccount() {
         AccountPOJO account2 = new AccountPOJO();
-        account2.setAccountID(1);
+        account2.setAccountID(2);
         AccountPOJO testAccount = accountdao.getAccount(account2);
 
-        assertEquals(1, testAccount.getAccountID());
+        assertEquals(2, testAccount.getAccountID());
         assertEquals("Bob", testAccount.getAccountName());
         assertEquals("Pass", testAccount.getAccountPassword());
         assertEquals(1, testAccount.getAccountStatus());
@@ -110,7 +112,7 @@ public class AccountDAOTest {
     @Test
     public void testUpdateAccount() {
         AccountPOJO account3 = new AccountPOJO();
-        account3.setAccountID(2);
+        account3.setAccountID(3);
         account3.setAccountName("Jan");
         account3.setAccountPassword("Pass2");
         account3.setAccountStatus(1);
@@ -119,7 +121,7 @@ public class AccountDAOTest {
 
         try {
             connection = Connector.getConnection();
-            String query = "SELECT * FROM Account WHERE AccountID = 2";
+            String query = "SELECT * FROM Account WHERE AccountID = 3";
             Statement statement = connection.createStatement();
             ResultSet resultset = statement.executeQuery(query);
             resultset.next();
@@ -130,6 +132,7 @@ public class AccountDAOTest {
             resultset.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+            System.out.println("Bij update");
         }
     }
 
@@ -137,13 +140,13 @@ public class AccountDAOTest {
     public void testDeleteAccount() {
 
         AccountPOJO account4 = new AccountPOJO();
-        account4.setAccountID(2);
+        account4.setAccountID(3);
 
         accountdao.deleteAccount(account4);
 
         try {
             connection = Connector.getConnection();
-            String query = "SELECT * FROM Account WHERE AccountID = 2";
+            String query = "SELECT * FROM Account WHERE AccountID = 3";
             Statement statement = connection.createStatement();
             ResultSet resultset = statement.executeQuery(query);
             resultset.next();
@@ -153,6 +156,7 @@ public class AccountDAOTest {
 
         } catch (SQLException ex) {
             ex.printStackTrace();
+            System.out.println("Bij delete");
         }
     }
 
@@ -169,11 +173,11 @@ public class AccountDAOTest {
             String query2 = "ALTER TABLE Account AUTO_INCREMENT = 1";
             statement.addBatch(query2);
             statement.executeBatch();
-            connection.commit();
             connection.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
+            System.out.println("Bij after");
         }
 
     }

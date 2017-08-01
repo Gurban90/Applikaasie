@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="5" failures="0" name="Dao.CheeseDAOTest" time="1.957" errors="0" skipped="0">
+<testsuite tests="1" failures="0" name="Dao.CheeseDAOTest" time="0.508" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Java\Java Development Kit and Netbeans\jdk1.8.0_131\jre\bin"/>
@@ -14,7 +14,7 @@
     <property name="user.country" value="GB"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.os.patch.level" value=""/>
-    <property name="test" value="Dao.CheeseDAOTest"/>
+    <property name="test" value="Dao.CheeseDAOTest#testAddCheese"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
     <property name="user.dir" value="C:\Java\Githubs\Applikaasie\KaasApplicatie"/>
     <property name="java.runtime.version" value="1.8.0_131-b11"/>
@@ -45,7 +45,7 @@
     <property name="java.vm.specification.version" value="1.8"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.home" value="C:\Java\Java Development Kit and Netbeans\jdk1.8.0_131\jre"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dtest=Dao.CheeseDAOTest -Dmaven.ext.class.path=C:\Program Files\NetBeans 8.2\java\maven-nblib\netbeans-eventspy.jar -Dfile.encoding=UTF-8 surefire:test"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dtest=Dao.CheeseDAOTest#testAddCheese -Dmaven.ext.class.path=C:\Program Files\NetBeans 8.2\java\maven-nblib\netbeans-eventspy.jar -Dfile.encoding=UTF-8 surefire:test"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="user.language" value="en"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
@@ -62,9 +62,5 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="Dao.CheeseDAOTest" name="testUpdateCheese" time="1.367"/>
-  <testcase classname="Dao.CheeseDAOTest" name="testDeleteCheese" time="0.497"/>
-  <testcase classname="Dao.CheeseDAOTest" name="testGetAllCheese" time="0.01"/>
-  <testcase classname="Dao.CheeseDAOTest" name="testAddCheese" time="0.003"/>
-  <testcase classname="Dao.CheeseDAOTest" name="testGetCheese" time="0.004"/>
+  <testcase classname="Dao.CheeseDAOTest" name="testAddCheese" time="0.402"/>
 </testsuite>

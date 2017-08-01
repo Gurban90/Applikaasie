@@ -61,7 +61,7 @@ public class AccountDAO implements AccountDAOInterface {
             }
         }
 
-        logger.info("addCheese end");
+        logger.info("addAccount end");
         return newID;
     }
 
@@ -156,7 +156,7 @@ public class AccountDAO implements AccountDAOInterface {
     @Override
     public void deleteAccount(AccountPOJO account) {
         logger.info("deleteAccount Start");
-        String query = "DELETE FROM Client WHERE ClientID = ?";
+        String query = "DELETE FROM Account WHERE AccountID = ?";
         try {
             connection = Connector.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);

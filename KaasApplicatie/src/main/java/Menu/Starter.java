@@ -12,8 +12,10 @@ package Menu;
 public class Starter {
     
     public static void main (String [] args) {
-        MainMenu main =  new MainMenu();
-        main.mainMenu();
+        LoginMenu login = new LoginMenu();
+        login.loginMenu();
+        
+        
 	
     }
     

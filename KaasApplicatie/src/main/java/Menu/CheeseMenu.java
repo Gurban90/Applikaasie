@@ -94,11 +94,10 @@ public class CheeseMenu {
         CheesePOJO cheesepojo = new CheesePOJO();
         CheeseDAO cheesedao = new CheeseDAO();
 
-        System.out.print("Insert CheeseID: ");
-        cheesepojo.setCheeseID(input.nextInt());
-        input.nextLine();
         System.out.print("Insert CheeseName: ");
-        cheesepojo.setCheeseName(input.nextLine());
+        String name = input.next();
+        cheesepojo.setCheeseName(name);
+        input.nextLine();
         System.out.print("Insert Price: ");
         cheesepojo.setPrice(input.nextBigDecimal());
         input.nextLine();
@@ -143,7 +142,7 @@ public class CheeseMenu {
         cheesepojo.setStock(input.nextInt());
 
         cheesedao.updateCheese(cheesepojo);
-        //NOG CONTORLE OF HIJ GEWIJZIGD IS?????????????????????????
+        
 
         System.out.println("Cheese has been edited: ");
 

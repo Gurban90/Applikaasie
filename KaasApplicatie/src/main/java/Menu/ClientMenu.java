@@ -16,7 +16,7 @@ public class ClientMenu {
 
         input = new Scanner(System.in);
 
-        System.out.print(" Main menu: " + "\n"
+        System.out.print(" Client menu: " + "\n"
                 + "1. New Client" + "\n"
                 + "2. Remove Client" + "\n"
                 + "3. Edit Client" + "\n"
