@@ -8,7 +8,7 @@ package POJO;
 public class AddressTypePOJO {
     
     private int addressTypeID;
-    private String addressType;
+    private int addressType;
     
     public AddressTypePOJO(){};
     
@@ -18,10 +18,10 @@ public class AddressTypePOJO {
     public void setAddressTypeID(int addressTypeID) {
         this.addressTypeID = addressTypeID;
     }
-    public String getAddressType(){
+    public int getAddressType(){
 	return addressType;
     }
-    public void setAddressType(String addressType) {
+    public void setAddressType(int addressType) {
         this.addressType = addressType;
     }
 }

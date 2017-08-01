@@ -259,14 +259,37 @@ public class AddressDAOTest {
 
     @Test
     public void testUpdateAddressType() {
+    AddressTypePOJO addressType = new AddressTypePOJO();
+        addressType.setAddressTypeID(1);
+        addressType.setAddressType(2);
+
+
+        AddressDAO.updateAddressType(addressType);
+
+        try {
+            connect = Connector.getConnection();
+            String query = "SELECT * FROM Address WHERE AddressID = 1";
+            Statement statement = connect.createStatement();
+            ResultSet resultset = statement.executeQuery(query);
+            resultset.next();
+            
+            assertEquals(2, resultset.getString(2));
+
+            
+            connect.close();
+            resultset.close();
+        
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Test
     public void testDeleteAddressType() {
-        AddressPOJO address = new AddressPOJO();
-        address.setAddressID(2);
+        AddressTypePOJO addressType = new AddressTypePOJO();
+        addressType.setAddressTypeID(2);
 
-        AddressDAO.deleteAddress(address);
+        AddressDAO.deleteAddressType(addressType);
 
         try {
             connect = Connector.getConnection();
@@ -276,6 +299,7 @@ public class AddressDAOTest {
             resultset.next();
             
             assertEquals(null, resultset.getString(1));
+            //check this again tomorow!
             
             connect.close();
             resultset.close();
