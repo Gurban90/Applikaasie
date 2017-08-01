@@ -113,7 +113,7 @@ public class AddressDAO implements AddressDAOInterface {
 
     @Override
     public List<AddressPOJO> getAddressWithClient(ClientPOJO client) {
-        log.info("getAllAddress Start");
+        log.info("getAddresswithClient Start");
         String query = "SELECT * FROM Address WHERE Client_ClientID=?";
 
         List<AddressPOJO> returnedAddress = new ArrayList<>();
@@ -145,7 +145,7 @@ public class AddressDAO implements AddressDAOInterface {
                 e.printStackTrace();
             }
         }
-        log.info("getAllCheese end");
+        log.info("getAddresswithclient end");
         return returnedAddress;
     }
 
@@ -342,7 +342,7 @@ public class AddressDAO implements AddressDAOInterface {
     public void updateAddressType(AddressTypePOJO address) {
         log.info("updateAddressType Start");
 
-        String query = "UPDATE AddressType SET Type = ?, WHERE AddressTypeID=?"; //this is ok?
+        String query = "UPDATE AddressType SET Type = ?, WHERE AddressTypeID=?"; 
         try {
             connect = Connector.getConnection();
             PreparedStatement statement = connect.prepareStatement(query);

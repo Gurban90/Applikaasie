@@ -19,8 +19,7 @@ public class AddressPOJO {
     private String streetname;
     private String postalCode;
     private String city;
-    // add a addresstype?
-    
+  
     
     public AddressPOJO(){};
     

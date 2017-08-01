@@ -1,8 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+    //adds before  addressid 1 (Houtwal, 12,  ,1234AB , Vlissingen)
+    //adds addressid 2 (telderslaan, 62, ,3527KH, Utrecht) 
+
+
+
+
 package Dao;
 
 import DatabaseConnector.Connector;
@@ -13,6 +14,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Arrays;
 import java.util.List;
 import org.junit.After;
 import org.junit.Before;
@@ -30,6 +32,8 @@ public class AddressDAOTest {
 
     AddressDAO AddressDAO = new AddressDAO(); 
     private Connection connect;
+
+    
     
     @Before
     public void before() {
@@ -64,27 +68,32 @@ public class AddressDAOTest {
         }
     }
 
-    
-    
-    
-    
-    
-    
-    
-    /**
-     * Test of addAddress method, of class AddressDAO.
-     */
+
     @Test
     public void testAddAddress() {
-        AddressPOJO Address = new AddressPOJO();
         
+        AddressPOJO Address = new AddressPOJO();
+        ClientPOJO client = new ClientPOJO();
+        AddressTypePOJO type = new AddressTypePOJO();
+        
+        
+        //client
+        client.setClientID(2);
+        
+        //addresstype
+        type.setAddressTypeID(1);
+        
+      
         Address.setStreetName("telderslaan");
         Address.setHouseNumber(62);
         Address.setHouseNumberAddition("");
         Address.setPostalCode("3527 KH");
         Address.setCity("Utrecht");
+        Address.setClient(client);
+        Address.setAddresstype(type);
+        
         AddressDAO.addAddress(Address);
-
+       
         try {
             connect = Connector.getConnection();
             String query = "SELECT * FROM Address WHERE AddressID = 2";
@@ -105,14 +114,12 @@ public class AddressDAOTest {
         }
     }
 
-    /**
-     * Test of getAddress method, of class AddressDAO.
-     */
     @Test
     public void testGetAddress() {
         AddressPOJO address = new AddressPOJO();
         address.setAddressID(2);
         AddressPOJO test = AddressDAO.getAddress(address);
+        
 
         assertEquals(2, test.getAddressID());
         assertEquals("telderslaan" , test.getStreetName());
@@ -122,16 +129,38 @@ public class AddressDAOTest {
         assertEquals("Utrecht", test.getCity());
     }
 
-    /**
-     * Test of getAddressWithClient method, of class AddressDAO.
-     */
     @Test
     public void testGetAddressWithClient() {
+
+        
+        ClientPOJO client = new ClientPOJO();
+        client.setClientID(2);
+        /*List<AddressPOJO> test */ 
+        AddressDAO.getAddressWithClient(client);
+        
+        try {
+            connect = Connector.getConnection();
+            String query = "SELECT * FROM Address WHERE Client_ClientID = 2";
+            Statement statement = connect.createStatement();
+            ResultSet resultset = statement.executeQuery(query);
+            resultset.next();
+            
+            assertEquals(1 , resultset.getInt(1)); 
+            assertEquals("telderslaan" , resultset.getString(2));
+            assertEquals(62 , resultset.getInt(3));
+            assertEquals("", resultset.getString(4));
+            assertEquals("3527 KH", resultset.getString(5));
+            assertEquals("Utrecht", resultset.getString(6));
+            
+            connect.close();
+            resultset.close();
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    
     }
-    //lookup how this changes
-    /**
-     * Test of getAllAddress method, of class AddressDAO.
-     */
+    
     @Test
     public void testGetAllAddress() {
         AddressDAO.getAllAddress();
@@ -160,53 +189,100 @@ public class AddressDAOTest {
     
     }
 
-    /**
-     * Test of updateAddress method, of class AddressDAO.
-     */
     @Test
     public void testUpdateAddress() {
+        AddressPOJO address = new AddressPOJO();
+        address.setAddressID(1);
+        address.setPostalCode("4321BA");
+
+
+        AddressDAO.updateAddress(address);
+
+        try {
+            connect = Connector.getConnection();
+            String query = "SELECT * FROM Address WHERE AddressID = 1";
+            Statement statement = connect.createStatement();
+            ResultSet resultset = statement.executeQuery(query);
+            resultset.next();
+            
+            assertEquals("4321BA", resultset.getString(4));
+
+            
+            connect.close();
+            resultset.close();
+        
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
-    /**
-     * Test of deleteAddress method, of class AddressDAO.
-     */
     @Test
     public void testDeleteAddress() {
-    }
+    
+        AddressPOJO address = new AddressPOJO();
+        address.setAddressID(2);
 
-    /**
-     * Test of addAddressType method, of class AddressDAO.
-     */
+        AddressDAO.deleteAddress(address);
+
+        try {
+            connect = Connector.getConnection();
+            String query = "SELECT * FROM address WHERE addressID = 2";
+            Statement statement = connect.createStatement();
+            ResultSet resultset = statement.executeQuery(query);
+            resultset.next();
+            
+            assertEquals(null, resultset.getString(1));
+            
+            connect.close();
+            resultset.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }     
+    
+
     @Test
     public void testAddAddressType() {
+    
+    
     }
 
-    /**
-     * Test of getAllAddressType method, of class AddressDAO.
-     */
     @Test
     public void testGetAllAddressType() {
     }
 
-    /**
-     * Test of getAddressType method, of class AddressDAO.
-     */
+
     @Test
     public void testGetAddressType() {
     }
 
-    /**
-     * Test of updateAddressType method, of class AddressDAO.
-     */
     @Test
     public void testUpdateAddressType() {
     }
 
-    /**
-     * Test of deleteAddressType method, of class AddressDAO.
-     */
     @Test
     public void testDeleteAddressType() {
+        AddressPOJO address = new AddressPOJO();
+        address.setAddressID(2);
+
+        AddressDAO.deleteAddress(address);
+
+        try {
+            connect = Connector.getConnection();
+            String query = "SELECT * FROM address WHERE addressID = 2";
+            Statement statement = connect.createStatement();
+            ResultSet resultset = statement.executeQuery(query);
+            resultset.next();
+            
+            assertEquals(null, resultset.getString(1));
+            
+            connect.close();
+            resultset.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
     
 }
