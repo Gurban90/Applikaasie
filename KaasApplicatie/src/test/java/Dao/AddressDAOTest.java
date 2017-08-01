@@ -172,7 +172,6 @@ public class AddressDAOTest {
             ResultSet resultset = statement.executeQuery(query);
             resultset.next();
             
-            //iff not correct, increase count assertEquals 1 klopt wel rest niet?
             assertEquals(1 , resultset.getInt(1)); 
             assertEquals("telderslaan" , resultset.getString(2));
             assertEquals(62 , resultset.getInt(3));
@@ -244,31 +243,76 @@ public class AddressDAOTest {
 
     @Test
     public void testAddAddressType() {
+    AddressTypePOJO addressType = new AddressTypePOJO();
+    addressType.setAddressTypeID(1);
+    addressType.setAddressType(2);
+    AddressDAO.addAddressType(addressType);
     
+     try {
+            connect = Connector.getConnection();
+            String query = "SELECT * FROM AddressType WHERE AddressTypeID = 1";
+            Statement statement = connect.createStatement();
+            ResultSet resultset = statement.executeQuery(query);
+            resultset.next();
+            
+            assertEquals(2 , resultset.getString(2));
+
+            connect.close();
+            resultset.close();
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     
     }
 
     @Test
     public void testGetAllAddressType() {
+    AddressDAO.getAllAddressType();
+    
+    try {
+            connect = Connector.getConnection();
+            String query = "SELECT * FROM AddressType";
+            Statement statement = connect.createStatement();
+            ResultSet resultset = statement.executeQuery(query);
+            resultset.next();
+            
+            
+            connect.close();
+            resultset.close();
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    
+    
     }
 
 
     @Test
     public void testGetAddressType() {
+        AddressTypePOJO addressType = new AddressTypePOJO();
+        addressType.setAddressTypeID(1);
+        AddressTypePOJO test = AddressDAO.getAddressType(addressType);
+        
+
+        assertEquals(1, test.getAddressTypeID());
+        assertEquals(2, test.getAddressType());
+    
     }
 
     @Test
     public void testUpdateAddressType() {
     AddressTypePOJO addressType = new AddressTypePOJO();
-        addressType.setAddressTypeID(1);
-        addressType.setAddressType(2);
+    addressType.setAddressTypeID(1);
+    addressType.setAddressType(2);
 
 
         AddressDAO.updateAddressType(addressType);
 
         try {
             connect = Connector.getConnection();
-            String query = "SELECT * FROM Address WHERE AddressID = 1";
+            String query = "SELECT * FROM AddressType WHERE AddressTypeID = 1";
             Statement statement = connect.createStatement();
             ResultSet resultset = statement.executeQuery(query);
             resultset.next();
@@ -287,13 +331,13 @@ public class AddressDAOTest {
     @Test
     public void testDeleteAddressType() {
         AddressTypePOJO addressType = new AddressTypePOJO();
-        addressType.setAddressTypeID(2);
+        addressType.setAddressTypeID(1);
 
         AddressDAO.deleteAddressType(addressType);
 
         try {
             connect = Connector.getConnection();
-            String query = "SELECT * FROM address WHERE addressID = 2";
+            String query = "SELECT * FROM AddressType WHERE addressTypeID = 1";
             Statement statement = connect.createStatement();
             ResultSet resultset = statement.executeQuery(query);
             resultset.next();
