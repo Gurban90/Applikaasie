@@ -255,7 +255,7 @@ public class AddressDAO implements AddressDAOInterface {
         try {
             connect = Connector.getConnection();
             PreparedStatement statement = connect.prepareStatement(insertOrder, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, address.getAddressType());
+            statement.setInt(1, address.getAddressType());
             statement.executeUpdate();
 
             try (ResultSet resultSet = statement.getGeneratedKeys()) {
@@ -291,7 +291,7 @@ public class AddressDAO implements AddressDAOInterface {
             while (resultSet.next()) {
                 AddressTypePOJO AddressType = new AddressTypePOJO();
                 AddressType.setAddressTypeID(resultSet.getInt(1));
-                AddressType.setAddressType(resultSet.getString(2));
+                AddressType.setAddressType(resultSet.getInt(2));
                 GetAllAddressType.add(AddressType);
             }
             resultSet.close();
@@ -322,7 +322,7 @@ public class AddressDAO implements AddressDAOInterface {
             if (resultSet.isBeforeFirst()) {
                 resultSet.next();
                 foundAddressType.setAddressTypeID(resultSet.getInt(1));
-                foundAddressType.setAddressType(resultSet.getString(2));
+                foundAddressType.setAddressType(resultSet.getInt(2));
             }
             resultSet.close();
         } catch (SQLException e) {
@@ -346,7 +346,7 @@ public class AddressDAO implements AddressDAOInterface {
         try {
             connect = Connector.getConnection();
             PreparedStatement statement = connect.prepareStatement(query);
-            statement.setString(1, address.getAddressType());
+            statement.setInt(1, address.getAddressType());
             statement.setInt(2, address.getAddressTypeID());
             statement.executeUpdate();
         } catch (SQLException e) {
