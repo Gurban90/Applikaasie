@@ -21,7 +21,7 @@ public class AccountController {
 
     private Scanner input = new Scanner(System.in);
     Logger logger = Logger.getLogger(AccountController.class.getName());
-    LoginMenu menu = new LoginMenu();
+    private LoginMenu menu;
 
     public void login(int id, String password) {
         logger.info("login start");

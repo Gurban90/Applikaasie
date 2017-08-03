@@ -13,9 +13,8 @@ public class Starter {
     
     
     public static void main (String [] args) {
-        LoginMenu menu = new LoginMenu();
-        menu.loginMenu();
-    
+        MainMenu menu = new MainMenu();
+        menu.mainMenu();
        
     
 }

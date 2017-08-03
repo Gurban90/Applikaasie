@@ -6,9 +6,6 @@
 package Menu;
 
 import Controller.AccountController;
-import Dao.AccountDAO;
-import POJO.AccountPOJO;
-import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
@@ -21,7 +18,7 @@ public class LoginMenu {
     Logger logger = Logger.getLogger(LoginMenu.class.getName());
     private Scanner input;
     private int choice;
-    AccountController controller = new AccountController();
+    private AccountController controller;
 
     public void loginMenu() {
 

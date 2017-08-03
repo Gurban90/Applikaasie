@@ -6,16 +6,16 @@ import java.util.*;
 import java.util.logging.Logger;
 
 public class CheeseMenu {
-
-    Logger logger = Logger.getLogger(CheeseMenu.class.getName());
+    
+    static final Logger LOGGER = Logger.getLogger(CheeseMenu.class.getName());
 
     private Scanner input;
     private int choice;
-    CheeseController controller = new CheeseController();
+    private CheeseController controller;
 
     public void cheeseMenu() {
 
-        logger.info("CheeseMenu start");
+        LOGGER.info("CheeseMenu start");
 
         input = new Scanner(System.in);
 
@@ -65,7 +65,7 @@ public class CheeseMenu {
                 controller.findAllCheese();
                 break;
             case 7:
-                logger.info("Open MainMenu");
+                LOGGER.info("Open MainMenu");
                 MainMenu mainmenu = new MainMenu();
                 mainmenu.mainMenu();
                 break;
@@ -75,11 +75,11 @@ public class CheeseMenu {
                 cheesemenu.cheeseMenu();
 
         }
-        logger.info("CheeseMenu end");
+        LOGGER.info("CheeseMenu end");
     }
 
     public void editCheeseMenu() {
-        logger.info("editCheeseMenu start");
+        LOGGER.info("editCheeseMenu start");
         System.out.print(" What do you want to edit? " + "\n"
                 + "1. Name" + "\n"
                 + "2. Price" + "\n"
@@ -88,9 +88,9 @@ public class CheeseMenu {
                 + "5. Return to last menu" + "\n"
                 + "Please enter your choice: ");
 
-        choice = input.nextInt();
+        int choice2 = input.nextInt();
 
-        switch (choice) {
+        switch (choice2) {
             case 1:
                 System.out.print("Insert CheeseID: ");
                 int id1 = input.nextInt();
@@ -132,7 +132,6 @@ public class CheeseMenu {
                 System.out.println("wrong number, try again");
                 editCheeseMenu();
         }
-        logger.info("editCheeseMenu start");
+        LOGGER.info("editCheeseMenu start");
     }
-
 }
