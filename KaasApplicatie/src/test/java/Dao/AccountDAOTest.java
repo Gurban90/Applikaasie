@@ -7,16 +7,12 @@ package Dao;
 
 import DatabaseConnector.Connector;
 import POJO.AccountPOJO;
-
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import org.junit.AfterClass;
 import org.junit.Before;
-
 import org.junit.Test;
 import static org.junit.Assert.*;
 /**
