@@ -23,7 +23,7 @@ public class CheeseMenu {
                 + "2. Remove Cheese" + "\n"
                 + "3. Edit Cheese" + "\n"
                 + "4. Search Cheese" + "\n"
-                + "5. Get All Cheeses" + "\n"
+                + "5. Get All Cheese" + "\n"
                 + "6. Return to last menu" + "\n"
                 + "Please enter your choice: ");
 

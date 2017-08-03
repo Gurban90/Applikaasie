@@ -11,12 +11,11 @@ package Menu;
  */
 public class Starter {
     
+    /*
     public static void main (String [] args) {
-        LoginMenu login = new LoginMenu();
-        login.loginMenu();
-        
-        
-	
-    }
+        ClientMenu menu = new ClientMenu();
+        menu.clientMenu();
+    */
+       
     
 }
