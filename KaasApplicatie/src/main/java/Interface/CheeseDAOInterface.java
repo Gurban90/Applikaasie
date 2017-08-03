@@ -11,6 +11,8 @@ public interface CheeseDAOInterface {
     public List<CheesePOJO> getAllCheese();
 
     public CheesePOJO getCheese(CheesePOJO cheese);
+    
+    public CheesePOJO getCheeseWithName(CheesePOJO cheese);
 
     public void updateCheese(CheesePOJO cheese);
 

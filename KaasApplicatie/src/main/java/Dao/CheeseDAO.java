@@ -125,6 +125,39 @@ public class CheeseDAO implements CheeseDAOInterface {
         logger.info("getCheese end");
         return foundCheese;
     }
+    
+    @Override
+    public CheesePOJO getCheeseWithName(CheesePOJO cheese){
+        logger.info("getCheeseWithName Start");
+        String query = "SELECT * FROM Cheese WHERE Name=?";
+        CheesePOJO foundCheese = new CheesePOJO();
+        try {
+            connection = Connector.getConnection();
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setObject(1, cheese.getCheeseName());
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.isBeforeFirst()) {
+                resultSet.next();
+                foundCheese.setCheeseID(resultSet.getInt(1));
+                foundCheese.setCheeseName(resultSet.getString(2));
+                foundCheese.setPrice(resultSet.getBigDecimal(3));
+                foundCheese.setStock(resultSet.getInt(4));
+            }
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        logger.info("getCheeseWithName end");
+        return foundCheese;
+    
+    }
 
     @Override
     public void updateCheese(CheesePOJO cheese) {

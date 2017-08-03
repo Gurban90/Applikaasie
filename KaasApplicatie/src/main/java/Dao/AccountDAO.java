@@ -130,6 +130,39 @@ public class AccountDAO implements AccountDAOInterface {
     }
 
     @Override
+    public List<AccountPOJO> getAccountWithName(AccountPOJO account) {
+        logger.info("getAccountWithName Start");
+        String query = "SELECT * FROM Account WHERE AccountName=?";
+        List<AccountPOJO> returnedAccounts = new ArrayList<>();
+        try {
+            connection = Connector.getConnection();
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, account.getAccountName());
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                AccountPOJO accountpojo = new AccountPOJO();
+                accountpojo.setAccountID(resultSet.getInt(1));
+                accountpojo.setAccountName(resultSet.getString(2));
+                accountpojo.setAccountPassword(resultSet.getString(3));
+                accountpojo.setAccountStatus(resultSet.getInt(4));
+                returnedAccounts.add(accountpojo);
+            }
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        logger.info("getAccountWithName end");
+        return returnedAccounts;
+    }
+
+    @Override
     public void updateAccount(AccountPOJO account) {
         logger.info("updateAccount Start");
         String query = "UPDATE Account SET AccountName = ?, AccountPassword = ?, AccountStatus = ? WHERE AccountID=?";
