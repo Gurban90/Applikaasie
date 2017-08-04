@@ -37,6 +37,7 @@ public class AccountController {
             mainmenu.mainMenu();
         } else {
             System.out.println("Wrong password or accountnumber, try again.");
+            menu = new LoginMenu();
             menu.loginMenu();
         }
         logger.info("login end");
@@ -55,6 +56,7 @@ public class AccountController {
         System.out.println("Account is added and has ID: " + AccountID);
         input.nextLine();
         logger.info("newAccount end");
+        menu = new LoginMenu();
         menu.loginMenu();
     }
 
@@ -71,10 +73,12 @@ public class AccountController {
             accountdao.deleteAccount(accountpojo);
             System.out.print("Account has been deleted.");
             input.nextLine();
+            menu = new LoginMenu();
             menu.loginMenu();
         } else {
             System.out.println("Wrong password or accountnumber, try again.");
             input.nextLine();
+            menu = new LoginMenu();
             menu.loginMenu();
         }
         logger.info("removeAccount end");
@@ -90,10 +94,12 @@ public class AccountController {
         AccountPOJO foundAccount = accountdao.getAccount(accountpojo);
 
         if (accountpojo.getAccountPassword().equals(foundAccount.getAccountPassword())) {
+            menu = new LoginMenu();
             menu.updateAccountMenu();
         } else {
             System.out.println("Wrong password or accountnumber, returning to LoginMenu.");
             menu.loginMenu();
+            menu = new LoginMenu();
         }
         logger.info("updateAccountMenu end");
     }
@@ -110,6 +116,7 @@ public class AccountController {
 
         System.out.println("Account has been updated.");
         input.nextLine();
+        menu = new LoginMenu();
         menu.loginMenu();
         logger.info("UpdateAccount end");
     }
@@ -126,6 +133,7 @@ public class AccountController {
 
         System.out.println("Account has been updated.");
         input.nextLine();
+        menu = new LoginMenu();
         menu.loginMenu();
         logger.info("editAccountName end");
     }
@@ -142,6 +150,7 @@ public class AccountController {
 
         System.out.println("Account has been updated.");
         input.nextLine();
+        menu = new LoginMenu();
         menu.loginMenu();
         logger.info("editAccountPassword end");
     }
@@ -158,6 +167,7 @@ public class AccountController {
 
         System.out.println("Account has been updated.");
         input.nextLine();
+        menu = new LoginMenu();
         menu.loginMenu();
         logger.info("editAccountStatus end");
     }
@@ -174,9 +184,11 @@ public class AccountController {
         if (accountpojo.getAccountPassword().equals(foundAccount.getAccountPassword())) {
             AccountPOJO returnedcheese = accountdao.getAccount(accountpojo);
             System.out.println(returnedcheese);
+            menu = new LoginMenu();
             menu.loginMenu();
         } else {
             System.out.println("Wrong password or accountnumber, returning to LoginMenu.");
+            menu = new LoginMenu();
             menu.loginMenu();
         }
         logger.info("findAccount end");
@@ -196,9 +208,11 @@ public class AccountController {
             input.nextLine();
             List<AccountPOJO> returnedAccounts = accountdao.getAccountWithName(accountpojo);
             System.out.println(returnedAccounts);
+            menu = new LoginMenu();
             menu.loginMenu();
         } else {
             System.out.println("Wrong password or accountnumber, returning to LoginMenu.");
+            menu = new LoginMenu();
             menu.loginMenu();
         }
         logger.info("findAccountWithName end");
@@ -216,9 +230,11 @@ public class AccountController {
         if (accountpojo.getAccountPassword().equals(foundAccount.getAccountPassword())) {
             List<AccountPOJO> returnedAccounts = accountdao.getAllAccount();
             System.out.println(returnedAccounts);
+            menu = new LoginMenu();
             menu.loginMenu();
         } else {
             System.out.println("Wrong password or accountnumber, returning to LoginMenu.");
+            menu = new LoginMenu();
             menu.loginMenu();
         }
         logger.info("GetAllAccounts end");

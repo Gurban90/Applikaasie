@@ -6,7 +6,7 @@ import java.util.*;
 import java.util.logging.Logger;
 
 public class CheeseMenu {
-    
+
     static final Logger LOGGER = Logger.getLogger(CheeseMenu.class.getName());
 
     private Scanner input;
@@ -41,11 +41,13 @@ public class CheeseMenu {
                 input.nextLine();
                 System.out.print("Insert Stock: ");
                 int stock = input.nextInt();
+                controller = new CheeseController();
                 controller.newCheese(name, price, stock);
                 break;
             case 2:
                 System.out.print("CheeseID please: ");
                 int ID1 = input.nextInt();
+                controller = new CheeseController();
                 controller.removeCheese(ID1);
                 break;
             case 3:
@@ -54,14 +56,17 @@ public class CheeseMenu {
             case 4:
                 System.out.print("CheeseID please: ");
                 int ID = input.nextInt();
+                controller = new CheeseController();
                 controller.findCheese(ID);
                 break;
             case 5:
                 System.out.print("CheeseName please: ");
                 String searchName = input.next();
+                controller = new CheeseController();
                 controller.findCheeseWithName(searchName);
                 break;
             case 6:
+                controller = new CheeseController();
                 controller.findAllCheese();
                 break;
             case 7:
@@ -96,6 +101,7 @@ public class CheeseMenu {
                 int id1 = input.nextInt();
                 System.out.print("Insert new CheeseName: ");
                 String name1 = input.next();
+                controller = new CheeseController();
                 controller.editCheeseName(id1, name1);
                 break;
             case 2:
@@ -103,6 +109,7 @@ public class CheeseMenu {
                 int id2 = input.nextInt();
                 System.out.print("Insert new CheesePrice: ");
                 BigDecimal price2 = input.nextBigDecimal();
+                controller = new CheeseController();
                 controller.editCheesePrice(id2, price2);
                 break;
             case 3:
@@ -110,6 +117,7 @@ public class CheeseMenu {
                 int id3 = input.nextInt();
                 System.out.print("Insert new CheeseStock: ");
                 int stock2 = input.nextInt();
+                controller = new CheeseController();
                 controller.editCheeseStock(id3, stock2);
                 break;
             case 4:
@@ -123,6 +131,7 @@ public class CheeseMenu {
                 input.nextLine();
                 System.out.print("Insert Stock: ");
                 int stock = input.nextInt();
+                controller = new CheeseController();
                 controller.editCheese(id, name, price, stock);
                 break;
             case 5:
@@ -134,4 +143,5 @@ public class CheeseMenu {
         }
         LOGGER.info("editCheeseMenu start");
     }
+
 }

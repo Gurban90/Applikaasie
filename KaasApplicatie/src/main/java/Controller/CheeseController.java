@@ -21,7 +21,7 @@ public class CheeseController {
     static final Logger LOGGER = Logger.getLogger(CheeseController.class.getName());
     private CheeseMenu menu;
    
-
+    
     public void findAllCheese() {
         LOGGER.info("FindallCheese start");
         CheeseDAO cheesedao = new CheeseDAO();
@@ -29,6 +29,7 @@ public class CheeseController {
         System.out.println(returnedCheeses);
 
         LOGGER.info("FindallCheese end");
+        menu = new CheeseMenu();
         menu.cheeseMenu();
     }
 
@@ -42,6 +43,7 @@ public class CheeseController {
 
         System.out.println(returnedcheese);
         LOGGER.info("findCheese end");
+        menu = new CheeseMenu();
         menu.cheeseMenu();
     }
 
@@ -55,6 +57,7 @@ public class CheeseController {
 
         System.out.println(returnedcheese);
         LOGGER.info("findCheeseWithName start");
+        menu = new CheeseMenu();
         menu.cheeseMenu();
     }
 
@@ -70,6 +73,7 @@ public class CheeseController {
         int CheeseID = cheesedao.addCheese(cheesepojo);
         System.out.println("Cheese is added and has ID: " + CheeseID);
         LOGGER.info("newCheese end");
+        menu = new CheeseMenu();
         menu.cheeseMenu();
     }
 
@@ -82,6 +86,7 @@ public class CheeseController {
         cheesedao.deleteCheese(cheesepojo);
 
         LOGGER.info("removeCheese end");
+        menu = new CheeseMenu();
         menu.cheeseMenu();
     }
 
@@ -98,6 +103,7 @@ public class CheeseController {
 
         System.out.println("Cheese has been edited: ");
         LOGGER.info("editCheese end");
+        menu = new CheeseMenu();
         menu.cheeseMenu();
     }
 
@@ -113,6 +119,7 @@ public class CheeseController {
 
         System.out.println("Cheese has been edited. ");
         LOGGER.info("editCheeseName end");
+        menu = new CheeseMenu();
         menu.cheeseMenu();
     }
 
@@ -128,6 +135,7 @@ public class CheeseController {
 
         System.out.println("Cheese has been edited: ");
         LOGGER.info("editCheesePrice end");
+        menu = new CheeseMenu();
         menu.cheeseMenu();
     }
 
@@ -143,6 +151,7 @@ public class CheeseController {
 
         System.out.println("Cheese has been edited: ");
         LOGGER.info("editCheeseStock end");
+        menu = new CheeseMenu();
         menu.cheeseMenu();
     }
 

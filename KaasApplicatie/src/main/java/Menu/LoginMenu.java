@@ -43,6 +43,7 @@ public class LoginMenu {
                 input.nextLine();
                 System.out.print("Please enter your password: ");
                 String password = input.nextLine();
+                controller = new AccountController();
                 controller.login(id, password);
                 break;
             case 2:
@@ -53,6 +54,7 @@ public class LoginMenu {
                 String password2 = input.nextLine();
                 System.out.print("Insert Accountstatus: ");
                 int status = input.nextInt();
+                controller = new AccountController();
                 controller.newAccount(name, password2, status);
                 break;
             case 3:
@@ -61,6 +63,7 @@ public class LoginMenu {
                 input.nextLine();
                 System.out.print("Please enter your password: ");
                 String password4 = input.nextLine();
+                controller = new AccountController();
                 controller.updateAccountCheck(id4, password4);
                 break;
             case 4:
@@ -70,6 +73,7 @@ public class LoginMenu {
                 input.nextLine();
                 System.out.print("Please enter your password: ");
                 String password3 = input.nextLine();
+                controller = new AccountController();
                 controller.removeAccount(id3, password3);
                 break;
             case 5:
@@ -78,6 +82,7 @@ public class LoginMenu {
                 input.nextLine();
                 System.out.print("Please enter your password: ");
                 String password5 = input.nextLine();
+                controller = new AccountController();
                 controller.findAccount(id5, password5);
                 break;
             case 6:
@@ -88,6 +93,7 @@ public class LoginMenu {
                 String password6 = input.nextLine();
                 System.out.print("AccountName please: ");
                 String name6 = input.next();
+                controller = new AccountController();
                 controller.findAccountWithName(id6, password6, name6);
                 break;
             case 7:
@@ -96,6 +102,7 @@ public class LoginMenu {
                 input.nextLine();
                 System.out.print("Please enter your password: ");
                 String password7 = input.nextLine();
+                controller = new AccountController();
                 controller.getAllAccounts(id7, password7);
                 break;
             case 8:
@@ -124,6 +131,7 @@ public class LoginMenu {
                 int id = input.nextInt();
                 System.out.print("Insert new AccountName: ");
                 String name2 = input.next();
+                controller = new AccountController();
                 controller.editAccountName(id, name2);
                 break;
             case 2:
@@ -131,6 +139,7 @@ public class LoginMenu {
                 int id2 = input.nextInt();
                 System.out.print("Insert new Password: ");
                 String password2 = input.next();
+                controller = new AccountController();
                 controller.editAccountPassword(id2, password2);
                 break;
             case 3:
@@ -138,6 +147,7 @@ public class LoginMenu {
                 int id3 = input.nextInt();
                 System.out.print("Insert new AccountStatus: ");
                 int status2 = input.nextInt();
+                controller = new AccountController();
                 controller.editAccountStatus(id3, status2);
                 break;
             case 4:
@@ -148,6 +158,7 @@ public class LoginMenu {
                 input.nextLine();
                 System.out.print("Insert new Accountstatus: ");
                 int status = input.nextInt();
+                controller = new AccountController();
                 controller.updateAccount(name, password, status);
                 break;
             case 5:
