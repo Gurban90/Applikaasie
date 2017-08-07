@@ -50,6 +50,10 @@ public class AccountPOJO {
         this.accountStatus = accountStatus;
     }
     
+    @Override
+    public String toString(){
+        return "AccountID: "+accountID+", AccountName: " +accountName + " Password: "+password+", AccountStatus: " +accountStatus;
+    }
     
             
                     

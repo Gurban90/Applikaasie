@@ -1,20 +1,21 @@
 package Menu;
 
-import Dao.CheeseDAO;
-import POJO.CheesePOJO;
+import Controller.CheeseController;
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.logging.Logger;
 
 public class CheeseMenu {
 
-    Logger logger = Logger.getLogger(CheeseMenu.class.getName());
+    static final Logger LOGGER = Logger.getLogger(CheeseMenu.class.getName());
 
     private Scanner input;
     private int choice;
+    private CheeseController controller;
 
     public void cheeseMenu() {
 
-        logger.info("CheeseMenu start");
+        LOGGER.info("CheeseMenu start");
 
         input = new Scanner(System.in);
 
@@ -22,36 +23,54 @@ public class CheeseMenu {
                 + "1. New Cheese" + "\n"
                 + "2. Remove Cheese" + "\n"
                 + "3. Edit Cheese" + "\n"
-                + "4. Search Cheese" + "\n"
-                + "5. Get All Cheese" + "\n"
-                + "6. Return to last menu" + "\n"
+                + "4. Search Cheese with ID" + "\n"
+                + "5. Search Cheese with CheeseName" + "\n"
+                + "6. Get All Cheese" + "\n"
+                + "7. Return to last menu" + "\n"
                 + "Please enter your choice: ");
 
         choice = input.nextInt();
 
         switch (choice) {
             case 1:
-                logger.info("New Cheese in this menu");
-                newCheese();
+                System.out.print("Insert CheeseName: ");
+                String name = input.next();
+                input.nextLine();
+                System.out.print("Insert Price: ");
+                BigDecimal price = input.nextBigDecimal();
+                input.nextLine();
+                System.out.print("Insert Stock: ");
+                int stock = input.nextInt();
+                controller = new CheeseController();
+                controller.newCheese(name, price, stock);
                 break;
             case 2:
-                logger.info("Remove Cheese in this menu");
-                removeCheese();
+                System.out.print("CheeseID please: ");
+                int ID1 = input.nextInt();
+                controller = new CheeseController();
+                controller.removeCheese(ID1);
                 break;
             case 3:
-                logger.info("Edit Cheese in this menu");
-                editCheese();
+                editCheeseMenu();
                 break;
             case 4:
-                logger.info("Find Cheese in this menu");
-                findCheese();
+                System.out.print("CheeseID please: ");
+                int ID = input.nextInt();
+                controller = new CheeseController();
+                controller.findCheese(ID);
                 break;
             case 5:
-                logger.info("Find all Cheese in this menu");
-                findAllCheese();
+                System.out.print("CheeseName please: ");
+                String searchName = input.next();
+                controller = new CheeseController();
+                controller.findCheeseWithName(searchName);
                 break;
             case 6:
-                logger.info("Open MainMenu");
+                controller = new CheeseController();
+                controller.findAllCheese();
+                break;
+            case 7:
+                LOGGER.info("Open MainMenu");
                 MainMenu mainmenu = new MainMenu();
                 mainmenu.mainMenu();
                 break;
@@ -61,93 +80,68 @@ public class CheeseMenu {
                 cheesemenu.cheeseMenu();
 
         }
-        logger.info("CheeseMenu end");
+        LOGGER.info("CheeseMenu end");
     }
 
-    public void findAllCheese() {
-        logger.info("FindallCheese start");
-        CheeseDAO cheesedao = new CheeseDAO();
-        List<CheesePOJO> returnedCheeses = cheesedao.getAllCheese();
-        System.out.println(returnedCheeses);
+    public void editCheeseMenu() {
+        LOGGER.info("editCheeseMenu start");
+        System.out.print(" What do you want to edit? " + "\n"
+                + "1. Name" + "\n"
+                + "2. Price" + "\n"
+                + "3. Stock" + "\n"
+                + "4. All" + "\n"
+                + "5. Return to last menu" + "\n"
+                + "Please enter your choice: ");
 
-        logger.info("FindallCheese end");
-        cheeseMenu();
-    }
+        int choice2 = input.nextInt();
 
-    public void findCheese() {
-        logger.info("findCheese start");
-        CheeseDAO cheesedao = new CheeseDAO();
-        CheesePOJO cheesepojo = new CheesePOJO();
-
-        System.out.print("CheeseID please: ");
-        cheesepojo.setCheeseID(input.nextInt());
-        CheesePOJO returnedcheese = cheesedao.getCheese(cheesepojo);
-
-        System.out.println(returnedcheese);
-
-        logger.info("findCheese start");
-        cheeseMenu();
-    }
-
-    public void newCheese() {
-        logger.info("newCheese start");
-        CheesePOJO cheesepojo = new CheesePOJO();
-        CheeseDAO cheesedao = new CheeseDAO();
-
-        System.out.print("Insert CheeseName: ");
-        String name = input.next();
-        cheesepojo.setCheeseName(name);
-        input.nextLine();
-        System.out.print("Insert Price: ");
-        cheesepojo.setPrice(input.nextBigDecimal());
-        input.nextLine();
-        System.out.print("Insert Stock: ");
-        cheesepojo.setStock(input.nextInt());
-
-        int CheeseID = cheesedao.addCheese(cheesepojo);
-        System.out.println("Cheese is added and has ID: " + CheeseID);
-
-        logger.info("newCheese end");
-        cheeseMenu();
-    }
-
-    public void removeCheese() {
-        logger.info("removeCheese start");
-        CheesePOJO cheesepojo = new CheesePOJO();
-        CheeseDAO cheesedao = new CheeseDAO();
-
-        System.out.print("CheeseID please: ");
-        cheesepojo.setCheeseID(input.nextInt());
-
-        cheesedao.deleteCheese(cheesepojo);
-
-        logger.info("removeCheese end");
-        cheeseMenu();
-    }
-
-    public void editCheese() {
-        logger.info("editCheese start");
-        CheesePOJO cheesepojo = new CheesePOJO();
-        CheeseDAO cheesedao = new CheeseDAO();
-
-        System.out.print("Insert CheeseID: ");
-        cheesepojo.setCheeseID(input.nextInt());
-        input.nextLine();
-        System.out.print("Insert CheeseName: ");
-        cheesepojo.setCheeseName(input.nextLine());
-        System.out.print("Insert Price: ");
-        cheesepojo.setPrice(input.nextBigDecimal());
-        input.nextLine();
-        System.out.print("Insert Stock: ");
-        cheesepojo.setStock(input.nextInt());
-
-        cheesedao.updateCheese(cheesepojo);
-        
-
-        System.out.println("Cheese has been edited: ");
-
-        logger.info("editCheese end");
-        cheeseMenu();
+        switch (choice2) {
+            case 1:
+                System.out.print("Insert CheeseID: ");
+                int id1 = input.nextInt();
+                System.out.print("Insert new CheeseName: ");
+                String name1 = input.next();
+                controller = new CheeseController();
+                controller.editCheeseName(id1, name1);
+                break;
+            case 2:
+                System.out.print("Insert CheeseID: ");
+                int id2 = input.nextInt();
+                System.out.print("Insert new CheesePrice: ");
+                BigDecimal price2 = input.nextBigDecimal();
+                controller = new CheeseController();
+                controller.editCheesePrice(id2, price2);
+                break;
+            case 3:
+                System.out.print("Insert CheeseID: ");
+                int id3 = input.nextInt();
+                System.out.print("Insert new CheeseStock: ");
+                int stock2 = input.nextInt();
+                controller = new CheeseController();
+                controller.editCheeseStock(id3, stock2);
+                break;
+            case 4:
+                System.out.print("Insert CheeseID: ");
+                int id = input.nextInt();
+                input.nextLine();
+                System.out.print("Insert CheeseName: ");
+                String name = input.nextLine();
+                System.out.print("Insert Price: ");
+                BigDecimal price = input.nextBigDecimal();
+                input.nextLine();
+                System.out.print("Insert Stock: ");
+                int stock = input.nextInt();
+                controller = new CheeseController();
+                controller.editCheese(id, name, price, stock);
+                break;
+            case 5:
+                cheeseMenu();
+                break;
+            default:
+                System.out.println("wrong number, try again");
+                editCheeseMenu();
+        }
+        LOGGER.info("editCheeseMenu start");
     }
 
 }

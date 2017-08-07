@@ -10,6 +10,7 @@ package Menu;
  * @author Gerben
  */
 public class Starter {
+<<<<<<< HEAD
     
     /*
     public static void main (String [] args) {
@@ -23,3 +24,12 @@ public class Starter {
     }
 
 }
+=======
+
+    public static void main(String[] args) {
+        MainMenu menu = new MainMenu();
+        menu.mainMenu();
+
+    }
+}
+>>>>>>> 8100c5bfa3223b4511a29da9d903cdb068fea50f
