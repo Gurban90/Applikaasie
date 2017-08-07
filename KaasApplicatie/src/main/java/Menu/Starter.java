@@ -17,5 +17,9 @@ public class Starter {
         menu.clientMenu();
     */
        
-    
+    public static void main (String [] args) {
+        OrderMenu menu = new OrderMenu();
+        menu.orderMenu();
+    }
+
 }

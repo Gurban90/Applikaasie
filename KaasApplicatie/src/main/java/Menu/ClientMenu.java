@@ -165,7 +165,7 @@ public class ClientMenu {
             System.out.print(rippedlist.getClientID() +  " "
             + rippedlist.getFirstName() + " "
             + rippedlist.getLastName()  + " "
-            + rippedlist.getEMail());
+            + rippedlist.getEMail() + " /n ");
         }       
 
         logger.info("findClient start");

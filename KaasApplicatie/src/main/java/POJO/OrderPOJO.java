@@ -79,9 +79,6 @@ public class OrderPOJO {
         this.processedDate = processedDate;
     }
     
-    
-    //tryout zou eigenlijk een apparte class moeten zijn?
-    
- 
+
 }
     

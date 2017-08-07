@@ -123,6 +123,30 @@ public class ClientDAO implements ClientDAOInterface {
         logger.info("getClient end");
         return returnedClients;
     }
+    
+ /*
+   public List<ClientPOJO> getClient(int id) {
+        return null;
+       
+   }
+    public List<ClientPOJO> getClient(String firstname) {
+        return null;
+       
+   }
+    public List<ClientPOJO> getClient(String lastName) {
+        return null;
+        // problem with the string get client, with id or firstname or get client with ClientPOJO 
+        // where the difference in the pojo determines what is searched/get
+    
+    
+   }
+    public List<ClientPOJO> getClient(String Email) {
+        return null;
+       
+   }
+   */ 
+    
+    
 
     @Override
     public List<ClientPOJO> getClientWithFirstName(String FirstName) {

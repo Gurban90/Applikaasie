@@ -34,7 +34,7 @@ public class MainMenu {
             case 1:
                 logger.info("Open OrderMenu");
                 OrderMenu ordermenu = new OrderMenu();
-                ordermenu.OrderMenu();
+                ordermenu.orderMenu();
                 break;
             case 2:
                 logger.info("Open CheeseMenu");
