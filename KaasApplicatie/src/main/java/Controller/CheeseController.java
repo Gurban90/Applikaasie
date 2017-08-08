@@ -17,51 +17,40 @@ import java.util.logging.Logger;
  * @author Gerben
  */
 public class CheeseController {
-    
+
     static final Logger LOGGER = Logger.getLogger(CheeseController.class.getName());
     private CheeseMenu menu;
-   
-    
-    public void findAllCheese() {
+
+    public List<CheesePOJO> findAllCheese() {
         LOGGER.info("FindallCheese start");
         CheeseDAO cheesedao = new CheeseDAO();
-        List<CheesePOJO> returnedCheeses = cheesedao.getAllCheese();
-        System.out.println(returnedCheeses);
-
         LOGGER.info("FindallCheese end");
-        menu = new CheeseMenu();
-        menu.cheeseMenu();
+        return cheesedao.getAllCheese();
     }
 
-    public void findCheese(int ID) {
+    public CheesePOJO findCheese(int ID) {
         LOGGER.info("findCheese start");
         CheeseDAO cheesedao = new CheeseDAO();
         CheesePOJO cheesepojo = new CheesePOJO();
 
         cheesepojo.setCheeseID(ID);
         CheesePOJO returnedcheese = cheesedao.getCheese(cheesepojo);
-
-        System.out.println(returnedcheese);
         LOGGER.info("findCheese end");
-        menu = new CheeseMenu();
-        menu.cheeseMenu();
+        return returnedcheese;
     }
 
-    public void findCheeseWithName(String name) {
+    public CheesePOJO findCheeseWithName(String name) {
         LOGGER.info("findCheeseWithName start");
         CheeseDAO cheesedao = new CheeseDAO();
         CheesePOJO cheesepojo = new CheesePOJO();
 
         cheesepojo.setCheeseName(name);
         CheesePOJO returnedcheese = cheesedao.getCheeseWithName(cheesepojo);
-
-        System.out.println(returnedcheese);
-        LOGGER.info("findCheeseWithName start");
-        menu = new CheeseMenu();
-        menu.cheeseMenu();
+        LOGGER.info("findCheeseWithName end");
+        return returnedcheese;
     }
 
-    public void newCheese(String name, BigDecimal price, int stock) {
+    public int newCheese(String name, BigDecimal price, int stock) {
         LOGGER.info("newCheese start");
         CheesePOJO cheesepojo = new CheesePOJO();
         CheeseDAO cheesedao = new CheeseDAO();
@@ -69,12 +58,8 @@ public class CheeseController {
         cheesepojo.setCheeseName(name);
         cheesepojo.setPrice(price);
         cheesepojo.setStock(stock);
-
-        int CheeseID = cheesedao.addCheese(cheesepojo);
-        System.out.println("Cheese is added and has ID: " + CheeseID);
         LOGGER.info("newCheese end");
-        menu = new CheeseMenu();
-        menu.cheeseMenu();
+        return cheesedao.addCheese(cheesepojo);
     }
 
     public void removeCheese(int ID) {
@@ -84,13 +69,10 @@ public class CheeseController {
 
         cheesepojo.setCheeseID(ID);
         cheesedao.deleteCheese(cheesepojo);
-
         LOGGER.info("removeCheese end");
-        menu = new CheeseMenu();
-        menu.cheeseMenu();
     }
 
-    public void editCheese(int id, String name, BigDecimal price, int stock) {
+    public String editCheese(int id, String name, BigDecimal price, int stock) {
         LOGGER.info("editCheese start");
         CheesePOJO cheesepojo = new CheesePOJO();
         CheeseDAO cheesedao = new CheeseDAO();
@@ -100,14 +82,11 @@ public class CheeseController {
         cheesepojo.setPrice(price);
         cheesepojo.setStock(stock);
         cheesedao.updateCheese(cheesepojo);
-
-        System.out.println("Cheese has been edited: ");
         LOGGER.info("editCheese end");
-        menu = new CheeseMenu();
-        menu.cheeseMenu();
+        return "Cheese has been edited: ";
     }
 
-    public void editCheeseName(int id, String name) {
+    public String editCheeseName(int id, String name) {
         LOGGER.info("editCheeseName start");
         CheeseDAO cheesedao = new CheeseDAO();
         CheesePOJO getCheese = new CheesePOJO();
@@ -116,14 +95,11 @@ public class CheeseController {
         CheesePOJO cheesepojo = cheesedao.getCheese(getCheese);
         cheesepojo.setCheeseName(name);
         cheesedao.updateCheese(cheesepojo);
-
-        System.out.println("Cheese has been edited. ");
         LOGGER.info("editCheeseName end");
-        menu = new CheeseMenu();
-        menu.cheeseMenu();
+        return "Cheese has been edited. ";
     }
 
-    public void editCheesePrice(int id, BigDecimal price) {
+    public String editCheesePrice(int id, BigDecimal price) {
         LOGGER.info("editCheesePrice start");
         CheeseDAO cheesedao = new CheeseDAO();
         CheesePOJO getCheese = new CheesePOJO();
@@ -132,14 +108,11 @@ public class CheeseController {
         CheesePOJO cheesepojo = cheesedao.getCheese(getCheese);
         cheesepojo.setPrice(price);
         cheesedao.updateCheese(cheesepojo);
-
-        System.out.println("Cheese has been edited: ");
         LOGGER.info("editCheesePrice end");
-        menu = new CheeseMenu();
-        menu.cheeseMenu();
+        return "Cheese has been edited: ";
     }
 
-    public void editCheeseStock(int id, int stock) {
+    public String editCheeseStock(int id, int stock) {
         LOGGER.info("editCheeseStock start");
         CheeseDAO cheesedao = new CheeseDAO();
         CheesePOJO getCheese = new CheesePOJO();
@@ -148,11 +121,8 @@ public class CheeseController {
         CheesePOJO cheesepojo = cheesedao.getCheese(getCheese);
         cheesepojo.setStock(stock);
         cheesedao.updateCheese(cheesepojo);
-
-        System.out.println("Cheese has been edited: ");
         LOGGER.info("editCheeseStock end");
-        menu = new CheeseMenu();
-        menu.cheeseMenu();
+        return "Cheese has been edited: ";
     }
 
 }

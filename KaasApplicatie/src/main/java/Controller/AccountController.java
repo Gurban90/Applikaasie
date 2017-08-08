@@ -23,7 +23,7 @@ public class AccountController {
     Logger logger = Logger.getLogger(AccountController.class.getName());
     private LoginMenu menu;
 
-    public void login(int id, String password) {
+    public boolean login(int id, String password) {
         logger.info("login start");
         AccountPOJO accountpojo = new AccountPOJO();
         AccountDAO accountdao = new AccountDAO();
@@ -33,17 +33,15 @@ public class AccountController {
         AccountPOJO foundAccount = accountdao.getAccount(accountpojo);
 
         if (accountpojo.getAccountPassword().equals(foundAccount.getAccountPassword())) {
-            MainMenu mainmenu = new MainMenu();
-            mainmenu.mainMenu();
+            logger.info("login end");
+            return true;
         } else {
-            System.out.println("Wrong password or accountnumber, try again.");
-            menu = new LoginMenu();
-            menu.loginMenu();
+            logger.info("login end");
+            return false;
         }
-        logger.info("login end");
     }
 
-    public void newAccount(String name, String password, int status) {
+    public int newAccount(String name, String password, int status) {
         logger.info("newAccount start");
         AccountPOJO accountpojo = new AccountPOJO();
         AccountDAO accountdao = new AccountDAO();
@@ -51,16 +49,11 @@ public class AccountController {
         accountpojo.setAccountName(name);
         accountpojo.setAccountPassword(password);
         accountpojo.setAccountStatus(status);
-
-        int AccountID = accountdao.addAccount(accountpojo);
-        System.out.println("Account is added and has ID: " + AccountID);
-        input.nextLine();
         logger.info("newAccount end");
-        menu = new LoginMenu();
-        menu.loginMenu();
+        return accountdao.addAccount(accountpojo);
     }
 
-    public void removeAccount(int id, String password) {
+    public boolean removeAccount(int id, String password) {
         logger.info("removeAccount start");
         AccountPOJO accountpojo = new AccountPOJO();
         AccountDAO accountdao = new AccountDAO();
@@ -71,21 +64,16 @@ public class AccountController {
 
         if (accountpojo.getAccountPassword().equals(foundAccount.getAccountPassword())) {
             accountdao.deleteAccount(accountpojo);
-            System.out.print("Account has been deleted.");
-            input.nextLine();
-            menu = new LoginMenu();
-            menu.loginMenu();
+            logger.info("removeAccount end");
+            return true;
         } else {
-            System.out.println("Wrong password or accountnumber, try again.");
-            input.nextLine();
-            menu = new LoginMenu();
-            menu.loginMenu();
+            logger.info("removeAccount end");
+            return false;
         }
-        logger.info("removeAccount end");
     }
 
-    public void updateAccountCheck(int id, String password) {
-        logger.info("updateAccountMenu start");
+    public boolean updateAccountCheck(int id, String password) {
+        logger.info("updateAccountCheck start");
         AccountPOJO accountpojo = new AccountPOJO();
         AccountDAO accountdao = new AccountDAO();
 
@@ -94,18 +82,16 @@ public class AccountController {
         AccountPOJO foundAccount = accountdao.getAccount(accountpojo);
 
         if (accountpojo.getAccountPassword().equals(foundAccount.getAccountPassword())) {
-            menu = new LoginMenu();
-            menu.updateAccountMenu();
+            logger.info("updateAccountCheck end");
+            return true;
         } else {
-            System.out.println("Wrong password or accountnumber, returning to LoginMenu.");
-            menu.loginMenu();
-            menu = new LoginMenu();
+            logger.info("updateAccountCheck end");
+            return false;
         }
-        logger.info("updateAccountMenu end");
     }
 
-    public void updateAccount(String name, String password, int status) {
-        logger.info("UpdateAccount start");
+    public String updateAccount(String name, String password, int status) {
+        logger.info("updateAccount start");
         AccountPOJO accountpojo = new AccountPOJO();
         AccountDAO accountdao = new AccountDAO();
 
@@ -113,15 +99,11 @@ public class AccountController {
         accountpojo.setAccountPassword(password);
         accountpojo.setAccountStatus(status);
         accountdao.updateAccount(accountpojo);
-
-        System.out.println("Account has been updated.");
-        input.nextLine();
-        menu = new LoginMenu();
-        menu.loginMenu();
-        logger.info("UpdateAccount end");
+        logger.info("updateAccount end");
+        return "Account has been updated.";
     }
 
-    public void editAccountName(int id, String name) {
+    public String editAccountName(int id, String name) {
         logger.info("editAccountName start");
         AccountPOJO accountpojo = new AccountPOJO();
         AccountDAO accountdao = new AccountDAO();
@@ -130,15 +112,11 @@ public class AccountController {
         AccountPOJO accountpojo2 = accountdao.getAccount(accountpojo);
         accountpojo2.setAccountName(name);
         accountdao.updateAccount(accountpojo2);
-
-        System.out.println("Account has been updated.");
-        input.nextLine();
-        menu = new LoginMenu();
-        menu.loginMenu();
         logger.info("editAccountName end");
+        return "Account has been updated.";
     }
 
-    public void editAccountPassword(int id, String password) {
+    public String editAccountPassword(int id, String password) {
         logger.info("editAccountPassword start");
         AccountPOJO accountpojo = new AccountPOJO();
         AccountDAO accountdao = new AccountDAO();
@@ -147,15 +125,11 @@ public class AccountController {
         AccountPOJO accountpojo2 = accountdao.getAccount(accountpojo);
         accountpojo2.setAccountPassword(password);
         accountdao.updateAccount(accountpojo2);
-
-        System.out.println("Account has been updated.");
-        input.nextLine();
-        menu = new LoginMenu();
-        menu.loginMenu();
         logger.info("editAccountPassword end");
+        return "Account has been updated.";
     }
 
-    public void editAccountStatus(int id, int status) {
+    public String editAccountStatus(int id, int status) {
         logger.info("editAccountStatus start");
         AccountPOJO accountpojo = new AccountPOJO();
         AccountDAO accountdao = new AccountDAO();
@@ -164,15 +138,11 @@ public class AccountController {
         AccountPOJO accountpojo2 = accountdao.getAccount(accountpojo);
         accountpojo2.setAccountStatus(status);
         accountdao.updateAccount(accountpojo2);
-
-        System.out.println("Account has been updated.");
-        input.nextLine();
-        menu = new LoginMenu();
-        menu.loginMenu();
         logger.info("editAccountStatus end");
+        return "Account has been updated.";
     }
 
-    public void findAccount(int id, String password) {
+    public AccountPOJO findAccount(int id, String password) {
         logger.info("findAccount start");
         AccountPOJO accountpojo = new AccountPOJO();
         AccountDAO accountdao = new AccountDAO();
@@ -182,19 +152,16 @@ public class AccountController {
         AccountPOJO foundAccount = accountdao.getAccount(accountpojo);
 
         if (accountpojo.getAccountPassword().equals(foundAccount.getAccountPassword())) {
-            AccountPOJO returnedcheese = accountdao.getAccount(accountpojo);
-            System.out.println(returnedcheese);
-            menu = new LoginMenu();
-            menu.loginMenu();
+            AccountPOJO returnedAccount = accountdao.getAccount(accountpojo);
+            logger.info("findAccount end");
+            return returnedAccount;
         } else {
-            System.out.println("Wrong password or accountnumber, returning to LoginMenu.");
-            menu = new LoginMenu();
-            menu.loginMenu();
+            logger.info("findAccount end");
+            return null;
         }
-        logger.info("findAccount end");
     }
 
-    public void findAccountWithName(int id, String password, String name) {
+    public List<AccountPOJO> findAccountWithName(int id, String password, String name) {
         logger.info("findAccountWithName start");
         AccountPOJO accountpojo = new AccountPOJO();
         AccountDAO accountdao = new AccountDAO();
@@ -207,18 +174,15 @@ public class AccountController {
             accountpojo.setAccountName(name);
             input.nextLine();
             List<AccountPOJO> returnedAccounts = accountdao.getAccountWithName(accountpojo);
-            System.out.println(returnedAccounts);
-            menu = new LoginMenu();
-            menu.loginMenu();
+            logger.info("findAccountWithName end");
+            return returnedAccounts;
         } else {
-            System.out.println("Wrong password or accountnumber, returning to LoginMenu.");
-            menu = new LoginMenu();
-            menu.loginMenu();
+            logger.info("findAccountWithName end");
+            return null;
         }
-        logger.info("findAccountWithName end");
     }
 
-    public void getAllAccounts(int id, String password) {
+    public List<AccountPOJO> getAllAccounts(int id, String password) {
         logger.info("GetAllAccounts start");
         AccountPOJO accountpojo = new AccountPOJO();
         AccountDAO accountdao = new AccountDAO();
@@ -229,14 +193,12 @@ public class AccountController {
 
         if (accountpojo.getAccountPassword().equals(foundAccount.getAccountPassword())) {
             List<AccountPOJO> returnedAccounts = accountdao.getAllAccount();
-            System.out.println(returnedAccounts);
-            menu = new LoginMenu();
-            menu.loginMenu();
+            logger.info("GetAllAccounts end");
+            return returnedAccounts;
+
         } else {
-            System.out.println("Wrong password or accountnumber, returning to LoginMenu.");
-            menu = new LoginMenu();
-            menu.loginMenu();
+            logger.info("GetAllAccounts end");
+            return null;
         }
-        logger.info("GetAllAccounts end");
     }
 }

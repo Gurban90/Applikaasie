@@ -1,6 +1,7 @@
 package Menu;
 
 import Controller.CheeseController;
+import POJO.CheesePOJO;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.logging.Logger;
@@ -12,6 +13,7 @@ public class CheeseMenu {
     private Scanner input;
     private int choice;
     private CheeseController controller;
+    private CheeseMenu menu;
 
     public void cheeseMenu() {
 
@@ -41,14 +43,21 @@ public class CheeseMenu {
                 input.nextLine();
                 System.out.print("Insert Stock: ");
                 int stock = input.nextInt();
+
                 controller = new CheeseController();
-                controller.newCheese(name, price, stock);
+                int cheeseID = controller.newCheese(name, price, stock);
+                System.out.println("Cheese is added and has ID: " + cheeseID);
+                menu = new CheeseMenu();
+                menu.cheeseMenu();
                 break;
             case 2:
                 System.out.print("CheeseID please: ");
                 int ID1 = input.nextInt();
+
                 controller = new CheeseController();
                 controller.removeCheese(ID1);
+                menu = new CheeseMenu();
+                menu.cheeseMenu();
                 break;
             case 3:
                 editCheeseMenu();
@@ -56,18 +65,29 @@ public class CheeseMenu {
             case 4:
                 System.out.print("CheeseID please: ");
                 int ID = input.nextInt();
+
                 controller = new CheeseController();
-                controller.findCheese(ID);
+                CheesePOJO returnedcheese = controller.findCheese(ID);
+                System.out.println(returnedcheese);
+                menu = new CheeseMenu();
+                menu.cheeseMenu();
                 break;
             case 5:
                 System.out.print("CheeseName please: ");
                 String searchName = input.next();
+
                 controller = new CheeseController();
-                controller.findCheeseWithName(searchName);
+                CheesePOJO returnedcheese2 = controller.findCheeseWithName(searchName);
+                System.out.println(returnedcheese2);
+                menu = new CheeseMenu();
+                menu.cheeseMenu();
                 break;
             case 6:
                 controller = new CheeseController();
                 controller.findAllCheese();
+                System.out.println(controller.findAllCheese());
+                menu = new CheeseMenu();
+                menu.cheeseMenu();
                 break;
             case 7:
                 LOGGER.info("Open MainMenu");
@@ -76,8 +96,8 @@ public class CheeseMenu {
                 break;
             default:
                 System.out.println("wrong number, try again");
-                CheeseMenu cheesemenu = new CheeseMenu();
-                cheesemenu.cheeseMenu();
+                menu = new CheeseMenu();
+                menu.cheeseMenu();
 
         }
         LOGGER.info("CheeseMenu end");
@@ -101,24 +121,33 @@ public class CheeseMenu {
                 int id1 = input.nextInt();
                 System.out.print("Insert new CheeseName: ");
                 String name1 = input.next();
+                
                 controller = new CheeseController();
-                controller.editCheeseName(id1, name1);
+                System.out.println(controller.editCheeseName(id1, name1));
+                menu = new CheeseMenu();
+                menu.cheeseMenu();
                 break;
             case 2:
                 System.out.print("Insert CheeseID: ");
                 int id2 = input.nextInt();
                 System.out.print("Insert new CheesePrice: ");
                 BigDecimal price2 = input.nextBigDecimal();
+                
                 controller = new CheeseController();
-                controller.editCheesePrice(id2, price2);
+                System.out.println(controller.editCheesePrice(id2, price2));
+                menu = new CheeseMenu();
+                menu.cheeseMenu();
                 break;
             case 3:
                 System.out.print("Insert CheeseID: ");
                 int id3 = input.nextInt();
                 System.out.print("Insert new CheeseStock: ");
                 int stock2 = input.nextInt();
+                
                 controller = new CheeseController();
-                controller.editCheeseStock(id3, stock2);
+                System.out.println(controller.editCheeseStock(id3, stock2));
+                menu = new CheeseMenu();
+                menu.cheeseMenu();
                 break;
             case 4:
                 System.out.print("Insert CheeseID: ");
@@ -131,11 +160,15 @@ public class CheeseMenu {
                 input.nextLine();
                 System.out.print("Insert Stock: ");
                 int stock = input.nextInt();
+                
                 controller = new CheeseController();
-                controller.editCheese(id, name, price, stock);
+                System.out.println(controller.editCheese(id, name, price, stock));
+                menu = new CheeseMenu();
+                menu.cheeseMenu();
                 break;
             case 5:
-                cheeseMenu();
+                menu = new CheeseMenu();
+                menu.cheeseMenu();
                 break;
             default:
                 System.out.println("wrong number, try again");

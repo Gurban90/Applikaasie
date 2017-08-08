@@ -6,6 +6,8 @@
 package Menu;
 
 import Controller.AccountController;
+import POJO.AccountPOJO;
+import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
@@ -19,6 +21,7 @@ public class LoginMenu {
     private Scanner input;
     private int choice;
     private AccountController controller;
+    private LoginMenu menu;
 
     public void loginMenu() {
 
@@ -29,10 +32,10 @@ public class LoginMenu {
                 + "2. press 2 to create account " + "\n"
                 + "3. press 3 to update your account " + "\n"
                 + "4. press 4 to remove an account " + "\n"
-                + "4. press 5 to search for an account with ID" + "\n"
-                + "5. press 6 to search for an account with Name" + "\n"
-                + "6. press 7 to get all accounts" + "\n"
-                + "5. press 8 to exit");
+                + "5. press 5 to search for an account with ID" + "\n"
+                + "6. press 6 to search for an account with Name" + "\n"
+                + "7. press 7 to get all accounts" + "\n"
+                + "8. press 8 to exit");
 
         choice = input.nextInt();
 
@@ -43,8 +46,16 @@ public class LoginMenu {
                 input.nextLine();
                 System.out.print("Please enter your password: ");
                 String password = input.nextLine();
+
                 controller = new AccountController();
-                controller.login(id, password);
+                if (controller.login(id, password)) {
+                    MainMenu mainmenu = new MainMenu();
+                    mainmenu.mainMenu();
+                } else {
+                    System.out.println("Wrong password or accountnumber, try again.");
+                    menu = new LoginMenu();
+                    menu.loginMenu();
+                }
                 break;
             case 2:
                 System.out.print("Insert Accountname: ");
@@ -54,8 +65,13 @@ public class LoginMenu {
                 String password2 = input.nextLine();
                 System.out.print("Insert Accountstatus: ");
                 int status = input.nextInt();
+
                 controller = new AccountController();
-                controller.newAccount(name, password2, status);
+                int accountid = controller.newAccount(name, password2, status);
+                System.out.println("Account is added and has ID: " + accountid);
+                input.nextLine();
+                menu = new LoginMenu();
+                menu.loginMenu();
                 break;
             case 3:
                 System.out.print("AccountID please: ");
@@ -63,8 +79,15 @@ public class LoginMenu {
                 input.nextLine();
                 System.out.print("Please enter your password: ");
                 String password4 = input.nextLine();
+
                 controller = new AccountController();
-                controller.updateAccountCheck(id4, password4);
+                if (controller.updateAccountCheck(id4, password4)) {
+                    menu.updateAccountMenu();
+                } else {
+                    System.out.println("Wrong password or accountnumber, returning to LoginMenu.");
+                    menu = new LoginMenu();
+                    menu.loginMenu();
+                }
                 break;
             case 4:
                 System.out.print("THIS WILL DELETE YOUR ACCOUNT! To cancel do not fill in your password. ");
@@ -73,8 +96,19 @@ public class LoginMenu {
                 input.nextLine();
                 System.out.print("Please enter your password: ");
                 String password3 = input.nextLine();
+
                 controller = new AccountController();
-                controller.removeAccount(id3, password3);
+                if (controller.removeAccount(id3, password3)) {
+                    System.out.print("Account has been deleted.");
+                    input.nextLine();
+                    menu = new LoginMenu();
+                    menu.loginMenu();
+                } else {
+                    System.out.println("Wrong password or accountnumber, try again.");
+                    input.nextLine();
+                    menu = new LoginMenu();
+                    menu.loginMenu();
+                }
                 break;
             case 5:
                 System.out.print("AccountID please: ");
@@ -82,8 +116,18 @@ public class LoginMenu {
                 input.nextLine();
                 System.out.print("Please enter your password: ");
                 String password5 = input.nextLine();
+
                 controller = new AccountController();
-                controller.findAccount(id5, password5);
+                if (controller.findAccount(id5, password5) == null) {
+                    System.out.println("Wrong password or accountnumber, returning to LoginMenu.");
+                    menu = new LoginMenu();
+                    menu.loginMenu();
+                } else {
+                    AccountPOJO returnedAccount = controller.findAccount(id5, password5);
+                    System.out.println(returnedAccount);
+                    menu = new LoginMenu();
+                    menu.loginMenu();
+                }
                 break;
             case 6:
                 System.out.print("AccountID please: ");
@@ -93,8 +137,18 @@ public class LoginMenu {
                 String password6 = input.nextLine();
                 System.out.print("AccountName please: ");
                 String name6 = input.next();
+
                 controller = new AccountController();
-                controller.findAccountWithName(id6, password6, name6);
+                if (controller.findAccountWithName(id6, password6, name6) == null) {
+                    System.out.println("Wrong password or accountnumber, returning to LoginMenu.");
+                    menu = new LoginMenu();
+                    menu.loginMenu();
+                } else {
+                    List<AccountPOJO> returnedAccounts = controller.findAccountWithName(id6, password6, name6);
+                    System.out.println(returnedAccounts);
+                    menu = new LoginMenu();
+                    menu.loginMenu();
+                }
                 break;
             case 7:
                 System.out.print("AccountID please: ");
@@ -102,14 +156,25 @@ public class LoginMenu {
                 input.nextLine();
                 System.out.print("Please enter your password: ");
                 String password7 = input.nextLine();
+
                 controller = new AccountController();
-                controller.getAllAccounts(id7, password7);
+                if (controller.getAllAccounts(id7, password7) == null) {
+                    System.out.println("Wrong password or accountnumber, returning to LoginMenu.");
+                    menu = new LoginMenu();
+                    menu.loginMenu();
+                } else {
+                    List<AccountPOJO> returnedAccounts = controller.getAllAccounts(id7, password7);
+                    System.out.println(returnedAccounts);
+                    menu = new LoginMenu();
+                    menu.loginMenu();
+                }
                 break;
             case 8:
                 System.out.println("goodbye...");
                 System.exit(0);
             default:
                 System.out.println("wrong number, try again");
+                menu = new LoginMenu();
                 loginMenu();
 
         }
@@ -132,7 +197,10 @@ public class LoginMenu {
                 System.out.print("Insert new AccountName: ");
                 String name2 = input.next();
                 controller = new AccountController();
-                controller.editAccountName(id, name2);
+                System.out.println(controller.editAccountName(id, name2));
+                input.nextLine();
+                menu = new LoginMenu();
+                menu.loginMenu();
                 break;
             case 2:
                 System.out.print("Insert AccountID: ");
@@ -140,7 +208,10 @@ public class LoginMenu {
                 System.out.print("Insert new Password: ");
                 String password2 = input.next();
                 controller = new AccountController();
-                controller.editAccountPassword(id2, password2);
+                System.out.println(controller.editAccountPassword(id2, password2));
+                input.nextLine();
+                menu = new LoginMenu();
+                menu.loginMenu();
                 break;
             case 3:
                 System.out.print("Insert AccountID: ");
@@ -148,7 +219,10 @@ public class LoginMenu {
                 System.out.print("Insert new AccountStatus: ");
                 int status2 = input.nextInt();
                 controller = new AccountController();
-                controller.editAccountStatus(id3, status2);
+                System.out.println(controller.editAccountStatus(id3, status2));
+                input.nextLine();
+                menu = new LoginMenu();
+                menu.loginMenu();
                 break;
             case 4:
                 System.out.print("Insert new Accountname: ");
@@ -159,7 +233,10 @@ public class LoginMenu {
                 System.out.print("Insert new Accountstatus: ");
                 int status = input.nextInt();
                 controller = new AccountController();
-                controller.updateAccount(name, password, status);
+                System.out.println(controller.updateAccount(name, password, status));
+                input.nextLine();
+                menu = new LoginMenu();
+                menu.loginMenu();
                 break;
             case 5:
                 loginMenu();
@@ -170,5 +247,5 @@ public class LoginMenu {
 
         }
     }
-   
+
 }
