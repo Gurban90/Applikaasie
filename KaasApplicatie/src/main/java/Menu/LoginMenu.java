@@ -53,8 +53,7 @@ public class LoginMenu {
                     mainmenu.mainMenu();
                 } else {
                     System.out.println("Wrong password or accountnumber, try again.");
-                    menu = new LoginMenu();
-                    menu.loginMenu();
+                    loginMenu();
                 }
                 break;
             case 2:
@@ -82,7 +81,7 @@ public class LoginMenu {
 
                 controller = new AccountController();
                 if (controller.updateAccountCheck(id4, password4)) {
-                    menu.updateAccountMenu();
+                    updateAccountMenu();
                 } else {
                     System.out.println("Wrong password or accountnumber, returning to LoginMenu.");
                     menu = new LoginMenu();
@@ -227,6 +226,7 @@ public class LoginMenu {
             case 4:
                 System.out.print("Insert new Accountname: ");
                 String name = input.nextLine();
+                input.nextLine();
                 System.out.print("Insert new Password: ");
                 String password = input.nextLine();
                 input.nextLine();

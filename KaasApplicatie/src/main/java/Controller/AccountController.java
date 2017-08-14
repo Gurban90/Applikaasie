@@ -6,6 +6,7 @@
 package Controller;
 
 import Dao.AccountDAO;
+import Interface.AccountDAOInterface;
 import Menu.LoginMenu;
 import Menu.MainMenu;
 import POJO.AccountPOJO;
@@ -21,12 +22,33 @@ public class AccountController {
 
     private Scanner input = new Scanner(System.in);
     Logger logger = Logger.getLogger(AccountController.class.getName());
-    private LoginMenu menu;
+    private AccountDAOInterface accountdao;
+    private AccountPOJO accountpojo;
+
+    public AccountController() {
+        accountdao = new AccountDAO();
+        accountpojo = new AccountPOJO();
+    }
+
+    //Voor test
+    public AccountController(AccountDAO accountdao) {
+        this.accountdao = accountdao;
+        accountpojo = new AccountPOJO();
+    }
+
+    //Voor test
+    public AccountController(AccountDAOInterface accountdao) {
+        this.accountdao = accountdao;
+        accountpojo = new AccountPOJO();
+    }
+
+    public AccountController(AccountDAOInterface accountdao, AccountPOJO accountpojo) {
+        this.accountdao = accountdao;
+        this.accountpojo = accountpojo;
+    }
 
     public boolean login(int id, String password) {
         logger.info("login start");
-        AccountPOJO accountpojo = new AccountPOJO();
-        AccountDAO accountdao = new AccountDAO();
 
         accountpojo.setAccountID(id);
         accountpojo.setAccountPassword(password);
@@ -43,8 +65,6 @@ public class AccountController {
 
     public int newAccount(String name, String password, int status) {
         logger.info("newAccount start");
-        AccountPOJO accountpojo = new AccountPOJO();
-        AccountDAO accountdao = new AccountDAO();
 
         accountpojo.setAccountName(name);
         accountpojo.setAccountPassword(password);
@@ -55,8 +75,6 @@ public class AccountController {
 
     public boolean removeAccount(int id, String password) {
         logger.info("removeAccount start");
-        AccountPOJO accountpojo = new AccountPOJO();
-        AccountDAO accountdao = new AccountDAO();
 
         accountpojo.setAccountID(id);
         accountpojo.setAccountPassword(password);
@@ -74,8 +92,6 @@ public class AccountController {
 
     public boolean updateAccountCheck(int id, String password) {
         logger.info("updateAccountCheck start");
-        AccountPOJO accountpojo = new AccountPOJO();
-        AccountDAO accountdao = new AccountDAO();
 
         accountpojo.setAccountID(id);
         accountpojo.setAccountPassword(password);
@@ -92,8 +108,6 @@ public class AccountController {
 
     public String updateAccount(String name, String password, int status) {
         logger.info("updateAccount start");
-        AccountPOJO accountpojo = new AccountPOJO();
-        AccountDAO accountdao = new AccountDAO();
 
         accountpojo.setAccountName(name);
         accountpojo.setAccountPassword(password);
@@ -105,8 +119,6 @@ public class AccountController {
 
     public String editAccountName(int id, String name) {
         logger.info("editAccountName start");
-        AccountPOJO accountpojo = new AccountPOJO();
-        AccountDAO accountdao = new AccountDAO();
 
         accountpojo.setAccountID(id);
         AccountPOJO accountpojo2 = accountdao.getAccount(accountpojo);
@@ -118,8 +130,6 @@ public class AccountController {
 
     public String editAccountPassword(int id, String password) {
         logger.info("editAccountPassword start");
-        AccountPOJO accountpojo = new AccountPOJO();
-        AccountDAO accountdao = new AccountDAO();
 
         accountpojo.setAccountID(id);
         AccountPOJO accountpojo2 = accountdao.getAccount(accountpojo);
@@ -131,8 +141,6 @@ public class AccountController {
 
     public String editAccountStatus(int id, int status) {
         logger.info("editAccountStatus start");
-        AccountPOJO accountpojo = new AccountPOJO();
-        AccountDAO accountdao = new AccountDAO();
 
         accountpojo.setAccountID(id);
         AccountPOJO accountpojo2 = accountdao.getAccount(accountpojo);
@@ -144,8 +152,6 @@ public class AccountController {
 
     public AccountPOJO findAccount(int id, String password) {
         logger.info("findAccount start");
-        AccountPOJO accountpojo = new AccountPOJO();
-        AccountDAO accountdao = new AccountDAO();
 
         accountpojo.setAccountID(id);
         accountpojo.setAccountPassword(password);
@@ -163,8 +169,6 @@ public class AccountController {
 
     public List<AccountPOJO> findAccountWithName(int id, String password, String name) {
         logger.info("findAccountWithName start");
-        AccountPOJO accountpojo = new AccountPOJO();
-        AccountDAO accountdao = new AccountDAO();
 
         accountpojo.setAccountID(id);
         accountpojo.setAccountPassword(password);
@@ -172,7 +176,6 @@ public class AccountController {
 
         if (accountpojo.getAccountPassword().equals(foundAccount.getAccountPassword())) {
             accountpojo.setAccountName(name);
-            input.nextLine();
             List<AccountPOJO> returnedAccounts = accountdao.getAccountWithName(accountpojo);
             logger.info("findAccountWithName end");
             return returnedAccounts;
@@ -184,8 +187,6 @@ public class AccountController {
 
     public List<AccountPOJO> getAllAccounts(int id, String password) {
         logger.info("GetAllAccounts start");
-        AccountPOJO accountpojo = new AccountPOJO();
-        AccountDAO accountdao = new AccountDAO();
 
         accountpojo.setAccountID(id);
         accountpojo.setAccountPassword(password);

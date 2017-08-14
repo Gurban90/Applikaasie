@@ -6,6 +6,7 @@
 package Controller;
 
 import Dao.CheeseDAO;
+import Interface.CheeseDAOInterface;
 import Menu.CheeseMenu;
 import POJO.CheesePOJO;
 import java.math.BigDecimal;
@@ -19,19 +20,34 @@ import java.util.logging.Logger;
 public class CheeseController {
 
     static final Logger LOGGER = Logger.getLogger(CheeseController.class.getName());
-    private CheeseMenu menu;
+    private CheeseDAOInterface cheesedao;
+    private CheesePOJO cheesepojo;
+
+    public CheeseController() {
+        cheesedao = new CheeseDAO();
+        cheesepojo = new CheesePOJO();
+    }
+
+    //Voor test
+    public CheeseController(CheeseDAOInterface cheesedao) {
+        this.cheesedao = cheesedao;
+        cheesepojo = new CheesePOJO();
+    }
+
+    //Voor test
+    public CheeseController(CheeseDAOInterface cheesedao, CheesePOJO cheesepojo) {
+        this.cheesedao = cheesedao;
+        this.cheesepojo = cheesepojo;
+    }
 
     public List<CheesePOJO> findAllCheese() {
         LOGGER.info("FindallCheese start");
-        CheeseDAO cheesedao = new CheeseDAO();
         LOGGER.info("FindallCheese end");
         return cheesedao.getAllCheese();
     }
 
     public CheesePOJO findCheese(int ID) {
         LOGGER.info("findCheese start");
-        CheeseDAO cheesedao = new CheeseDAO();
-        CheesePOJO cheesepojo = new CheesePOJO();
 
         cheesepojo.setCheeseID(ID);
         CheesePOJO returnedcheese = cheesedao.getCheese(cheesepojo);
@@ -41,8 +57,6 @@ public class CheeseController {
 
     public CheesePOJO findCheeseWithName(String name) {
         LOGGER.info("findCheeseWithName start");
-        CheeseDAO cheesedao = new CheeseDAO();
-        CheesePOJO cheesepojo = new CheesePOJO();
 
         cheesepojo.setCheeseName(name);
         CheesePOJO returnedcheese = cheesedao.getCheeseWithName(cheesepojo);
@@ -52,8 +66,6 @@ public class CheeseController {
 
     public int newCheese(String name, BigDecimal price, int stock) {
         LOGGER.info("newCheese start");
-        CheesePOJO cheesepojo = new CheesePOJO();
-        CheeseDAO cheesedao = new CheeseDAO();
 
         cheesepojo.setCheeseName(name);
         cheesepojo.setPrice(price);
@@ -64,8 +76,6 @@ public class CheeseController {
 
     public void removeCheese(int ID) {
         LOGGER.info("removeCheese start");
-        CheesePOJO cheesepojo = new CheesePOJO();
-        CheeseDAO cheesedao = new CheeseDAO();
 
         cheesepojo.setCheeseID(ID);
         cheesedao.deleteCheese(cheesepojo);
@@ -74,8 +84,6 @@ public class CheeseController {
 
     public String editCheese(int id, String name, BigDecimal price, int stock) {
         LOGGER.info("editCheese start");
-        CheesePOJO cheesepojo = new CheesePOJO();
-        CheeseDAO cheesedao = new CheeseDAO();
 
         cheesepojo.setCheeseID(id);
         cheesepojo.setCheeseName(name);
@@ -88,11 +96,10 @@ public class CheeseController {
 
     public String editCheeseName(int id, String name) {
         LOGGER.info("editCheeseName start");
-        CheeseDAO cheesedao = new CheeseDAO();
         CheesePOJO getCheese = new CheesePOJO();
 
         getCheese.setCheeseID(id);
-        CheesePOJO cheesepojo = cheesedao.getCheese(getCheese);
+        cheesepojo = cheesedao.getCheese(getCheese);
         cheesepojo.setCheeseName(name);
         cheesedao.updateCheese(cheesepojo);
         LOGGER.info("editCheeseName end");
@@ -101,11 +108,10 @@ public class CheeseController {
 
     public String editCheesePrice(int id, BigDecimal price) {
         LOGGER.info("editCheesePrice start");
-        CheeseDAO cheesedao = new CheeseDAO();
         CheesePOJO getCheese = new CheesePOJO();
 
         getCheese.setCheeseID(id);
-        CheesePOJO cheesepojo = cheesedao.getCheese(getCheese);
+        cheesepojo = cheesedao.getCheese(getCheese);
         cheesepojo.setPrice(price);
         cheesedao.updateCheese(cheesepojo);
         LOGGER.info("editCheesePrice end");
@@ -114,11 +120,10 @@ public class CheeseController {
 
     public String editCheeseStock(int id, int stock) {
         LOGGER.info("editCheeseStock start");
-        CheeseDAO cheesedao = new CheeseDAO();
         CheesePOJO getCheese = new CheesePOJO();
 
         getCheese.setCheeseID(id);
-        CheesePOJO cheesepojo = cheesedao.getCheese(getCheese);
+        cheesepojo = cheesedao.getCheese(getCheese);
         cheesepojo.setStock(stock);
         cheesedao.updateCheese(cheesepojo);
         LOGGER.info("editCheeseStock end");

@@ -1,8 +1,0 @@
-#surefire
-#Tue Aug 08 11:04:41 CEST 2017
-maven.ext.class.path=C\:\\Program Files\\NetBeans 8.2\\java\\maven-nblib\\netbeans-eventspy.jar
-user.dir=C\:\\Java\\Githubs\\Applikaasie\\KaasApplicatie
-file.encoding=UTF-8
-localRepository=C\:\\Users\\Gerben\\.m2\\repository
-basedir=C\:\\Java\\Githubs\\Applikaasie\\KaasApplicatie
-test=Controller.AccountControllerTest

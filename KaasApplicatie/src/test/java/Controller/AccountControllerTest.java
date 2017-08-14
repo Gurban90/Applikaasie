@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import Dao.AccountDAO;
 import Interface.AccountDAOInterface;
 import Menu.MainMenu;
 import POJO.AccountPOJO;
@@ -14,6 +15,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+
 import static org.mockito.Mockito.*;
 
 /**
@@ -21,9 +23,6 @@ import static org.mockito.Mockito.*;
  * @author Gerben
  */
 public class AccountControllerTest {
-
-    AccountDAOInterface accountdao = mock(AccountDAOInterface.class);
-    AccountPOJO accountpojo = new AccountPOJO();
 
     public AccountControllerTest() {
     }
@@ -49,22 +48,26 @@ public class AccountControllerTest {
      */
     @Test
     public void testLogin() {
-       xxxxxx
-        }
+        fail("The test case is a prototype.");
+    }
 
     /**
      * Test of newAccount method, of class AccountController.
      */
     @Test
     public void testNewAccount() {
-        when(accountdao.addAccount(accountpojo)).thenReturn(10);
-        System.out.println("newAccount");
+        AccountPOJO accountpojo = new AccountPOJO();
+
         String name = "Bob";
         String password = "P";
         int status = 0;
-        AccountController instance = new AccountController();
-        instance.newAccount(name, password, status);
-        assertEquals(10, instance.newAccount(name, password, status));
+        AccountDAOInterface accountdaomock = mock(AccountDAOInterface.class);
+        AccountController instance = new AccountController(accountdaomock, accountpojo);
+        when(accountdaomock.addAccount(accountpojo)).thenReturn(10);
+
+        int id = instance.newAccount(name, password, status);
+
+        assertEquals(10, id);
     }
 
     /**
@@ -72,13 +75,22 @@ public class AccountControllerTest {
      */
     @Test
     public void testRemoveAccount() {
-        System.out.println("removeAccount");
-        int id = 0;
-        String password = "";
-        AccountController instance = new AccountController();
+        AccountPOJO accountpojo = new AccountPOJO();
+        AccountPOJO accountpojo2 = new AccountPOJO();
+        accountpojo2.setAccountID(1);
+        accountpojo2.setAccountPassword("Password");
+        int id = 1;
+        String password = "Password";
+
+        AccountDAOInterface accountdaomock = mock(AccountDAOInterface.class);
+        AccountController instance = new AccountController(accountdaomock, accountpojo);
+        when(accountdaomock.getAccount(accountpojo)).thenReturn(accountpojo2);
+        doNothing().when(accountdaomock).deleteAccount(accountpojo);
+
+        assertEquals(accountpojo2.getAccountID(), id);
+
         instance.removeAccount(id, password);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
 
     /**
@@ -157,13 +169,17 @@ public class AccountControllerTest {
      */
     @Test
     public void testFindAccount() {
-        System.out.println("findAccount");
-        int id = 0;
-        String password = "";
-        AccountController instance = new AccountController();
-        instance.findAccount(id, password);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        AccountPOJO accountpojo = new AccountPOJO();
+        AccountDAOInterface accountdaomock = mock(AccountDAOInterface.class);
+        AccountController instance = new AccountController(accountdaomock);
+        when(accountdaomock.getAccount(accountpojo)).thenReturn(accountpojo);
+        int id = 2;
+        String password = "Pass";
+
+        AccountPOJO accountpojo2 = instance.findAccount(id, password);
+
+        assertEquals(accountpojo, accountpojo2);
+
     }
 
     /**
