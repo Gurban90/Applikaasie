@@ -11,6 +11,11 @@ public class ClientMenu {
     private Scanner input;
     private int choice;
     private int clientID;
+    private String firstName;
+    private String lastName;
+    private String eMail; 
+    private String anwser;
+    
     private ClientController controller = new ClientController();  
     private ClientMenu menu = new ClientMenu();
 
@@ -35,15 +40,15 @@ public class ClientMenu {
                 logger.info("newClient start");
         
                 System.out.print("Insert Client First Name: ");
-                String firstName1 = input.next();
+                firstName = input.next();
         
                 System.out.print("Insert Client Last Name: ");
-                String lastName1 = input.next();
+                lastName = input.next();
        
                 System.out.print("Insert Client email");
-                String eMail1 = input.next();
+                eMail = input.next();
         
-                clientID = controller.newClient(firstName1, lastName1, eMail1);
+                clientID = controller.newClient(this.firstName, this.lastName, this.eMail);
                 System.out.println("New Client added with the ClientID of: " +clientID);
 
             menu.clientMenu();
@@ -55,7 +60,7 @@ public class ClientMenu {
                 clientID = input.nextInt();
             
                 System.out.println("Are You Sure you want to remove clientID: " + clientID + "  enter Yes "  );
-                String anwser = input.next();
+                anwser = input.next();
         
                 controller.removeClient(clientID, anwser);
                 
@@ -70,19 +75,19 @@ public class ClientMenu {
                 
                 logger.info("editClient start");
                 System.out.println("Insert client ID to search Client: ");
-                int clientID3 = input.nextInt();
+                clientID = input.nextInt();
 
                 System.out.print("Insert Client First Name: ");
-                String firstName3 = input.nextLine();
+                firstName = input.nextLine();
         
         
                 System.out.print("Insert Client Last Name: ");
-                String lastName3 = input.nextLine();
+                lastName = input.nextLine();
         
                 System.out.print("Insert Client email");
-                String eMail3 = input.nextLine();
+                eMail = input.nextLine();
                 
-                controller.editClient(clientID3, firstName3, lastName3, eMail3);
+                controller.editClient(clientID, this.firstName, this.lastName, this.eMail);
                 logger.info("editClient end");
                 menu.clientMenu();
         

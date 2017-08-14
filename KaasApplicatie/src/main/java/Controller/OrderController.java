@@ -17,12 +17,14 @@ public class OrderController {
     public OrderController() {
     }
 
-    public void removeOrder(int orderID) {
+    public String removeOrder(int orderID) {
         OrderPOJO orderPOJO = new OrderPOJO();
         OrderDAO orderDAO = new OrderDAO();
 
         orderPOJO.setOrderID(orderID);
         orderDAO.deleteOrder(orderPOJO);
+        
+        return "order removed: ";
     
     
     }

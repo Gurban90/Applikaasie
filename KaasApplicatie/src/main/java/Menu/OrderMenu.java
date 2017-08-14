@@ -24,6 +24,7 @@ public class OrderMenu {
     private Scanner input;
     private int choice;
     OrderController orderController = new OrderController();
+    private OrderMenu menu = new OrderMenu();
     
 
     public void orderMenu() {
@@ -52,7 +53,7 @@ public class OrderMenu {
                 
                 
                 orderController.removeOrder(orderID);
-                orderMenu();
+                menu.orderMenu();
                 
                 break;
             case 3:
@@ -68,8 +69,7 @@ public class OrderMenu {
                 break;
             default:
                 System.out.println("wrong number, try again");
-                OrderMenu ordermenu = new OrderMenu();
-                ordermenu.orderMenu();
+                menu.orderMenu();
 
         }
         logger.info("OrderMenu end");
