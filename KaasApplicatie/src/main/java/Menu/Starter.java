@@ -18,13 +18,18 @@ public class Starter {
         ClientMenu menu = new ClientMenu();
         menu.clientMenu();
     */
-    /*   
-    public static void main (String [] args) {
+      
+    /*public static void main (String [] args) {
         LoginMenu menu = new LoginMenu();
         menu.loginMenu();
     }
-    `*/
-    public static void main(String [] args){
+    */
+     public static void main (String [] args) {
+        MainMenu menu = new MainMenu();
+        menu.mainMenu();
+    }
+    
+  /*  public static void main(String [] args){
         OrderMenu menu = new OrderMenu();
         menu.orderMenu();
     }
