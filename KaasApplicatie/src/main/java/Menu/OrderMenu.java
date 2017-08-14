@@ -1,6 +1,7 @@
 package Menu;
 
 
+import Controller.OrderController;
 import Dao.CheeseDAO;
 import Dao.ClientDAO;
 import Dao.OrderDAO;
@@ -22,11 +23,14 @@ public class OrderMenu {
 
     private Scanner input;
     private int choice;
+    OrderController orderController = new OrderController();
+    
 
     public void orderMenu() {
-
+        
+        
         input = new Scanner(System.in);
-
+        
         System.out.print(" Order menu: " + "\n"
                 + "1. New Order" + "\n"
                 + "2. Remove Order" + "\n"
@@ -42,7 +46,14 @@ public class OrderMenu {
                 newOrder();
                 break;
             case 2:
-                removeOrder();
+ 
+                System.out.print("Enter The orderID you want to remove: ");
+                int orderID = input.nextInt();
+                
+                
+                orderController.removeOrder(orderID);
+                orderMenu();
+                
                 break;
             case 3:
                 editOrder();
@@ -203,8 +214,8 @@ public class OrderMenu {
         OrderPOJO orderPOJO = new OrderPOJO();
         OrderDAO orderDAO = new OrderDAO();
 
-        System.out.print("Enter The clientID you want to remove: ");
-        int orderID = input.nextInt();
+                    System.out.print("Enter The orderID you want to remove: ");
+                int orderID = input.nextInt();    
         
         System.out.println("Are You Sure you want to remove OrderID: " + orderID + "  enter Yes "  );
         String anwser = input.next();
