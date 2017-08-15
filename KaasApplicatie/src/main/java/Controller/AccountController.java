@@ -106,9 +106,10 @@ public class AccountController {
         }
     }
 
-    public String updateAccount(String name, String password, int status) {
+    public String updateAccount(int id, String name, String password, int status) {
         logger.info("updateAccount start");
 
+        accountpojo.setAccountID(id);
         accountpojo.setAccountName(name);
         accountpojo.setAccountPassword(password);
         accountpojo.setAccountStatus(status);
@@ -150,7 +151,7 @@ public class AccountController {
         return "Account has been updated.";
     }
 
-    public AccountPOJO findAccount(int id, String password) {
+    public AccountPOJO findAccount(int id, String password, int findId) {
         logger.info("findAccount start");
 
         accountpojo.setAccountID(id);
@@ -158,6 +159,7 @@ public class AccountController {
         AccountPOJO foundAccount = accountdao.getAccount(accountpojo);
 
         if (accountpojo.getAccountPassword().equals(foundAccount.getAccountPassword())) {
+            accountpojo.setAccountID(findId);
             AccountPOJO returnedAccount = accountdao.getAccount(accountpojo);
             logger.info("findAccount end");
             return returnedAccount;
