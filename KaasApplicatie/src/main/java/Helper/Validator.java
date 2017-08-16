@@ -12,6 +12,7 @@ import java.util.Scanner;
 import org.apache.commons.validator.routines.IntegerValidator;
 import org.apache.commons.validator.GenericValidator;
 import static org.apache.commons.validator.GenericValidator.isBlankOrNull;
+import org.apache.commons.validator.routines.BigDecimalValidator;
 
 /**
  *
@@ -38,7 +39,7 @@ public class Validator { //ALLEEN MAINMENU AF!
         return check;
     }
 
-    public boolean idValidator(String id) {//*************************** 
+    public boolean idValidator(String id) {
         boolean parsable = true;
         try {
             this.intValidation = Integer.parseInt(id);
@@ -62,17 +63,30 @@ public class Validator { //ALLEEN MAINMENU AF!
         return check;
     }
 
-    public boolean priceValidator(String price) { //*******************************************
-        //TODO
+    public boolean priceValidator(String price) { 
         boolean check = true;
-         try {
+        int dot = price.indexOf('.');
+        String decimals = price.substring(dot + 1);
+        try {
             this.bdValidation = new BigDecimal(price);
         } catch (NumberFormatException e) {
             check = false;
         }
-        return check;
+        if (check == true) {
+            check = false;
+            try {
+                decimals.charAt(2);
+            } catch (IndexOutOfBoundsException e) {
+                check = true;
+            }
+        }
+        if (check == true) {
+            BigDecimalValidator bigDecimalValidator = new BigDecimalValidator();
+            return bigDecimalValidator.isInRange(bdValidation, 0, 1000);
+        } else {
+            return false;
+        }
     }
-    
 
     public boolean stockValidator(String stock) {
         boolean parsable = true;
@@ -89,15 +103,29 @@ public class Validator { //ALLEEN MAINMENU AF!
             return false;
         }
     }
+    
+    public boolean statusValidator(String status) {
+        boolean parsable = true;
+        try {
+            this.intValidation = Integer.parseInt(status);
+        } catch (NumberFormatException e) {
+            parsable = false;
+        }
+
+        if (parsable == true) {
+            IntegerValidator validator = new IntegerValidator();
+            return validator.isInRange(intValidation, 0, 5);
+        } else {
+            return false;
+        }
+    }
 
     public static void main(String[] args) {
-        String price = "g";
+        String price = "22.00";
         Validator valid = new Validator();
         boolean hoi = valid.priceValidator(price);
 
         System.out.print(hoi);
 
-        }
     }
-
-
+}

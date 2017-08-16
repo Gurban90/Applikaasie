@@ -14,13 +14,13 @@ public class CheeseMenu {
     private Scanner input;
     private int choice;
     private CheeseController controller;
-    private CheeseMenu menu;
     private int id;
     private String name;
     private BigDecimal price;
     private int stock;
     private String cheeseId;
     private String stockString;
+    private String cheesePrice;
     Validator validator = new Validator();
 
     public void cheeseMenu() {
@@ -45,74 +45,84 @@ public class CheeseMenu {
             choice = Integer.parseInt(choiceNumber);
 
             switch (choice) {
-                case 1:                                                 //MOET NOG VALIDATOR
+                case 1:                                               
                     System.out.print("Insert CheeseName: ");
-                    this.name = input.next();
-
-                    input.nextLine();
-                    System.out.print("Insert Price: ");
-                    this.price = input.nextBigDecimal();
-                    input.nextLine();
-                    System.out.print("Insert Stock: ");
-                    this.stock = input.nextInt();
-
-                    controller = new CheeseController();
-                    int cheeseID = controller.newCheese(name, price, stock);
-                    System.out.println("Cheese is added and has ID: " + cheeseID);
-                    menu = new CheeseMenu();
-                    menu.cheeseMenu();
+                    this.name = input.nextLine();
+                    if (validator.stringValidator(this.name)) {
+                        System.out.print("Insert Price: ");
+                        this.cheesePrice = input.nextLine();
+                        if (validator.priceValidator(this.cheesePrice)) {
+                            this.price = new BigDecimal(this.cheesePrice);
+                            System.out.print("Insert Stock: ");
+                            this.stockString = input.nextLine();
+                            if (validator.stockValidator(this.stockString)) {
+                                this.stock = Integer.parseInt(this.stockString);
+                                controller = new CheeseController();
+                                int cheeseID = controller.newCheese(name, price, stock);
+                                System.out.println("Cheese is added and has ID: " + cheeseID);
+                                cheeseMenu();
+                            } else {
+                                System.out.println("Stock must be an integer and between 0 and 1000. ");
+                                cheeseMenu();
+                            }
+                        } else {
+                            System.out.println("Price must be valid type like: 12.25. ");
+                            cheeseMenu();
+                        }
+                    } else {
+                        System.out.println("CheeseName cannot be empty. ");
+                        cheeseMenu();
+                    }
                     break;
-                case 2:                                                         //MOET NOG GETEST
+                case 2: 
+                    System.out.println("THIS WILL DELETE THE CHEESE! To cancel do not fill in the CheeseID. ");
                     System.out.print("CheeseID please: ");
-                    input.nextLine();
                     this.cheeseId = input.nextLine();
                     if (validator.idValidator(this.cheeseId)) {
-                        this.id = Integer.parseInt(this.cheeseId);
+                        this.id = Integer.parseInt(this.cheeseId);                
                         controller = new CheeseController();
                         controller.removeCheese(id);
-                        menu = new CheeseMenu();
-                        menu.cheeseMenu();
+                        cheeseMenu();
                     } else {
                         System.out.print("CheeseID must be an integer and between 1 and 1000. ");
-                        menu = new CheeseMenu();
-                        menu.cheeseMenu();
+                        cheeseMenu();
                     }
                     break;
                 case 3:
                     editCheeseMenu();
                     break;
                 case 4:
-                    System.out.print("CheeseID please: ");                          //MOET NOG GETEST
-                    input.nextLine();
+                    System.out.print("CheeseID please: ");                          
                     this.cheeseId = input.nextLine();
                     if (validator.idValidator(this.cheeseId)) {
                         this.id = Integer.parseInt(this.cheeseId);
                         controller = new CheeseController();
                         CheesePOJO returnedcheese = controller.findCheese(id);
                         System.out.println(returnedcheese);
-                        menu = new CheeseMenu();
-                        menu.cheeseMenu();
+                        cheeseMenu();
                     } else {
-                        System.out.print("CheeseID must be an integer and between 1 and 1000. ");
-                        menu = new CheeseMenu();
-                        menu.cheeseMenu();
+                        System.out.println("CheeseID must be an integer and between 1 and 1000. ");
+                        cheeseMenu();
                     }
                     break;
-                case 5:
-                    System.out.print("CheeseName please: ");                    //MOET NOG GETEST
-                    this.name = input.next();
-                    controller = new CheeseController();
-                    CheesePOJO returnedcheese2 = controller.findCheeseWithName(name);
-                    System.out.println(returnedcheese2);
-                    menu = new CheeseMenu();
-                    menu.cheeseMenu();
+                case 5:                                                                 
+                    System.out.print("CheeseName please: ");
+                    this.name = input.nextLine();
+                    if (validator.stringValidator(this.name)) {
+                        controller = new CheeseController();
+                        CheesePOJO returnedcheese2 = controller.findCheeseWithName(name);
+                        System.out.println(returnedcheese2);
+                        cheeseMenu();
+                    } else {
+                        System.out.println("CheeseName cannot be empty. ");
+                        cheeseMenu();
+                    }
                     break;
                 case 6:
                     controller = new CheeseController();
                     controller.findAllCheese();
                     System.out.println(controller.findAllCheese());
-                    menu = new CheeseMenu();
-                    menu.cheeseMenu();
+                    cheeseMenu();
                     break;
                 case 7:
                     LOGGER.info("Open MainMenu");
@@ -121,15 +131,13 @@ public class CheeseMenu {
                     break;
                 default:
                     System.out.println("wrong number, try again");
-                    menu = new CheeseMenu();
-                    menu.cheeseMenu();
+                    cheeseMenu();
 
             }
             LOGGER.info("CheeseMenu end");
         } else {
             System.out.println("Choice must be an integer. ");
-            menu = new CheeseMenu();
-            menu.cheeseMenu();
+            cheeseMenu();
         }
     }
 
@@ -149,95 +157,106 @@ public class CheeseMenu {
             int choice2 = Integer.parseInt(choiceNumber2);
 
             switch (choice2) {
-                case 1:                                                         //MOET NOG GETEST
+                case 1:
                     System.out.print("Insert CheeseID: ");
-                    input.nextLine();
                     this.cheeseId = input.nextLine();
                     if (validator.idValidator(this.cheeseId)) {
                         this.id = Integer.parseInt(this.cheeseId);
                         System.out.print("Insert new CheeseName: ");
-                        this.name = input.next();
+                        this.name = input.nextLine();
                         if (validator.stringValidator(this.name)) {
                             controller = new CheeseController();
                             System.out.println(controller.editCheeseName(id, name));
-                            menu = new CheeseMenu();
-                            menu.cheeseMenu();
+                            cheeseMenu();
                         } else {
-                            System.out.print("CheeseName must have a value. ");
-                            menu = new CheeseMenu();
-                            menu.cheeseMenu();
+                            System.out.println("CheeseName must have a value. ");
+                            editCheeseMenu();
                         }
                     } else {
-                        System.out.print("CheeseID must be an integer and between 1 and 1000. ");
-                        menu = new CheeseMenu();
-                        menu.cheeseMenu();
+                        System.out.println("CheeseID must be an integer and between 1 and 1000. ");
+                        editCheeseMenu();
                     }
                     break;
-                case 2:
+                case 2:                                                                 
                     System.out.print("Insert CheeseID: ");
-                    input.nextLine();
                     this.cheeseId = input.nextLine();
                     if (validator.idValidator(this.cheeseId)) {
                         this.id = Integer.parseInt(this.cheeseId);
-                        System.out.print("Insert new CheesePrice: ");// PRICE MOET NOG VALIDATIE!!!!!!
-                        this.price = input.nextBigDecimal();
-
-                        controller = new CheeseController();
-                        System.out.println(controller.editCheesePrice(id, price));
-                        menu = new CheeseMenu();
-                        menu.cheeseMenu();
+                        System.out.print("Insert new CheesePrice: ");
+                        this.cheesePrice = input.nextLine();
+                        if (validator.priceValidator(this.cheesePrice)) {
+                            this.price = new BigDecimal(this.cheesePrice);
+                            controller = new CheeseController();
+                            System.out.println(controller.editCheesePrice(id, price));
+                            cheeseMenu();
+                        } else {
+                            System.out.println("Price must be valid type like: 12.25. ");
+                            editCheeseMenu();
+                        }
                     } else {
                         System.out.print("CheeseID must be an integer and between 1 and 1000. ");
-                        menu = new CheeseMenu();
-                        menu.cheeseMenu();
+                        editCheeseMenu();
                     }
                     break;
-                case 3:                                                                         //MOET NOG GETEST
+                case 3:                                                                         
                     System.out.print("Insert CheeseID: ");
-                    input.nextLine();
                     this.cheeseId = input.nextLine();
                     if (validator.idValidator(this.cheeseId)) {
                         this.id = Integer.parseInt(this.cheeseId);
                         System.out.print("Insert new CheeseStock: ");
-                        input.nextLine();
                         this.stockString = input.nextLine();
                         if (validator.stockValidator(this.stockString)) {
                             this.stock = Integer.parseInt(this.stockString);
                             controller = new CheeseController();
                             System.out.println(controller.editCheeseStock(id, stock));
-                            menu = new CheeseMenu();
-                            menu.cheeseMenu();
+                            cheeseMenu();
                         } else {
                             System.out.print("Stock must be an integer and between 0 and 1000. ");
-                            menu = new CheeseMenu();
-                            menu.cheeseMenu();
+                            editCheeseMenu();
                         }
                     } else {
-                        System.out.print("CheeseID must be an integer and between 1 and 1000. ");
-                        menu = new CheeseMenu();
-                        menu.cheeseMenu();
+                        System.out.println("CheeseID must be an integer and between 1 and 1000. ");
+                        editCheeseMenu();
                     }
                     break;
-                case 4:                                                         //MOET NOG VALIDATOR
+                case 4:                                                         
                     System.out.print("Insert CheeseID: ");
-                    this.id = input.nextInt();
-                    input.nextLine();
-                    System.out.print("Insert CheeseName: ");
-                    this.name = input.nextLine();
-                    System.out.print("Insert Price: ");
-                    this.price = input.nextBigDecimal();
-                    input.nextLine();
-                    System.out.print("Insert Stock: ");
-                    this.stock = input.nextInt();
-
-                    controller = new CheeseController();
-                    System.out.println(controller.editCheese(id, name, price, stock));
-                    menu = new CheeseMenu();
-                    menu.cheeseMenu();
+                    this.cheeseId = input.nextLine();
+                    if (validator.idValidator(this.cheeseId)) {
+                        this.id = Integer.parseInt(this.cheeseId);
+                        System.out.print("Insert CheeseName: ");
+                        this.name = input.nextLine();
+                        if (validator.stringValidator(this.name)) {
+                            System.out.print("Insert Price: ");
+                            this.cheesePrice = input.nextLine();
+                            if (validator.priceValidator(this.cheesePrice)) {
+                                this.price = new BigDecimal(this.cheesePrice);
+                                System.out.print("Insert Stock: ");
+                                this.stockString = input.nextLine();
+                                if (validator.stockValidator(this.stockString)) {
+                                    this.stock = Integer.parseInt(this.stockString);
+                                    controller = new CheeseController();
+                                    System.out.println(controller.editCheese(id, name, price, stock));
+                                    cheeseMenu();
+                                } else {
+                                    System.out.println("Stock must be an integer and between 0 and 1000. ");
+                                    editCheeseMenu();
+                                }
+                            } else {
+                                System.out.println("Price must be valid type like: 12.25. ");
+                                editCheeseMenu();
+                            }
+                        } else {
+                            System.out.println("CheeseName must have a value. ");
+                            editCheeseMenu();
+                        }
+                    } else {
+                        System.out.println("CheeseID must be an integer and between 1 and 1000. ");
+                        editCheeseMenu();
+                    }
                     break;
                 case 5:
-                    menu = new CheeseMenu();
-                    menu.cheeseMenu();
+                    cheeseMenu();
                     break;
                 default:
                     System.out.println("wrong number, try again");
