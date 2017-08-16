@@ -23,6 +23,28 @@ public class OrderMenu {
 
     private Scanner input;
     private int choice;
+    
+    boolean orderdetail = true;
+    
+    int clientID;
+    int orderID;
+    int cheeseID;
+    int ammountCheese;
+    
+    String anwser;
+    
+    int number = 1;
+    
+        int year;
+        int month;
+        int day;
+        int hour;
+        int min;
+        int sec;
+    
+            
+    
+    
     OrderController orderController = new OrderController();
     private OrderMenu menu = new OrderMenu();
     
@@ -44,23 +66,63 @@ public class OrderMenu {
 
         switch (choice) {
             case 1:
-                newOrder();
+                logger.info("newOrder start");
+                
+                System.out.print("Fill in a new order: ");
+                System.out.println("Please select ClientID for new order:  ");
+                clientID = input.nextInt();
+                
+                System.out.print("Set the delivery date: ");
+                System.out.print("enter Year: ");
+                this.year = input.nextInt();
+                System.out.println("enter month: ");
+                this.month = input.nextInt();
+                System.out.println("enter day: ");
+                this.day = input.nextInt();
+                System.out.println("input next hour");
+                this.hour = input.nextInt(); 
+                System.out.println("input next min");
+                this.min = input.nextInt();      
+                orderController.newOrder(clientID, year, month, day, hour, min);               
+                
+                 while(orderdetail){
+                
+                System.out.println("Select cheeseID for OrderDetail: ");
+                cheeseID = input.nextInt(); 
+                
+                 System.out.println("give amount of cheese");
+                ammountCheese = input.nextInt();
+                     
+                System.out.println("Do you want to add a new order detail? ");        
+                anwser = input.nextLine();
+                
+                orderController.newOrderDetail(cheeseID, ammountCheese, anwser );
+                
+                
+                logger.info("newOrder end");        
                 break;
             case 2:
- 
+                logger.info("removeorder start");
                 System.out.print("Enter The orderID you want to remove: ");
-                int orderID = input.nextInt();
+                orderID = input.nextInt();
+                
                 
                 
                 orderController.removeOrder(orderID);
                 menu.orderMenu();
-                
+                logger.info("removeorder end");
                 break;
             case 3:
-                editOrder();
+                logger.info("editorder start");
+                
+                
+                logger.info("editorder end");
                 break;
             case 4:
-                searchOrder();
+                logger.info("searchorder start");
+                
+                
+                logger.info("searchorder end");
                 break;
             case 5:
                 logger.info("Open mainMenu");
@@ -127,16 +189,16 @@ public class OrderMenu {
                     //set delivery date
             System.out.print("Finaly set the delivery date: ");
             System.out.print("enter Year: ");
-            int year = input.nextInt();
+            this.year = input.nextInt();
             System.out.println("enter month: ");
-            int month = input.nextInt();
+            this.month = input.nextInt();
             System.out.println("enter day: ");
-            int day = input.nextInt();
+            this.day = input.nextInt();
             System.out.println("input next hour");
-            int hour = input.nextInt(); 
+            this.hour = input.nextInt(); 
             System.out.println("input next min");
-            int min = input.nextInt();      
-            int sec = 00;       
+            this.min = input.nextInt();      
+            this.sec = 00;       
             LocalDateTime entered = LocalDateTime.of(year, month, day, hour, min, sec);
             orderPOJO.setProcessedDate(entered);
             
@@ -152,8 +214,7 @@ public class OrderMenu {
             
                 System.out.println("Adding order detail and cheesePOJO...");
                 OrderDetailPOJO orderDetailPOJO = new OrderDetailPOJO();
-                CheesePOJO cheesePOJO = new CheesePOJO();
-                CheeseDAO pricecheese = new CheeseDAO();
+
                                     
                 System.out.println("Select cheeseID for OrderDetail: ");
                 int cheeseID = input.nextInt();
@@ -187,7 +248,7 @@ public class OrderMenu {
                 System.out.println("Do you want to add a new order detail? ");        
                 String anwser = input.nextLine();
                     
-                //why does this give a warning?
+
                 if (anwser.equalsIgnoreCase("yes") || anwser.equalsIgnoreCase("y")){
                     orderdetail = true;
                 }
