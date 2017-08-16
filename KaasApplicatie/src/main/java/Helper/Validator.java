@@ -5,43 +5,99 @@
  */
 package Helper;
 
+import Menu.CheeseMenu;
 import POJO.CheesePOJO;
+import java.math.BigDecimal;
+import java.util.Scanner;
 import org.apache.commons.validator.routines.IntegerValidator;
 import org.apache.commons.validator.GenericValidator;
+import static org.apache.commons.validator.GenericValidator.isBlankOrNull;
 
 /**
  *
  * @author Gerben
  */
-public class Validator {
+public class Validator { //ALLEEN MAINMENU AF! 
 
-    private String Cheesename;
+    private int intValidation;
+    private BigDecimal bdValidation;
 
-    public void cheeseValidator(String cheese) {
-        GenericValidator genericValidator = new GenericValidator();
-        this.Cheesename = cheese;
-        if (genericValidator.isBlankOrNull(Cheesename)) {
-            System.out.println("Leeg");
+    private static Scanner input = new Scanner(System.in);
+
+    public boolean menuValidator(String number) {
+        boolean check = true;
+        if (isBlankOrNull(number)) {
+            check = false;
         } else {
-            System.out.println("Niet leeg");
+            try {
+                this.intValidation = Integer.parseInt(number);
+            } catch (NumberFormatException e) {
+                check = false;
+            }
+        }
+        return check;
+    }
+
+    public boolean idValidator(String id) {//*************************** 
+        boolean parsable = true;
+        try {
+            this.intValidation = Integer.parseInt(id);
+        } catch (NumberFormatException e) {
+            parsable = false;
+        }
+
+        if (parsable == true) {
+            IntegerValidator validator = new IntegerValidator();
+            return validator.isInRange(intValidation, 1, 1000);
+        } else {
+            return false;
+        }
+    }
+
+    public boolean stringValidator(String name) {
+        boolean check = true;
+        if (isBlankOrNull(name)) {
+            check = false;
+        }
+        return check;
+    }
+
+    public boolean priceValidator(String price) { //*******************************************
+        //TODO
+        boolean check = true;
+         try {
+            this.bdValidation = new BigDecimal(price);
+        } catch (NumberFormatException e) {
+            check = false;
+        }
+        return check;
+    }
+    
+
+    public boolean stockValidator(String stock) {
+        boolean parsable = true;
+        try {
+            this.intValidation = Integer.parseInt(stock);
+        } catch (NumberFormatException e) {
+            parsable = false;
+        }
+
+        if (parsable == true) {
+            IntegerValidator validator = new IntegerValidator();
+            return validator.isInRange(intValidation, 0, 1000);
+        } else {
+            return false;
         }
     }
 
     public static void main(String[] args) {
+        String price = "g";
         Validator valid = new Validator();
-        String cheese = "";
-        valid.cheeseValidator(cheese);
-        
-        int number = 0;
+        boolean hoi = valid.priceValidator(price);
 
-        IntegerValidator validator = new IntegerValidator();
+        System.out.print(hoi);
 
-        if (validator.isInRange(number, 1, 10)) {
-            System.out.println("Yes");
-        } else {
-            System.out.println("No");
         }
-
     }
 
-}
+
