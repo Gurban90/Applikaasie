@@ -86,5 +86,207 @@ public class ClientController {
         
           
     }
+
+    public String editClientFirstName(int clientID, String firstName) {
+        LOGGER.info("edit clientFirstName start");
+        ClientPOJO clientPOJO = new ClientPOJO();
+        ClientDAO clientDAO = new ClientDAO();
+
+        clientPOJO.setClientID(clientID);
+       
+        ClientPOJO searchedClient = clientDAO.getClient(clientPOJO);
+        searchedClient.setFirstName(firstName);
+        clientDAO.updateClient(searchedClient);
+        
+        clientDAO.updateClient(clientPOJO);
+        LOGGER.info("editClient First Name end");
+        return "Client first name has been edited. ";
+    
+    }
+
+    public String editClientLastName(int clientID, String lastName) {
+      LOGGER.info("edit clientFirstName start");
+        ClientPOJO clientPOJO = new ClientPOJO();
+        ClientDAO clientDAO = new ClientDAO();
+
+        clientPOJO.setClientID(clientID);
+       
+        ClientPOJO searchedClient = clientDAO.getClient(clientPOJO);
+        searchedClient.setLastName(lastName);
+        clientDAO.updateClient(searchedClient);
+        
+        clientDAO.updateClient(clientPOJO);
+        LOGGER.info("editClient First Name end");
+        return "Client first name has been edited. ";
+    }
+
+    public String editClientEMail(int clientID, String eMail) {
+        LOGGER.info("edit clientemail start");
+        ClientPOJO clientPOJO = new ClientPOJO();
+        ClientDAO clientDAO = new ClientDAO();
+
+        clientPOJO.setClientID(clientID);
+       
+        ClientPOJO searchedClient = clientDAO.getClient(clientPOJO);
+        searchedClient.setEMail(eMail);
+        clientDAO.updateClient(searchedClient);
+        
+        clientDAO.updateClient(clientPOJO);
+        LOGGER.info("editClient email end");
+        return "Client email has been edited. ";
+    }
+
+    public String editClientFirstName(int clientID, String firstName) {
+        LOGGER.info("edit clientFirstName start");
+        ClientPOJO clientPOJO = new ClientPOJO();
+        ClientDAO clientDAO = new ClientDAO();
+
+        clientPOJO.setClientID(clientID);
+       
+        ClientPOJO searchedClient = clientDAO.getClient(clientPOJO);
+        searchedClient.setFirstName(firstName);
+        clientDAO.updateClient(searchedClient);
+        
+        clientDAO.updateClient(clientPOJO);
+        LOGGER.info("editClient First Name end");
+        return "Client first name has been edited. ";
+    
+    }
+
+    public String editClientLastName(int clientID, String lastName) {
+      LOGGER.info("edit clientFirstName start");
+        ClientPOJO clientPOJO = new ClientPOJO();
+        ClientDAO clientDAO = new ClientDAO();
+
+        clientPOJO.setClientID(clientID);
+       
+        ClientPOJO searchedClient = clientDAO.getClient(clientPOJO);
+        searchedClient.setLastName(lastName);
+        clientDAO.updateClient(searchedClient);
+        
+        clientDAO.updateClient(clientPOJO);
+        LOGGER.info("editClient First Name end");
+        return "Client first name has been edited. ";
+    }
+
+    public String editClientEMail(int clientID, String eMail) {
+        LOGGER.info("edit clientemail start");
+        ClientPOJO clientPOJO = new ClientPOJO();
+        ClientDAO clientDAO = new ClientDAO();
+
+        clientPOJO.setClientID(clientID);
+       
+        ClientPOJO searchedClient = clientDAO.getClient(clientPOJO);
+        searchedClient.setEMail(eMail);
+        clientDAO.updateClient(searchedClient);
+        
+        clientDAO.updateClient(clientPOJO);
+        LOGGER.info("editClient email end");
+        return "Client email has been edited. ";
+    }
+    
+    
+    
+    public ClientPOJO findClientWithID(int clientID) {
+          LOGGER.info("findclient with id");
+
+        ClientDAO clientDAO = new ClientDAO();
+        ClientPOJO clientPOJO = new ClientPOJO();
+        
+        clientPOJO.setClientID(clientID);
+        
+        
+        ClientPOJO returnedClient = clientDAO.getClient(clientPOJO);
+        LOGGER.info("findclient with id");
+        return returnedClient;  
+    
+    }
+
+    public List<ClientPOJO> findClientWithFirstName(String firstName) {
+        LOGGER.info("findclient with first name start");
+
+        ClientDAO clientDAO = new ClientDAO();
+        
+        List<ClientPOJO> returnedClient = clientDAO.getClientWithFirstName(firstName);
+        LOGGER.info("findclient with first name end");
+        return returnedClient;  
+    
+    }
+
+    public List<ClientPOJO> findClientWithLastName(String lastName) {
+        LOGGER.info("findclient with last name start");
+
+        ClientDAO clientDAO = new ClientDAO();
+        
+        List<ClientPOJO> returnedClient = clientDAO.getClientWithLastName(lastName);
+        LOGGER.info("findclient with last name end");
+        return returnedClient;  
+    
+    }
+
+    public List<ClientPOJO> findClientWithEMail(String eMail) {
+      LOGGER.info("findclient with email start");
+
+        ClientDAO clientDAO = new ClientDAO();
+        
+        List<ClientPOJO> returnedClient = clientDAO.getClientWithEmail(eMail);
+        LOGGER.info("findclient with email end");
+        return returnedClient;   
+    
+    }
+
+
+    
+    
+    
+    public ClientPOJO findClientWithID(int clientID) {
+          LOGGER.info("findclient with id");
+
+        ClientDAO clientDAO = new ClientDAO();
+        ClientPOJO clientPOJO = new ClientPOJO();
+        
+        clientPOJO.setClientID(clientID);
+        
+        
+        ClientPOJO returnedClient = clientDAO.getClient(clientPOJO);
+        LOGGER.info("findclient with id");
+        return returnedClient;  
+    
+    }
+
+    public List<ClientPOJO> findClientWithFirstName(String firstName) {
+        LOGGER.info("findclient with first name start");
+
+        ClientDAO clientDAO = new ClientDAO();
+        
+        List<ClientPOJO> returnedClient = clientDAO.getClientWithFirstName(firstName);
+        LOGGER.info("findclient with first name end");
+        return returnedClient;  
+    
+    }
+
+    public List<ClientPOJO> findClientWithLastName(String lastName) {
+        LOGGER.info("findclient with last name start");
+
+        ClientDAO clientDAO = new ClientDAO();
+        
+        List<ClientPOJO> returnedClient = clientDAO.getClientWithLastName(lastName);
+        LOGGER.info("findclient with last name end");
+        return returnedClient;  
+    
+    }
+
+    public List<ClientPOJO> findClientWithEMail(String eMail) {
+      LOGGER.info("findclient with email start");
+
+        ClientDAO clientDAO = new ClientDAO();
+        
+        List<ClientPOJO> returnedClient = clientDAO.getClientWithEmail(eMail);
+        LOGGER.info("findclient with email end");
+        return returnedClient;   
+    
+    }
+
+
     
 }
