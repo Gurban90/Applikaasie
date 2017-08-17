@@ -6,6 +6,7 @@
 package Menu;
 
 import Controller.AccountController;
+import Helper.Validator;
 import POJO.AccountPOJO;
 import java.util.List;
 import java.util.Scanner;
@@ -15,17 +16,19 @@ import java.util.logging.Logger;
  *
  * @author Gerben
  */
-public class LoginMenu {
+public class LoginMenu { //TESTEN
 
     Logger logger = Logger.getLogger(LoginMenu.class.getName());
     private Scanner input;
     private int choice;
     private AccountController controller;
-    private LoginMenu menu;
     private int id;
     private String name;
     private String password;
     private int status;
+    private String accountIdString;
+    private String accounStatusString;
+    private Validator validator = new Validator();
 
     public void loginMenu() {
 
@@ -41,147 +44,223 @@ public class LoginMenu {
                 + "7. press 7 to get all accounts" + "\n"
                 + "8. press 8 to exit");
 
-        choice = input.nextInt();
+        String choiceNumber = input.nextLine();
+        if (validator.menuValidator(choiceNumber)) {
 
-        switch (choice) {
-            case 1:
-                System.out.print("Please enter your account number: ");
-                this.id = input.nextInt();
-                input.nextLine();
-                System.out.print("Please enter your password: ");
-                this.password = input.nextLine();
+            choice = Integer.parseInt(choiceNumber);
 
-                controller = new AccountController();
-                if (controller.login(id, password)) {
-                    MainMenu mainmenu = new MainMenu();
-                    mainmenu.mainMenu();
-                } else {
-                    System.out.println("Wrong password or accountnumber, try again.");
-                    menu = new LoginMenu();
-                    menu.loginMenu();
-                }
-                break;
-            case 2:
-                System.out.print("Insert Accountname: ");
-                this.name = input.next();
-                input.nextLine();
-                System.out.print("Insert Password: ");
-                this.password = input.nextLine();
-                System.out.print("Insert Accountstatus: ");
-                this.status = input.nextInt();
+            switch (choice) {
+                case 1:
+                    System.out.print("Please enter your account number: ");            //NOG TEST
+                    this.accountIdString = input.nextLine();
+                    if (validator.idValidator(this.accountIdString)) {
+                        this.id = Integer.parseInt(this.accountIdString);
+                        System.out.print("Please enter your password: ");
+                        this.password = input.nextLine();
+                        if (validator.stringValidator(this.password)) {
+                            controller = new AccountController();
+                            if (controller.login(id, password)) {
+                                MainMenu mainmenu = new MainMenu();
+                                mainmenu.mainMenu();
+                            } else {
+                                System.out.println("Wrong password or accountnumber, try again.");
+                                loginMenu();
+                            }
+                        } else {
+                            System.out.println("Password must have a value. ");
+                            loginMenu();
+                        }
+                    } else {
+                        System.out.println("AccountID must be an integer and between 1 and 1000. ");
+                        loginMenu();
+                    }
+                    break;
+                case 2:                                                                                     //NOG TEST
+                    System.out.print("Insert Accountname: ");
+                    this.name = input.nextLine();
+                    if (validator.stringValidator(this.name)) {
+                        System.out.print("Insert Password: ");
+                        this.password = input.nextLine();
+                        if (validator.stringValidator(this.password)) {
+                            System.out.print("Insert Accountstatus: ");
+                            this.accounStatusString = input.nextLine();
+                            if (validator.statusValidator(this.accounStatusString)) {
+                                this.status = Integer.parseInt(this.accounStatusString);
 
-                controller = new AccountController();
-                int accountid = controller.newAccount(name, password, status);
-                System.out.println("Account is added and has ID: " + accountid);
-                input.nextLine();
-                menu = new LoginMenu();
-                menu.loginMenu();
-                break;
-            case 3:
-                System.out.print("AccountID please: ");
-                this.id = input.nextInt();
-                input.nextLine();
-                System.out.print("Please enter your password: ");
-                this.password = input.nextLine();
+                                controller = new AccountController();
+                                int accountid = controller.newAccount(name, password, status);
+                                System.out.println("Account is added and has ID: " + accountid);
+                                loginMenu();
+                            } else {
+                                System.out.println("Status must be an integer and between 0 and 5. ");
+                                loginMenu();
+                            }
+                        } else {
+                            System.out.println("Password must have a value. ");
+                            loginMenu();
+                        }
+                    } else {
+                        System.out.println("Accountname must have a value. ");
+                        loginMenu();
+                    }
+                    break;
+                case 3:                                                         //NOG TEST
+                    System.out.print("AccountID please: ");
+                    this.accountIdString = input.nextLine();
+                    if (validator.idValidator(this.accountIdString)) {
+                        this.id = Integer.parseInt(this.accountIdString);
+                        System.out.print("Please enter your password: ");
+                        this.password = input.nextLine();
+                        if (validator.stringValidator(this.password)) {
 
-                controller = new AccountController();
-                if (controller.updateAccountCheck(id, password)) {
-                    updateAccountMenu();
-                } else {
-                    System.out.println("Wrong password or accountnumber, returning to LoginMenu.");
-                    menu = new LoginMenu();
-                    menu.loginMenu();
-                }
-                break;
-            case 4:
-                System.out.println("THIS WILL DELETE YOUR ACCOUNT! To cancel do not fill in your password. ");
-                System.out.print("AccountID please: ");
-                this.id = input.nextInt();
-                input.nextLine();
-                System.out.print("Please enter your password: ");
-                this.password = input.nextLine();
-
-                controller = new AccountController();
-                if (controller.removeAccount(id, password)) {
-                    System.out.print("Account has been deleted.");
-                    menu = new LoginMenu();
-                    menu.loginMenu();
-                } else {
-                    System.out.println("Wrong password or accountnumber, try again.");
-                    menu = new LoginMenu();
-                    menu.loginMenu();
-                }
-                break;
-            case 5:
-                System.out.print("AccountID please: ");
-                this.id = input.nextInt();
-                input.nextLine();
-                System.out.print("Please enter your password: ");
-                this.password = input.nextLine();
-                System.out.print("AccountID of the account you want to find please: ");
-                int findId = input.nextInt();
-
-                controller = new AccountController();
-                if (controller.findAccount(id, password, findId) == null) {
-                    System.out.println("Wrong password or accountnumber, returning to LoginMenu.");
-                    menu = new LoginMenu();
-                    menu.loginMenu();
-                } else {
-                    AccountPOJO returnedAccount = controller.findAccount(id, password, findId);
-                    System.out.println(returnedAccount);
-                    menu = new LoginMenu();
-                    menu.loginMenu();
-                }
-                break;
-            case 6:
-                System.out.print("AccountID please: ");
-                this.id = input.nextInt();
-                input.nextLine();
-                System.out.print("Please enter your password: ");
-                this.password = input.nextLine();
-                System.out.print("AccountName of the account you want to find please: ");
-                this.name = input.next();
-
-                controller = new AccountController();
-                if (controller.findAccountWithName(id, password, name) == null) {
-                    System.out.println("Wrong password or accountnumber, returning to LoginMenu.");
-                    menu = new LoginMenu();
-                    menu.loginMenu();
-                } else {
-                    List<AccountPOJO> returnedAccounts = controller.findAccountWithName(id, password, name);
-                    System.out.println(returnedAccounts);
-                    menu = new LoginMenu();
-                    menu.loginMenu();
-                }
-                break;
-            case 7:
-                System.out.print("AccountID please: ");
-                this.id = input.nextInt();
-                input.nextLine();
-                System.out.print("Please enter your password: ");
-                this.password = input.nextLine();
-
-                controller = new AccountController();
-                if (controller.getAllAccounts(id, password) == null) {
-                    System.out.println("Wrong password or accountnumber, returning to LoginMenu.");
-                    menu = new LoginMenu();
-                    menu.loginMenu();
-                } else {
-                    List<AccountPOJO> returnedAccounts = controller.getAllAccounts(id, password);
-                    System.out.println(returnedAccounts);
-                    menu = new LoginMenu();
-                    menu.loginMenu();
-                }
-                break;
-            case 8:
-                System.out.println("goodbye...");
-                System.exit(0);
-            default:
-                System.out.println("wrong number, try again");
-                menu = new LoginMenu();
-                loginMenu();
-
+                            controller = new AccountController();
+                            if (controller.updateAccountCheck(id, password)) {
+                                updateAccountMenu();
+                            } else {
+                                System.out.println("Wrong password or accountnumber, returning to LoginMenu.");
+                                loginMenu();
+                            }
+                        } else {
+                            System.out.println("Password must have a value. ");
+                            loginMenu();
+                        }
+                    } else {
+                        System.out.println("AccountID must be an integer and between 1 and 1000. ");
+                        loginMenu();
+                    }
+                    break;
+                case 4:                                                                             //NOG TEST
+                    System.out.println("THIS WILL DELETE YOUR ACCOUNT! To cancel do not fill in your password. ");
+                    System.out.print("AccountID please: ");
+                    this.accountIdString = input.nextLine();
+                    if (validator.idValidator(this.accountIdString)) {
+                        this.id = Integer.parseInt(this.accountIdString);
+                        System.out.print("Please enter your password: ");
+                        this.password = input.nextLine();
+                        if (validator.stringValidator(this.password)) {
+                            controller = new AccountController();
+                            if (controller.removeAccount(id, password)) {
+                                System.out.print("Account has been deleted.");
+                                input.nextLine();
+                                loginMenu();
+                            } else {
+                                System.out.println("Wrong password or accountnumber, try again.");
+                                loginMenu();
+                            }
+                        } else {
+                            System.out.println("Password must have a value. ");
+                            loginMenu();
+                        }
+                    } else {
+                        System.out.println("AccountID must be an integer and between 1 and 1000. ");
+                        loginMenu();
+                    }
+                    break;
+                case 5:                                                          //NOG TEST
+                    System.out.print("AccountID please: ");
+                    this.accountIdString = input.nextLine();
+                    if (validator.idValidator(this.accountIdString)) {
+                        this.id = Integer.parseInt(this.accountIdString);
+                        System.out.print("Please enter your password: ");
+                        this.password = input.nextLine();
+                        if (validator.stringValidator(this.password)) {
+                            System.out.print("AccountID of the account you want to find please: ");
+                            this.accountIdString = input.nextLine();
+                            if (validator.idValidator(this.accountIdString)) {
+                                int findId = Integer.parseInt(this.accountIdString);
+                                controller = new AccountController();
+                                if (controller.findAccount(id, password, findId) == null) {
+                                    System.out.println("Wrong password or accountnumber, returning to LoginMenu.");
+                                    loginMenu();
+                                } else {
+                                    AccountPOJO returnedAccount = controller.findAccount(id, password, findId);
+                                    System.out.println(returnedAccount);
+                                    loginMenu();
+                                }
+                            } else {
+                                System.out.println("AccountID must be an integer and between 1 and 1000. ");
+                                loginMenu();
+                            }
+                        } else {
+                            System.out.println("Password must have a value. ");
+                            loginMenu();
+                        }
+                    } else {
+                        System.out.println("AccountID must be an integer and between 1 and 1000. ");
+                        loginMenu();
+                    }
+                    break;
+                case 6:                                                          //NOG TEST
+                    System.out.print("AccountID please: ");
+                    this.accountIdString = input.nextLine();
+                    if (validator.idValidator(this.accountIdString)) {
+                        this.id = Integer.parseInt(this.accountIdString);
+                        System.out.print("Please enter your password: ");
+                        this.password = input.nextLine();
+                        if (validator.stringValidator(this.password)) {
+                            System.out.print("AccountName of the account you want to find please: ");
+                            this.name = input.nextLine();
+                            if (validator.stringValidator(this.name)) {
+                                controller = new AccountController();
+                                if (controller.findAccountWithName(id, password, name) == null) {
+                                    System.out.println("Wrong password or accountnumber, returning to LoginMenu.");
+                                    loginMenu();
+                                } else {
+                                    List<AccountPOJO> returnedAccounts = controller.findAccountWithName(id, password, name);
+                                    System.out.println(returnedAccounts);
+                                    loginMenu();
+                                }
+                            } else {
+                                System.out.println("AccountName must have a value. ");
+                                loginMenu();
+                            }
+                        } else {
+                            System.out.println("Password must have a value. ");
+                            loginMenu();
+                        }
+                    } else {
+                        System.out.println("AccountID must be an integer and between 1 and 1000. ");
+                        loginMenu();
+                    }
+                    break;
+                case 7:                                                         //NOG TEST
+                    System.out.print("AccountID please: ");
+                    this.accountIdString = input.nextLine();
+                    if (validator.idValidator(this.accountIdString)) {
+                        this.id = Integer.parseInt(this.accountIdString);
+                        System.out.print("Please enter your password: ");
+                        this.password = input.nextLine();
+                        if (validator.stringValidator(this.password)) {
+                            controller = new AccountController();
+                            if (controller.getAllAccounts(id, password) == null) {
+                                System.out.println("Wrong password or accountnumber, returning to LoginMenu.");
+                                loginMenu();
+                            } else {
+                                List<AccountPOJO> returnedAccounts = controller.getAllAccounts(id, password);
+                                System.out.println(returnedAccounts);
+                                loginMenu();
+                            }
+                        } else {
+                            System.out.println("Password must have a value. ");
+                            loginMenu();
+                        }
+                    } else {
+                        System.out.println("AccountID must be an integer and between 1 and 1000. ");
+                        loginMenu();
+                    }
+                    break;
+                case 8:
+                    System.out.println("goodbye...");
+                    System.exit(0);
+                default:
+                    System.out.println("wrong number, try again");
+                    loginMenu();
+            }
+        } else {
+            System.out.println("Choice must be an integer. ");
+            loginMenu();
         }
+
     }
 
     public void updateAccountMenu() {
@@ -192,69 +271,118 @@ public class LoginMenu {
                 + "4. press 4 to edit all " + "\n"
                 + "5. press 5 to return to last menu");
 
-        choice = input.nextInt();
+        String choiceNumber2 = input.nextLine();
+        if (validator.menuValidator(choiceNumber2)) {
 
-        switch (choice) {
-            case 1:
-                System.out.print("Insert AccountID: ");
-                this.id = input.nextInt();
-                System.out.print("Insert new AccountName: ");
-                this.name = input.next();
+            int choice2 = Integer.parseInt(choiceNumber2);
 
-                controller = new AccountController();
-                System.out.println(controller.editAccountName(id, name));
-                input.nextLine();
-                menu = new LoginMenu();
-                menu.loginMenu();
-                break;
-            case 2:
-                System.out.print("Insert AccountID: ");
-                this.id = input.nextInt();
-                System.out.print("Insert new Password: ");
-                String password2 = input.next();
-
-                controller = new AccountController();
-                System.out.println(controller.editAccountPassword(id, password2));
-                input.nextLine();
-                menu = new LoginMenu();
-                menu.loginMenu();
-                break;
-            case 3:
-                System.out.print("Insert AccountID: ");
-                this.id = input.nextInt();
-                System.out.print("Insert new AccountStatus: ");
-                this.status = input.nextInt();
-
-                controller = new AccountController();
-                System.out.println(controller.editAccountStatus(id, status));
-                input.nextLine();
-                menu = new LoginMenu();
-                menu.loginMenu();
-                break;
-            case 4:
-                System.out.print("Insert AccountID: ");
-                this.id = input.nextInt();
-                System.out.print("Insert new Accountname: ");
-                this.name = input.nextLine();
-                input.nextLine();
-                System.out.print("Insert new Password: ");
-                this.password = input.nextLine();
-                System.out.print("Insert new Accountstatus: ");
-                this.status = input.nextInt();
-
-                controller = new AccountController();
-                System.out.println(controller.updateAccount(id, name, password, status));
-                input.nextLine();
-                menu = new LoginMenu();
-                menu.loginMenu();
-                break;
-            case 5:
-                menu.loginMenu();
-                break;
-            default:
-                System.out.println("wrong number, try again");
-                updateAccountMenu();
-
+            switch (choice2) {
+                case 1:
+                    System.out.print("Insert AccountID: ");
+                    this.accountIdString = input.nextLine();
+                    if (validator.idValidator(this.accountIdString)) {
+                        this.id = Integer.parseInt(this.accountIdString);
+                        System.out.print("Insert new AccountName: ");
+                        this.name = input.nextLine();
+                        if (validator.stringValidator(this.name)) {
+                            controller = new AccountController();
+                            System.out.println(controller.editAccountName(id, name));
+                            loginMenu();
+                        } else {
+                            System.out.println("Name must have a value. ");
+                            updateAccountMenu();
+                        }
+                    } else {
+                        System.out.println("AccountID must be an integer and between 1 and 1000. ");
+                        updateAccountMenu();
+                    }
+                    break;
+                case 2:
+                    System.out.print("Insert AccountID: ");
+                    this.accountIdString = input.nextLine();
+                    if (validator.idValidator(this.accountIdString)) {
+                        this.id = Integer.parseInt(this.accountIdString);
+                        System.out.print("Insert new password: ");
+                        String password2 = input.nextLine();
+                        if (validator.stringValidator(password2)) {
+                            controller = new AccountController();
+                            System.out.println(controller.editAccountPassword(id, password2));
+                            loginMenu();
+                        } else {
+                            System.out.println("Password must have a value. ");
+                            updateAccountMenu();
+                        }
+                    } else {
+                        System.out.println("AccountID must be an integer and between 1 and 1000. ");
+                        updateAccountMenu();
+                    }
+                    break;
+                case 3:
+                    System.out.print("Insert AccountID: ");
+                    this.accountIdString = input.nextLine();
+                    if (validator.idValidator(this.accountIdString)) {
+                        this.id = Integer.parseInt(this.accountIdString);
+                        System.out.print("Insert new AccountStatus: ");
+                        this.accounStatusString = input.nextLine();
+                        if (validator.statusValidator(this.accounStatusString)) {
+                            this.status = Integer.parseInt(this.accounStatusString);
+                            controller = new AccountController();
+                            System.out.println(controller.editAccountStatus(id, status));
+                            loginMenu();
+                        } else {
+                            System.out.println("Status must be an integer and between 0 and 5.  ");
+                            updateAccountMenu();
+                        }
+                    } else {
+                        System.out.println("AccountID must be an integer and between 1 and 1000. ");
+                        updateAccountMenu();
+                    }
+                    break;
+                case 4:
+                    System.out.print("Insert AccountID: ");
+                    this.accountIdString = input.nextLine();
+                    if (validator.idValidator(this.accountIdString)) {
+                        this.id = Integer.parseInt(this.accountIdString);
+                        System.out.print("Insert new Accountname: ");
+                        this.name = input.nextLine();
+                        if (validator.stringValidator(this.name)) {
+                            System.out.print("Insert new Password: ");
+                            this.password = input.nextLine();
+                            if (validator.stringValidator(this.password)) {
+                                System.out.print("Insert new Accountstatus: ");
+                                this.accounStatusString = input.nextLine();
+                                if (validator.statusValidator(this.accounStatusString)) {
+                                    this.status = Integer.parseInt(this.accounStatusString);
+                                    controller = new AccountController();
+                                    System.out.println(controller.updateAccount(id, name, password, status));
+                                    loginMenu();
+                                } else {
+                                    System.out.println("Status must be an integer and between 0 and 5. ");
+                                    updateAccountMenu();
+                                }
+                            } else {
+                                System.out.println("Password must have a value. ");
+                                updateAccountMenu();
+                            }
+                        } else {
+                            System.out.println("Accountname must have a value. ");
+                            updateAccountMenu();
+                        }
+                    } else {
+                        System.out.println("AccountID must be an integer and between 1 and 1000. ");
+                        updateAccountMenu();
+                    }
+                    break;
+                case 5:
+                    loginMenu();
+                    break;
+                default:
+                    System.out.println("wrong number, try again");
+                    updateAccountMenu();
+            }
+        } else {
+            System.out.println("Choice must be an integer. ");
+            updateAccountMenu();
         }
     }
 

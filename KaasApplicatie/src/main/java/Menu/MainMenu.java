@@ -5,6 +5,7 @@
  */
 package Menu;
 
+import Helper.Validator;
 import java.util.*;
 import java.util.logging.Logger;
 
@@ -14,9 +15,9 @@ public class MainMenu {
 
     private Scanner input;
     private int choice;
+    Validator validator = new Validator();
 
     public void mainMenu() {
-
         logger.info("mainMenu start");
 
         input = new Scanner(System.in);
@@ -28,7 +29,10 @@ public class MainMenu {
                 + "4. Exit" + "\n"
                 + "Please enter your choice: ");
 
-        choice = input.nextInt();
+        String choiceNumber = input.next();
+        if (validator.menuValidator(choiceNumber)) {
+
+            choice = Integer.parseInt(choiceNumber);
 
         switch (choice) {
             case 1:
@@ -53,7 +57,11 @@ public class MainMenu {
                 System.out.println("wrong number, try again");
                 MainMenu mainmenu = new MainMenu();
                 mainmenu.mainMenu();
-
+        }
+        } else {
+            System.out.println("Choice must be an integer. ");
+            MainMenu mainmenu = new MainMenu();
+            mainmenu.mainMenu();
         }
 
         logger.info("mainMenu end");
