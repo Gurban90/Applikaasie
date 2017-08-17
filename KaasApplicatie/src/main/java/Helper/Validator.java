@@ -13,6 +13,7 @@ import org.apache.commons.validator.routines.IntegerValidator;
 import org.apache.commons.validator.GenericValidator;
 import static org.apache.commons.validator.GenericValidator.isBlankOrNull;
 import org.apache.commons.validator.routines.BigDecimalValidator;
+import org.apache.commons.validator.routines.EmailValidator;
 
 /**
  *
@@ -63,7 +64,7 @@ public class Validator { //ALLEEN MAINMENU AF!
         return check;
     }
 
-    public boolean priceValidator(String price) { 
+    public boolean priceValidator(String price) {
         boolean check = true;
         int dot = price.indexOf('.');
         String decimals = price.substring(dot + 1);
@@ -103,7 +104,7 @@ public class Validator { //ALLEEN MAINMENU AF!
             return false;
         }
     }
-    
+
     public boolean statusValidator(String status) {
         boolean parsable = true;
         try {
@@ -120,10 +121,23 @@ public class Validator { //ALLEEN MAINMENU AF!
         }
     }
 
+    public boolean eMailValidator(String eMail) {
+        boolean check = true;
+        EmailValidator emailValid = EmailValidator.getInstance(true);
+        if (isBlankOrNull(eMail)) {
+            check = false;
+        }
+        if (check == true) {
+            return emailValid.isValid(eMail);
+        } else {
+            return false;
+        }
+    }
+
     public static void main(String[] args) {
-        String price = "22.00";
+        String email = "iets@gmail.com";
         Validator valid = new Validator();
-        boolean hoi = valid.priceValidator(price);
+        boolean hoi = valid.eMailValidator(email);
 
         System.out.print(hoi);
 

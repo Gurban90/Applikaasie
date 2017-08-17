@@ -52,7 +52,7 @@ public class AccountPOJO {
     
     @Override
     public String toString(){
-        return "AccountID: "+accountID+", AccountName: " +accountName + " Password: "+password+", AccountStatus: " +accountStatus;
+        return "AccountID: "+accountID+", AccountName: " +accountName + ", Password: "+password+", AccountStatus: " +accountStatus;
     }
     
             

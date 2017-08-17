@@ -90,7 +90,6 @@ public class LoginMenu { //TESTEN
                                 controller = new AccountController();
                                 int accountid = controller.newAccount(name, password, status);
                                 System.out.println("Account is added and has ID: " + accountid);
-                                input.nextLine();
                                 loginMenu();
                             } else {
                                 System.out.println("Status must be an integer and between 0 and 5. ");
@@ -141,7 +140,7 @@ public class LoginMenu { //TESTEN
                         if (validator.stringValidator(this.password)) {
                             controller = new AccountController();
                             if (controller.removeAccount(id, password)) {
-                                System.out.print("Account has been deleted.");
+                                System.out.println("Account has been deleted.");
                                 loginMenu();
                             } else {
                                 System.out.println("Wrong password or accountnumber, try again.");
@@ -287,15 +286,14 @@ public class LoginMenu { //TESTEN
                         if (validator.stringValidator(this.name)) {
                             controller = new AccountController();
                             System.out.println(controller.editAccountName(id, name));
-                            input.nextLine();
                             loginMenu();
                         } else {
                             System.out.println("Name must have a value. ");
-                            loginMenu();
+                            updateAccountMenu();
                         }
                     } else {
                         System.out.println("AccountID must be an integer and between 1 and 1000. ");
-                        loginMenu();
+                        updateAccountMenu();
                     }
                     break;
                 case 2:
@@ -308,15 +306,14 @@ public class LoginMenu { //TESTEN
                         if (validator.stringValidator(password2)) {
                             controller = new AccountController();
                             System.out.println(controller.editAccountPassword(id, password2));
-                            input.nextLine();
                             loginMenu();
                         } else {
                             System.out.println("Password must have a value. ");
-                            loginMenu();
+                            updateAccountMenu();
                         }
                     } else {
                         System.out.println("AccountID must be an integer and between 1 and 1000. ");
-                        loginMenu();
+                        updateAccountMenu();
                     }
                     break;
                 case 3:
@@ -330,15 +327,14 @@ public class LoginMenu { //TESTEN
                             this.status = Integer.parseInt(this.accounStatusString);
                             controller = new AccountController();
                             System.out.println(controller.editAccountStatus(id, status));
-                            input.nextLine();
                             loginMenu();
                         } else {
                             System.out.println("Status must be an integer and between 0 and 5.  ");
-                            loginMenu();
+                            updateAccountMenu();
                         }
                     } else {
                         System.out.println("AccountID must be an integer and between 1 and 1000. ");
-                        loginMenu();
+                        updateAccountMenu();
                     }
                     break;
                 case 4:
@@ -358,23 +354,22 @@ public class LoginMenu { //TESTEN
                                     this.status = Integer.parseInt(this.accounStatusString);
                                     controller = new AccountController();
                                     System.out.println(controller.updateAccount(id, name, password, status));
-                                    input.nextLine();
                                     loginMenu();
                                 } else {
                                     System.out.println("Status must be an integer and between 0 and 5. ");
-                                    loginMenu();
+                                    updateAccountMenu();
                                 }
                             } else {
                                 System.out.println("Password must have a value. ");
-                                loginMenu();
+                                updateAccountMenu();
                             }
                         } else {
                             System.out.println("Accountname must have a value. ");
-                            loginMenu();
+                            updateAccountMenu();
                         }
                     } else {
                         System.out.println("AccountID must be an integer and between 1 and 1000. ");
-                        loginMenu();
+                        updateAccountMenu();
                     }
                     break;
                 case 5:
