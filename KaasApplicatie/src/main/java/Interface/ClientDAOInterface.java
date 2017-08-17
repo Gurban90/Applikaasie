@@ -9,7 +9,7 @@ public interface ClientDAOInterface {
 
     public List<ClientPOJO> getAllClient();
 
-    public List<ClientPOJO> getClient(ClientPOJO client);
+    public ClientPOJO getClient(ClientPOJO client);
 
     public List<ClientPOJO> getClientWithFirstName(String FirstName);
 

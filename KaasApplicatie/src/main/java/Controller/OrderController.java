@@ -35,7 +35,7 @@ public class OrderController {
         int day;
         int hour;
         int min;
-        int sec= (0);
+        int sec = (0);
         
 
     public OrderController() {

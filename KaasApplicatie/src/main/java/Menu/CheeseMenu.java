@@ -117,9 +117,9 @@ public class CheeseMenu {
                 + "5. Return to last menu" + "\n"
                 + "Please enter your choice: ");
 
-        int choice2 = input.nextInt();
+        int editchoice = input.nextInt();
 
-        switch (choice2) {
+        switch (editchoice) {
             case 1:
                 System.out.print("Insert CheeseID: ");
                 this.id = input.nextInt();

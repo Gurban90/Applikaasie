@@ -60,9 +60,6 @@ public class Connector {
         }
         return Jdbc.connection;
     }
-    public static void main (String [] args) {
-        Connector.getConnection();
-    }
 }
 
 
