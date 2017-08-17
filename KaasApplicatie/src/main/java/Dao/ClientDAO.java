@@ -95,59 +95,37 @@ public class ClientDAO implements ClientDAOInterface {
         return returnedClients;
     }
 
-    @Override
-    public List<ClientPOJO> getClient(ClientPOJO client) {
+
+    public ClientPOJO getClient(ClientPOJO client) {
         logger.info("getClient Start");
         String query = "SELECT * FROM Client WHERE ClientID=?";
-        List<ClientPOJO> returnedClients = new ArrayList<>();
+        ClientPOJO foundClient = new ClientPOJO();
         try {
             connection = Connector.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, client.getClientID());
+            statement.setObject(1, client.getClientID());
             ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                ClientPOJO clients = new ClientPOJO();
-                clients.setClientID(resultSet.getInt(1));
-                clients.setFirstName(resultSet.getString(2));
-                clients.setLastName(resultSet.getString(3));
-                clients.setEMail(resultSet.getString(4));
-                returnedClients.add(clients);
+
+            if (resultSet.isBeforeFirst()) {
+                resultSet.next();
+                foundClient.setClientID(resultSet.getInt(1));
+                foundClient.setFirstName(resultSet.getString(2));
+                foundClient.setLastName(resultSet.getString(3));
+                foundClient.setEMail(resultSet.getString(4));
             }
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally{
-                try { connection.close(); } catch (SQLException e) {}
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        
+        }
         logger.info("getClient end");
-        return returnedClients;
+        return foundClient;
     }
-    
- /*
-   public List<ClientPOJO> getClient(int id) {
-        return null;
-       
-   }
-    public List<ClientPOJO> getClient(String firstname) {
-        return null;
-       
-   }
-    public List<ClientPOJO> getClient(String lastName) {
-        return null;
-        // problem with the string get client, with id or firstname or get client with ClientPOJO 
-        // where the difference in the pojo determines what is searched/get
-    
-    
-   }
-    public List<ClientPOJO> getClient(String Email) {
-        return null;
-       
-   }
-   */ 
-    
-    
-
     @Override
     public List<ClientPOJO> getClientWithFirstName(String FirstName) {
         logger.info("getClientWithName Start");
