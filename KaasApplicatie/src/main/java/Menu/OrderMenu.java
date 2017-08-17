@@ -101,8 +101,7 @@ public class OrderMenu {
                 
                 logger.info("newOrder end");        
                 break;
-           
-        case 2:
+            case 2:
                 logger.info("removeorder start");
                 System.out.print("Enter The orderID you want to remove: ");
                 orderID = input.nextInt();
