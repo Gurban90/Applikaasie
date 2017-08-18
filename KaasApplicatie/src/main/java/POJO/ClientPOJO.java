@@ -51,4 +51,8 @@ public class ClientPOJO {
     public String getEMail() {
         return eMail;
     }
+    @Override
+    public String toString(){
+        return "ClientID: "+clientID+", First Name: " +firstName + " Last Name: "+lastName+", E-Mail: " +eMail;
+    }
 }

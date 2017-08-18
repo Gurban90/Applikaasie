@@ -80,7 +80,7 @@ public class ClientDAOTest {
 
         try {
             connection = Connector.getConnection();
-            String query = "SELECT * FROM Account";
+            String query = "SELECT * FROM Client";
             Statement statement = connection.createStatement();
             ResultSet resultset = statement.executeQuery(query);
             resultset.next();
@@ -102,7 +102,7 @@ public class ClientDAOTest {
 
         try {
             connection = Connector.getConnection();
-            String query = "SELECT * FROM Account WHERE ClientID=1";
+            String query = "SELECT * FROM Client WHERE ClientID=1";
             Statement statement = connection.createStatement();
             ResultSet resultset = statement.executeQuery(query);
             resultset.next();

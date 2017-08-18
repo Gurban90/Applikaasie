@@ -89,8 +89,6 @@ public class ClientDAO implements ClientDAOInterface {
                 try { connection.close(); } catch (SQLException e) {}
             }
         
-        
-        
         logger.info("getAllClient end");
         return returnedClients;
     }
