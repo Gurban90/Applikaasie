@@ -19,11 +19,13 @@ import java.time.ZoneOffset;
 public class OrderPOJO {
     
     private int orderID;
-    private OrderDetailPOJO orderDetail;
-    private ClientPOJO client;
-    private BigDecimal totalPrice;
-    private LocalDateTime orderDate;
-    private LocalDateTime processedDate;
+    private ClientPOJO client; //id is first input
+    private LocalDateTime orderDate; //when it is ordered (now time)
+    private LocalDateTime processedDate; //when the order is finished and send to client
+    
+    private OrderDetailPOJO orderDetail; //zero
+    private BigDecimal totalPrice; //zero
+
 
 
     public OrderPOJO(){

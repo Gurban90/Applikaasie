@@ -6,6 +6,7 @@ import Dao.CheeseDAO;
 import Dao.ClientDAO;
 import Dao.OrderDAO;
 import Dao.OrderDetailDAO;
+import Helper.HelpClientOrderCheese;
 import POJO.CheesePOJO;
 import POJO.ClientPOJO;
 import POJO.OrderDetailPOJO;
@@ -24,7 +25,7 @@ public class OrderMenu {
     private Scanner input;
     private int choice;
     
-    boolean orderdetail = true;
+    private boolean makeOrderDetail = true;
     
     int clientID;
     int orderID;
@@ -44,8 +45,9 @@ public class OrderMenu {
     
             
     
-    
+    HelpClientOrderCheese collection = new HelpClientOrderCheese();
     OrderController orderController = new OrderController();
+    
     private OrderMenu menu = new OrderMenu();
     
 
@@ -66,13 +68,15 @@ public class OrderMenu {
 
         switch (choice) {
             case 1:
+                
                 logger.info("newOrder start");
                 
                 System.out.print("Fill in a new order: ");
-                System.out.println("Please select ClientID for new order:  ");
+                System.out.println("Please select the ClientID  from the client that made the order:  ");
                 clientID = input.nextInt();
+                collection.setClientID(clientID);
                 
-                System.out.print("Set the delivery date: ");
+                System.out.print("set the time of day when the order was made by the client: ");
                 System.out.print("enter Year: ");
                 this.year = input.nextInt();
                 System.out.println("enter month: ");
@@ -83,9 +87,36 @@ public class OrderMenu {
                 this.hour = input.nextInt(); 
                 System.out.println("input next min");
                 this.min = input.nextInt();      
-                orderController.newOrder(clientID, year, month, day, hour, min);               
+                collection.setNewOrderByClient(year, month, day, hour, min);               
                 
-                 while(orderdetail){
+                System.out.print("set the time of day when the order will be delivered to the client: ");
+                System.out.print("enter Year: ");
+                this.year = input.nextInt();
+                System.out.println("enter month: ");
+                this.month = input.nextInt();
+                System.out.println("enter day: ");
+                this.day = input.nextInt();
+                System.out.println("input next hour");
+                this.hour = input.nextInt(); 
+                System.out.println("input next min");
+                this.min = input.nextInt();      
+                collection.setOrderDelivery(year, month, day, hour, min);               
+                
+                System.out.println("Compiling the order");
+                orderController.setOrder();
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+             
+                while(makeOrderDetail){
+                System.out.println("adding a orderdetail");
                 
                 System.out.println("Select cheeseID for OrderDetail: ");
                 cheeseID = input.nextInt(); 
@@ -93,14 +124,24 @@ public class OrderMenu {
                  System.out.println("give amount of cheese");
                 ammountCheese = input.nextInt();
                      
+                //orderController.newOrderDetail(cheeseID, ammountCheese);
+                
                 System.out.println("Do you want to add a new order detail? ");        
                 anwser = input.nextLine();
-                
-                orderController.newOrderDetail(cheeseID, ammountCheese, anwser );
-                
+                if(anwser.equalsIgnoreCase("no")|| anwser.equalsIgnoreCase("n")){
+                    
+                    makeOrderDetail = false;
+                    }
+
+                }
                 
                 logger.info("newOrder end");        
                 break;
+            
+           
+                
+                
+                
             case 2:
                 logger.info("removeorder start");
                 System.out.print("Enter The orderID you want to remove: ");
@@ -135,9 +176,91 @@ public class OrderMenu {
 
         }
         logger.info("OrderMenu end");
-    }
+        }
+    }        
+        
+   
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
 //eerst order voordat men order detail kan aanmaken
 
+
+/*
     private void newOrder() {
         logger.info("newOrder start");
      
@@ -329,5 +452,5 @@ public class OrderMenu {
         }
 
     
-    
-}
+  */  
+
