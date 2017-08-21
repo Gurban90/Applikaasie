@@ -37,11 +37,19 @@ public class HelpClientOrderCheese {
         private LocalDateTime orderDate;
         
         private BigDecimal totalPrice = null;
-        private ClientPOJO returnedPOJO;
-
+   
+        ClientPOJO clientPOJO;
+        ClientPOJO returnedPOJO;
+        ClientDAO clientDAO;
+        OrderController orderController;
+                
 
     
-    
+    public HelpClientOrderCheese(){
+         clientPOJO = new ClientPOJO();
+         returnedPOJO = new ClientPOJO();
+         clientDAO = new ClientDAO();
+    }
     
     
     
@@ -51,13 +59,15 @@ public class HelpClientOrderCheese {
     
     
     public void setClientID(int clientID) {
-        ClientPOJO clientPOJO = new ClientPOJO();
-        ClientDAO clientDAO = new ClientDAO();
+
+        
         
         this.clientID = clientID;
         
         clientPOJO.setClientID(clientID);
         returnedPOJO = clientDAO.getClient(clientPOJO);
+        
+        
   
     }
 
@@ -87,27 +97,12 @@ public class HelpClientOrderCheese {
    
             
     }
-    
-    public ClientPOJO getClientPOJO(){
-        return returnedPOJO;
-    } 
-    
-    public LocalDateTime getProcessedDate(){
-        return processedDate;
-    }
-    
-    public LocalDateTime getOrderDate(){
-        return orderDate;
-    }
-    
-    
-    public BigDecimal getZeroTotal(){
-        return totalPrice;
-    }
-    
-    
 
-
-    
-    
+  public void getOrder(){
+      
+      orderController = new OrderController();
+      
+      orderController.setOrder(clientPOJO, totalPrice, processedDate, orderDate);
+      
+  }
 }
