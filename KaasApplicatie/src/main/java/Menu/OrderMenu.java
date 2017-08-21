@@ -3,6 +3,7 @@ package Menu;
 
 import Controller.OrderController;
 import Helper.HelpClientOrderCheese;
+import Helper.OrderDetailCheeseCompiler;
 import java.util.*;
 import java.util.logging.Logger;
 
@@ -88,11 +89,11 @@ public class OrderMenu {
                 collection.setOrderDelivery(year, month, day, hour, min);               
 
                 System.out.println("Activating Controller");
-                orderController = new OrderController();
-                
+
              
                 while(makeOrderDetail){
                 System.out.println("adding a orderdetail");
+                OrderDetailCheeseCompiler compiler = new OrderDetailCheeseCompiler();
                 
                 System.out.println("Select cheeseID for OrderDetail: ");
                 cheeseID = input.nextInt(); 
@@ -100,7 +101,7 @@ public class OrderMenu {
                  System.out.println("give amount of cheese");
                 ammountCheese = input.nextInt();
                      
-                //orderController.newOrderDetail(cheeseID, ammountCheese);
+               compiler.setData(cheeseID, ammountCheese);
                 
                 System.out.println("Do you want to add a new order detail? ");        
                 anwser = input.nextLine();

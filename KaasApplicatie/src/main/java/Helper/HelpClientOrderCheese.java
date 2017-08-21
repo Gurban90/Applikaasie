@@ -8,7 +8,9 @@ package Helper;
 
 import Controller.OrderController;
 import Dao.ClientDAO;
+import Dao.OrderDetailDAO;
 import POJO.ClientPOJO;
+import POJO.OrderDetailPOJO;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -37,11 +39,14 @@ public class HelpClientOrderCheese {
         private LocalDateTime orderDate;
         
         private BigDecimal totalPrice = null;
+    
    
-        ClientPOJO clientPOJO;
-        ClientPOJO returnedPOJO;
-        ClientDAO clientDAO;
-        OrderController orderController;
+        private ClientPOJO clientPOJO;
+        private ClientPOJO returnedPOJO;
+        private ClientDAO clientDAO;
+        private OrderDetailDAO orderDetailDAO;
+        private OrderDetailPOJO orderDetailPOJO;
+        private OrderController orderController;
                 
 
     
@@ -101,8 +106,9 @@ public class HelpClientOrderCheese {
   public void getOrder(){
       
       orderController = new OrderController();
+      orderDetailPOJO = new OrderDetailPOJO();
       
-      orderController.setOrder(clientPOJO, totalPrice, processedDate, orderDate);
+      orderController.setOrder(clientPOJO, totalPrice, processedDate, orderDate, orderDetailPOJO);
       
   }
 }
