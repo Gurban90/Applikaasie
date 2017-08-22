@@ -5,14 +5,12 @@
  */
 package Controller;
 
-import Dao.CheeseDAO;
-import Dao.ClientDAO;
 import Dao.OrderDAO;
-import Helper.HelpClientOrderCheese;
-import POJO.CheesePOJO;
+import Dao.OrderDetailDAO;
 import POJO.ClientPOJO;
 import POJO.OrderDetailPOJO;
 import POJO.OrderPOJO;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
@@ -22,20 +20,24 @@ import java.time.LocalDateTime;
 public class OrderController {
 
 
+    Integer orderID;
+    Integer orderDetailID;
+    
     public OrderController() {
     }
     
 
-    public void setOrder() {
+    public void setOrder(ClientPOJO client, BigDecimal totalPrice, LocalDateTime processedDate, LocalDateTime orderDate, OrderDetailPOJO orderDetail) {
         OrderPOJO orderPOJO = new OrderPOJO();
         OrderDAO orderDAO = new OrderDAO();
-        HelpClientOrderCheese help = new HelpClientOrderCheese();
         
-        orderPOJO.setOrderDate(help.getOrderDate());
-        orderPOJO.setProcessedDate(help.getProcessedDate());
-        orderPOJO.setTotalPrice(help.getZeroTotal());
-        orderPOJO.setClient(help.getClientPOJO());
-        orderDAO.addOrder(orderPOJO);
+        
+        orderPOJO.setOrderDate(orderDate);
+        orderPOJO.setProcessedDate(processedDate);
+        orderPOJO.setTotalPrice(totalPrice);
+        orderPOJO.setClient(client);
+        orderPOJO.setOrderDetail(orderDetail);
+        orderID = orderDAO.addOrder(orderPOJO);
         
     }
     
@@ -51,8 +53,21 @@ public class OrderController {
     
     
     }
+/*
+    public void newOrderDetail(int cheeseID, int ammountCheese) {
+        OrderDetailPOJO orderDetailPOJO = new OrderDetailPOJO();
+        OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
+        
+        orderDetailPOJO.
+        orderDetailPOJO.
+        orderDetailPOJO.        
+        orderDetailPOJO.        
+                
+         orderDetailID = orderDetailDAO.addOrderDetail(orderDetailPOJO)
+    
+    }
 
-
+*/
 
 
     

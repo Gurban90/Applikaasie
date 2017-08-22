@@ -5,7 +5,6 @@
  */
 package POJO;
 
-import Dao.CheeseDAO;
 
 
 /**
@@ -14,6 +13,8 @@ import Dao.CheeseDAO;
  */
 //ORDERDETAILPOJO
 public class OrderDetailPOJO {
+    
+    
     private int orderDetailID;
     private CheesePOJO cheese;
     private int cheeseID; 

@@ -2,19 +2,8 @@ package Menu;
 
 
 import Controller.OrderController;
-import Dao.CheeseDAO;
-import Dao.ClientDAO;
-import Dao.OrderDAO;
-import Dao.OrderDetailDAO;
 import Helper.HelpClientOrderCheese;
-import POJO.CheesePOJO;
-import POJO.ClientPOJO;
-import POJO.OrderDetailPOJO;
-import POJO.OrderPOJO;
-import java.math.BigDecimal;
-import java.math.MathContext;
-import java.time.LocalDateTime;
-import java.time.Month;
+import Helper.OrderDetailCheeseCompiler;
 import java.util.*;
 import java.util.logging.Logger;
 
@@ -24,31 +13,27 @@ public class OrderMenu {
 
     private Scanner input;
     private int choice;
+    String anwser;
     
     private boolean makeOrderDetail = true;
+    private OrderMenu menu;
     
     int clientID;
     int orderID;
     int cheeseID;
     int ammountCheese;
     
-    String anwser;
+
+    int year;
+    int month;
+    int day;
+    int hour;
+    int min;
+    int sec;
     
-    int number = 1;
+    HelpClientOrderCheese collection; 
+    OrderController orderController; 
     
-        int year;
-        int month;
-        int day;
-        int hour;
-        int min;
-        int sec;
-    
-            
-    
-    HelpClientOrderCheese collection = new HelpClientOrderCheese();
-    OrderController orderController = new OrderController();
-    
-    private OrderMenu menu = new OrderMenu();
     
 
     public void orderMenu() {
@@ -72,6 +57,7 @@ public class OrderMenu {
                 logger.info("newOrder start");
                 
                 System.out.print("Fill in a new order: ");
+                collection = new HelpClientOrderCheese();
                 System.out.println("Please select the ClientID  from the client that made the order:  ");
                 clientID = input.nextInt();
                 collection.setClientID(clientID);
@@ -101,22 +87,13 @@ public class OrderMenu {
                 System.out.println("input next min");
                 this.min = input.nextInt();      
                 collection.setOrderDelivery(year, month, day, hour, min);               
-                
-                System.out.println("Compiling the order");
-                orderController.setOrder();
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
+
+                System.out.println("Activating Controller");
+
              
                 while(makeOrderDetail){
                 System.out.println("adding a orderdetail");
+                OrderDetailCheeseCompiler compiler = new OrderDetailCheeseCompiler();
                 
                 System.out.println("Select cheeseID for OrderDetail: ");
                 cheeseID = input.nextInt(); 
@@ -124,12 +101,12 @@ public class OrderMenu {
                  System.out.println("give amount of cheese");
                 ammountCheese = input.nextInt();
                      
-                //orderController.newOrderDetail(cheeseID, ammountCheese);
+               compiler.setData(cheeseID, ammountCheese);
                 
                 System.out.println("Do you want to add a new order detail? ");        
                 anwser = input.nextLine();
-                if(anwser.equalsIgnoreCase("no")|| anwser.equalsIgnoreCase("n")){
-                    
+                
+                if(anwser.equalsIgnoreCase("no")|| anwser.equalsIgnoreCase("n")){    
                     makeOrderDetail = false;
                     }
 
@@ -150,6 +127,7 @@ public class OrderMenu {
                 
                 
                 orderController.removeOrder(orderID);
+                menu = new OrderMenu();
                 menu.orderMenu();
                 logger.info("removeorder end");
                 break;
@@ -172,6 +150,7 @@ public class OrderMenu {
                 break;
             default:
                 System.out.println("wrong number, try again");
+                menu = new OrderMenu();
                 menu.orderMenu();
 
         }
