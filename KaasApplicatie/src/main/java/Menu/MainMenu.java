@@ -29,7 +29,7 @@ public class MainMenu {
                 + "4. Exit" + "\n"
                 + "Please enter your choice: ");
 
-        String choiceNumber = input.next();
+        String choiceNumber = input.nextLine();
         if (validator.menuValidator(choiceNumber)) {
 
             choice = Integer.parseInt(choiceNumber);

@@ -37,7 +37,8 @@ public class ClientMenu {
                 + "2. Remove Client" + "\n"
                 + "3. Edit Client" + "\n"
                 + "4. Search Client" + "\n"
-                + "5. Return to last menu" + "\n"
+                + "5  Go to Address menu" + "\n"
+                + "6. Return to last menu" + "\n"
                 + "Please enter your choice: ");
 
         String choiceNumber = input.nextLine();
@@ -48,11 +49,9 @@ public class ClientMenu {
             switch (choice) {
                 case 1:
                     LOGGER.info("newClient start");
-
                     System.out.print("Insert Client First Name: ");
                     firstName = input.nextLine();
                     if (validator.stringValidator(firstName)) {
-
                         System.out.print("Insert Client Last Name: ");
                         lastName = input.nextLine();
                         if (validator.stringValidator(lastName)) {
@@ -87,12 +86,16 @@ public class ClientMenu {
                         clientID = Integer.parseInt(this.ClientIDString);
 
                         System.out.println("Are You Sure you want to remove clientID: " + clientID + "  enter Yes ");
-                        anwser = input.next();
+                        anwser = input.nextLine();
+                        if (validator.stringValidator(anwser)) {
+                            controller.removeClient(clientID, anwser);
 
-                        controller.removeClient(clientID, anwser);
-
-                        LOGGER.info("removeClient end");
-                        clientMenu();
+                            LOGGER.info("removeClient end");
+                            clientMenu();
+                        } else {
+                            System.out.println("Answer cannot be empty. ");
+                            clientMenu();
+                        }
                     } else {
                         System.out.println("ClientID must be an integer and between 1 and 1000. ");
                         clientMenu();
@@ -105,8 +108,12 @@ public class ClientMenu {
                 case 4:
                     searchClientMenu();
                     break;
-
                 case 5:
+                    LOGGER.info("Open AddressMenu");
+                    AddressMenu menu = new AddressMenu();
+                    menu.addressMenu();
+                    break;
+                case 6:
                     LOGGER.info("Open MainMenu");
                     MainMenu mainmenu = new MainMenu();
                     mainmenu.mainMenu();
@@ -129,7 +136,7 @@ public class ClientMenu {
                 + "1. Show all clients" + "\n"
                 + "2. Alter first Name" + "\n"
                 + "3. Alter last Name" + "\n"
-                + "4. alter email" + "\n"
+                + "4. alter E-mail" + "\n"
                 + "5. edit all" + "\n"
                 + "6. Return to last menu" + "\n"
                 + "Please enter your choice: ");
@@ -219,17 +226,17 @@ public class ClientMenu {
 
                 case 5:
                     LOGGER.info("editClient start");
-                    System.out.println("Insert client ID to search Client: ");
+                    System.out.print("Insert client ID: ");
                     ClientIDString = input.nextLine();
                     if (validator.idValidator(this.ClientIDString)) {
                         this.clientID = Integer.parseInt(this.ClientIDString);
-                        System.out.print("Insert Client First Name: ");
+                        System.out.print("Insert new Client First Name: ");
                         this.firstName = input.nextLine();
                         if (validator.stringValidator(this.firstName)) {
-                            System.out.print("Insert Client Last Name: ");
+                            System.out.print("Insert new Client Last Name: ");
                             this.lastName = input.nextLine();
                             if (validator.stringValidator(this.lastName)) {
-                                System.out.print("Insert Client email");
+                                System.out.print("Insert new Client email: ");
                                 this.eMail = input.nextLine();
                                 if (validator.eMailValidator(this.eMail)) {
 
@@ -274,10 +281,10 @@ public class ClientMenu {
         System.out.print(" Client menu: " + "\n"
                 + "1. Show all clients" + "\n"
                 + "2. Search on ID" + "\n"
-                + "3. Search on firstName" + "\n"
-                + "4 Search on lastName" + "\n"
-                + "5 search on eMail" + "\n"
-                + "5. Return to last menu" + "\n"
+                + "3. Search on first name" + "\n"
+                + "4  Search on last name" + "\n"
+                + "5  Search on E-Mail" + "\n"
+                + "6. Return to last menu" + "\n"
                 + "Please enter your choice: ");
 
         String choiceNumber3 = input.nextLine();
@@ -316,18 +323,9 @@ public class ClientMenu {
                     System.out.print("firstName please: ");
                     this.firstName = input.nextLine();
                     if (validator.stringValidator(this.firstName)) {
-
                         controller = new ClientController();
                         this.returnedClientList = controller.findClientWithFirstName(firstName);
-
-                        for (ClientPOJO printList : returnedClientList) {
-                            System.out.println(printList.getClientID());
-                            System.out.println(printList.getFirstName());
-                            System.out.println(printList.getLastName());
-                            System.out.println(printList.getEMail());
-
-                        }
-
+                        System.out.println(returnedClientList);
                         clientMenu();
                     } else {
                         System.out.println("First Name cannot be empty. ");
@@ -341,15 +339,7 @@ public class ClientMenu {
 
                         controller = new ClientController();
                         this.returnedClientList = controller.findClientWithLastName(lastName);
-
-                        for (ClientPOJO printList : returnedClientList) {
-                            System.out.println(printList.getClientID());
-                            System.out.println(printList.getFirstName());
-                            System.out.println(printList.getLastName());
-                            System.out.println(printList.getEMail());
-
-                        }
-
+                        System.out.println(returnedClientList);
                         clientMenu();
                     } else {
                         System.out.println("Last Name cannot be empty. ");
@@ -363,15 +353,7 @@ public class ClientMenu {
 
                         controller = new ClientController();
                         this.returnedClientList = controller.findClientWithEMail(eMail);
-
-                        for (ClientPOJO printList : returnedClientList) {
-                            System.out.println(printList.getClientID());
-                            System.out.println(printList.getFirstName());
-                            System.out.println(printList.getLastName());
-                            System.out.println(printList.getEMail());
-
-                        }
-
+                        System.out.println(returnedClientList);
                         clientMenu();
                     } else {
                         System.out.println("E-mail must be a valid e-mail address. ");

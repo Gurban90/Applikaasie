@@ -32,7 +32,7 @@ public class ClientDAO implements ClientDAOInterface {
         logger.info("addClient Start");
         Integer newID = 0;
 
-        String insertClient = "INSERT INTO Client (FirstName, LastName, E-mail) VALUES(?,?,?);";
+        String insertClient = "INSERT INTO Client (FirstName, LastName, Email) VALUES(?,?,?);";
         try {
             connection = Connector.getConnection();
             PreparedStatement statement = connection.prepareStatement(insertClient, Statement.RETURN_GENERATED_KEYS);
@@ -185,7 +185,7 @@ public class ClientDAO implements ClientDAOInterface {
     @Override
     public List<ClientPOJO> getClientWithEmail(String eMail) {
         logger.info("getClientWithEmail Start");
-        String query = "SELECT * FROM Client WHERE E-mail=?";
+        String query = "SELECT * FROM Client WHERE Email=?";
         List<ClientPOJO> returnedClients = new ArrayList<>();
         try {
             connection = Connector.getConnection();
@@ -214,7 +214,7 @@ public class ClientDAO implements ClientDAOInterface {
     @Override
     public void updateClient(ClientPOJO client) {
         logger.info("updateClient Start");
-        String query = "UPDATE Client SET FirstName = ?, LastName = ?, E-mail = ? WHERE ClientID=?";
+        String query = "UPDATE Client SET FirstName = ?, LastName = ?, Email = ? WHERE ClientID=?";
         try {
             connection = Connector.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
@@ -236,7 +236,7 @@ public class ClientDAO implements ClientDAOInterface {
     @Override
     public void deleteClient(ClientPOJO client) {
         logger.info("deleteClient Start");
-        String query = "select * from OrderDetail where Client_ClientID = ?";
+        String query = "SELECT * FROM `Order` WHERE Client_ClientID=?";
         try {
             connection = Connector.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);

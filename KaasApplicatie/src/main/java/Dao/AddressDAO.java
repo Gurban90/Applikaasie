@@ -34,42 +34,57 @@ public class AddressDAO implements AddressDAOInterface {
     public Integer addAddress(AddressPOJO address) {
         log.info("addAddress Start");
         Integer newID = 0;
-        ClientPOJO client = new ClientPOJO();
-        AddressTypePOJO addresstype = new AddressTypePOJO();
-        String query = "INSERT INTO Address (HouseNumber, HouseNumberAddition, StreetName , PostalCode, City, Client_ClientID, AddressType_AddressTypeID ) VALUES (?,?,?,?,?,?,?);";
+        ClientPOJO client = address.getClient();
+        AddressTypePOJO addresstype = address.getAddresstype();
+        String query = "select * from Client where ClientID = ?";
         try {
             connect = Connector.getConnection();
-            PreparedStatement statement = connect.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            statement.setInt(1, address.getHouseNumber());
-            statement.setString(2, address.getHouseNumberAddition());
-            statement.setString(3, address.getStreetName());
-            statement.setString(4, address.getPostalCode());
-            statement.setString(5, address.getCity());
-            statement.setInt(6, client.getClientID());
-            statement.setInt(6, addresstype.getAddressTypeID());
-            statement.executeUpdate();
+            PreparedStatement statement = connect.prepareStatement(query);
+            statement.setInt(1, client.getClientID());
+            ResultSet resultSet1 = statement.executeQuery();
+            if (resultSet1.next()) {
+                String query2 = "select * from AddressType where AddressTypeID = ?";
+                statement = connect.prepareStatement(query2);
+                statement.setInt(1, addresstype.getAddressTypeID());
+                ResultSet resultSet2 = statement.executeQuery();
+                if (resultSet2.next()) {
+                    String query3 = "INSERT INTO Address (StreetName, HouseNumber, HouseNumberAddition, PostalCode, City, Client_ClientID, AddressType_AddressTypeID ) VALUES (?,?,?,?,?,?,?);";
+                    connect = Connector.getConnection();
+                    statement = connect.prepareStatement(query3, Statement.RETURN_GENERATED_KEYS);
+                    statement.setString(1, address.getStreetName());
+                    statement.setInt(2, address.getHouseNumber());
+                    statement.setString(3, address.getHouseNumberAddition());
+                    statement.setString(4, address.getPostalCode());
+                    statement.setString(5, address.getCity());
+                    statement.setInt(6, client.getClientID());
+                    statement.setInt(7, addresstype.getAddressTypeID());
+                    statement.executeUpdate();
 
-            try (ResultSet resultSet = statement.getGeneratedKeys()) {
-                if (resultSet.next()) { //skips to next row
-                    newID = resultSet.getInt(1); //selects number from first column of database in row
-                    address.setAddressID(newID); // sets Id
+                    try (ResultSet resultSet3 = statement.getGeneratedKeys()) {
+                        if (resultSet3.next()) { //skips to next row
+                            newID = resultSet3.getInt(1); //selects number from first column of database in row
+                            address.setAddressID(newID); // sets Id
+                        } else {
+                            throw new SQLException("Creating Address failed, no ID obtained. Client and AddressType must exist.");
+                        }
+                    }
                 } else {
-                    throw new SQLException("Creating Address failed, no ID obtained.");
+                    System.out.println("Check AddressType , has to exist in database");
                 }
+            } else {
+                System.out.println("Check Client, has to exist in database");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             try {
                 connect.close();
-
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
         log.info("addAddress end");
         return newID;
-
     }
 
     @Override
@@ -88,11 +103,13 @@ public class AddressDAO implements AddressDAOInterface {
             if (resultSet.isBeforeFirst()) {
                 resultSet.next();
                 foundAddress.setAddressID(resultSet.getInt(1));
-                foundAddress.setHouseNumber(resultSet.getInt(2));
-                foundAddress.setHouseNumberAddition(resultSet.getString(3));
-                foundAddress.setStreetName(resultSet.getString(4));
+                foundAddress.setStreetName(resultSet.getString(2));
+                foundAddress.setHouseNumber(resultSet.getInt(3));
+                foundAddress.setHouseNumberAddition(resultSet.getString(4));
                 foundAddress.setPostalCode(resultSet.getString(5));
                 foundAddress.setCity(resultSet.getString(6));
+                foundAddress.setClientID(resultSet.getInt(7));
+                foundAddress.setAddressTypeID(resultSet.getInt(8));
 
             }
             resultSet.close();
@@ -128,11 +145,13 @@ public class AddressDAO implements AddressDAOInterface {
                 AddressPOJO foundAddress = new AddressPOJO();
 
                 foundAddress.setAddressID(resultSet.getInt(1));
-                foundAddress.setHouseNumber(resultSet.getInt(2));
-                foundAddress.setHouseNumberAddition(resultSet.getString(3));
-                foundAddress.setStreetName(resultSet.getString(4));
+                foundAddress.setStreetName(resultSet.getString(2));
+                foundAddress.setHouseNumber(resultSet.getInt(3));
+                foundAddress.setHouseNumberAddition(resultSet.getString(4));
                 foundAddress.setPostalCode(resultSet.getString(5));
                 foundAddress.setCity(resultSet.getString(6));
+                foundAddress.setClientID(resultSet.getInt(7));
+                foundAddress.setAddressTypeID(resultSet.getInt(8));
                 returnedAddress.add(foundAddress);
             }
             resultSet.close();
@@ -165,11 +184,13 @@ public class AddressDAO implements AddressDAOInterface {
                 AddressPOJO foundAddress = new AddressPOJO();
 
                 foundAddress.setAddressID(resultSet.getInt(1));
-                foundAddress.setHouseNumber(resultSet.getInt(2));
-                foundAddress.setHouseNumberAddition(resultSet.getString(3));
-                foundAddress.setStreetName(resultSet.getString(4));
+                foundAddress.setStreetName(resultSet.getString(2));
+                foundAddress.setHouseNumber(resultSet.getInt(3));
+                foundAddress.setHouseNumberAddition(resultSet.getString(4));
                 foundAddress.setPostalCode(resultSet.getString(5));
                 foundAddress.setCity(resultSet.getString(6));
+                foundAddress.setClientID(resultSet.getInt(7));
+                foundAddress.setAddressTypeID(resultSet.getInt(8));
                 returnedAddress.add(foundAddress);
             }
             resultSet.close();
@@ -189,19 +210,17 @@ public class AddressDAO implements AddressDAOInterface {
     @Override
     public void updateAddress(AddressPOJO address) {
         log.info("updateAddress Start");
-        ClientPOJO client = new ClientPOJO();
-        AddressTypePOJO addresstype = new AddressTypePOJO();
-        String query = "UPDATE Address SET HouseNumber = ?, HouseNumberAddition =? StreetName =? , PostalCode = ?, City =? Client_ClientID =? AddressType_AddressTypeID =?  WHERE AdressID=?";
+        String query = "UPDATE Address SET StreetName =? , HouseNumber = ?, HouseNumberAddition =?, PostalCode =?, City =?, Client_ClientID =?, AddressType_AddressTypeID =?  WHERE AddressID=?";
         try {
             connect = Connector.getConnection();
             PreparedStatement statement = connect.prepareStatement(query);
-            statement.setInt(1, address.getHouseNumber());
-            statement.setString(2, address.getHouseNumberAddition());
-            statement.setString(3, address.getStreetName());
+            statement.setString(1, address.getStreetName());
+            statement.setInt(2, address.getHouseNumber());
+            statement.setString(3, address.getHouseNumberAddition());
             statement.setString(4, address.getPostalCode());
             statement.setString(5, address.getCity());
-            statement.setInt(6, client.getClientID());
-            statement.setInt(7, addresstype.getAddressTypeID());
+            statement.setInt(6, address.getClientID());
+            statement.setInt(7, address.getAddressTypeID());
             statement.setInt(8, address.getAddressID());
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -219,16 +238,15 @@ public class AddressDAO implements AddressDAOInterface {
     @Override
     public void deleteAddress(AddressPOJO address) {
         log.info("deleteAddress Start");
-        String query = "delete * from Address where Client_Clientid = ?";
+        String query = "DELETE FROM Address where AddressID = ?";
 
         try {
             connect = Connector.getConnection();
             PreparedStatement statement = connect.prepareStatement(query);
             statement.setInt(1, address.getAddressID());
-            ResultSet resultSet = statement.executeQuery();
+            statement.executeUpdate();
 
             connect.close();
-            resultSet.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -371,10 +389,11 @@ public class AddressDAO implements AddressDAOInterface {
             statement.setInt(1, address.getAddressTypeID());
             ResultSet resultSet = statement.executeQuery();
             if (!resultSet.next()) {
-                query = "select * from AddressType where AddressTypeID = ?";
+                query = "DELETE from AddressType WHERE AddressTypeID = ?";
                 statement = connect.prepareStatement(query);
                 statement.setInt(1, address.getAddressTypeID());
                 statement.executeUpdate();
+                System.out.println("AddressType has been deleted");
             } else {
                 System.out.println("AddressType is currently in use, delete not possible.");
             }

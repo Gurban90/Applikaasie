@@ -53,6 +53,6 @@ public class ClientPOJO {
     }
     @Override
     public String toString(){
-        return "ClientID: "+clientID+", First Name: " +firstName + " Last Name: "+lastName+", E-Mail: " +eMail;
+        return "ClientID: "+clientID+", First Name: " +firstName +", Last Name: "+lastName+", E-Mail: " +eMail;
     }
 }

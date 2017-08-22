@@ -11,21 +11,20 @@ package POJO;
  */
 //ADDRESS POJO
 public class AddressPOJO {
+
     private int addressID;
     private ClientPOJO client;
+    private int clientID;
     private AddressTypePOJO addresstype;
+    private int addressTypeID;
     private int housenumber;
     private String houseNumberAddition;
     private String streetname;
     private String postalCode;
     private String city;
-    // add a addresstype?
-    
-    
-    public AddressPOJO(){};
-    
-    
 
+    public AddressPOJO() {};
+      
     public AddressTypePOJO getAddresstype() {
         return addresstype;
     }
@@ -41,50 +40,75 @@ public class AddressPOJO {
     public void setClient(ClientPOJO client) {
         this.client = client;
     }
-    
-    public int getAddressID(){
-	return addressID;
+
+    public int getAddressID() {
+        return addressID;
     }
+
     public void setAddressID(int addressID) {
         this.addressID = addressID;
     }
-    
+
     public int getHouseNumber() {
         return housenumber;
     }
-    
+
     public void setHouseNumber(int housenumber) {
-	this.housenumber = housenumber;
-       }
-    
+        this.housenumber = housenumber;
+    }
+
     public String getHouseNumberAddition() {
         return houseNumberAddition;
     }
-    
+
     public void setHouseNumberAddition(String houseNumberAddition) {
-	this.houseNumberAddition = houseNumberAddition;
-       } 
-    
-    public String getStreetName() {
-	return streetname;
+        this.houseNumberAddition = houseNumberAddition;
     }
+
+    public String getStreetName() {
+        return streetname;
+    }
+
     public void setStreetName(String streetname) {
-	this.streetname = streetname;
+        this.streetname = streetname;
     }
 
     public String getPostalCode() {
-	return postalCode;
-    }
-    public void setPostalCode(String postalCode) {
-	this.postalCode = postalCode;
+        return postalCode;
     }
 
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
 
     public String getCity() {
-	return city;
+        return city;
     }
+
     public void setCity(String city) {
-	this.city = city;
+        this.city = city;
     }
     
+     public int getClientID() {
+        return clientID;
+    }
+
+    public void setClientID(int ClientID) {
+        this.clientID = ClientID;
+    }
+
+    public int getAddressTypeID() {
+        return addressTypeID;
+    }
+
+    public void setAddressTypeID(int addressTypeID) {
+        this.addressTypeID = addressTypeID;
+    }
+
+    @Override
+    public String toString() {
+        return "AddressID: " + addressID + ", Housenumber: " + housenumber + ", Housenumber Addition: " + houseNumberAddition + ", Streetname: " + streetname
+                + ", Postal Code: " + postalCode + ", City: " + city+", ClientID: " + clientID+", AddressTypeID: " + addressTypeID;
+    }
+
 }

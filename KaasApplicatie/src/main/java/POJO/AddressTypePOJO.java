@@ -24,4 +24,8 @@ public class AddressTypePOJO {
     public void setAddressType(String addressType) {
         this.addressType = addressType;
     }
+    @Override
+    public String toString(){
+        return "AddressTypeID: "+addressTypeID+", AddressType: " +addressType;
+    }
 }
