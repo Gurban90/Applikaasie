@@ -34,25 +34,23 @@ public class OrderDetailDAO implements OrderDetailDAOInterface {
 
         logger.info("addOrderDetail Start");
         Integer newID = 0;
-        CheesePOJO cheese = orderDetail.getCheese();
-        OrderPOJO order = orderDetail.getOrder();
         String query = "select * from Cheese where CheeseID = ?";
         try {
             connection = Connector.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, cheese.getCheeseID());
+            statement.setInt(1, orderDetail.getCheeseID());
             ResultSet resultSet = statement.executeQuery();//Check of Cheese wel bestaat.
             if (resultSet.next()) {
                 query = "select * from Order where OrderID = ?";
                 statement = connection.prepareStatement(query);
-                statement.setInt(1, order.getOrderID());
+                statement.setInt(1, orderDetail.getOrderID());
                 ResultSet resultSet2 = statement.executeQuery();//Check of Order wel bestaat.
                 if (resultSet2.next()) {
                     query = "INSERT INTO OrderDetail (Quantity, Cheese_CheeseID, Order_OrderID) VALUES (?,?,?);";
                     statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
                     statement.setInt(1, orderDetail.getQuantity());
-                    statement.setInt(2, cheese.getCheeseID());
-                    statement.setInt(3, order.getOrderID());
+                    statement.setInt(2, orderDetail.getCheeseID());
+                    statement.setInt(3, orderDetail.getOrderID());
                     statement.executeUpdate();
                     try (ResultSet resultSet3 = statement.getGeneratedKeys()) {
                         if (resultSet3.next()) {

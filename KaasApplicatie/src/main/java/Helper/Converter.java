@@ -11,6 +11,10 @@ import java.time.ZoneOffset;
  */
 public class Converter {
    
+    
+        public Converter(){
+        }
+    
         public LocalDateTime convertDate(java.sql.Date x){
         
        Instant y = x.toInstant();

@@ -7,10 +7,14 @@
 package Helper;
 
 import Controller.OrderController;
+import Dao.CheeseDAO;
 import Dao.ClientDAO;
+import Dao.OrderDAO;
 import Dao.OrderDetailDAO;
+import POJO.CheesePOJO;
 import POJO.ClientPOJO;
 import POJO.OrderDetailPOJO;
+import POJO.OrderPOJO;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -21,6 +25,10 @@ import java.time.LocalDateTime;
 public class HelpClientOrderCheese {
 
         private int clientID;
+        private int orderID;
+        private int returnedOrderID;
+        private int orderDetailID;
+        private int cheeseID;
         
         private int clientYear;
         private int clientMonth;
@@ -39,10 +47,11 @@ public class HelpClientOrderCheese {
         private LocalDateTime orderDate;
         
         private BigDecimal totalPrice = null;
+        private int ammountCheese;
     
    
         private ClientPOJO clientPOJO;
-        private ClientPOJO returnedPOJO;
+        private ClientPOJO returnedClientPOJO;
         private ClientDAO clientDAO;
         private OrderDetailDAO orderDetailDAO;
         private OrderDetailPOJO orderDetailPOJO;
@@ -52,28 +61,19 @@ public class HelpClientOrderCheese {
     
     public HelpClientOrderCheese(){
          clientPOJO = new ClientPOJO();
-         returnedPOJO = new ClientPOJO();
+         returnedClientPOJO = new ClientPOJO();
          clientDAO = new ClientDAO();
     }
     
-    
-    
-    
-    
-    
-    
+  
     
     public void setClientID(int clientID) {
 
-        
-        
         this.clientID = clientID;
         
         clientPOJO.setClientID(clientID);
-        returnedPOJO = clientDAO.getClient(clientPOJO);
-        
-        
-  
+        returnedClientPOJO = clientDAO.getClient(clientPOJO);
+
     }
 
     public void setNewOrderByClient(int year, int month, int day, int hour, int min) {
@@ -84,9 +84,6 @@ public class HelpClientOrderCheese {
         clientMin = min;
         
    processedDate = LocalDateTime.of(clientYear, clientMonth, clientDay, clientHour, clientMin, clientSec);
-         
-   
-  
 
     }
     
@@ -98,17 +95,41 @@ public class HelpClientOrderCheese {
         deliveryMin = min;
         
         orderDate = LocalDateTime.of(deliveryYear, deliveryMonth, deliveryDay, deliveryHour, deliveryMin, deliverySec);
+    
+    }
+    
+    public void setOrderDetail(int cheeseID, int ammountCheese){
+        this.ammountCheese = ammountCheese;
+        this.cheeseID = cheeseID;
+
       
-   
-            
+ 
+      
     }
 
   public void getOrder(){
       
-      orderController = new OrderController();
-      orderDetailPOJO = new OrderDetailPOJO();
+      returnedOrderID = orderController.setOrder(orderDate, totalPrice, processedDate);
       
-      orderController.setOrder(clientPOJO, totalPrice, processedDate, orderDate, orderDetailPOJO);
+     
+  }
+  
+  public void getOrderDetail(){
       
+      OrderDAO orderDAO = new OrderDAO();
+      OrderPOJO orderPOJO = new OrderPOJO();
+      
+      CheeseDAO cheeseDAO = new CheeseDAO();
+      CheesePOJO cheesePOJO = new CheesePOJO();
+      
+       orderPOJO.setOrderID(orderID);
+       OrderPOJO returnedOrderPOJO = orderDAO.getOrder(orderPOJO);
+       
+       cheesePOJO.setCheeseID(cheeseID);
+       CheesePOJO returnedCheesePOJO = cheeseDAO.getCheese(cheesePOJO);
+       
+       
+      
+      orderDetailID  = orderController.setOrderDetail(ammountCheese, returnedOrderPOJO, returnedCheesePOJO);
   }
 }

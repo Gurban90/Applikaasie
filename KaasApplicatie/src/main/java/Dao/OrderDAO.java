@@ -32,6 +32,7 @@ public class OrderDAO implements OrderDAOInterface {
     @Override
     public Integer addOrder(OrderPOJO order) {
         Integer newID = 0;
+        convert = new Converter();
         
         log.info("addorder Start");
         String insertOrder = "INSERT INTO Order" 
@@ -72,6 +73,7 @@ public class OrderDAO implements OrderDAOInterface {
         String query = "SELECT * FROM Address;";
         
         List<OrderPOJO> returnedOrder = new ArrayList<>();
+        convert = new Converter();
         
         try {
             connect = Connector.getConnection();
@@ -111,6 +113,8 @@ public class OrderDAO implements OrderDAOInterface {
         log.info("getOrder Start");
         String query = "SELECT * FROM order WHERE orderID=?";
         OrderPOJO foundOrder = new OrderPOJO();
+        convert = new Converter();
+        
         try {
             connect = Connector.getConnection();
             PreparedStatement statement = connect.prepareStatement(query);
@@ -145,6 +149,7 @@ public class OrderDAO implements OrderDAOInterface {
         String query = "SELECT * FROM Order WHERE Client_ClientID=?";
 
         List<OrderPOJO> returnedAddress = new ArrayList<>();
+        convert = new Converter();
 
         try {
             connect = Connector.getConnection();
@@ -178,6 +183,8 @@ public class OrderDAO implements OrderDAOInterface {
     public void updateOrder(OrderPOJO order) {
         log.info("updateOrder Start");
         String query = "UPDATE Order SET  WHERE OrderID=?";
+        convert = new Converter();
+        
         try {
             connect = Connector.getConnection();
             PreparedStatement updateOrder = connect.prepareStatement(query);

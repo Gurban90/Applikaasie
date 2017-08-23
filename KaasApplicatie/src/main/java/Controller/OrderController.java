@@ -7,6 +7,7 @@ package Controller;
 
 import Dao.OrderDAO;
 import Dao.OrderDetailDAO;
+import POJO.CheesePOJO;
 import POJO.ClientPOJO;
 import POJO.OrderDetailPOJO;
 import POJO.OrderPOJO;
@@ -27,7 +28,7 @@ public class OrderController {
     }
     
 
-    public void setOrder(ClientPOJO client, BigDecimal totalPrice, LocalDateTime processedDate, LocalDateTime orderDate, OrderDetailPOJO orderDetail) {
+    public Integer setOrder(LocalDateTime orderDate, BigDecimal totalPrice, LocalDateTime processedDate) {
         OrderPOJO orderPOJO = new OrderPOJO();
         OrderDAO orderDAO = new OrderDAO();
         
@@ -35,10 +36,22 @@ public class OrderController {
         orderPOJO.setOrderDate(orderDate);
         orderPOJO.setProcessedDate(processedDate);
         orderPOJO.setTotalPrice(totalPrice);
-        orderPOJO.setClient(client);
-        orderPOJO.setOrderDetail(orderDetail);
         orderID = orderDAO.addOrder(orderPOJO);
         
+        
+        return orderID;
+    }
+    
+    public Integer setOrderDetail(int quantity, OrderPOJO orderPOJO, CheesePOJO cheesePOJO){
+        OrderDetailPOJO orderDetailPOJO = new OrderDetailPOJO();
+        OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
+        
+        orderDetailPOJO.setQuantity(quantity);
+        orderDetailPOJO.setOrder(orderPOJO);
+        orderDetailPOJO.setCheese(cheesePOJO);
+                
+        orderDetailID = orderDetailDAO.addOrderDetail(orderDetailPOJO);
+        return orderDetailID;
     }
     
 
@@ -52,27 +65,5 @@ public class OrderController {
         return "order removed: ";
     
     
-    }
-/*
-    public void newOrderDetail(int cheeseID, int ammountCheese) {
-        OrderDetailPOJO orderDetailPOJO = new OrderDetailPOJO();
-        OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
-        
-        orderDetailPOJO.
-        orderDetailPOJO.
-        orderDetailPOJO.        
-        orderDetailPOJO.        
-                
-         orderDetailID = orderDetailDAO.addOrderDetail(orderDetailPOJO)
-    
-    }
-
-*/
-
-
-    
-
-
-    
-    
+    } 
 }
