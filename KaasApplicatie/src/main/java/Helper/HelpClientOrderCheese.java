@@ -46,7 +46,7 @@ public class HelpClientOrderCheese {
         private int deliverySec;
         private LocalDateTime orderDate;
         
-        private BigDecimal totalPrice = null;
+        private BigDecimal zeroTotalPrice = null;
         private int ammountCheese;
     
    
@@ -60,15 +60,17 @@ public class HelpClientOrderCheese {
 
     
     public HelpClientOrderCheese(){
-         clientPOJO = new ClientPOJO();
-         returnedClientPOJO = new ClientPOJO();
-         clientDAO = new ClientDAO();
+
     }
     
   
     
     public void setClientID(int clientID) {
-
+        
+         clientPOJO = new ClientPOJO();
+         returnedClientPOJO = new ClientPOJO();
+         clientDAO = new ClientDAO();
+        
         this.clientID = clientID;
         
         clientPOJO.setClientID(clientID);
@@ -108,8 +110,10 @@ public class HelpClientOrderCheese {
     }
 
   public void getOrder(){
+     orderController = new OrderController();
       
-      returnedOrderID = orderController.setOrder(orderDate, totalPrice, processedDate);
+      
+      returnedOrderID = orderController.setOrder(orderDate, zeroTotalPrice, processedDate);
       
      
   }
@@ -122,12 +126,15 @@ public class HelpClientOrderCheese {
       CheeseDAO cheeseDAO = new CheeseDAO();
       CheesePOJO cheesePOJO = new CheesePOJO();
       
+      orderController = new OrderController();
+      
        orderPOJO.setOrderID(orderID);
        OrderPOJO returnedOrderPOJO = orderDAO.getOrder(orderPOJO);
        
        cheesePOJO.setCheeseID(cheeseID);
        CheesePOJO returnedCheesePOJO = cheeseDAO.getCheese(cheesePOJO);
        
+       //Misschien is Id al genoeg?
        
       
       orderDetailID  = orderController.setOrderDetail(ammountCheese, returnedOrderPOJO, returnedCheesePOJO);
