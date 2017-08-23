@@ -44,8 +44,10 @@ public class OrderMenu {
                 + "1. New Order" + "\n"
                 + "2. Remove Order" + "\n"
                 + "3. Edit Order" + "\n"
-                + "4. Search Order" + "\n"
-                + "5. Return to last menu" + "\n"
+                + "4. edit OrderDetail" + "\n"
+                + "5. Search Order" + "\n"
+                + "6. Search orderDetail" + "\n"
+                + "7. Return to last menu" + "\n"
                 + "Please enter your choice: ");
 
         choice = input.nextInt();
@@ -136,16 +138,46 @@ public class OrderMenu {
             case 3:
                 logger.info("editorder start");
                 
+                System.out.print("enter the order id of the order you want to edit: ");
+                orderID = input.nextInt();
+                
+                
+                menu = new OrderMenu();
+                menu.orderMenu();
                 
                 logger.info("editorder end");
                 break;
             case 4:
                 logger.info("searchorder start");
                 
+                System.out.print("enter the orderDetail id of the orderDetail you want to edit: ");
+                orderID = input.nextInt();
                 
+                menu = new OrderMenu();
+                menu.orderMenu();
                 logger.info("searchorder end");
                 break;
             case 5:
+                logger.info("searchorder start");
+                
+                System.out.print("enter the order id of the order you want to search: ");
+                orderID = input.nextInt();
+                
+                menu = new OrderMenu();
+                menu.orderMenu();
+                logger.info("searchorder end");
+                break;
+            case 6:
+                logger.info("searchorder start");
+                
+                System.out.print("enter the order id of the orderDetail you want to search: ");
+                orderID = input.nextInt();
+                
+                menu = new OrderMenu();
+                menu.orderMenu();
+                logger.info("searchorder end");
+                break;
+            case 7:
                 logger.info("Open mainMenu");
                 MainMenu mainmenu = new MainMenu();
                 mainmenu.mainMenu();

@@ -67,9 +67,9 @@ public class HelpClientOrderCheese {
     
     public void setClientID(int clientID) {
         
-         clientPOJO = new ClientPOJO();
-         returnedClientPOJO = new ClientPOJO();
-         clientDAO = new ClientDAO();
+        clientPOJO = new ClientPOJO();
+        returnedClientPOJO = new ClientPOJO();
+        clientDAO = new ClientDAO();
         
         this.clientID = clientID;
         
@@ -85,7 +85,7 @@ public class HelpClientOrderCheese {
         clientHour = hour;
         clientMin = min;
         
-   processedDate = LocalDateTime.of(clientYear, clientMonth, clientDay, clientHour, clientMin, clientSec);
+        processedDate = LocalDateTime.of(clientYear, clientMonth, clientDay, clientHour, clientMin, clientSec);
 
     }
     
@@ -110,10 +110,10 @@ public class HelpClientOrderCheese {
     }
 
   public void getOrder(){
-     orderController = new OrderController();
+    orderController = new OrderController();
       
       
-      returnedOrderID = orderController.setOrder(orderDate, zeroTotalPrice, processedDate);
+    returnedOrderID = orderController.setOrder(orderDate, zeroTotalPrice, processedDate);
       
      
   }

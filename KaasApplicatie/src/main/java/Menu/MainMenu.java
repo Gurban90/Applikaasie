@@ -23,9 +23,9 @@ public class MainMenu {
         input = new Scanner(System.in);
 
         System.out.print(" Main menu: " + "\n"
-                + "1. Orders" + "\n"
-                + "2. Cheese" + "\n"
-                + "3. Clients" + "\n"
+                + "1. Create and edit Orders" + "\n"
+                + "2. add or edit a Cheese" + "\n"
+                + "3. add or edit a Client" + "\n"
                 + "4. Exit" + "\n"
                 + "Please enter your choice: ");
 
