@@ -21,6 +21,14 @@ public class CheesePOJO {
     
     public CheesePOJO(){};
     
+    public CheesePOJO(Integer id, String name, BigDecimal price, Integer stock) {
+		this.cheeseID = id;
+		this.cheeseName = name;
+		this.price = price;
+		this.stock = stock;
+	}
+
+    
     public int getCheeseID(){
 	return cheeseID;
     }

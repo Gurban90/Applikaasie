@@ -16,8 +16,8 @@ import java.util.List;
  * @author Gerben
  */
 //OM UIT TE TESTEN
-
 public class MongoConnector {
+
     private String url;
     private int port;
     private String port2;
@@ -25,37 +25,29 @@ public class MongoConnector {
     private String password;
     private String database;
     private MongoClient mongoClient;
-    
-    
-     public MongoConnector(){
+
+    public MongoConnector() {
         DomXML parser = new DomXML();
         url = "localhost";
         port = 27017;
-        username = "x";
-        password = "x";
         database = "KaasApplicatie";
     }
 
+    public MongoDatabase makeConnection() {
+        mongoClient = new MongoClient(url, port);
+        MongoDatabase db = mongoClient.getDatabase(database);
+        return db;
 
-    
-    public MongoDatabase makeConnection(){
-    mongoClient = new MongoClient(url, port);
-    MongoDatabase db = mongoClient.getDatabase(database);
-            return db;
-  
     }
-    
-    public void closeConnection(){
+
+    public void closeConnection() {
         mongoClient.close();
     }
 
-    
-    
-    public static void main (String [] args) {
+    public static void main(String[] args) {
         MongoConnector connect = new MongoConnector();
         MongoDatabase database = connect.makeConnection();
-        
-}
-        
-    
+
+    }
+
 }

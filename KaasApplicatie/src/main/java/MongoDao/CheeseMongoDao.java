@@ -9,6 +9,7 @@ import DatabaseConnector.MongoConnector;
 import Interface.CheeseDAOInterface;
 import POJO.CheesePOJO;
 import com.mongodb.client.MongoCollection;
+import static com.mongodb.client.model.Filters.eq;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.logging.Logger;
@@ -25,6 +26,10 @@ public class CheeseMongoDao implements CheeseDAOInterface {
 
     public CheeseMongoDao() {
         mongoConnector = new MongoConnector();
+    }
+
+    private CheesePOJO convertDocumentToCheese(Document doc) {
+        return new CheesePOJO(doc.getInteger("id"), doc.getString("name"), new BigDecimal(doc.getString("price")), doc.getInteger("stock"));
     }
 
     private Document convertCheeseToDocument(CheesePOJO cheese) {
@@ -49,26 +54,35 @@ public class CheeseMongoDao implements CheeseDAOInterface {
 
     @Override
     public List<CheesePOJO> getAllCheese() {
+        MongoCollection<Document> collection = mongoConnector.makeConnection().getCollection("cheese");
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public CheesePOJO getCheese(CheesePOJO cheese) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        logger.info("getCheese Start");
+        MongoCollection<Document> collection = mongoConnector.makeConnection().getCollection("cheese");
+        Document doc = collection.find(eq("id", cheese.getCheeseID())).first();
+        mongoConnector.closeConnection();
+        logger.info("getCheese end");
+        return convertDocumentToCheese(doc);
     }
 
     @Override
     public CheesePOJO getCheeseWithName(CheesePOJO cheese) {
+        MongoCollection<Document> collection = mongoConnector.makeConnection().getCollection("cheese");
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void updateCheese(CheesePOJO cheese) {
+        MongoCollection<Document> collection = mongoConnector.makeConnection().getCollection("cheese");
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void deleteCheese(CheesePOJO cheese) {
+        MongoCollection<Document> collection = mongoConnector.makeConnection().getCollection("cheese");
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
