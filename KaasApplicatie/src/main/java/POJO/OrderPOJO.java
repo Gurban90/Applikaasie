@@ -22,7 +22,7 @@ public class OrderPOJO {
     private ClientPOJO client; //id is first input
     private LocalDateTime orderDate; //when it is ordered (now time)
     private LocalDateTime processedDate; //when the order is finished and send to client
-    
+     private int clientID; 
     private OrderDetailPOJO orderDetail; //zero
     private BigDecimal totalPrice; //zero
 
@@ -79,6 +79,14 @@ public class OrderPOJO {
 
     public void setProcessedDate(LocalDateTime processedDate) {
         this.processedDate = processedDate;
+    }
+    
+     public int getClientID() {
+        return clientID;
+    }
+
+    public void setClientID(int clientID) {
+        this.clientID = clientID;
     }
     
 

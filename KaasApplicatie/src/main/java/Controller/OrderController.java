@@ -28,7 +28,7 @@ public class OrderController {
     }
     
 
-    public Integer setOrder(LocalDateTime orderDate, BigDecimal totalPrice, LocalDateTime processedDate) {
+    public Integer setOrder(LocalDateTime orderDate, BigDecimal totalPrice, LocalDateTime processedDate, int ClientID) {
         OrderPOJO orderPOJO = new OrderPOJO();
         OrderDAO orderDAO = new OrderDAO();
         
@@ -36,6 +36,7 @@ public class OrderController {
         orderPOJO.setOrderDate(orderDate);
         orderPOJO.setProcessedDate(processedDate);
         orderPOJO.setTotalPrice(totalPrice);
+        orderPOJO.setClientID(ClientID);
         orderID = orderDAO.addOrder(orderPOJO);
         
         

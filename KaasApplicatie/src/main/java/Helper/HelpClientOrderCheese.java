@@ -49,7 +49,7 @@ public class HelpClientOrderCheese {
         private BigDecimal zeroTotalPrice = null;
         private int ammountCheese;
     
-   
+        private OrderPOJO orderpojo;
         private ClientPOJO clientPOJO;
         private ClientPOJO returnedClientPOJO;
         private ClientDAO clientDAO;
@@ -70,31 +70,35 @@ public class HelpClientOrderCheese {
         clientPOJO = new ClientPOJO();
         returnedClientPOJO = new ClientPOJO();
         clientDAO = new ClientDAO();
+        orderpojo = new OrderPOJO();
         
         this.clientID = clientID;
-        
+        orderpojo.setClientID(clientID);
         clientPOJO.setClientID(clientID);
+        orderpojo.setClient(clientPOJO);
         returnedClientPOJO = clientDAO.getClient(clientPOJO);
 
     }
 
-    public void setNewOrderByClient(int year, int month, int day, int hour, int min) {
+    public void setNewOrderByClient(int year, int month, int day, int hour, int min, int sec) {
         clientYear = year;
         clientMonth = month;
         clientDay = day;
         clientHour = hour;
         clientMin = min;
+        clientSec = sec;
         
         processedDate = LocalDateTime.of(clientYear, clientMonth, clientDay, clientHour, clientMin, clientSec);
 
     }
     
-    public void setOrderDelivery(int year, int month, int day, int hour, int min) {
+    public void setOrderDelivery(int year, int month, int day, int hour, int min, int sec) {
         deliveryYear = year;
         deliveryMonth = month;       
         deliveryDay = day;
         deliveryHour = hour; 
         deliveryMin = min;
+        deliverySec = sec;
         
         orderDate = LocalDateTime.of(deliveryYear, deliveryMonth, deliveryDay, deliveryHour, deliveryMin, deliverySec);
     
@@ -115,7 +119,7 @@ public class HelpClientOrderCheese {
     orderController = new OrderController();
       
       
-    returnedOrderID = orderController.setOrder(orderDate, zeroTotalPrice, processedDate);
+    returnedOrderID = orderController.setOrder(orderDate, zeroTotalPrice, processedDate, clientID);
       
      
   }
