@@ -9,8 +9,12 @@ import DatabaseConnector.MongoConnector;
 import Interface.CheeseDAOInterface;
 import POJO.CheesePOJO;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Indexes.descending;
+import static com.mongodb.client.model.Sorts.orderBy;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 import org.bson.Document;
@@ -41,6 +45,20 @@ public class CheeseMongoDao implements CheeseDAOInterface {
         return document;
     }
 
+    private Integer getNextId() {xxxxxx
+        int id = 0;
+        MongoCollection<Document> collection = mongoConnector.makeConnection().getCollection("cheese");
+        if (collection.count() > 0) {
+            Document highestId = collection.find().sort(orderBy(descending("id"))).first();<
+            ---------------
+            id = highestId.getInteger("id") + 1;
+        } else {
+            id = 1;
+        }
+        mongoConnector.closeConnection();
+        return id;
+    }
+
     @Override
     public Integer addCheese(CheesePOJO cheese) {
         logger.info("addCheese Start");
@@ -54,8 +72,17 @@ public class CheeseMongoDao implements CheeseDAOInterface {
 
     @Override
     public List<CheesePOJO> getAllCheese() {
+        logger.info("getAllCheese Start");
+        List<CheesePOJO> cheeses = new ArrayList<>();
         MongoCollection<Document> collection = mongoConnector.makeConnection().getCollection("cheese");
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        MongoCursor<Document> cursor = collection.find().iterator();
+        while (cursor.hasNext()) {
+            Document doc = cursor.next();
+            cheeses.add(convertDocumentToCheese(doc));
+        }
+        mongoConnector.closeConnection();
+        logger.info("getAllCheese end");
+        return cheeses;
     }
 
     @Override
@@ -70,20 +97,31 @@ public class CheeseMongoDao implements CheeseDAOInterface {
 
     @Override
     public CheesePOJO getCheeseWithName(CheesePOJO cheese) {
+        xxxxxx logger
+        .info("getCheeseWithName Start");
         MongoCollection<Document> collection = mongoConnector.makeConnection().getCollection("cheese");
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Document doc = collection.find(eq("name", cheese.getCheeseName())).first();
+        mongoConnector.closeConnection();
+        logger.info("getCheeseWithName end");
+        return convertDocumentToCheese(doc);
     }
 
     @Override
     public void updateCheese(CheesePOJO cheese) {
         MongoCollection<Document> collection = mongoConnector.makeConnection().getCollection("cheese");
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        collection.f collection
+        .findOneAndReplace(eq("id", artikel.getId()), convertArtikelToDocument(artikel));
+        mongoConnector.closeConnection();
+
     }
 
     @Override
     public void deleteCheese(CheesePOJO cheese) {
+        logger.info("deleteCheese Start");
         MongoCollection<Document> collection = mongoConnector.makeConnection().getCollection("cheese");
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        collection.findOneAndDelete(eq("id", cheese.getCheeseID()));
+        mongoConnector.closeConnection();
+        logger.info("deleteCheese Start");
     }
 
     public static void main(String[] args) {
