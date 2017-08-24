@@ -87,31 +87,34 @@ public class OrderMenu {
                 this.hour = input.nextInt(); 
                 System.out.println("input next min");
                 this.min = input.nextInt();      
-                collection.setOrderDelivery(year, month, day, hour, min);               
-
-                System.out.println("Activating Controller");
-
-             
-                while(makeOrderDetail){
-                System.out.println("adding a orderdetail");
+                collection.setOrderDelivery(year, month, day, hour, min);  
+                
+                collection.getOrder();
+        
+                    while(makeOrderDetail){
+                        System.out.println("adding an orderdetail");
                
                 
-                System.out.println("Select cheeseID for OrderDetail: ");
-                cheeseID = input.nextInt(); 
+                        System.out.println("Select cheeseID for OrderDetail: ");
+                        cheeseID = input.nextInt(); 
                 
-                 System.out.println("give amount of cheese");
-                ammountCheese = input.nextInt();
+                        System.out.println("give amount of cheese");
+                        ammountCheese = input.nextInt();
+                        
                      
-               collection.setOrderDetail(cheeseID, ammountCheese);
+                        collection.setOrderDetail(cheeseID, ammountCheese);
+                        input.nextLine();
+                        
+                        collection.getOrderDetail();
                 
-                System.out.println("Do you want to add a new order detail? ");        
-                anwser = input.nextLine();
+                        System.out.println("Do you want to add a new order detail? ");        
+                        anwser = input.nextLine();
                 
-                if(anwser.equalsIgnoreCase("no")|| anwser.equalsIgnoreCase("n")){    
-                    makeOrderDetail = false;
-                    }
+                            if(anwser.equalsIgnoreCase("no")|| anwser.equalsIgnoreCase("n")){    
+                                makeOrderDetail = false;
+                            }
 
-                }
+                    }
                 
                 menu = new OrderMenu();
                 menu.orderMenu();

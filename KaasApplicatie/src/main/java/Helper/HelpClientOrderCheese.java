@@ -63,7 +63,7 @@ public class HelpClientOrderCheese {
 
     }
     
-  
+  //first part start
     
     public void setClientID(int clientID) {
         
@@ -99,6 +99,8 @@ public class HelpClientOrderCheese {
         orderDate = LocalDateTime.of(deliveryYear, deliveryMonth, deliveryDay, deliveryHour, deliveryMin, deliverySec);
     
     }
+    
+    //first part close
     
     public void setOrderDetail(int cheeseID, int ammountCheese){
         this.ammountCheese = ammountCheese;
