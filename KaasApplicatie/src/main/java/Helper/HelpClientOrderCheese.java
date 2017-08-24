@@ -128,11 +128,13 @@ public class HelpClientOrderCheese {
       
       OrderDAO orderDAO = new OrderDAO();
       OrderPOJO orderPOJO = new OrderPOJO();
-      
+      OrderDetailPOJO orderDetail = new OrderDetailPOJO();
       CheeseDAO cheeseDAO = new CheeseDAO();
       CheesePOJO cheesePOJO = new CheesePOJO();
       
       orderController = new OrderController();
+      
+      
       
        orderPOJO.setOrderID(orderID);
        OrderPOJO returnedOrderPOJO = orderDAO.getOrder(orderPOJO);
@@ -143,6 +145,6 @@ public class HelpClientOrderCheese {
        //Misschien is Id al genoeg?
        
       
-      orderDetailID  = orderController.setOrderDetail(ammountCheese, returnedOrderPOJO, returnedCheesePOJO);
+      orderDetailID  = orderController.setOrderDetail(ammountCheese, returnedOrderID, cheeseID);
   }
 }

@@ -43,13 +43,13 @@ public class OrderController {
         return orderID;
     }
     
-    public Integer setOrderDetail(int quantity, OrderPOJO orderPOJO, CheesePOJO cheesePOJO){
+    public Integer setOrderDetail(int quantity, int orderID, int cheeseID){
         OrderDetailPOJO orderDetailPOJO = new OrderDetailPOJO();
         OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
         
         orderDetailPOJO.setQuantity(quantity);
-        orderDetailPOJO.setOrder(orderPOJO);
-        orderDetailPOJO.setCheese(cheesePOJO);
+        orderDetailPOJO.setOrderID(orderID);
+        orderDetailPOJO.setCheeseID(cheeseID);
                 
         orderDetailID = orderDetailDAO.addOrderDetail(orderDetailPOJO);
         return orderDetailID;

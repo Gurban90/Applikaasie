@@ -41,7 +41,7 @@ public class OrderDetailDAO implements OrderDetailDAOInterface {
             statement.setInt(1, orderDetail.getCheeseID());
             ResultSet resultSet = statement.executeQuery();//Check of Cheese wel bestaat.
             if (resultSet.next()) {
-                query = "select * from Order where OrderID = ?";
+                query = "select * from `order` where OrderID = ?";
                 statement = connection.prepareStatement(query);
                 statement.setInt(1, orderDetail.getOrderID());
                 ResultSet resultSet2 = statement.executeQuery();//Check of Order wel bestaat.
