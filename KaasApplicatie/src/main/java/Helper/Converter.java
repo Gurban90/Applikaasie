@@ -2,6 +2,7 @@ package Helper;
 
 import java.sql.Date;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
@@ -25,11 +26,17 @@ public class Converter {
     
     public java.sql.Date convertLocalDateTime(LocalDateTime x)  {
         
-        Instant y = x.toInstant(ZoneOffset.UTC);
-        Date z = (java.sql.Date)Date.from(y);
         
+        
+        Instant y = x.toInstant(ZoneOffset.UTC);
+        java.util.Date q = Date.from(y);
+        
+        java.sql.Date z = new java.sql.Date(q.getTime());
+      
         
         return z;
+        
+       
 
     }
 }
