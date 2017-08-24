@@ -75,7 +75,7 @@ public class OrderMenu {
                 System.out.println("input next min");
                 this.min = input.nextInt();
                 System.out.println("input next sec");
-                this.min = input.nextInt();      
+                this.sec = input.nextInt();      
                 collection.setNewOrderByClient(year, month, day, hour, min, sec);               
                 
                 System.out.print("set the time of day when the order will be delivered to the client: ");
@@ -90,7 +90,7 @@ public class OrderMenu {
                 System.out.println("input next min");
                 this.min = input.nextInt();  
                 System.out.println("input next sec");
-                this.min = input.nextInt();   
+                this.sec = input.nextInt();   
                 collection.setOrderDelivery(year, month, day, hour, min, sec);  
                 
                 collection.getOrder();

@@ -12,12 +12,12 @@ import Interface.ClientDAOInterface;
 import Interface.OrderDAOInterface;
 import POJO.ClientPOJO;
 import POJO.OrderPOJO;
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -37,7 +37,7 @@ public class OrderDAO implements OrderDAOInterface {
         Integer newID = 0;
         convert = new Converter();
         log.info("addorder Start");
-        String insertOrder = "INSERT INTO tester.order (`OrderDate`, `TotalPrice`, `ProcessedDate`, `Client_ClientID`) VALUES (?,?,?,?);";
+        String insertOrder = "INSERT INTO `order` (`OrderDate`, `TotalPrice`, `ProcessedDate`, `Client_ClientID`) VALUES (?,?,?,?);";
         try {
             connect = Connector.getConnection();
             PreparedStatement statement = connect.prepareStatement(insertOrder, Statement.RETURN_GENERATED_KEYS);

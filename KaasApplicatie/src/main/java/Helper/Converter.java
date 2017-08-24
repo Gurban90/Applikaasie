@@ -37,21 +37,9 @@ public class Converter {
        
 
     }
-    public static void main(String[] args) {
-        int clientYear = 2017;
-        int clientMonth = 9;
-        int clientDay = 11;
-        int clientHour = 11;
-        int clientMin = 11;
-        int clientSec = 22;
-        
-        LocalDateTime processedDate = LocalDateTime.of(clientYear, clientMonth, clientDay, clientHour, clientMin, clientSec);
-        Converter a = new Converter();
-        String z = a.convertLocalDateTime(processedDate);
-       
-        System.out.println(z);
+   
         
        
     
 }
-}
+
