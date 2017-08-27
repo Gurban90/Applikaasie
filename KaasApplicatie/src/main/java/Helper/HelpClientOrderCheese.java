@@ -47,9 +47,12 @@ public class HelpClientOrderCheese {
         private LocalDateTime orderDate;
         
         private BigDecimal zeroTotalPrice = null;
+        private BigDecimal totalPrice;
         private int ammountCheese;
+        private int cheesePrice;
     
-        private OrderPOJO orderpojo;
+        private OrderPOJO orderPOJO;
+        private OrderDAO orderDAO;
         private ClientPOJO returnedClientPOJO;
         private ClientPOJO clientPOJO;
         private ClientDAO clientDAO;
@@ -68,12 +71,12 @@ public class HelpClientOrderCheese {
         clientPOJO = new ClientPOJO();
         returnedClientPOJO = new ClientPOJO();
         clientDAO = new ClientDAO();
-        orderpojo = new OrderPOJO();
+        orderPOJO = new OrderPOJO();
         
         this.clientID = clientID;
-        orderpojo.setClientID(clientID);
+        orderPOJO.setClientID(clientID);
         clientPOJO.setClientID(clientID);
-        orderpojo.setClient(clientPOJO);
+        orderPOJO.setClient(clientPOJO);
         returnedClientPOJO = clientDAO.getClient(clientPOJO);
 
     }
@@ -124,5 +127,28 @@ public class HelpClientOrderCheese {
       orderController = new OrderController();
       orderDetailID  = orderController.setOrderDetail(ammountCheese, returnedOrderID, cheeseID);
   }
+
+    public BigDecimal addUpCheese() {
+           
+        BigDecimal cheesePriceBD = new BigDecimal(cheesePrice);
+        BigDecimal ammountCheeseBD = new BigDecimal(ammountCheese);
+       
+       totalPrice.add(cheesePriceBD.multiply(ammountCheeseBD));
+        
+       return totalPrice;
+    
+    }
+
+    public String saveTotalPrice() {
+        
+            OrderPOJO orderPOJO = new OrderPOJO();
+            OrderDAO orderDAO = new OrderDAO();
+            
+            orderPOJO.setTotalPrice(totalPrice);
+            orderDAO.updateOrder(orderPOJO);
+            
+            return "total price updated";
+    
+    }
   
 }

@@ -114,12 +114,14 @@ public class OrderMenu {
                         input.nextLine();
                         
                         collection.getOrderDetail();
+                        collection.addUpCheese(); //dp i want to use a return?
                 
                         System.out.println("Do you want to add a new order detail? ");        
                         anwser = input.nextLine();
                 
                             if(anwser.equalsIgnoreCase("no")|| anwser.equalsIgnoreCase("n")){    
                                 makeOrderDetail = false;
+                                collection.saveTotalPrice();
                             }
 
                     }
@@ -129,11 +131,7 @@ public class OrderMenu {
                 logger.info("newOrder end");        
                
                 break;
-            
-           
-                
-                
-                
+        
             case 2:
                 logger.info("removeorder start");
                 System.out.print("Enter The orderID you want to remove: ");
@@ -249,13 +247,13 @@ public class OrderMenu {
 
                 case 2:
                     
-                 System.out.print("Edit order: ");
+                System.out.print("Edit order: ");
                 collection = new HelpClientOrderCheese();
                 System.out.println("Please select the OrderID from the order you want to change:  ");
                 orderID = input.nextInt();
                 collection.setOrderID(orderID);    
                    
-                 System.out.print("set the time of day when the order will be delivered to the client: ");
+                System.out.print("set the time of day when the order will be delivered to the client: ");
                 System.out.print("enter Year: ");
                 this.year = input.nextInt();
                 System.out.println("enter month: ");
@@ -307,8 +305,8 @@ public class OrderMenu {
                 editOrderMenu();
 
                 case 2:
-                    
-                 System.out.print("Edit orderDetail Cheese Ammount: ");
+                      
+                System.out.print("Edit orderDetail Cheese Ammount: ");
                 controller = new OrderController();
                 System.out.println("Please select the OrderID from the order you want to change:  ");
                 orderDetailID = input.nextInt();
