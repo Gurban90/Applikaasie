@@ -101,5 +101,31 @@ public class OrderController {
         
         return returnedOrder;
     }
+
+    public String editOrderDetailCheese(int orderDetailID, int cheeseID) {
+        
+        OrderDetailPOJO orderDetailPOJO = new OrderDetailPOJO();
+        OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
+        
+        orderDetailPOJO.setOrderDetailID(orderDetailID);
+        orderDetailPOJO.setCheeseID(cheeseID);
+        orderDetailDAO.updateOrderDetail(orderDetailPOJO);
+        
+        
+        return "orderdetail cheese editted";
+    }
+
+    public String editOrderDetailAmmount(int orderDetailID, int cheeseAmmount) {
+    
+        OrderDetailPOJO orderDetailPOJO = new OrderDetailPOJO();
+        OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
+        
+        orderDetailPOJO.setOrderDetailID(orderDetailID);
+        orderDetailPOJO.setCheeseID(cheeseAmmount);
+        orderDetailDAO.updateOrderDetail(orderDetailPOJO);
+        
+        
+    return "orderdetailammount eddited" ;   
+    }
     
 }

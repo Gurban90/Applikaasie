@@ -15,6 +15,7 @@ public class OrderMenu {
     private Scanner input;
     private int choice;
     String anwser;
+    String outputString;
     
     private boolean makeOrderDetail = true;
     private OrderMenu menu;
@@ -24,8 +25,6 @@ public class OrderMenu {
     int orderDetailID;
     int cheeseID;
     int ammountCheese;
-    String outputString;
-    
 
     int year;
     int month;
@@ -176,7 +175,7 @@ public class OrderMenu {
                 
                 System.out.print("enter the order id of the order you want to search: ");
                 orderID = input.nextInt();
-        OrderPOJO returnedOrder = orderController.searchOrder(orderID);
+                OrderPOJO returnedOrder = orderController.searchOrder(orderID);
                 
                 System.out.print(returnedOrder);
 
@@ -285,10 +284,54 @@ public class OrderMenu {
 
     private void editOrderDetailMenu() {
         
-    
-        }
+     logger.info("editOrdereMenu start");
+        System.out.print(" What do you want to edit? " + "\n"
+                + "1. Edit orderDetailCheese" + "\n"
+                + "2. edit order DetailQuantity of cheese" + "\n"
+                + "3. return to order menu " + "\n"
+                + "Please enter your choice: ");
 
-    }
+        int choice2 = input.nextInt();
+
+            switch (choice2) {
+                case 1:
+                System.out.print("Edit orderDetail Cheese: ");
+                OrderController controller = new OrderController();
+                System.out.println("Please select the OrderDetailID from the order you want to change:  ");
+                orderDetailID = input.nextInt();
+                System.out.println("enter the id of the cheese");
+                cheeseID = input.nextInt();
+                outputString = controller.editOrderDetailCheese(orderDetailID, cheeseID);
+                System.out.print(outputString);
+                
+                editOrderMenu();
+
+                case 2:
+                    
+                 System.out.print("Edit orderDetail Cheese Ammount: ");
+                controller = new OrderController();
+                System.out.println("Please select the OrderID from the order you want to change:  ");
+                orderDetailID = input.nextInt();
+                System.out.println("enter the ammount of cheese");
+                int cheeseAmmount = input.nextInt();
+                outputString = controller.editOrderDetailAmmount(orderDetailID, cheeseAmmount);
+                System.out.print(outputString);   
+ 
+               editOrderMenu();
+                
+
+                case 3:
+                    orderMenu();
+                    break;
+                default:
+                    System.out.println("wrong number, try again");
+                    editOrderMenu();
+            }
+
+        }
+}
+
+    
     
     
     
