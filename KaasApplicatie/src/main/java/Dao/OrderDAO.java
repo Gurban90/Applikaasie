@@ -87,9 +87,9 @@ public class OrderDAO implements OrderDAOInterface {
                 OrderPOJO foundOrder = new OrderPOJO();
 
                 foundOrder.setOrderID(resultSet.getInt(1));
-                foundOrder.setOrderDate(convert.convertDate(resultSet.getDate(2)));
+                foundOrder.setOrderDate(convert.convertDate(resultSet.getString(2)));
                 foundOrder.setTotalPrice(resultSet.getBigDecimal(3));
-                foundOrder.setProcessedDate(convert.convertDate(resultSet.getDate(4)));
+                foundOrder.setProcessedDate(convert.convertDate(resultSet.getString(4)));
                 returnedOrder.add(foundOrder);
             }
             resultSet.close();
@@ -127,9 +127,9 @@ public class OrderDAO implements OrderDAOInterface {
             if (resultSet.isBeforeFirst()) {
                 resultSet.next();
                 foundOrder.setOrderID(resultSet.getInt(1));
-                foundOrder.setOrderDate(convert.convertDate(resultSet.getDate(2)));
+                foundOrder.setOrderDate(convert.convertDate(resultSet.getString(2)));
                 foundOrder.setTotalPrice(resultSet.getBigDecimal(3));
-                foundOrder.setProcessedDate(convert.convertDate(resultSet.getDate(4)));
+                foundOrder.setProcessedDate(convert.convertDate(resultSet.getString(4)));
 
             }
             connect.close();
@@ -165,9 +165,9 @@ public class OrderDAO implements OrderDAOInterface {
                 OrderPOJO foundOrder = new OrderPOJO();
 
                 foundOrder.setOrderID(resultSet.getInt(1));
-                foundOrder.setOrderDate(convert.convertDate(resultSet.getDate(2)));
+                foundOrder.setOrderDate(convert.convertDate(resultSet.getString(2)));
                 foundOrder.setTotalPrice(resultSet.getBigDecimal(3));
-                foundOrder.setProcessedDate(convert.convertDate(resultSet.getDate(4)));
+                foundOrder.setProcessedDate(convert.convertDate(resultSet.getString(4)));
                 returnedAddress.add(foundOrder);
             }
             resultSet.close();

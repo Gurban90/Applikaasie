@@ -147,5 +147,9 @@ public class HelpClientOrderCheese {
       
       orderDetailID  = orderController.setOrderDetail(ammountCheese, returnedOrderID, cheeseID);
   }
+
+    public void setOrderID(int OrderID) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
    
 }

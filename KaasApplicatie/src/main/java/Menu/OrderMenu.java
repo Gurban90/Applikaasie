@@ -3,6 +3,8 @@ package Menu;
 
 import Controller.OrderController;
 import Helper.HelpClientOrderCheese;
+import POJO.OrderDetailPOJO;
+import POJO.OrderPOJO;
 import java.util.*;
 import java.util.logging.Logger;
 
@@ -19,8 +21,10 @@ public class OrderMenu {
     
     int clientID;
     int orderID;
+    int orderDetailID;
     int cheeseID;
     int ammountCheese;
+    String outputString;
     
 
     int year;
@@ -43,11 +47,12 @@ public class OrderMenu {
         System.out.print(" Order menu: " + "\n"
                 + "1. New Order" + "\n"
                 + "2. Remove Order" + "\n"
-                + "3. Edit Order" + "\n"
-                + "4. edit OrderDetail" + "\n"
-                + "5. Search Order" + "\n"
-                + "6. Search orderDetail" + "\n"
-                + "7. Return to last menu" + "\n"
+                + "3. Remove OrderDetail" + "\n"
+                + "4. Edit OrderMenu" + "\n"
+                + "5. edit OrderDetailMenu" + "\n"
+                + "6. Search Order" + "\n"
+                + "7. Search orderDetail" + "\n"
+                + "8. Return to last menu" + "\n"
                 + "Please enter your choice: ");
 
         choice = input.nextInt();
@@ -120,8 +125,8 @@ public class OrderMenu {
 
                     }
                 
-                menu = new OrderMenu();
-                menu.orderMenu();
+                
+                orderMenu();
                 logger.info("newOrder end");        
                
                 break;
@@ -134,68 +139,159 @@ public class OrderMenu {
                 logger.info("removeorder start");
                 System.out.print("Enter The orderID you want to remove: ");
                 orderID = input.nextInt();
+      
+                outputString = orderController.removeOrder(orderID);
+                System.out.print(outputString);
                 
-                
-                
-                orderController.removeOrder(orderID);
-                menu = new OrderMenu();
-                menu.orderMenu();
+                orderMenu();
                 logger.info("removeorder end");
                 break;
+            
             case 3:
-                logger.info("editorder start");
+                logger.info("removeorderdetail start");
+                System.out.print("Enter The orderID you want to remove: ");
+                orderDetailID = input.nextInt();
+      
+                outputString = orderController.removeOrderDetail(orderDetailID);
+                System.out.print(outputString);
                 
-                System.out.print("enter the order id of the order you want to edit: ");
-                orderID = input.nextInt();
-                
-                
-                menu = new OrderMenu();
-                menu.orderMenu();
-                
-                logger.info("editorder end");
+                orderMenu();
+                logger.info("removeorderdetail end");
                 break;
             case 4:
-                logger.info("searchorder start");
                 
-                System.out.print("enter the orderDetail id of the orderDetail you want to edit: ");
-                orderID = input.nextInt();
-                
-                menu = new OrderMenu();
-                menu.orderMenu();
-                logger.info("searchorder end");
+                //go to editordermenu
+                editOrderMenu();
+
                 break;
             case 5:
-                logger.info("searchorder start");
+
+                //goto edit orderdetailmenu
+                editOrderDetailMenu();                
                 
-                System.out.print("enter the order id of the order you want to search: ");
-                orderID = input.nextInt();
-                
-                menu = new OrderMenu();
-                menu.orderMenu();
-                logger.info("searchorder end");
                 break;
             case 6:
                 logger.info("searchorder start");
+                orderController = new OrderController();
                 
-                System.out.print("enter the order id of the orderDetail you want to search: ");
+                System.out.print("enter the order id of the order you want to search: ");
                 orderID = input.nextInt();
+        OrderPOJO returnedOrder = orderController.searchOrder(orderID);
                 
-                menu = new OrderMenu();
-                menu.orderMenu();
+                System.out.print(returnedOrder);
+
+                orderMenu();
                 logger.info("searchorder end");
                 break;
             case 7:
+                logger.info("searchorderdetail start");
+                orderController = new OrderController();
+                
+                System.out.print("enter the order id of the orderDetail you want to search: ");
+                orderDetailID = input.nextInt();
+                List<OrderDetailPOJO> returnedOrderDetail = orderController.searchOrderDetail(orderDetailID);
+                
+                    for (OrderDetailPOJO orderDetail  : returnedOrderDetail){
+                        System.out.print(orderDetail);
+                    }
+                
+                orderMenu();
+                logger.info("searchorderdetail end");
+                break;
+            case 8:
                 logger.info("Open mainMenu");
                 MainMenu mainmenu = new MainMenu();
                 mainmenu.mainMenu();
                 break;
             default:
                 System.out.println("wrong number, try again");
-                menu = new OrderMenu();
-                menu.orderMenu();
+                orderMenu();
 
         }
         logger.info("OrderMenu end");
         }
-    }        
+    
+    
+    
+    public void editOrderMenu() {
+        logger.info("editOrdereMenu start");
+        System.out.print(" What do you want to edit? " + "\n"
+                + "1. Edit Original order time" + "\n"
+                + "2. edit Delivery Date" + "\n"
+                + "3. return to order menu " + "\n"
+                + "Please enter your choice: ");
+
+        int choice2 = input.nextInt();
+
+            switch (choice2) {
+                case 1:
+                System.out.print("Edit order: ");
+                collection = new HelpClientOrderCheese();
+                System.out.println("Please select the OrderID from the order you want to change:  ");
+                orderID = input.nextInt();
+                collection.setOrderID(orderID);
+                
+                System.out.print("set the time of day when the order was made by the client: ");
+                System.out.print("enter Year: ");
+                this.year = input.nextInt();
+                System.out.println("enter month: ");
+                this.month = input.nextInt();
+                System.out.println("enter day: ");
+                this.day = input.nextInt();
+                System.out.println("input next hour");
+                this.hour = input.nextInt(); 
+                System.out.println("input next min");
+                this.min = input.nextInt();
+                System.out.println("input next sec");
+                this.sec = input.nextInt();      
+                collection.setNewOrderByClient(year, month, day, hour, min, sec); 
+                
+                menu.editOrderMenu();
+
+                case 2:
+                    
+                 System.out.print("Edit order: ");
+                collection = new HelpClientOrderCheese();
+                System.out.println("Please select the OrderID from the order you want to change:  ");
+                orderID = input.nextInt();
+                collection.setOrderID(orderID);    
+                   
+                 System.out.print("set the time of day when the order will be delivered to the client: ");
+                System.out.print("enter Year: ");
+                this.year = input.nextInt();
+                System.out.println("enter month: ");
+                this.month = input.nextInt();
+                System.out.println("enter day: ");
+                this.day = input.nextInt();
+                System.out.println("input next hour");
+                this.hour = input.nextInt(); 
+                System.out.println("input next min");
+                this.min = input.nextInt();  
+                System.out.println("input next sec");
+                this.sec = input.nextInt();   
+                collection.setOrderDelivery(year, month, day, hour, min, sec);  
+                
+                collection.getOrder();
+
+                case 3:
+                    orderMenu();
+                    break;
+                default:
+                    System.out.println("wrong number, try again");
+                    editOrderMenu();
+            }
+
+        }
+
+    private void editOrderDetailMenu() {
+        
+    
+        }
+
+    }
+    
+    
+    
+    
+            
 
