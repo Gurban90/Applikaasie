@@ -50,11 +50,9 @@ public class HelpClientOrderCheese {
         private int ammountCheese;
     
         private OrderPOJO orderpojo;
-        private ClientPOJO clientPOJO;
         private ClientPOJO returnedClientPOJO;
+        private ClientPOJO clientPOJO;
         private ClientDAO clientDAO;
-        private OrderDetailDAO orderDetailDAO;
-        private OrderDetailPOJO orderDetailPOJO;
         private OrderController orderController;
                 
 
@@ -109,51 +107,22 @@ public class HelpClientOrderCheese {
     public void setOrderDetail(int cheeseID, int ammountCheese){
         this.ammountCheese = ammountCheese;
         this.cheeseID = cheeseID;
-
-      
- 
-      
+    }
+    
+    public void setOrderID(int orderID) {
+       this.orderID = orderID;
     }
 
   public void getOrder(){
-    orderController = new OrderController();
-      
-      
+    
+    orderController = new OrderController(); 
     returnedOrderID = orderController.setOrder(orderDate, zeroTotalPrice, processedDate, clientID);
-      
-     
   }
   
   public void getOrderDetail(){
       
-      OrderDAO orderDAO = new OrderDAO();
-      OrderPOJO orderPOJO = new OrderPOJO();
-      OrderDetailPOJO orderDetail = new OrderDetailPOJO();
-      CheeseDAO cheeseDAO = new CheeseDAO();
-      CheesePOJO cheesePOJO = new CheesePOJO();
-      
       orderController = new OrderController();
-      
-      
-      
-       orderPOJO.setOrderID(orderID);
-       OrderPOJO returnedOrderPOJO = orderDAO.getOrder(orderPOJO);
-       
-       cheesePOJO.setCheeseID(cheeseID);
-       CheesePOJO returnedCheesePOJO = cheeseDAO.getCheese(cheesePOJO);
-       
-       //Misschien is Id al genoeg?
-       
-      
       orderDetailID  = orderController.setOrderDetail(ammountCheese, returnedOrderID, cheeseID);
   }
-
-    public void setOrderID(int OrderID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public void setOrderDetailID(int orderDetailID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-   
+  
 }
