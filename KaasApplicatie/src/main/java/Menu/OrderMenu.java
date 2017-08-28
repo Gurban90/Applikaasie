@@ -14,10 +14,11 @@ public class OrderMenu {
 
     private Scanner input;
     private int choice;
-    String anwser;
-    String outputString;
+    private String anwser;
+    private String outputString;
     
     private boolean makeOrderDetail = true;
+    
     private OrderMenu menu;
     
     int clientID;
@@ -47,13 +48,14 @@ public class OrderMenu {
         //kijk even of er een apparte new orderdetail gemaakt kan worden! met orderid order opvragen.
         System.out.print(" Order menu: " + "\n"
                 + "1. New Order" + "\n"
-                + "2. Remove Order" + "\n"
-                + "3. Remove OrderDetail" + "\n"
-                + "4. Edit OrderMenu" + "\n"
-                + "5. edit OrderDetailMenu" + "\n"
-                + "6. Search Order" + "\n"
-                + "7. Search orderDetail" + "\n"
-                + "8. Return to last menu" + "\n"
+                + "2. new OrderDetail" + "\n"
+                + "3. Remove Order" + "\n"
+                + "4. Remove OrderDetail" + "\n"
+                + "5. Edit OrderMenu" + "\n"
+                + "6. edit OrderDetailMenu" + "\n"
+                + "7. Search Order" + "\n"
+                + "8. Search orderDetail" + "\n"
+                + "9. Return to last menu" + "\n"
                 + "Please enter your choice: ");
 
         choice = input.nextInt();
@@ -133,9 +135,30 @@ public class OrderMenu {
                 logger.info("newOrder end");        
                
                 break;
-        
+                
             case 2:
+                logger.info("new OrderDetail start");
+                orderController = new OrderController();
+                System.out.println("Input orderID for adding new orderdetail to order");
+                orderID = input.nextInt();
+                collection.setOrderID(orderID);
+                
+                System.out.print("Input new cheese id: ");
+                cheeseID = input.nextInt();
+                
+                System.out.println("Input Ammount");
+                ammountCheese = input.nextInt();
+                
+                collection.setOrderDetail(cheeseID, ammountCheese);
+                collection.getOrderDetail();
+                
+                                
+                logger.info("new OrderDetail end");
+                break;
+                
+            case 3:
                 logger.info("removeorder start");
+                orderController = new OrderController();
                 System.out.print("Enter The orderID you want to remove: ");
                 orderID = input.nextInt();
       
@@ -146,8 +169,9 @@ public class OrderMenu {
                 logger.info("removeorder end");
                 break;
             
-            case 3:
+            case 4:
                 logger.info("removeorderdetail start");
+                orderController = new OrderController();
                 System.out.print("Enter The orderID you want to remove: ");
                 orderDetailID = input.nextInt();
       
@@ -157,19 +181,19 @@ public class OrderMenu {
                 orderMenu();
                 logger.info("removeorderdetail end");
                 break;
-            case 4:
+            case 5:
                 
                 //go to editordermenu
                 editOrderMenu();
 
                 break;
-            case 5:
+            case 6:
 
                 //goto edit orderdetailmenu
                 editOrderDetailMenu();                
                 
                 break;
-            case 6:
+            case 7:
                 logger.info("searchorder start");
                 orderController = new OrderController();
                 
@@ -182,7 +206,7 @@ public class OrderMenu {
                 orderMenu();
                 logger.info("searchorder end");
                 break;
-            case 7:
+            case 8:
                 logger.info("searchorderdetail start");
                 orderController = new OrderController();
                 
@@ -197,7 +221,7 @@ public class OrderMenu {
                 orderMenu();
                 logger.info("searchorderdetail end");
                 break;
-            case 8:
+            case 9:
                 logger.info("Open mainMenu");
                 MainMenu mainmenu = new MainMenu();
                 mainmenu.mainMenu();
