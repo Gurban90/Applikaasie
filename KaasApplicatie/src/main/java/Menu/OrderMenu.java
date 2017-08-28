@@ -43,6 +43,8 @@ public class OrderMenu {
         
         input = new Scanner(System.in);
         
+        
+        //kijk even of er een apparte new orderdetail gemaakt kan worden! met orderid order opvragen.
         System.out.print(" Order menu: " + "\n"
                 + "1. New Order" + "\n"
                 + "2. Remove Order" + "\n"
