@@ -21,8 +21,6 @@ public class MongoConnector {
     private String url;
     private int port;
     private String port2;
-    private String username;
-    private String password;
     private String database;
     private MongoClient mongoClient;
 

@@ -8,8 +8,10 @@ package MongoDao;
 import DatabaseConnector.MongoConnector;
 import Interface.CheeseDAOInterface;
 import POJO.CheesePOJO;
+
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
+
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Indexes.descending;
 import static com.mongodb.client.model.Sorts.orderBy;
@@ -33,7 +35,13 @@ public class CheeseMongoDao implements CheeseDAOInterface {
     }
 
     private CheesePOJO convertDocumentToCheese(Document doc) {
-        return new CheesePOJO(doc.getInteger("id"), doc.getString("name"), new BigDecimal(doc.getString("price")), doc.getInteger("stock"));
+        CheesePOJO returnCheese = new CheesePOJO();
+        try {
+            returnCheese = new CheesePOJO(doc.getInteger("id"), doc.getString("name"), new BigDecimal(doc.getString("price")), doc.getInteger("stock"));
+        } catch (NullPointerException e) {
+            System.out.println("Must be an existing Cheese");
+        }
+        return returnCheese;
     }
 
     private Document convertCheeseToDocument(CheesePOJO cheese) {
@@ -45,12 +53,11 @@ public class CheeseMongoDao implements CheeseDAOInterface {
         return document;
     }
 
-    private Integer getNextId() {xxxxxx
+    private Integer getNextId() {
         int id = 0;
         MongoCollection<Document> collection = mongoConnector.makeConnection().getCollection("cheese");
         if (collection.count() > 0) {
-            Document highestId = collection.find().sort(orderBy(descending("id"))).first();<
-            ---------------
+            Document highestId = collection.find().sort(orderBy(descending("id"))).first();
             id = highestId.getInteger("id") + 1;
         } else {
             id = 1;
@@ -62,6 +69,7 @@ public class CheeseMongoDao implements CheeseDAOInterface {
     @Override
     public Integer addCheese(CheesePOJO cheese) {
         logger.info("addCheese Start");
+        cheese.setCheeseID(getNextId());
         MongoCollection<Document> collection = mongoConnector.makeConnection().getCollection("cheese");
         collection.insertOne(convertCheeseToDocument(cheese));
         mongoConnector.closeConnection();
@@ -97,8 +105,7 @@ public class CheeseMongoDao implements CheeseDAOInterface {
 
     @Override
     public CheesePOJO getCheeseWithName(CheesePOJO cheese) {
-        xxxxxx logger
-        .info("getCheeseWithName Start");
+        logger.info("getCheeseWithName Start");
         MongoCollection<Document> collection = mongoConnector.makeConnection().getCollection("cheese");
         Document doc = collection.find(eq("name", cheese.getCheeseName())).first();
         mongoConnector.closeConnection();
@@ -108,11 +115,11 @@ public class CheeseMongoDao implements CheeseDAOInterface {
 
     @Override
     public void updateCheese(CheesePOJO cheese) {
+        logger.info("updateCheese Start");
         MongoCollection<Document> collection = mongoConnector.makeConnection().getCollection("cheese");
-        collection.f collection
-        .findOneAndReplace(eq("id", artikel.getId()), convertArtikelToDocument(artikel));
+        collection.findOneAndReplace(eq("id", cheese.getCheeseID()), convertCheeseToDocument(cheese));
         mongoConnector.closeConnection();
-
+        logger.info("updateCheese end");
     }
 
     @Override
@@ -126,12 +133,15 @@ public class CheeseMongoDao implements CheeseDAOInterface {
 
     public static void main(String[] args) {
         CheesePOJO cheese1 = new CheesePOJO();
-        cheese1.setCheeseID(2);
-        cheese1.setCheeseName("Kaas");
-        cheese1.setPrice(new BigDecimal(22));
-        cheese1.setStock(2);
+
+        cheese1.setCheeseName("Kippie2");
+        cheese1.setPrice(new BigDecimal(22.0));
+        cheese1.setStock(222);
         CheeseMongoDao dao = new CheeseMongoDao();
-        dao.addCheese(cheese1);
+
+        List<CheesePOJO> hoi = dao.getAllCheese();
+
+        System.out.println(hoi);
 
     }
 }

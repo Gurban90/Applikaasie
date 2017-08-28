@@ -19,7 +19,7 @@ import org.apache.commons.validator.routines.EmailValidator;
  *
  * @author Gerben
  */
-public class Validator { //ALLEEN MAINMENU AF! 
+public class Validator { 
 
     private int intValidation;
     private BigDecimal bdValidation;

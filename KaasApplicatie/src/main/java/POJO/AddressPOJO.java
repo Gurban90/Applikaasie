@@ -24,7 +24,19 @@ public class AddressPOJO {
     private String city;
 
     public AddressPOJO() {};
-      
+
+    public AddressPOJO(Integer addressID, String Streetname, Integer HouseNumber, String HouseNumberAddition, 
+            String PostalCode, String City, Integer ClientID, Integer AddressTypeID) {
+        this.addressID = addressID;
+        this.streetname = Streetname;
+        this.housenumber = HouseNumber;
+        this.houseNumberAddition = HouseNumberAddition;
+        this.postalCode = PostalCode;
+        this.city = City;
+        this.clientID = ClientID;
+        this.addressTypeID = AddressTypeID;
+    }
+
     public AddressTypePOJO getAddresstype() {
         return addresstype;
     }
@@ -88,8 +100,8 @@ public class AddressPOJO {
     public void setCity(String city) {
         this.city = city;
     }
-    
-     public int getClientID() {
+
+    public int getClientID() {
         return clientID;
     }
 
@@ -108,7 +120,7 @@ public class AddressPOJO {
     @Override
     public String toString() {
         return "AddressID: " + addressID + ", Housenumber: " + housenumber + ", Housenumber Addition: " + houseNumberAddition + ", Streetname: " + streetname
-                + ", Postal Code: " + postalCode + ", City: " + city+", ClientID: " + clientID+", AddressTypeID: " + addressTypeID;
+                + ", Postal Code: " + postalCode + ", City: " + city + ", ClientID: " + clientID + ", AddressTypeID: " + addressTypeID;
     }
 
 }

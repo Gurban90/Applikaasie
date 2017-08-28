@@ -18,15 +18,15 @@ public interface AddressDAOInterface {
     
     public void deleteAddress (AddressPOJO address);
     
-    public Integer addAddressType(AddressTypePOJO adress);
+    public Integer addAddressType(AddressTypePOJO addressType);
     
     public List<AddressPOJO> getAddressWithClient(ClientPOJO client);
     
     public List<AddressTypePOJO> getAllAddressType();
     
-    public AddressTypePOJO getAddressType(AddressTypePOJO address);
+    public AddressTypePOJO getAddressType(AddressTypePOJO addressType);
     
-    public void updateAddressType(AddressTypePOJO address);
+    public void updateAddressType(AddressTypePOJO addressType);
     
-    public void deleteAddressType (AddressTypePOJO address);
+    public void deleteAddressType (AddressTypePOJO addressType);
 }
