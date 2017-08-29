@@ -15,13 +15,15 @@ public class Converter {
             
     
         public Converter(){
+        
+            formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         }
     
         public LocalDateTime convertDate(String x){ 
         
 
             
-            formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            //formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
        
             localDateTime =  LocalDateTime.parse(x, formatter);
         
@@ -30,7 +32,7 @@ public class Converter {
     
     public  String convertLocalDateTime(LocalDateTime x)  {
         
-        formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        //formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         formatDateTime = x.format(formatter);
 
