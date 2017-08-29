@@ -11,12 +11,20 @@ package POJO;
  */
 //ACCOUNTPOJO
 public class AccountPOJO {
+
     private int accountID;
     private String accountName;
     private String password;
     private int accountStatus;
-    
-    public AccountPOJO(){}
+
+    public AccountPOJO() {}
+
+    public AccountPOJO(Integer accountID, String accountName, String password, Integer accountStatus) {
+        this.accountID = accountID;
+        this.accountName = accountName;
+        this.password = password;
+        this.accountStatus = accountStatus;
+    }
 
     public int getAccountID() {
         return accountID;
@@ -49,13 +57,10 @@ public class AccountPOJO {
     public void setAccountStatus(int accountStatus) {
         this.accountStatus = accountStatus;
     }
-    
+
     @Override
-    public String toString(){
-        return "AccountID: "+accountID+", AccountName: " +accountName + " Password: "+password+", AccountStatus: " +accountStatus;
+    public String toString() {
+        return "AccountID: " + accountID + ", AccountName: " + accountName + " Password: " + password + ", AccountStatus: " + accountStatus;
     }
-    
-            
-                    
-    
+
 }

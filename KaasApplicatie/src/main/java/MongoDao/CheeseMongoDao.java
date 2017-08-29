@@ -128,7 +128,7 @@ public class CheeseMongoDao implements CheeseDAOInterface {
         MongoCollection<Document> collection = mongoConnector.makeConnection().getCollection("cheese");
         collection.findOneAndDelete(eq("id", cheese.getCheeseID()));
         mongoConnector.closeConnection();
-        logger.info("deleteCheese Start");
+        logger.info("deleteCheese End");
     }
 
     public static void main(String[] args) {

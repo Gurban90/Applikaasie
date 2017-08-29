@@ -31,7 +31,7 @@ public class DomXML {
             System.out.println(ex);
         }
         try {
-            document = builder.parse(new FileInputStream("C:/java/Data2.xml"));
+            document = builder.parse(new FileInputStream("C:/java/MongoDBData.xml"));
         } catch (SAXException ex) {
             System.out.println(ex);
         } catch (IOException ex) {
@@ -58,5 +58,15 @@ public class DomXML {
     public String getPassword() {
         NodeList passNodes = rootElement.getElementsByTagName("password");
         return passNodes.item(0).getTextContent();
+    }
+    
+    public String getPort() {
+        NodeList portNodes = rootElement.getElementsByTagName("port");
+        return portNodes.item(0).getTextContent();
+    }
+    
+    public String getDatabase() {
+        NodeList databaseNodes = rootElement.getElementsByTagName("database");
+        return databaseNodes.item(0).getTextContent();
     }
 }

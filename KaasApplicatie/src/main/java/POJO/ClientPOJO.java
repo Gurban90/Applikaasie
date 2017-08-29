@@ -20,6 +20,13 @@ public class ClientPOJO {
     public ClientPOJO() {
     }
 
+    public ClientPOJO(Integer clientID, String firstName, String lastName, String eMail) {
+        this.clientID = clientID;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.eMail = eMail;
+    }
+
     public int getClientID() {
         return clientID;
     }
@@ -51,8 +58,9 @@ public class ClientPOJO {
     public String getEMail() {
         return eMail;
     }
+
     @Override
-    public String toString(){
-        return "ClientID: "+clientID+", First Name: " +firstName +", Last Name: "+lastName+", E-Mail: " +eMail;
+    public String toString() {
+        return "ClientID: " + clientID + ", First Name: " + firstName + ", Last Name: " + lastName + ", E-Mail: " + eMail;
     }
 }

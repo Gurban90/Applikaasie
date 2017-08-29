@@ -26,9 +26,10 @@ public class MongoConnector {
 
     public MongoConnector() {
         DomXML parser = new DomXML();
-        url = "localhost";
-        port = 27017;
-        database = "KaasApplicatie";
+        this.url = parser.getUrl();
+        this.port2 = parser.getPort();
+        this.database = parser.getDatabase();
+        port = Integer.parseInt(port2);
     }
 
     public MongoDatabase makeConnection() {
