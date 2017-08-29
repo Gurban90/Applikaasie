@@ -105,7 +105,7 @@ public class AddressMongoDao implements AddressDAOInterface {
     }
 
     @Override
-    public Integer addAddress(AddressPOJO adress) {//Misschien andere indeling. Adres onder klant ipv afzonderlijk.
+    public Integer addAddress(AddressPOJO adress) {
         logger.info("addAddress Start");
         ClientMongoDao clientMongo = new ClientMongoDao();
         try {
@@ -154,8 +154,7 @@ public class AddressMongoDao implements AddressDAOInterface {
     }
 
     @Override
-    public AddressPOJO getAddress(AddressPOJO address
-    ) {
+    public AddressPOJO getAddress(AddressPOJO address) {
         logger.info("getAddress Start");
         MongoCollection<Document> collection = mongoConnector.makeConnection().getCollection("address");
         Document doc = collection.find(eq("AddressId", address.getAddressID())).first();
@@ -165,8 +164,7 @@ public class AddressMongoDao implements AddressDAOInterface {
     }
 
     @Override
-    public void updateAddress(AddressPOJO address
-    ) {
+    public void updateAddress(AddressPOJO address) {
         logger.info("updateAddress Start");
         MongoCollection<Document> collection = mongoConnector.makeConnection().getCollection("address");
         collection.findOneAndReplace(eq("AddressId", address.getAddressID()), convertAddressToDocument(address));
@@ -175,8 +173,7 @@ public class AddressMongoDao implements AddressDAOInterface {
     }
 
     @Override
-    public void deleteAddress(AddressPOJO address
-    ) {
+    public void deleteAddress(AddressPOJO address) {
         logger.info("deleteAddress Start");
         MongoCollection<Document> collection = mongoConnector.makeConnection().getCollection("address");
         collection.findOneAndDelete(eq("AddressId", address.getAddressID()));
@@ -197,8 +194,7 @@ public class AddressMongoDao implements AddressDAOInterface {
     }
 
     @Override
-    public List<AddressPOJO> getAddressWithClient(ClientPOJO client
-    ) {
+    public List<AddressPOJO> getAddressWithClient(ClientPOJO client) {
         logger.info("getAddressWithClient Start");
         List<AddressPOJO> addresses = new ArrayList<>();
         MongoCollection<Document> collection = mongoConnector.makeConnection().getCollection("address");
