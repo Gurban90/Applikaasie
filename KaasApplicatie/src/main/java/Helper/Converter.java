@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 public class Converter {
    
             LocalDateTime localDateTime;
-            DateTimeFormatter formatter;
+            DateTimeFormatter formatter;    //= new DateTimeFormatter();??
             String formatDateTime;
             
     
