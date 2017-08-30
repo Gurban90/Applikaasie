@@ -31,9 +31,11 @@ public class Converter {
 
     }
      public static void main(String[] args) {
-    LocalDateTime x = LocalDateTime.now();
+         String date = "2017-08-24 00:00:00.0";
+           
     Converter a = new Converter();
-    String hoi = a.convertLocalDateTime(x);
+    LocalDateTime a = a.convertDate(date);
+    
     System.out.println(hoi);
      }
 }

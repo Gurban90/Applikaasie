@@ -73,8 +73,8 @@ public class OrderDAO implements OrderDAOInterface {
 
     @Override
     public List<OrderPOJO> getAllOrder() {
-        log.info("getAllAddress Start");
-        String query = "SELECT * FROM Address;";
+        log.info("getAllOrder Start");
+        String query = "SELECT * FROM `order`;";
 
         List<OrderPOJO> returnedOrder = new ArrayList<>();
         convert = new Converter();
@@ -103,7 +103,7 @@ public class OrderDAO implements OrderDAOInterface {
             }
         }
 
-        log.info("getAllAddress end");
+        log.info("getAllOrder end");
         return returnedOrder;
     }
 
@@ -115,7 +115,7 @@ public class OrderDAO implements OrderDAOInterface {
     @Override
     public OrderPOJO getOrder(OrderPOJO order) {
         log.info("getOrder Start");
-        String query = "SELECT * FROM order WHERE orderID=?";
+        String query = "SELECT * FROM `order` WHERE OrderID=?";
         OrderPOJO foundOrder = new OrderPOJO();
         convert = new Converter();
 

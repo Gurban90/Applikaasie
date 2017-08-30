@@ -160,15 +160,14 @@ public class HelpClientOrderCheese {
             OrderPOJO orderPOJO = new OrderPOJO();
             OrderDAO orderDAO = new OrderDAO();
             
-           orderPOJO.setClientID(clientID);
+           orderPOJO.setOrderID(orderID);
            returnedOrderPOJO =  orderDAO.getOrder(orderPOJO);
             
             
             returnedOrderPOJO.setTotalPrice(totalPrice);
             orderDAO.updateOrder(returnedOrderPOJO);
             
-            orderPOJO.setTotalPrice(totalPrice);
-            orderDAO.updateOrder(orderPOJO);
+            
             
             return "total price updated";
     
