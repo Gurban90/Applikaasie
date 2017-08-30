@@ -72,14 +72,16 @@ public class OrderDetailDAO implements OrderDetailDAOInterface {
 
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally{
-                try { connection.close(); } catch (SQLException e) {}
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
             }
-        
-        
+        }
+
         logger.info("addOrderDetail end");
         return newID;
-        
+
     }
 
     @Override
@@ -102,24 +104,26 @@ public class OrderDetailDAO implements OrderDetailDAOInterface {
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally{
-                try { connection.close(); } catch (SQLException e) {}
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
             }
-        
-        
+        }
+
         logger.info("getAllOrderDetail end");
         return returnedOrderDetail;
     }
 
     @Override
-    public List<OrderDetailPOJO> getOrderDetail(OrderDetailPOJO orderdetail
-    ) {
+    public List<OrderDetailPOJO> getOrderDetail(OrderDetailPOJO orderdetail) {
         logger.info("getOrderDetail Start");
         String query = "SELECT * FROM OrderDetail WHERE Order_OrderID =?";
         List<OrderDetailPOJO> returnedOrderDetail = new ArrayList<>();
         try {
             connection = Connector.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
+            statement.setObject(1, orderdetail.getOrderID());
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 OrderDetailPOJO orderDetail = new OrderDetailPOJO();
@@ -132,36 +136,67 @@ public class OrderDetailDAO implements OrderDetailDAOInterface {
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally{
-                try { connection.close(); } catch (SQLException e) {}
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
             }
-        
-        
+        }
+
         logger.info("getOrderDetail end");
         return returnedOrderDetail;
     }
 
-    public void updateOrderDetail(OrderDetailPOJO orderDetail) {
-        logger.info("updateOrderDetail Start");
-        CheesePOJO cheese = orderDetail.getCheese();
-        OrderPOJO order = orderDetail.getOrder();
-        String query = "select * from Cheese where CheeseID = ?";
+    @Override
+    public OrderDetailPOJO getOrderDetailWithID(OrderDetailPOJO orderdetail) {
+        logger.info("getOrderDetail Start");
+        String query = "SELECT * FROM OrderDetail WHERE OrderDetailID =?";
+        OrderDetailPOJO foundOrderDetail = new OrderDetailPOJO();
         try {
             connection = Connector.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, cheese.getCheeseID());
+            statement.setObject(1, orderdetail.getOrderDetailID());
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.isBeforeFirst()) {
+                resultSet.next();
+                foundOrderDetail.setOrderDetailID(resultSet.getInt(1));
+                foundOrderDetail.setQuantity(resultSet.getInt(2));
+                foundOrderDetail.setCheeseID(resultSet.getInt(3));
+                foundOrderDetail.setOrderID(resultSet.getInt(4));
+            }
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+            }
+        }
+        logger.info("getOrderDetail end");
+        return foundOrderDetail;
+    }
+
+    public void updateOrderDetail(OrderDetailPOJO orderDetail) {
+        logger.info("updateOrderDetail Start");
+                String query = "select * from Cheese where CheeseID = ?";
+        try {
+            connection = Connector.getConnection();
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, orderDetail.getCheeseID());
             ResultSet resultSet = statement.executeQuery();//Check of Cheese wel bestaat.
             if (resultSet.next()) {
-                query = "select * from Order where OrderID = ?";
+                query = "SELECT * from `order` WHERE OrderID = ?";
                 statement = connection.prepareStatement(query);
-                statement.setInt(1, order.getOrderID());
+                statement.setInt(1, orderDetail.getOrderID());
                 ResultSet resultSet2 = statement.executeQuery();//Check of Order wel bestaat.
                 if (resultSet2.next()) {
-                    query = "UPDATE OrderDetail (Quantity, Cheese_CheeseID, Order_OrderID) VALUES (?,?,?);";
+                    query = "UPDATE orderdetail SET Quantity = ?, Cheese_CheeseID = ?, Order_OrderID = ? WHERE OrderDetailID = ?;";
                     statement = connection.prepareStatement(query);
                     statement.setInt(1, orderDetail.getQuantity());
-                    statement.setInt(2, cheese.getCheeseID());
-                    statement.setInt(3, order.getOrderID());
+                    statement.setInt(2, orderDetail.getCheeseID());
+                    statement.setInt(3, orderDetail.getOrderID());
+                    statement.setInt(4, orderDetail.getOrderDetailID());
                     statement.executeUpdate();
                 } else {
                     System.out.println("Check order , has to exist in database");
@@ -174,10 +209,13 @@ public class OrderDetailDAO implements OrderDetailDAOInterface {
 
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally{
-                try { connection.close(); } catch (SQLException e) {}
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
             }
-        
+        }
+
         logger.info("updateOrderDetail end");
 
     }
@@ -196,10 +234,22 @@ public class OrderDetailDAO implements OrderDetailDAOInterface {
         } catch (SQLException e) {
             e.printStackTrace();
 
-        }finally{
-                try { connection.close(); } catch (SQLException e) {}
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
             }
+        }
         logger.info("deleteOrderDetail end");
+    }
+
+    public static void main(String[] args) {
+        OrderDetailPOJO orderdetail = new OrderDetailPOJO();
+        OrderDetailDAO dao = new OrderDetailDAO();
+        orderdetail.setOrderDetailID(18);
+
+        System.out.println(dao.getOrderDetailWithID(orderdetail));
+
     }
 
 }

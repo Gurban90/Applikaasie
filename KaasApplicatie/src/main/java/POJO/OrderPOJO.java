@@ -88,7 +88,10 @@ public class OrderPOJO {
     public void setClientID(int clientID) {
         this.clientID = clientID;
     }
-    
+      @Override
+    public String toString(){
+        return "OrderID: "+orderID+", OrderDate: " +orderDate + ", TotalPrice: "+totalPrice+", ProcessedDate: " +processedDate +", ClientID "+clientID; 
+    }
 
 }
     

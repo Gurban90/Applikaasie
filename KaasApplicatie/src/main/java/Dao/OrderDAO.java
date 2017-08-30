@@ -38,28 +38,40 @@ public class OrderDAO implements OrderDAOInterface {
         Integer newID = 0;
         convert = new Converter();
         log.info("addorder Start");
-        String insertOrder = "INSERT INTO `order` (`OrderDate`, `TotalPrice`, `ProcessedDate`, `Client_ClientID`) VALUES (?,?,?,?);";
+        String query = "select * from Client where ClientID = ?";
         try {
             connect = Connector.getConnection();
-            PreparedStatement statement = connect.prepareStatement(insertOrder, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, convert.convertLocalDateTime(order.getOrderDate()));
-            statement.setBigDecimal(2, order.getTotalPrice());
-            statement.setString(3, convert.convertLocalDateTime(order.getProcessedDate()));
-            statement.setInt(4, order.getClientID());
-            statement.executeUpdate();
+            PreparedStatement statement = connect.prepareStatement(query);
+            statement.setInt(1, order.getClientID());
+            ResultSet resultSet1 = statement.executeQuery();
+            if (resultSet1.next()) {
+                String insertOrder = "INSERT INTO `order` (`OrderDate`, `TotalPrice`, `ProcessedDate`, `Client_ClientID`) VALUES (?,?,?,?);";
+                try {
+                    connect = Connector.getConnection();
+                    statement = connect.prepareStatement(insertOrder, Statement.RETURN_GENERATED_KEYS);
+                    statement.setString(1, convert.convertLocalDateTime(order.getOrderDate()));
+                    statement.setBigDecimal(2, order.getTotalPrice());
+                    statement.setString(3, convert.convertLocalDateTime(order.getProcessedDate()));
+                    statement.setInt(4, order.getClientID());
+                    statement.executeUpdate();
 
-            try (ResultSet resultSet = statement.getGeneratedKeys()) {
-                if (resultSet.next()) {
-                    newID = resultSet.getInt(1);
-                    order.setOrderID(newID);
-                } else {
-                    throw new SQLException("Inserting order failed, no ID retrieved.");
+                    try (ResultSet resultSet = statement.getGeneratedKeys()) {
+                        if (resultSet.next()) {
+                            newID = resultSet.getInt(1);
+                            order.setOrderID(newID);
+                        } else {
+                            throw new SQLException("Inserting order failed, no ID retrieved.");
+                        }
+                    }
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
+            } else {
+                System.out.println("Check Client , has to exist in database");
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
-
         } finally {
             try {
                 connect.close();
@@ -91,6 +103,7 @@ public class OrderDAO implements OrderDAOInterface {
                 foundOrder.setOrderDate(convert.convertDate(resultSet.getString(2)));
                 foundOrder.setTotalPrice(resultSet.getBigDecimal(3));
                 foundOrder.setProcessedDate(convert.convertDate(resultSet.getString(4)));
+                foundOrder.setClientID(resultSet.getInt(5));
                 returnedOrder.add(foundOrder);
             }
             resultSet.close();
@@ -113,7 +126,8 @@ public class OrderDAO implements OrderDAOInterface {
     LocalDateTime processedDate;
      */
     @Override
-    public OrderPOJO getOrder(OrderPOJO order) {
+    public OrderPOJO getOrder(OrderPOJO order
+    ) {
         log.info("getOrder Start");
         String query = "SELECT * FROM `order` WHERE OrderID=?";
         OrderPOJO foundOrder = new OrderPOJO();
@@ -150,9 +164,10 @@ public class OrderDAO implements OrderDAOInterface {
     }
 
     @Override
-    public List<OrderPOJO> getOrderWithClient(ClientPOJO client) {
+    public List<OrderPOJO> getOrderWithClient(ClientPOJO client
+    ) {
         log.info("getAllAddress Start");
-        String query = "SELECT * FROM Order WHERE Client_ClientID=?"; 
+        String query = "SELECT * FROM `order` WHERE Client_ClientID=?";
 
         List<OrderPOJO> returnedAddress = new ArrayList<>();
         convert = new Converter();
@@ -170,6 +185,7 @@ public class OrderDAO implements OrderDAOInterface {
                 foundOrder.setOrderDate(convert.convertDate(resultSet.getString(2)));
                 foundOrder.setTotalPrice(resultSet.getBigDecimal(3));
                 foundOrder.setProcessedDate(convert.convertDate(resultSet.getString(4)));
+                foundOrder.setClientID(resultSet.getInt(5));
                 returnedAddress.add(foundOrder);
             }
             resultSet.close();
@@ -188,9 +204,10 @@ public class OrderDAO implements OrderDAOInterface {
     }
 
     @Override
-    public void updateOrder(OrderPOJO order) {
+    public void updateOrder(OrderPOJO order
+    ) {
         log.info("updateOrder Start");
-        String query = "UPDATE `order` SET OrderDate = ?, TotalPrice = ?, ProcessedDate = ?, Client_ClientID = ?  WHERE OrderID=?"; 
+        String query = "UPDATE `order` SET OrderDate = ?, TotalPrice = ?, ProcessedDate = ?, Client_ClientID = ?  WHERE OrderID=?";
         convert = new Converter();
 
         try {
@@ -216,19 +233,19 @@ public class OrderDAO implements OrderDAOInterface {
     }
 
     @Override
-    public void deleteOrder(OrderPOJO order) {
+    public void deleteOrder(OrderPOJO order
+    ) {
         log.info("deleteOrder Start");
 
-        String query = "select * from Order where OrderID = ?";
+        String query = "DELETE FROM `order` where OrderID = ?";
 
         try {
             connect = Connector.getConnection();
             PreparedStatement statement = connect.prepareStatement(query);
             statement.setInt(1, order.getOrderID());
-            ResultSet resultSet = statement.executeQuery();
+            statement.executeUpdate();
 
             connect.close();
-            resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
 
@@ -241,19 +258,15 @@ public class OrderDAO implements OrderDAOInterface {
 
         log.info("deleteOrder end");
     }
+
     public static void main(String[] args) {
         OrderPOJO order = new OrderPOJO();
         OrderDAO dao = new OrderDAO();
+        ClientPOJO client = new ClientPOJO();
+        order.setOrderID(2);
+        order.setClientID(8);
 
-        order.setOrderDate(LocalDateTime.now());
-        order.setTotalPrice(new BigDecimal(3.0));
-        order.setProcessedDate(LocalDateTime.now());
-        order.setClientID(1);
-        
-
-       System.out.println(dao.getAllOrder());
-
-       
+        dao.deleteOrder(order);
 
     }
 

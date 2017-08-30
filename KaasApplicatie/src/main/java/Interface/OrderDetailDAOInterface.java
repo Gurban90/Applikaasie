@@ -12,6 +12,8 @@ public interface OrderDetailDAOInterface {
     public List<OrderDetailPOJO> getAllOrderDetail();
 
    public List<OrderDetailPOJO> getOrderDetail(OrderDetailPOJO orderdetail);
+   
+   public OrderDetailPOJO getOrderDetailWithID(OrderDetailPOJO orderdetail);
 
     public void deleteOrderDetail(OrderDetailPOJO orderDetail);
 }
