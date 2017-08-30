@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 public class Converter {
    
             LocalDateTime localDateTime;
-            DateTimeFormatter formatter;    //= new DateTimeFormatter();??
+            DateTimeFormatter formatter;
             String formatDateTime;
             
     
@@ -20,10 +20,6 @@ public class Converter {
         }
     
         public LocalDateTime convertDate(String x){ 
-        
-
-            
-            //formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
        
             localDateTime =  LocalDateTime.parse(x, formatter);
         
@@ -32,8 +28,6 @@ public class Converter {
     
     public  String convertLocalDateTime(LocalDateTime x)  {
         
-        //formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
         formatDateTime = x.format(formatter);
 
         return formatDateTime;

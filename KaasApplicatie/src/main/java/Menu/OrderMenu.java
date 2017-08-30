@@ -61,7 +61,6 @@ public class OrderMenu {
                 + "9. Return to last menu" + "\n"
                 + "Please enter your choice: ");
 
-        if (validator.menuValidator(choice))
         choice = input.nextInt();
 
         switch (choice) {
@@ -117,10 +116,9 @@ public class OrderMenu {
                         System.out.println("give amount of cheese");
                         ammountCheese = input.nextInt();
                         
-                     
-                        collection.setOrderDetail(cheeseID, ammountCheese);
-                        input.nextLine();
                         
+                        collection.setOrderDetail(cheeseID, ammountCheese);
+                        collection.getSingleCheesePrice();
                         collection.getOrderDetail();
                         collection.addUpCheese(); //dp i want to use a return?
                 

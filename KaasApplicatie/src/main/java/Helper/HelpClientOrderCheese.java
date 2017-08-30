@@ -49,11 +49,12 @@ public class HelpClientOrderCheese {
         private BigDecimal zeroTotalPrice = null;
         private BigDecimal totalPrice;
         private int ammountCheese;
-        private int cheesePrice;
+        private BigDecimal cheesePrice;
     
         private OrderPOJO orderPOJO;
         private OrderDAO orderDAO;
         private ClientPOJO returnedClientPOJO;
+        private CheesePOJO returnedCheesePOJO;
         private ClientPOJO clientPOJO;
         private ClientDAO clientDAO;
         private OrderController orderController;
@@ -112,6 +113,17 @@ public class HelpClientOrderCheese {
         this.cheeseID = cheeseID;
     }
     
+    public void getSingleCheesePrice() {
+        CheeseDAO cheeseDAO = new CheeseDAO();
+        CheesePOJO cheesePOJO = new CheesePOJO();
+        
+        cheesePOJO.setCheeseID(cheeseID);
+        returnedCheesePOJO = cheeseDAO.getCheese(cheesePOJO);
+        
+         cheesePrice = returnedCheesePOJO.getPrice();
+    
+    }
+    
     public void setOrderID(int orderID) {
        this.orderID = orderID;
     }
@@ -129,11 +141,10 @@ public class HelpClientOrderCheese {
   }
 
     public BigDecimal addUpCheese() {
-           
-        BigDecimal cheesePriceBD = new BigDecimal(cheesePrice);
-        BigDecimal ammountCheeseBD = new BigDecimal(ammountCheese);
        
-       totalPrice.add(cheesePriceBD.multiply(ammountCheeseBD));
+        BigDecimal ammountCheeseBD = new BigDecimal(ammountCheese);
+        
+       totalPrice.add(cheesePrice.multiply(ammountCheeseBD));
         
        return totalPrice;
     
@@ -144,11 +155,14 @@ public class HelpClientOrderCheese {
             OrderPOJO orderPOJO = new OrderPOJO();
             OrderDAO orderDAO = new OrderDAO();
             
+            
             orderPOJO.setTotalPrice(totalPrice);
             orderDAO.updateOrder(orderPOJO);
             
             return "total price updated";
     
     }
+
+    
   
 }
