@@ -121,8 +121,10 @@ public class OrderMenu {
                         collection.getOrderDetail();
                         collection.addUpCheese(); //dp i want to use a return?
                 
-                        System.out.println("Do you want to add a new order detail? ");        
+                        input.nextLine();
+                        System.out.println("Do you want to add a new order detail? ");
                         anwser = input.nextLine();
+                        
                 
                             if(anwser.equalsIgnoreCase("no")|| anwser.equalsIgnoreCase("n")){    
                                 makeOrderDetail = false;
