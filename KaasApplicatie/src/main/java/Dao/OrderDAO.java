@@ -12,6 +12,7 @@ import Interface.ClientDAOInterface;
 import Interface.OrderDAOInterface;
 import POJO.ClientPOJO;
 import POJO.OrderPOJO;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -238,6 +239,21 @@ public class OrderDAO implements OrderDAOInterface {
         }
 
         log.info("deleteOrder end");
+    }
+    public static void main(String[] args) {
+        OrderPOJO order = new OrderPOJO();
+        OrderDAO dao = new OrderDAO();
+
+        order.setOrderDate(LocalDateTime.now());
+        order.setTotalPrice(new BigDecimal(3.0));
+        order.setProcessedDate(LocalDateTime.now());
+        order.setClientID(1);
+        
+
+       System.out.println(dao.getAllOrder());
+
+       
+
     }
 
 }

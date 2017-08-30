@@ -61,7 +61,7 @@ public class CheesePOJO {
     
     @Override
     public String toString(){
-        return "CheeseID:"+cheeseID+", CheeseName:" +cheeseName + " Price:"+price+", Stock:" +stock;
+        return "CheeseID:"+cheeseID+", CheeseName:" +cheeseName + " Price:"+price+", Stock:" +stock; 
     }
     
     
