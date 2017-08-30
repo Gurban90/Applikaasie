@@ -120,7 +120,9 @@ public class HelpClientOrderCheese {
         cheesePOJO.setCheeseID(cheeseID);
         returnedCheesePOJO = cheeseDAO.getCheese(cheesePOJO);
         
-         cheesePrice = returnedCheesePOJO.getPrice();
+        
+        
+         this.cheesePrice = returnedCheesePOJO.getPrice();
     
     }
     
@@ -143,6 +145,8 @@ public class HelpClientOrderCheese {
     public BigDecimal addUpCheese() {
        
         BigDecimal ammountCheeseBD = new BigDecimal(ammountCheese);
+        totalPrice = new BigDecimal(0);
+        
         
        totalPrice.add(cheesePrice.multiply(ammountCheeseBD));
         
