@@ -139,9 +139,8 @@ public class CheeseMongoDao implements CheeseDAOInterface {
         cheese1.setStock(222);
         CheeseMongoDao dao = new CheeseMongoDao();
 
-        List<CheesePOJO> hoi = dao.getAllCheese();
+        dao.addCheese(cheese1);
 
-        System.out.println(hoi);
 
     }
 }

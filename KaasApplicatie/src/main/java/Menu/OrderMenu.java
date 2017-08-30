@@ -3,6 +3,7 @@ package Menu;
 
 import Controller.OrderController;
 import Helper.HelpClientOrderCheese;
+import Helper.Validator;
 import POJO.OrderDetailPOJO;
 import POJO.OrderPOJO;
 import java.util.*;
@@ -37,6 +38,8 @@ public class OrderMenu {
     HelpClientOrderCheese collection; 
     OrderController orderController; 
     
+    Validator validator = new Validator();
+    
     
 
     public void orderMenu() {
@@ -58,6 +61,7 @@ public class OrderMenu {
                 + "9. Return to last menu" + "\n"
                 + "Please enter your choice: ");
 
+        if (validator.menuValidator(choice))
         choice = input.nextInt();
 
         switch (choice) {
