@@ -131,6 +131,7 @@ public class OrderDAO implements OrderDAOInterface {
                 foundOrder.setOrderDate(convert.convertDate(resultSet.getString(2)));
                 foundOrder.setTotalPrice(resultSet.getBigDecimal(3));
                 foundOrder.setProcessedDate(convert.convertDate(resultSet.getString(4)));
+                foundOrder.setClientID(resultSet.getInt(5));
 
             }
             connect.close();
@@ -151,7 +152,7 @@ public class OrderDAO implements OrderDAOInterface {
     @Override
     public List<OrderPOJO> getOrderWithClient(ClientPOJO client) {
         log.info("getAllAddress Start");
-        String query = "SELECT * FROM Order WHERE Client_ClientID=?";
+        String query = "SELECT * FROM Order WHERE Client_ClientID=?"; 
 
         List<OrderPOJO> returnedAddress = new ArrayList<>();
         convert = new Converter();
@@ -189,17 +190,17 @@ public class OrderDAO implements OrderDAOInterface {
     @Override
     public void updateOrder(OrderPOJO order) {
         log.info("updateOrder Start");
-        String query = "UPDATE Order SET  WHERE OrderID=?";
+        String query = "UPDATE `order` SET OrderDate = ?, TotalPrice = ?, ProcessedDate = ?, Client_ClientID = ?  WHERE OrderID=?"; 
         convert = new Converter();
 
         try {
             connect = Connector.getConnection();
             PreparedStatement updateOrder = connect.prepareStatement(query);
-            updateOrder.setInt(1, order.getOrderID());
-            updateOrder.setString(2, convert.convertLocalDateTime(order.getOrderDate()));
-            updateOrder.setBigDecimal(3, order.getTotalPrice());
-            updateOrder.setString(4, convert.convertLocalDateTime(order.getProcessedDate()));
-
+            updateOrder.setInt(5, order.getOrderID());
+            updateOrder.setString(1, convert.convertLocalDateTime(order.getOrderDate()));
+            updateOrder.setBigDecimal(2, order.getTotalPrice());
+            updateOrder.setString(3, convert.convertLocalDateTime(order.getProcessedDate()));
+            updateOrder.setInt(4, order.getClientID());
             updateOrder.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
