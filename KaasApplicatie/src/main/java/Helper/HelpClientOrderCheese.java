@@ -52,6 +52,7 @@ public class HelpClientOrderCheese {
         private BigDecimal cheesePrice;
     
         private OrderPOJO orderPOJO;
+        private OrderPOJO returnedOrderPOJO;
         private OrderDAO orderDAO;
         private ClientPOJO returnedClientPOJO;
         private CheesePOJO returnedCheesePOJO;
@@ -159,6 +160,12 @@ public class HelpClientOrderCheese {
             OrderPOJO orderPOJO = new OrderPOJO();
             OrderDAO orderDAO = new OrderDAO();
             
+           orderPOJO.setClientID(clientID);
+           returnedOrderPOJO =  orderDAO.getOrder(orderPOJO);
+            
+            
+            returnedOrderPOJO.setTotalPrice(totalPrice);
+            orderDAO.updateOrder(returnedOrderPOJO);
             
             orderPOJO.setTotalPrice(totalPrice);
             orderDAO.updateOrder(orderPOJO);
