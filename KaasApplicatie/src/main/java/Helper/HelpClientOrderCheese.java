@@ -134,7 +134,7 @@ public class HelpClientOrderCheese {
   public void getOrder(){
     
     orderController = new OrderController(); 
-    returnedOrderID = orderController.setOrder(orderDate, zeroTotalPrice, processedDate, clientID);
+    this.orderID = orderController.setOrder(orderDate, zeroTotalPrice, processedDate, clientID);
   }
   
   public void getOrderDetail(){
