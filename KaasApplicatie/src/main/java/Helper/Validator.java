@@ -122,6 +122,57 @@ public class Validator {
             return false;
         }
     }
+    
+    public boolean yearValidator(String year) {
+        if (isIntegerValidator(year)) {
+            IntegerValidator validator = new IntegerValidator();
+            return validator.isInRange(intValidation, 1990, 3000) || validator.isInRange(intValidation, 00, 99) ;
+        } else {
+            return false;
+        }
+    }
+    
+    public boolean monthValidator(String month) {
+        if (isIntegerValidator(month)) {
+            IntegerValidator validator = new IntegerValidator();
+            return validator.isInRange(intValidation, 1, 12);
+        } else {
+            return false;
+        }
+    }
+    
+     public boolean dayValidator(String day) {
+        if (isIntegerValidator(day)) {
+            IntegerValidator validator = new IntegerValidator();
+            return validator.isInRange(intValidation, 1, 366);
+        } else {
+            return false;
+        }
+    }
+    
+    public boolean hourValidator(String hour) {
+        if (isIntegerValidator(hour)) {
+            IntegerValidator validator = new IntegerValidator();
+            return validator.isInRange(intValidation, 1, 24);
+        } else {
+            return false;
+        }
+    }
+    public boolean minValidator(String min) {
+        if (isIntegerValidator(min)) {
+            IntegerValidator validator = new IntegerValidator();
+            return validator.isInRange(intValidation, 0, 60);
+        } else {
+            return false;
+        }
+    }
+    public boolean yesnoValidator(String no){
+        boolean check;
+        
+        check = no.equalsIgnoreCase("no") || no.equalsIgnoreCase("n");
+        
+        return check;
+    }
 
     public static void main(String[] args) {
         String email = "iets@gmail.com";

@@ -34,7 +34,7 @@ public class HelpClientOrderCheese {
     private int clientDay;
     private int clientHour;
     private int clientMin;
-    private int clientSec;
+    private final int sec = 0;
     private LocalDateTime processedDate;
 
     private int deliveryYear;
@@ -42,7 +42,6 @@ public class HelpClientOrderCheese {
     private int deliveryDay;
     private int deliveryHour;
     private int deliveryMin;
-    private int deliverySec;
     private LocalDateTime orderDate;
 
     private BigDecimal zeroTotalPrice = null;
@@ -79,28 +78,26 @@ public class HelpClientOrderCheese {
 
     }
 
-    public LocalDateTime setNewOrderByClient(int year, int month, int day, int hour, int min, int sec) {
+    public LocalDateTime setNewOrderByClient(int year, int month, int day, int hour, int min) {
         clientYear = year;
         clientMonth = month;
         clientDay = day;
         clientHour = hour;
         clientMin = min;
-        clientSec = sec;
 
-        orderDate = LocalDateTime.of(clientYear, clientMonth, clientDay, clientHour, clientMin, clientSec);
+        orderDate = LocalDateTime.of(clientYear, clientMonth, clientDay, clientHour, clientMin, sec);
         return orderDate;
 
     }
 
-    public LocalDateTime setOrderDelivery(int year, int month, int day, int hour, int min, int sec) {
+    public LocalDateTime setOrderDelivery(int year, int month, int day, int hour, int min) {
         deliveryYear = year;
         deliveryMonth = month;
         deliveryDay = day;
         deliveryHour = hour;
         deliveryMin = min;
-        deliverySec = sec;
 
-        processedDate = LocalDateTime.of(deliveryYear, deliveryMonth, deliveryDay, deliveryHour, deliveryMin, deliverySec);
+        processedDate = LocalDateTime.of(deliveryYear, deliveryMonth, deliveryDay, deliveryHour, deliveryMin, sec);
         return processedDate;
     }
 
