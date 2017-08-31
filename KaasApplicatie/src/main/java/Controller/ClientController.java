@@ -20,28 +20,28 @@ public class ClientController {
     static final Logger LOGGER = Logger.getLogger(ClientController.class.getName());
     private ClientDAOInterface clientdao;
     private ClientPOJO clientpojo;
-    
+
+    public ClientController() {
+        this.clientdao = new ClientDAO();
+        this.clientpojo = new ClientPOJO();
+    }
+
     //Voor test
     public ClientController(ClientDAOInterface clientdao) {
         this.clientdao = clientdao;
         this.clientpojo = new ClientPOJO();
     }
-    
-    public ClientController(){};
 
     public int newClient(String firstname, String lastname, String email) {
         LOGGER.info("newClient start");
 
-        ClientPOJO clientPOJO = new ClientPOJO();
-        ClientDAO clientDAO = new ClientDAO();
-
-        clientPOJO.setFirstName(firstname);
-        clientPOJO.setLastName(lastname);
-        clientPOJO.setEMail(email);
+        clientpojo.setFirstName(firstname);
+        clientpojo.setLastName(lastname);
+        clientpojo.setEMail(email);
 
         LOGGER.info("newClient end");
 
-        return clientDAO.addClient(clientPOJO);
+        return clientdao.addClient(clientpojo);
 
     }
 
@@ -49,17 +49,14 @@ public class ClientController {
 
         LOGGER.info("removeClient start");
 
-        ClientPOJO clientPOJO = new ClientPOJO();
-        ClientDAO clientDAO = new ClientDAO();
-
-        LOGGER.info("removeClient end");
-
         if (anwser.equals("Y") || anwser.equals("Yes") || anwser.equals("y") || anwser.equals("yes")) {
-            clientPOJO.setClientID(clientID);
-            clientDAO.deleteClient(clientPOJO);
+            clientpojo.setClientID(clientID);
+            clientdao.deleteClient(clientpojo);
+            LOGGER.info("removeClient end");
             return "client removed";
 
         } else {
+            LOGGER.info("removeClient end");
             return "No client removed";
 
         }
@@ -68,39 +65,31 @@ public class ClientController {
 
     public String editClient(int clientID, String firstName, String lastName, String eMail) {
         LOGGER.info("edditClient end");
-        ClientPOJO clientPOJO = new ClientPOJO();
-        ClientDAO clientDAO = new ClientDAO();
+        clientpojo.setClientID(clientID);
+        clientdao.getClient(clientpojo);
 
-        clientPOJO.setClientID(clientID);
-        clientDAO.getClient(clientPOJO);
-
-        clientPOJO.setFirstName(firstName);
-        clientPOJO.setLastName(lastName);
-        clientPOJO.setEMail(eMail);
-        clientDAO.updateClient(clientPOJO);
+        clientpojo.setFirstName(firstName);
+        clientpojo.setLastName(lastName);
+        clientpojo.setEMail(eMail);
+        clientdao.updateClient(clientpojo);
         LOGGER.info("editClient end");
         return "client eddited";
     }
 
     public List<ClientPOJO> getAllClients() {
-
         LOGGER.info("getallClient end");
-        ClientDAO clientDAO = new ClientDAO();
         LOGGER.info("getallClient end");
-        return clientDAO.getAllClient();
+        return clientdao.getAllClient();
 
     }
 
     public String editClientFirstName(int clientID, String firstName) {
         LOGGER.info("edit clientFirstName start");
-        ClientPOJO clientPOJO = new ClientPOJO();
-        ClientDAO clientDAO = new ClientDAO();
+        clientpojo.setClientID(clientID);
 
-        clientPOJO.setClientID(clientID);
-
-        ClientPOJO searchedClient = clientDAO.getClient(clientPOJO);
+        ClientPOJO searchedClient = clientdao.getClient(clientpojo);
         searchedClient.setFirstName(firstName);
-        clientDAO.updateClient(searchedClient);
+        clientdao.updateClient(searchedClient);
 
         LOGGER.info("editClient First Name end");
         return "Client first name has been edited. ";
@@ -109,14 +98,11 @@ public class ClientController {
 
     public String editClientLastName(int clientID, String lastName) {
         LOGGER.info("edit clientFirstName start");
-        ClientPOJO clientPOJO = new ClientPOJO();
-        ClientDAO clientDAO = new ClientDAO();
+        clientpojo.setClientID(clientID);
 
-        clientPOJO.setClientID(clientID);
-
-        ClientPOJO searchedClient = clientDAO.getClient(clientPOJO);
+        ClientPOJO searchedClient = clientdao.getClient(clientpojo);
         searchedClient.setLastName(lastName);
-        clientDAO.updateClient(searchedClient);
+        clientdao.updateClient(searchedClient);
 
         LOGGER.info("editClient First Name end");
         return "Client first name has been edited. ";
@@ -124,14 +110,11 @@ public class ClientController {
 
     public String editClientEMail(int clientID, String eMail) {
         LOGGER.info("edit clientemail start");
-        ClientPOJO clientPOJO = new ClientPOJO();
-        ClientDAO clientDAO = new ClientDAO();
+        clientpojo.setClientID(clientID);
 
-        clientPOJO.setClientID(clientID);
-
-        ClientPOJO searchedClient = clientDAO.getClient(clientPOJO);
+        ClientPOJO searchedClient = clientdao.getClient(clientpojo);
         searchedClient.setEMail(eMail);
-        clientDAO.updateClient(searchedClient);
+        clientdao.updateClient(searchedClient);
 
         LOGGER.info("editClient email end");
         return "Client email has been edited. ";
@@ -139,13 +122,8 @@ public class ClientController {
 
     public ClientPOJO findClientWithID(int clientID) {
         LOGGER.info("findclient with id");
-
-        ClientDAO clientDAO = new ClientDAO();
-        ClientPOJO clientPOJO = new ClientPOJO();
-
-        clientPOJO.setClientID(clientID);
-
-        ClientPOJO returnedClient = clientDAO.getClient(clientPOJO);
+        clientpojo.setClientID(clientID);
+        ClientPOJO returnedClient = clientdao.getClient(clientpojo);
         LOGGER.info("findclient with id");
         return returnedClient;
 
@@ -154,9 +132,7 @@ public class ClientController {
     public List<ClientPOJO> findClientWithFirstName(String firstName) {
         LOGGER.info("findclient with first name start");
 
-        ClientDAO clientDAO = new ClientDAO();
-
-        List<ClientPOJO> returnedClient = clientDAO.getClientWithFirstName(firstName);
+        List<ClientPOJO> returnedClient = clientdao.getClientWithFirstName(firstName);
         LOGGER.info("findclient with first name end");
         return returnedClient;
 
@@ -165,9 +141,7 @@ public class ClientController {
     public List<ClientPOJO> findClientWithLastName(String lastName) {
         LOGGER.info("findclient with last name start");
 
-        ClientDAO clientDAO = new ClientDAO();
-
-        List<ClientPOJO> returnedClient = clientDAO.getClientWithLastName(lastName);
+        List<ClientPOJO> returnedClient = clientdao.getClientWithLastName(lastName);
         LOGGER.info("findclient with last name end");
         return returnedClient;
 
@@ -176,9 +150,7 @@ public class ClientController {
     public List<ClientPOJO> findClientWithEMail(String eMail) {
         LOGGER.info("findclient with email start");
 
-        ClientDAO clientDAO = new ClientDAO();
-
-        List<ClientPOJO> returnedClient = clientDAO.getClientWithEmail(eMail);
+        List<ClientPOJO> returnedClient = clientdao.getClientWithEmail(eMail);
         LOGGER.info("findclient with email end");
         return returnedClient;
 

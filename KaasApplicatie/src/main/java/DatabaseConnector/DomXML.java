@@ -31,7 +31,7 @@ public class DomXML {
             System.out.println(ex);
         }
         try {
-            document = builder.parse(new FileInputStream("C:/java/MongoDBData.xml"));
+            document = builder.parse(new FileInputStream("C:/java/Data2.xml"));
         } catch (SAXException ex) {
             System.out.println(ex);
         } catch (IOException ex) {

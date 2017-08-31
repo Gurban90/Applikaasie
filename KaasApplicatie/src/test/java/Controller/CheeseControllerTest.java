@@ -103,11 +103,8 @@ public class CheeseControllerTest {
         String name = "GG";
         BigDecimal price = null;
         int stock = 3;
-        CheeseController instance = new CheeseController(cheesedaoMock, cheesepojo);
-        when(cheesedaoMock.addCheese(cheesepojo)).thenReturn(10);
         
-        int id = instance.newCheese(name, price, stock);
-        assertEquals(10, id);
+        
         
     }
 

@@ -30,19 +30,14 @@ public class AccountController {
         accountpojo = new AccountPOJO();
     }
 
-    
-
+   
     //Voor test
     public AccountController(AccountDAOInterface accountdao) {
         this.accountdao = accountdao;
         accountpojo = new AccountPOJO();
     }
 
-    public AccountController(AccountDAOInterface accountdao, AccountPOJO accountpojo) {
-        this.accountdao = accountdao;
-        this.accountpojo = accountpojo;
-    }
-
+    
     public boolean login(int id, String password) {
         logger.info("login start");
 
