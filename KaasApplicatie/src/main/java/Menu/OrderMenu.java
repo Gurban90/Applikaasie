@@ -3,7 +3,6 @@ package Menu;
 import Controller.OrderController;
 import Helper.HelpClientOrderCheese;
 import Helper.Validator;
-import POJO.OrderDetailPOJO;
 import POJO.OrderPOJO;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -14,26 +13,21 @@ public class OrderMenu {
     Logger logger = Logger.getLogger(OrderMenu.class.getName());
 
     private Scanner input;
+    private boolean makeOrderDetail;
     private int choice;
     private String choiceNumber;
     private String anwser;
     private String outputString;
-
-    private boolean makeOrderDetail;
-
-    private OrderMenu menu;
-
     private String clientID;
     private int clientIDint;
     private String orderID;
     private int orderIDint;
     private String orderDetailID;
-    private int cheeseIDint;
     private int orderDetailIDint;
     private String cheeseAmmount;
     private int cheeseAmmountint;
     private String cheeseID;
-    
+    private int cheeseIDint;
     private String year;
     private String month;
     private String day;
@@ -44,7 +38,6 @@ public class OrderMenu {
     private int dayint;
     private int hourint;
     private int minint;
-
     private HelpClientOrderCheese collection;
     private OrderController orderController;
     private LocalDateTime returnedLocalDateTime;
