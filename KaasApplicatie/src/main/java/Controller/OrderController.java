@@ -7,6 +7,7 @@ package Controller;
 
 import Dao.OrderDAO;
 import Dao.OrderDetailDAO;
+import Interface.OrderDAOInterface;
 import POJO.CheesePOJO;
 import POJO.ClientPOJO;
 import POJO.OrderDetailPOJO;
@@ -23,6 +24,14 @@ public class OrderController {
 
     Integer orderID;
     Integer orderDetailID;
+    private OrderDAOInterface orderdao;
+    private OrderPOJO orderpojo;
+
+    //Voor test
+    public OrderController(OrderDAOInterface orderdao) {
+        this.orderdao = orderdao;
+        this.orderpojo = new OrderPOJO();
+    }
 
     public OrderController() {
     }

@@ -33,6 +33,14 @@ public class AddressController {
         clientpojo = new ClientPOJO();
         addresstypepojo = new AddressTypePOJO();
     }
+    
+    //Voor test
+    public AddressController(AddressDAOInterface addressdao) {
+        this.addressdao = addressdao;
+        this.addresspojo = new AddressPOJO();
+        this.clientpojo = new ClientPOJO();
+        this.addresstypepojo = new AddressTypePOJO();
+    }
 
     public List<AddressPOJO> findAllAddress() {
         LOGGER.info("findAllAddress start");

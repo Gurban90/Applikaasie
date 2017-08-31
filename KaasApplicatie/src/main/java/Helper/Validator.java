@@ -19,12 +19,22 @@ import org.apache.commons.validator.routines.EmailValidator;
  *
  * @author Gerben
  */
-public class Validator { 
+public class Validator {
 
     private int intValidation;
     private BigDecimal bdValidation;
 
     private static Scanner input = new Scanner(System.in);
+
+    public boolean isIntegerValidator(String number) {
+        boolean parsable = true;
+        try {
+            this.intValidation = Integer.parseInt(number);
+        } catch (NumberFormatException e) {
+            parsable = false;
+        }
+        return parsable;
+    }
 
     public boolean menuValidator(String number) {
         boolean check = true;
@@ -41,14 +51,7 @@ public class Validator {
     }
 
     public boolean idValidator(String id) {
-        boolean parsable = true;
-        try {
-            this.intValidation = Integer.parseInt(id);
-        } catch (NumberFormatException e) {
-            parsable = false;
-        }
-
-        if (parsable == true) {
+        if (isIntegerValidator(id)) {
             IntegerValidator validator = new IntegerValidator();
             return validator.isInRange(intValidation, 1, 1000);
         } else {
@@ -90,14 +93,7 @@ public class Validator {
     }
 
     public boolean stockValidator(String stock) {
-        boolean parsable = true;
-        try {
-            this.intValidation = Integer.parseInt(stock);
-        } catch (NumberFormatException e) {
-            parsable = false;
-        }
-
-        if (parsable == true) {
+        if (isIntegerValidator(stock)) {
             IntegerValidator validator = new IntegerValidator();
             return validator.isInRange(intValidation, 0, 1000);
         } else {
@@ -106,14 +102,7 @@ public class Validator {
     }
 
     public boolean statusValidator(String status) {
-        boolean parsable = true;
-        try {
-            this.intValidation = Integer.parseInt(status);
-        } catch (NumberFormatException e) {
-            parsable = false;
-        }
-
-        if (parsable == true) {
+        if (isIntegerValidator(status)) {
             IntegerValidator validator = new IntegerValidator();
             return validator.isInRange(intValidation, 0, 5);
         } else {

@@ -6,6 +6,7 @@
 package Controller;
 
 import Dao.ClientDAO;
+import Interface.ClientDAOInterface;
 import POJO.ClientPOJO;
 import java.util.List;
 import java.util.logging.Logger;
@@ -17,6 +18,16 @@ import java.util.logging.Logger;
 public class ClientController {
 
     static final Logger LOGGER = Logger.getLogger(ClientController.class.getName());
+    private ClientDAOInterface clientdao;
+    private ClientPOJO clientpojo;
+    
+    //Voor test
+    public ClientController(ClientDAOInterface clientdao) {
+        this.clientdao = clientdao;
+        this.clientpojo = new ClientPOJO();
+    }
+    
+    public ClientController(){};
 
     public int newClient(String firstname, String lastname, String email) {
         LOGGER.info("newClient start");

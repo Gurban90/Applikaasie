@@ -28,6 +28,12 @@ public class AddressTypeController {
         addressdao = new AddressDAO();
         addresstypepojo = new AddressTypePOJO();
     }
+    
+     //Voor test
+    public AddressTypeController(AddressDAOInterface addresstypedao) {
+        this.addressdao = addressdao;
+        addresstypepojo = new AddressTypePOJO();
+    }
 
     public List<AddressTypePOJO> findAllAddressTypes() {
         LOGGER.info("findAllAddressTypes start");

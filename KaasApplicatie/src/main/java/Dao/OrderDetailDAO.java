@@ -243,13 +243,6 @@ public class OrderDetailDAO implements OrderDetailDAOInterface {
         logger.info("deleteOrderDetail end");
     }
 
-    public static void main(String[] args) {
-        OrderDetailPOJO orderdetail = new OrderDetailPOJO();
-        OrderDetailDAO dao = new OrderDetailDAO();
-        orderdetail.setOrderDetailID(18);
-
-        System.out.println(dao.getOrderDetailWithID(orderdetail));
-
-    }
+    
 
 }

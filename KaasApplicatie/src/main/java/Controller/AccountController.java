@@ -30,11 +30,7 @@ public class AccountController {
         accountpojo = new AccountPOJO();
     }
 
-    //Voor test
-    public AccountController(AccountDAO accountdao) {
-        this.accountdao = accountdao;
-        accountpojo = new AccountPOJO();
-    }
+    
 
     //Voor test
     public AccountController(AccountDAOInterface accountdao) {

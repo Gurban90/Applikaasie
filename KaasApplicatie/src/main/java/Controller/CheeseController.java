@@ -30,14 +30,10 @@ public class CheeseController {
     //Voor test
     public CheeseController(CheeseDAOInterface cheesedao) {
         this.cheesedao = cheesedao;
-        cheesepojo = new CheesePOJO();
+        this.cheesepojo = new CheesePOJO();
     }
 
-    //Voor test
-    public CheeseController(CheeseDAOInterface cheesedao, CheesePOJO cheesepojo) {
-        this.cheesedao = cheesedao;
-        this.cheesepojo = cheesepojo;
-    }
+   
 
     public List<CheesePOJO> findAllCheese() {
         LOGGER.info("FindallCheese start");

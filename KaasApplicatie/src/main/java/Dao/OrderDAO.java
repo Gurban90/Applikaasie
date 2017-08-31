@@ -259,15 +259,8 @@ public class OrderDAO implements OrderDAOInterface {
         log.info("deleteOrder end");
     }
 
-    public static void main(String[] args) {
-        OrderPOJO order = new OrderPOJO();
-        OrderDAO dao = new OrderDAO();
-        ClientPOJO client = new ClientPOJO();
-        order.setOrderID(2);
-        order.setClientID(8);
+   
 
-        dao.deleteOrder(order);
-
-    }
+    
 
 }
