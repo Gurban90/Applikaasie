@@ -33,6 +33,10 @@ public class ClientMongoDao { //ALLEEN CONVERT DOC TO CLIENT
         }
         return returnClient;
     }
-    
+  private Document convertClientToDocument(ClientPOJO client) {
+        Document document = new Document();
+
+        return document;
+    }  
 }
 error
