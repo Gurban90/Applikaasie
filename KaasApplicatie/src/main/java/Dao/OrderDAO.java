@@ -126,8 +126,7 @@ public class OrderDAO implements OrderDAOInterface {
     LocalDateTime processedDate;
      */
     @Override
-    public OrderPOJO getOrder(OrderPOJO order
-    ) {
+    public OrderPOJO getOrder(OrderPOJO order) {
         log.info("getOrder Start");
         String query = "SELECT * FROM `order` WHERE OrderID=?";
         OrderPOJO foundOrder = new OrderPOJO();

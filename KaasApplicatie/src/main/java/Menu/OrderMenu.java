@@ -379,7 +379,7 @@ public class OrderMenu {
                         this.orderDetailIDint = Integer.parseInt(this.orderDetailID);
                 } else {
                             System.out.println("orderDetailID must have a value. ");
-                            editOrderDetailMenu();        
+                            editOrderMenu();        
                 }
                 System.out.println(orderController.searchOrderDetail(orderDetailIDint));
 

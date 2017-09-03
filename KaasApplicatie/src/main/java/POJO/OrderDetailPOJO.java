@@ -24,6 +24,14 @@ public class OrderDetailPOJO {
 
         
     public OrderDetailPOJO(){}
+    
+    public OrderDetailPOJO(int orderDetailID, int quantity, int cheeseID, int orderID ){
+      this.orderDetailID = orderDetailID;
+      this.quantity = quantity;
+      this.cheeseID = cheeseID;
+      this.orderID = orderID;
+      
+    }
 
     public int getOrderDetailID() {
         return orderDetailID;
@@ -75,8 +83,4 @@ public class OrderDetailPOJO {
     public void setOrderID(int orderID) {
         this.orderID = orderID;
     }
-       @Override
-    public String toString(){
-        return "OrderDetailID: "+orderDetailID+", CheeseID: " +cheeseID + ", Quantity: "+quantity+", OrderID: " +orderID; 
-    }
-}
+ }
