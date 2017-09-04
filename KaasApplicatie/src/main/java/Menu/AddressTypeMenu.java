@@ -6,6 +6,8 @@
 package Menu;
 
 import Controller.AddressTypeController;
+import DatabaseConnector.DomXML;
+import Helper.DaoFactory;
 import Helper.Validator;
 import POJO.AddressTypePOJO;
 import java.util.Scanner;
@@ -23,15 +25,18 @@ public class AddressTypeMenu {
     private String addresstype;
     private Scanner input;
     private int choice;
-    private AddressTypeController controller;
     private String idString;
-
-    Validator validator = new Validator();
+    private DomXML data;
+        private AddressTypeController controller;
+    private Validator validator;
 
     public void addressTypeMenu() {
 
         LOGGER.info("addressTypeMenu start");
 
+        data = new DomXML();
+                controller = new AddressTypeController(DaoFactory.createAddressDao(data.getDatabaseType()));
+        validator = new Validator();
         input = new Scanner(System.in);
 
         System.out.print(" AddressType menu: " + "\n"
@@ -53,7 +58,6 @@ public class AddressTypeMenu {
                     System.out.print("Insert AddressType name: ");
                     this.addresstype = input.nextLine();
                     if (validator.stringValidator(this.addresstype)) {
-                        controller = new AddressTypeController();
                         int addressTypeID = controller.newAddressType(addresstype);
                         System.out.println("AddressType is added and has ID: " + addressTypeID);
                         addressTypeMenu();
@@ -67,7 +71,6 @@ public class AddressTypeMenu {
                     this.idString = input.nextLine();
                     if (validator.idValidator(this.idString)) {
                         this.id = Integer.parseInt(this.idString);
-                        controller = new AddressTypeController();
                         controller.removeAddressType(id);
                         addressTypeMenu();
                     } else {
@@ -83,7 +86,6 @@ public class AddressTypeMenu {
                         System.out.print("Insert new AddressType name: ");
                         this.addresstype = input.nextLine();
                         if (validator.stringValidator(this.addresstype)) {
-                            controller = new AddressTypeController();
                             System.out.println(controller.editAddressType(id, addresstype));
                             addressTypeMenu();
                         } else {
@@ -100,7 +102,6 @@ public class AddressTypeMenu {
                     this.idString = input.nextLine();
                     if (validator.idValidator(this.idString)) {
                         this.id = Integer.parseInt(this.idString);
-                        controller = new AddressTypeController();
                         AddressTypePOJO returnedAddressType = controller.findAddressType(id);
                         System.out.println(returnedAddressType);
                         addressTypeMenu();
@@ -110,7 +111,6 @@ public class AddressTypeMenu {
                     }
                     break;
                 case 5:
-                    controller = new AddressTypeController();
                     System.out.println(controller.findAllAddressTypes());
                     addressTypeMenu();
                     break;

@@ -1,6 +1,8 @@
 package Menu;
 
 import Controller.CheeseController;
+import DatabaseConnector.DomXML;
+import Helper.DaoFactory;
 import Helper.Validator;
 import POJO.CheesePOJO;
 import java.math.BigDecimal;
@@ -13,8 +15,8 @@ public class CheeseMenu {
 
     private Scanner input;
     private int choice;
+    private DomXML data;
     private CheeseController controller;
-    private CheeseMenu menu;
     private int id;
     private String name;
     private BigDecimal price;
@@ -22,13 +24,16 @@ public class CheeseMenu {
     private String cheeseId;
     private String stockString;
     private String cheesePrice;
-    Validator validator = new Validator();
+    private Validator validator;
 
     public void cheeseMenu() {
 
         LOGGER.info("CheeseMenu start");
 
+        data = new DomXML();
         input = new Scanner(System.in);
+        controller = new CheeseController(DaoFactory.createCheeseDao(data.getDatabaseType()));
+        validator = new Validator();
 
         System.out.print(" Cheese menu: " + "\n"
                 + "1. New Cheese" + "\n"
@@ -58,7 +63,6 @@ public class CheeseMenu {
                             this.stockString = input.nextLine();
                             if (validator.stockValidator(this.stockString)) {
                                 this.stock = Integer.parseInt(this.stockString);
-                                controller = new CheeseController();
                                 int cheeseID = controller.newCheese(name, price, stock);
                                 System.out.println("Cheese is added and has ID: " + cheeseID);
                                 cheeseMenu();
@@ -80,7 +84,6 @@ public class CheeseMenu {
                     this.cheeseId = input.nextLine();
                     if (validator.idValidator(this.cheeseId)) {
                         this.id = Integer.parseInt(this.cheeseId);
-                        controller = new CheeseController();
                         controller.removeCheese(id);
                         cheeseMenu();
                     } else {
@@ -96,7 +99,6 @@ public class CheeseMenu {
                     this.cheeseId = input.nextLine();
                     if (validator.idValidator(this.cheeseId)) {
                         this.id = Integer.parseInt(this.cheeseId);
-                        controller = new CheeseController();
                         CheesePOJO returnedcheese = controller.findCheese(id);
                         System.out.println(returnedcheese);
                         cheeseMenu();
@@ -109,7 +111,6 @@ public class CheeseMenu {
                     System.out.print("CheeseName please: ");
                     this.name = input.nextLine();
                     if (validator.stringValidator(this.name)) {
-                        controller = new CheeseController();
                         CheesePOJO returnedcheese2 = controller.findCheeseWithName(name);
                         System.out.println(returnedcheese2);
                         cheeseMenu();
@@ -119,7 +120,6 @@ public class CheeseMenu {
                     }
                     break;
                 case 6:
-                    controller = new CheeseController();
                     controller.findAllCheese();
                     System.out.println(controller.findAllCheese());
                     cheeseMenu();
@@ -165,7 +165,6 @@ public class CheeseMenu {
                         System.out.print("Insert new CheeseName: ");
                         this.name = input.nextLine();
                         if (validator.stringValidator(this.name)) {
-                            controller = new CheeseController();
                             System.out.println(controller.editCheeseName(id, name));
                             cheeseMenu();
                         } else {
@@ -186,7 +185,6 @@ public class CheeseMenu {
                         this.cheesePrice = input.nextLine();
                         if (validator.priceValidator(this.cheesePrice)) {
                             this.price = new BigDecimal(this.cheesePrice);
-                            controller = new CheeseController();
                             System.out.println(controller.editCheesePrice(id, price));
                             cheeseMenu();
                         } else {
@@ -207,7 +205,6 @@ public class CheeseMenu {
                         this.stockString = input.nextLine();
                         if (validator.stockValidator(this.stockString)) {
                             this.stock = Integer.parseInt(this.stockString);
-                            controller = new CheeseController();
                             System.out.println(controller.editCheeseStock(id, stock));
                             cheeseMenu();
                         } else {
@@ -235,7 +232,6 @@ public class CheeseMenu {
                                 this.stockString = input.nextLine();
                                 if (validator.stockValidator(this.stockString)) {
                                     this.stock = Integer.parseInt(this.stockString);
-                                    controller = new CheeseController();
                                     System.out.println(controller.editCheese(id, name, price, stock));
                                     cheeseMenu();
                                 } else {

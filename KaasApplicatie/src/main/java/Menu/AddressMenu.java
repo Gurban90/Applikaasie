@@ -6,6 +6,8 @@
 package Menu;
 
 import Controller.AddressController;
+import DatabaseConnector.DomXML;
+import Helper.DaoFactory;
 import Helper.Validator;
 import POJO.AddressPOJO;
 import POJO.ClientPOJO;
@@ -20,7 +22,6 @@ import java.util.logging.Logger;
 public class AddressMenu {
 
     static final Logger LOGGER = Logger.getLogger(AddressMenu.class.getName());
-
     private int id;
     private int housenumber;
     private String housenumberAddition;
@@ -29,23 +30,24 @@ public class AddressMenu {
     private String city;
     private int clientID;
     private int addressTypeID;
-
     private Scanner input;
     private int choice;
-    private AddressController controller;
-
     private String idString;
     private String houseNumberString;
     private String clientIDString;
     private String addressTypeIDString;
     private String clientLastName;
-
-    Validator validator = new Validator();
+    private DomXML data;
+    private AddressController controller;
+    private Validator validator;
 
     public void addressMenu() {
 
         LOGGER.info("addressMenu start");
 
+        data = new DomXML();
+        controller = new AddressController(DaoFactory.createAddressDao(data.getDatabaseType()));
+        validator = new Validator();
         input = new Scanner(System.in);
 
         System.out.print(" Address menu: " + "\n"
@@ -91,7 +93,6 @@ public class AddressMenu {
                                         this.addressTypeIDString = input.nextLine();
                                         if (validator.idValidator(this.addressTypeIDString)) {
                                             this.addressTypeID = Integer.parseInt(this.addressTypeIDString);
-                                            controller = new AddressController();
                                             int addressID = controller.newAddress(housenumber, housenumberAddition, streetname, postalCode, city, clientID, addressTypeID);
                                             System.out.println("Address is added and has ID: " + addressID);
                                             addressMenu();
@@ -126,7 +127,6 @@ public class AddressMenu {
                     this.idString = input.nextLine();
                     if (validator.idValidator(this.idString)) {
                         this.id = Integer.parseInt(this.idString);
-                        controller = new AddressController();
                         controller.removeAddress(id);
                         addressMenu();
                     } else {
@@ -142,7 +142,6 @@ public class AddressMenu {
                     this.idString = input.nextLine();
                     if (validator.idValidator(this.idString)) {
                         this.id = Integer.parseInt(this.idString);
-                        controller = new AddressController();
                         AddressPOJO returnedAddress = controller.findAddress(id);
                         System.out.println(returnedAddress);
                         addressMenu();
@@ -156,7 +155,6 @@ public class AddressMenu {
                     this.clientIDString = input.nextLine();
                     if (validator.stringValidator(this.clientIDString)) {
                         this.clientID = Integer.parseInt(this.clientIDString);
-                        controller = new AddressController();
                         List<AddressPOJO> returnedAddressess = controller.findAddressWithClient(clientID);
                         System.out.println(returnedAddressess);
                         addressMenu();
@@ -169,7 +167,6 @@ public class AddressMenu {
                     System.out.print("Client last name please: ");
                     this.clientLastName = input.nextLine();
                     if (validator.stringValidator(this.clientLastName)) {
-                        controller = new AddressController();
                         List<ClientPOJO> returnedClients = controller.findAddressWithClientName(clientLastName);
                         System.out.println(returnedClients);
                         System.out.print("ClientID please: ");
@@ -189,7 +186,6 @@ public class AddressMenu {
                     }
                     break;
                 case 7:
-                    controller = new AddressController();
                     System.out.println(controller.findAllAddress());
                     addressMenu();
                     break;
@@ -241,7 +237,6 @@ public class AddressMenu {
                         this.houseNumberString = input.nextLine();
                         if (validator.stockValidator(this.houseNumberString)) {
                             this.housenumber = Integer.parseInt(this.houseNumberString);
-                            controller = new AddressController();
                             System.out.println(controller.editHouseNumber(id, housenumber));
                             addressMenu();
                         } else {
@@ -260,7 +255,6 @@ public class AddressMenu {
                         this.id = Integer.parseInt(this.idString);
                         System.out.print("Insert new HouseNumber Addition: ");
                         this.housenumberAddition = input.nextLine();
-                        controller = new AddressController();
                         System.out.println(controller.editHouseNumberAddition(id, housenumberAddition));
                         addressMenu();
 
@@ -277,7 +271,6 @@ public class AddressMenu {
                         System.out.print("Insert new Streetname: ");
                         this.streetname = input.nextLine();
                         if (validator.stringValidator(this.streetname)) {
-                            controller = new AddressController();
                             System.out.println(controller.editStreetName(id, streetname));
                             addressMenu();
                         } else {
@@ -297,7 +290,6 @@ public class AddressMenu {
                         System.out.print("Insert new Postal Code: ");
                         this.postalCode = input.nextLine();
                         if (validator.stringValidator(this.postalCode)) {
-                            controller = new AddressController();
                             System.out.println(controller.editPostalCode(id, postalCode));
                             addressMenu();
                         } else {
@@ -317,7 +309,6 @@ public class AddressMenu {
                         System.out.print("Insert new City: ");
                         this.city = input.nextLine();
                         if (validator.stringValidator(this.city)) {
-                            controller = new AddressController();
                             System.out.println(controller.editCity(id, city));
                             addressMenu();
                         } else {
@@ -349,8 +340,6 @@ public class AddressMenu {
                                     System.out.print("Insert new City: ");
                                     this.city = input.nextLine();
                                     if (validator.stringValidator(this.city)) {
-
-                                        controller = new AddressController();
                                         System.out.println(controller.editAddress(id, housenumber, housenumberAddition, streetname, postalCode, city));
                                         addressMenu();
 

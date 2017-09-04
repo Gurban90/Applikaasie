@@ -6,18 +6,20 @@
 package Helper;
 
 import Dao.*;
+
 import Interface.*;
 import MongoDao.*;
-
 
 /**
  *
  * @author Gerben
  */
-public class DaoFactory {
+public class DaoFactory {//ordermenu nog niet af.
 
-    private DaoFactory() {    }
-
+    
+    public DaoFactory() {
+    }
+       
     public static AccountDAOInterface createAccountDao(String database) {
         switch (database.toLowerCase()) {
             case "mysql":
@@ -28,7 +30,7 @@ public class DaoFactory {
                 return new AccountDAO();
         }
     }
-    
+
     public static AddressDAOInterface createAddressDao(String database) {
         switch (database.toLowerCase()) {
             case "mysql":
@@ -40,7 +42,7 @@ public class DaoFactory {
         }
     }
     
-    public static CheeseDAOInterface createCheeseDao(String database) {
+        public static CheeseDAOInterface createCheeseDao(String database) {
         switch (database.toLowerCase()) {
             case "mysql":
                 return new CheeseDAO();
@@ -50,8 +52,8 @@ public class DaoFactory {
                 return new CheeseDAO();
         }
     }
-    
-    public static ClientDAOInterface createClientDao(String database) {xxxxxxxxxxxxxxxxxxxxxxxxxx
+
+    public static ClientDAOInterface createClientDao(String database) {
         switch (database.toLowerCase()) {
             case "mysql":
                 return new ClientDAO();
@@ -61,19 +63,19 @@ public class DaoFactory {
                 return new ClientDAO();
         }
     }
-    
-    public static OrderDAOInterface createOrderDao(String database) {xxxxxxxxxxxxxxxxxxxxxxxxxx
+
+    public static OrderDAOInterface createOrderDao(String database) {       
         switch (database.toLowerCase()) {
             case "mysql":
                 return new OrderDAO();
             case "mongodb":
-                return new OrderMongoDao();
+                return new OrderMongoDAO();
             default:
                 return new OrderDAO();
         }
     }
-    
-    public static OrderDetailDAOInterface createOrderDetailDao(String database) {xxxxxxxxxxxxxxxxxxxxxx
+
+    public static OrderDetailDAOInterface createOrderDetailDao(String database) {
         switch (database.toLowerCase()) {
             case "mysql":
                 return new OrderDetailDAO();
@@ -83,5 +85,5 @@ public class DaoFactory {
                 return new OrderDetailDAO();
         }
     }
-    
+
 }

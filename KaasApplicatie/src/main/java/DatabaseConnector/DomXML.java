@@ -21,6 +21,7 @@ public class DomXML {
     DocumentBuilder builder = null;
     Document document = null;
     Element rootElement = null;
+    private String databaseType;
 
     public DomXML() {
         DocumentBuilderFactory builderFactory
@@ -68,5 +69,15 @@ public class DomXML {
     public String getDatabase() {
         NodeList databaseNodes = rootElement.getElementsByTagName("database");
         return databaseNodes.item(0).getTextContent();
+    }
+    
+    public String getType() {
+        NodeList typeNodes = rootElement.getElementsByTagName("type");
+        return typeNodes.item(0).getTextContent();
+    }
+    
+    public String getDatabaseType(){
+        this.databaseType = getType();
+        return this.databaseType;
     }
 }

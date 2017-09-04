@@ -15,11 +15,11 @@ public class MainMenu {
 
     private Scanner input;
     private int choice;
-    Validator validator = new Validator();
+    Validator validator;
 
     public void mainMenu() {
         logger.info("mainMenu start");
-
+        validator = new Validator();
         input = new Scanner(System.in);
 
         System.out.print(" Main menu: " + "\n"

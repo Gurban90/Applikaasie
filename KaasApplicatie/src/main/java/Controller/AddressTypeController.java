@@ -30,7 +30,7 @@ public class AddressTypeController {
     }
     
      //Voor test
-    public AddressTypeController(AddressDAOInterface addresstypedao) {
+    public AddressTypeController(AddressDAOInterface addressdao) {
         this.addressdao = addressdao;
         addresstypepojo = new AddressTypePOJO();
     }

@@ -1,6 +1,8 @@
 package Menu;
 
 import Controller.ClientController;
+import DatabaseConnector.DomXML;
+import Helper.DaoFactory;
 import Helper.Validator;
 import POJO.ClientPOJO;
 import java.util.*;
@@ -22,14 +24,18 @@ public class ClientMenu {
     private String ClientIDString;
     ClientPOJO returnedClient;
     List<ClientPOJO> returnedClientList;
-    Validator validator = new Validator();
-
-    private ClientController controller = new ClientController();
+    private DomXML data;
+    private ClientController controller;
+    private Validator validator;
 
     public void clientMenu() {
 
         LOGGER.info("clientMenu start");
 
+        data = new DomXML();
+        input = new Scanner(System.in);
+        controller = new ClientController(DaoFactory.createClientDao(data.getDatabaseType()));
+        validator = new Validator();
         input = new Scanner(System.in);
 
         System.out.print(" Client menu: " + "\n"
@@ -151,7 +157,6 @@ public class ClientMenu {
                 case 1:
                     LOGGER.info("showallClient start");
                     System.out.print("Show all clients");
-                    controller = new ClientController();
                     System.out.println(controller.getAllClients());
                     LOGGER.info("showallClient start");
 
@@ -167,7 +172,6 @@ public class ClientMenu {
                         this.firstName = input.nextLine();
                         if (validator.stringValidator(this.firstName)) {
 
-                            controller = new ClientController();
                             System.out.println(controller.editClientFirstName(clientID, firstName));
 
                             clientMenu();
@@ -189,7 +193,6 @@ public class ClientMenu {
                         this.lastName = input.nextLine();
                         if (validator.stringValidator(this.lastName)) {
 
-                            controller = new ClientController();
                             System.out.println(controller.editClientLastName(clientID, lastName));
 
                             clientMenu();
@@ -211,7 +214,6 @@ public class ClientMenu {
                         eMail = input.nextLine();
                         if (validator.eMailValidator(eMail)) {
 
-                            controller = new ClientController();
                             System.out.println(controller.editClientEMail(clientID, eMail));
                             clientMenu();
                         } else {
@@ -297,7 +299,6 @@ public class ClientMenu {
                 case 1:
                     LOGGER.info("showallClient start");
                     System.out.print("Show all clients");
-                    controller = new ClientController();
                     System.out.println(controller.getAllClients());
                     LOGGER.info("showallClient start");
 
@@ -309,7 +310,6 @@ public class ClientMenu {
                     if (validator.idValidator(this.ClientIDString)) {
                         this.clientID = Integer.parseInt(this.ClientIDString);
 
-                        controller = new ClientController();
                         this.returnedClient = controller.findClientWithID(clientID);
                         System.out.println(returnedClient);
 
@@ -323,7 +323,6 @@ public class ClientMenu {
                     System.out.print("firstName please: ");
                     this.firstName = input.nextLine();
                     if (validator.stringValidator(this.firstName)) {
-                        controller = new ClientController();
                         this.returnedClientList = controller.findClientWithFirstName(firstName);
                         System.out.println(returnedClientList);
                         clientMenu();
@@ -337,7 +336,6 @@ public class ClientMenu {
                     this.lastName = input.nextLine();
                     if (validator.stringValidator(this.lastName)) {
 
-                        controller = new ClientController();
                         this.returnedClientList = controller.findClientWithLastName(lastName);
                         System.out.println(returnedClientList);
                         clientMenu();
@@ -351,7 +349,6 @@ public class ClientMenu {
                     this.eMail = input.nextLine();
                     if (validator.eMailValidator(this.eMail)) {
 
-                        controller = new ClientController();
                         this.returnedClientList = controller.findClientWithEMail(eMail);
                         System.out.println(returnedClientList);
                         clientMenu();

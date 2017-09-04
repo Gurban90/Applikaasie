@@ -6,6 +6,8 @@
 package Menu;
 
 import Controller.AccountController;
+import DatabaseConnector.DomXML;
+import Helper.DaoFactory;
 import Helper.Validator;
 import POJO.AccountPOJO;
 import java.util.List;
@@ -21,17 +23,22 @@ public class LoginMenu { //TESTEN
     Logger logger = Logger.getLogger(LoginMenu.class.getName());
     private Scanner input;
     private int choice;
-    private AccountController controller;
     private int id;
     private String name;
     private String password;
     private int status;
     private String accountIdString;
     private String accounStatusString;
-    private Validator validator = new Validator();
+    private DomXML data;
+    private AccountController controller;
+    private Validator validator;
 
     public void loginMenu() {
 
+        data = new DomXML();
+        input = new Scanner(System.in);
+        controller = new AccountController(DaoFactory.createAccountDao(data.getDatabaseType()));
+        validator = new Validator();
         input = new Scanner(System.in);
 
         System.out.println("Welcome to Applikaasie.... " + "\n"
@@ -51,14 +58,13 @@ public class LoginMenu { //TESTEN
 
             switch (choice) {
                 case 1:
-                    System.out.print("Please enter your account number: ");            //NOG TEST
+                    System.out.print("Please enter your account number: ");
                     this.accountIdString = input.nextLine();
                     if (validator.idValidator(this.accountIdString)) {
                         this.id = Integer.parseInt(this.accountIdString);
                         System.out.print("Please enter your password: ");
                         this.password = input.nextLine();
                         if (validator.stringValidator(this.password)) {
-                            controller = new AccountController();
                             if (controller.login(id, password)) {
                                 MainMenu mainmenu = new MainMenu();
                                 mainmenu.mainMenu();
@@ -75,7 +81,7 @@ public class LoginMenu { //TESTEN
                         loginMenu();
                     }
                     break;
-                case 2:                                                                                     //NOG TEST
+                case 2:
                     System.out.print("Insert Accountname: ");
                     this.name = input.nextLine();
                     if (validator.stringValidator(this.name)) {
@@ -87,7 +93,6 @@ public class LoginMenu { //TESTEN
                             if (validator.statusValidator(this.accounStatusString)) {
                                 this.status = Integer.parseInt(this.accounStatusString);
 
-                                controller = new AccountController();
                                 int accountid = controller.newAccount(name, password, status);
                                 System.out.println("Account is added and has ID: " + accountid);
                                 loginMenu();
@@ -104,7 +109,7 @@ public class LoginMenu { //TESTEN
                         loginMenu();
                     }
                     break;
-                case 3:                                                         //NOG TEST
+                case 3:
                     System.out.print("AccountID please: ");
                     this.accountIdString = input.nextLine();
                     if (validator.idValidator(this.accountIdString)) {
@@ -113,7 +118,6 @@ public class LoginMenu { //TESTEN
                         this.password = input.nextLine();
                         if (validator.stringValidator(this.password)) {
 
-                            controller = new AccountController();
                             if (controller.updateAccountCheck(id, password)) {
                                 updateAccountMenu();
                             } else {
@@ -129,7 +133,7 @@ public class LoginMenu { //TESTEN
                         loginMenu();
                     }
                     break;
-                case 4:                                                                             //NOG TEST
+                case 4:
                     System.out.println("THIS WILL DELETE YOUR ACCOUNT! To cancel do not fill in your password. ");
                     System.out.print("AccountID please: ");
                     this.accountIdString = input.nextLine();
@@ -138,7 +142,6 @@ public class LoginMenu { //TESTEN
                         System.out.print("Please enter your password: ");
                         this.password = input.nextLine();
                         if (validator.stringValidator(this.password)) {
-                            controller = new AccountController();
                             if (controller.removeAccount(id, password)) {
                                 System.out.print("Account has been deleted.");
                                 input.nextLine();
@@ -156,7 +159,7 @@ public class LoginMenu { //TESTEN
                         loginMenu();
                     }
                     break;
-                case 5:                                                          //NOG TEST
+                case 5:
                     System.out.print("AccountID please: ");
                     this.accountIdString = input.nextLine();
                     if (validator.idValidator(this.accountIdString)) {
@@ -168,7 +171,6 @@ public class LoginMenu { //TESTEN
                             this.accountIdString = input.nextLine();
                             if (validator.idValidator(this.accountIdString)) {
                                 int findId = Integer.parseInt(this.accountIdString);
-                                controller = new AccountController();
                                 if (controller.findAccount(id, password, findId) == null) {
                                     System.out.println("Wrong password or accountnumber, returning to LoginMenu.");
                                     loginMenu();
@@ -190,7 +192,7 @@ public class LoginMenu { //TESTEN
                         loginMenu();
                     }
                     break;
-                case 6:                                                          //NOG TEST
+                case 6:
                     System.out.print("AccountID please: ");
                     this.accountIdString = input.nextLine();
                     if (validator.idValidator(this.accountIdString)) {
@@ -201,7 +203,6 @@ public class LoginMenu { //TESTEN
                             System.out.print("AccountName of the account you want to find please: ");
                             this.name = input.nextLine();
                             if (validator.stringValidator(this.name)) {
-                                controller = new AccountController();
                                 if (controller.findAccountWithName(id, password, name) == null) {
                                     System.out.println("Wrong password or accountnumber, returning to LoginMenu.");
                                     loginMenu();
@@ -223,7 +224,7 @@ public class LoginMenu { //TESTEN
                         loginMenu();
                     }
                     break;
-                case 7:                                                         //NOG TEST
+                case 7:
                     System.out.print("AccountID please: ");
                     this.accountIdString = input.nextLine();
                     if (validator.idValidator(this.accountIdString)) {
@@ -231,7 +232,6 @@ public class LoginMenu { //TESTEN
                         System.out.print("Please enter your password: ");
                         this.password = input.nextLine();
                         if (validator.stringValidator(this.password)) {
-                            controller = new AccountController();
                             if (controller.getAllAccounts(id, password) == null) {
                                 System.out.println("Wrong password or accountnumber, returning to LoginMenu.");
                                 loginMenu();
@@ -285,7 +285,6 @@ public class LoginMenu { //TESTEN
                         System.out.print("Insert new AccountName: ");
                         this.name = input.nextLine();
                         if (validator.stringValidator(this.name)) {
-                            controller = new AccountController();
                             System.out.println(controller.editAccountName(id, name));
                             loginMenu();
                         } else {
@@ -305,7 +304,6 @@ public class LoginMenu { //TESTEN
                         System.out.print("Insert new password: ");
                         String password2 = input.nextLine();
                         if (validator.stringValidator(password2)) {
-                            controller = new AccountController();
                             System.out.println(controller.editAccountPassword(id, password2));
                             loginMenu();
                         } else {
@@ -326,7 +324,6 @@ public class LoginMenu { //TESTEN
                         this.accounStatusString = input.nextLine();
                         if (validator.statusValidator(this.accounStatusString)) {
                             this.status = Integer.parseInt(this.accounStatusString);
-                            controller = new AccountController();
                             System.out.println(controller.editAccountStatus(id, status));
                             loginMenu();
                         } else {
@@ -353,7 +350,6 @@ public class LoginMenu { //TESTEN
                                 this.accounStatusString = input.nextLine();
                                 if (validator.statusValidator(this.accounStatusString)) {
                                     this.status = Integer.parseInt(this.accounStatusString);
-                                    controller = new AccountController();
                                     System.out.println(controller.updateAccount(id, name, password, status));
                                     loginMenu();
                                 } else {
