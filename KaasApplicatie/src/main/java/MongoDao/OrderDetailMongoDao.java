@@ -94,8 +94,8 @@ public class OrderDetailMongoDao implements OrderDetailDAOInterface {
                 collection = mongoConnector.makeConnection().getCollection("orderdetail");
                 collection.insertOne(convertOrderDetailToDocument(orderDetail));
                 mongoConnector.closeConnection();
-                logger.info("addOrderDetailt end");
-                return orderDetail.getOrderDetailID();   
+                logger.info("addOrderDetailt end");  
+                return orderDetail.getOrderDetailID();
             }
             else{
                 System.out.println("no orderid or cheese id");
@@ -104,7 +104,7 @@ public class OrderDetailMongoDao implements OrderDetailDAOInterface {
         } catch (Exception e) {
             e.printStackTrace();
         }
-      return orderDetail.getOrderDetailID();  
+      return null;  
     }      
         
         

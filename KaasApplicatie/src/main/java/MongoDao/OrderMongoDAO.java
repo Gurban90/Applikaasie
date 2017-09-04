@@ -25,26 +25,28 @@ import org.bson.Document;
  *
  * @author Jasper Thielen
  */
-public class OrderMongoDAO implements OrderDAOInterface  {
+public class OrderMongoDAO implements OrderDAOInterface {
 
-   private List<OrderPOJO> order;
-   private MongoCollection<Document> collection;
-   private MongoCursor<Document> cursor;
-   private Document doc;
-   
+    private List<OrderPOJO> order;
+    private MongoCollection<Document> collection;
+    private MongoCursor<Document> cursor;
+    private Document doc;
+
+    private ClientPOJO checkedClientID;
+
     private MongoConnector mongoConnector;
-    private Logger logger = Logger.getLogger(ClientMongoDao.class.getName()); 
-    
-   public OrderPOJO convertDocumentToOrder(Document doc) {
+    private Logger logger = Logger.getLogger(ClientMongoDao.class.getName());
+
+    public OrderPOJO convertDocumentToOrder(Document doc) {
         OrderPOJO returnOrder = new OrderPOJO();
         try {
-        //returnOrder = new OrderPOJO(doc.getInteger("id"), doc.getDate("orderdate"), doc.getString("totalprice"), doc.getDate("processeddate"), doc.getInteger("clientid") );
+            //returnOrder = new OrderPOJO(doc.getInteger("id"), doc.getDate("orderdate"), doc.getString("totalprice"), doc.getDate("processeddate"), doc.getInteger("clientid") );
         } catch (NullPointerException e) {
             System.out.println("Order not found.");
         }
         return returnOrder;
     }
-  
+
     private Document convertOrderToDocument(OrderPOJO order) {
         doc = new Document();
         doc.append("id", order.getOrderID());
@@ -52,14 +54,14 @@ public class OrderMongoDAO implements OrderDAOInterface  {
         doc.append("totalprice", order.getTotalPrice());
         doc.append("processeddate", order.getProcessedDate());
         doc.append("clientid", order.getClientID());
-        
+
         return doc;
-    } 
-  
-  private Integer getNextId() {
+    }
+
+    private Integer getNextId() {
         int id = 0;
         collection = mongoConnector.makeConnection().getCollection("order");
-        
+
         if (collection.count() > 0) {
             Document highestId = collection.find().sort(orderBy(descending("id"))).first();
             id = highestId.getInteger("id") + 1;
@@ -68,18 +70,33 @@ public class OrderMongoDAO implements OrderDAOInterface  {
         }
         mongoConnector.closeConnection();
         return id;
-    } 
-    
-    
+    }
+
     @Override
     public Integer addOrder(OrderPOJO order) {
         logger.info("addOrderDetail Start");
-        order.setOrderID(getNextId());
-        collection = mongoConnector.makeConnection().getCollection("order");
-        collection.insertOne(convertOrderToDocument(order));
-        mongoConnector.closeConnection();
-        logger.info("addOrderDetailt end");
-        return order.getOrderID();   
+
+        ClientMongoDao clientMongo = new ClientMongoDao();
+
+        try {
+            this.collection = mongoConnector.makeConnection().getCollection("client"); //clientid
+            this.doc = collection.find(eq("clientid", order.getClientID())).first();
+            checkedClientID = clientMongo.convertDocumentToClient(doc);
+                if (checkedClientID.getClientID() == order.getClientID()) {
+                    order.setOrderID(getNextId()); 
+                    collection = mongoConnector.makeConnection().getCollection("order");
+                    collection.insertOne(convertOrderToDocument(order));
+                    mongoConnector.closeConnection();
+                    logger.info("addOrderDetailt end");
+                    return order.getOrderID();
+                }else{
+                    System.out.println("no orderid or cheese id");
+                }
+                
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
@@ -94,8 +111,8 @@ public class OrderMongoDAO implements OrderDAOInterface  {
         }
         mongoConnector.closeConnection();
         logger.info("getAllorderend");
-        return order;  
-        }
+        return order;
+    }
 
     @Override
     public OrderPOJO getOrder(OrderPOJO order) {
@@ -109,7 +126,7 @@ public class OrderMongoDAO implements OrderDAOInterface  {
 
     @Override
     public List<OrderPOJO> getOrderWithClient(ClientPOJO client) {
-       logger.info("getAddressWithClient Start");
+        logger.info("getAddressWithClient Start");
         order = new ArrayList<>();
         collection = mongoConnector.makeConnection().getCollection("order");
         cursor = collection.find(eq("ClientID", client.getClientID())).iterator();
@@ -137,6 +154,6 @@ public class OrderMongoDAO implements OrderDAOInterface  {
         collection = mongoConnector.makeConnection().getCollection("order");
         collection.findOneAndDelete(eq("id", order.getOrderID()));
         mongoConnector.closeConnection();
-        logger.info("deleteOrde End"); 
+        logger.info("deleteOrde End");
     }
 }
