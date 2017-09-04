@@ -34,7 +34,7 @@ public class CheeseMongoDao implements CheeseDAOInterface {
         mongoConnector = new MongoConnector();
     }
 
-    private CheesePOJO convertDocumentToCheese(Document doc) {
+        CheesePOJO convertDocumentToCheese(Document doc) {
         CheesePOJO returnCheese = new CheesePOJO();
         try {
             returnCheese = new CheesePOJO(doc.getInteger("id"), doc.getString("name"), new BigDecimal(doc.getString("price")), doc.getInteger("stock"));

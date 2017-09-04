@@ -7,7 +7,9 @@ package MongoDao;
 
 import DatabaseConnector.MongoConnector;
 import Interface.OrderDetailDAOInterface;
+import POJO.CheesePOJO;
 import POJO.OrderDetailPOJO;
+import POJO.OrderPOJO;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import static com.mongodb.client.model.Filters.eq;
@@ -28,6 +30,10 @@ public class OrderDetailMongoDao implements OrderDetailDAOInterface {
    private MongoCollection<Document> collection;
    private MongoCursor<Document> cursor;
    private Document doc;
+   
+   private OrderPOJO checkedOrderID;
+   private CheesePOJO checkedCheeseID;
+           
    
     private MongoConnector mongoConnector;
     private Logger logger = Logger.getLogger(ClientMongoDao.class.getName());
@@ -69,15 +75,39 @@ public class OrderDetailMongoDao implements OrderDetailDAOInterface {
     
     @Override
     public Integer addOrderDetail(OrderDetailPOJO orderDetail) {
-      logger.info("addOrderDetail Start");
-        orderDetail.setOrderDetailID(getNextId());
-        collection = mongoConnector.makeConnection().getCollection("orderdetail");
-        collection.insertOne(convertOrderDetailToDocument(orderDetail));
-        mongoConnector.closeConnection();
-        logger.info("addOrderDetailt end");
-        return orderDetail.getOrderDetailID();   
-    }
 
+        logger.info("addOrderDetail Start");
+        CheeseMongoDao cheeseMongo = new CheeseMongoDao();
+        OrderMongoDAO orderMongo = new OrderMongoDAO();
+        
+        try {
+        this.collection = mongoConnector.makeConnection().getCollection("cheese"); //cheeseid
+        this.doc = collection.find(eq("cheeseid", orderDetail.getCheeseID())).first();
+        checkedCheeseID = cheeseMongo.convertDocumentToCheese(doc);
+        
+        this.collection = mongoConnector.makeConnection().getCollection("order"); //orderid
+        this.doc = collection.find(eq("orderid", orderDetail.getOrderID())).first();
+        checkedOrderID = orderMongo.convertDocumentToOrder(doc);
+            if (checkedOrderID.getOrderID() == orderDetail.getOrderID() && checkedCheeseID.getCheeseID() == orderDetail.getCheeseID()) {
+        
+                orderDetail.setOrderDetailID(getNextId());
+                collection = mongoConnector.makeConnection().getCollection("orderdetail");
+                collection.insertOne(convertOrderDetailToDocument(orderDetail));
+                mongoConnector.closeConnection();
+                logger.info("addOrderDetailt end");
+                return orderDetail.getOrderDetailID();   
+            }
+            else{
+                System.out.println("no orderid or cheese id");
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+      return orderDetail.getOrderDetailID();  
+    }      
+        
+        
     @Override
     public List<OrderDetailPOJO> getAllOrderDetail() {
       logger.info("getAllorderdetail Start");
