@@ -28,19 +28,22 @@ import java.util.logging.Logger;
  */
 public class CheeseDAO implements CheeseDAOInterface {
 
-    Logger logger = Logger.getLogger(CheeseDAOInterface.class.getName());
-    private Connection connection;
+    private Logger LOGGER = Logger.getLogger(CheeseDAOInterface.class.getName());
     private DomXML data = new DomXML();
     private ConnectionFactory connectionfactory = new ConnectionFactory();
+    private Connection connection;
+    private PreparedStatement statement;
+    private ResultSet resultSet;
+    private String query;
 
     @Override
     public Integer addCheese(CheesePOJO cheese) {
-        logger.info("addCheese Start");
+        LOGGER.info("addCheese Start");
         Integer newID = 0;
-        String query = "INSERT INTO Cheese (Name, Price, Stock) VALUES (?,?,?);";
+        query = "INSERT INTO Cheese (Name, Price, Stock) VALUES (?,?,?);";
         try {
             connection = connectionfactory.getConnection(data.getConnectionType());
-            PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, cheese.getCheeseName());
             statement.setBigDecimal(2, cheese.getPrice());
             statement.setInt(3, cheese.getStock());
@@ -63,21 +66,21 @@ public class CheeseDAO implements CheeseDAOInterface {
                 e.printStackTrace();
             }
         }
-        logger.info("addCheese end");
+        LOGGER.info("addCheese end");
         return newID;
 
     }
 
     @Override
     public List<CheesePOJO> getAllCheese() {
-        logger.info("getAllCheese Start");
-        String query = "SELECT * FROM Cheese;";
+        LOGGER.info("getAllCheese Start");
+        query = "SELECT * FROM Cheese;";
         List<CheesePOJO> returnedCheeses = new ArrayList<>();
         
         try {
             connection = connectionfactory.getConnection(data.getConnectionType());
-            PreparedStatement statement = connection.prepareStatement(query);
-            ResultSet resultSet = statement.executeQuery();
+            statement = connection.prepareStatement(query);
+            resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 CheesePOJO cheese = new CheesePOJO();
                 cheese.setCheeseID(resultSet.getInt(1));
@@ -96,20 +99,20 @@ public class CheeseDAO implements CheeseDAOInterface {
                 e.printStackTrace();
             }
         }
-        logger.info("getAllCheese end");
+        LOGGER.info("getAllCheese end");
         return returnedCheeses;
     }
 
     @Override
     public CheesePOJO getCheese(CheesePOJO cheese) {
-        logger.info("getCheese Start");
-        String query = "SELECT * FROM Cheese WHERE CheeseID=?";
+        LOGGER.info("getCheese Start");
+        query = "SELECT * FROM Cheese WHERE CheeseID=?";
         CheesePOJO foundCheese = new CheesePOJO();
         try {
             connection = connectionfactory.getConnection(data.getConnectionType());
-            PreparedStatement statement = connection.prepareStatement(query);
+            statement = connection.prepareStatement(query);
             statement.setObject(1, cheese.getCheeseID());
-            ResultSet resultSet = statement.executeQuery();
+            resultSet = statement.executeQuery();
 
             if (resultSet.isBeforeFirst()) {
                 resultSet.next();
@@ -128,20 +131,20 @@ public class CheeseDAO implements CheeseDAOInterface {
                 e.printStackTrace();
             }
         }
-        logger.info("getCheese end");
+        LOGGER.info("getCheese end");
         return foundCheese;
     }
     
     @Override
     public CheesePOJO getCheeseWithName(CheesePOJO cheese){
-        logger.info("getCheeseWithName Start");
-        String query = "SELECT * FROM Cheese WHERE Name=?";
+        LOGGER.info("getCheeseWithName Start");
+        query = "SELECT * FROM Cheese WHERE Name=?";
         CheesePOJO foundCheese = new CheesePOJO();
         try {
             connection = connectionfactory.getConnection(data.getConnectionType());
-            PreparedStatement statement = connection.prepareStatement(query);
+            statement = connection.prepareStatement(query);
             statement.setObject(1, cheese.getCheeseName());
-            ResultSet resultSet = statement.executeQuery();
+            resultSet = statement.executeQuery();
 
             if (resultSet.isBeforeFirst()) {
                 resultSet.next();
@@ -160,15 +163,15 @@ public class CheeseDAO implements CheeseDAOInterface {
                 e.printStackTrace();
             }
         }
-        logger.info("getCheeseWithName end");
+        LOGGER.info("getCheeseWithName end");
         return foundCheese;
     
     }
 
     @Override
     public void updateCheese(CheesePOJO cheese) {
-        logger.info("updateCheese Start");
-        String query = "UPDATE Cheese SET Name = ?, Price = ?, Stock = ? WHERE CheeseID=?";
+        LOGGER.info("updateCheese Start");
+        query = "UPDATE Cheese SET Name = ?, Price = ?, Stock = ? WHERE CheeseID=?";
         try {
             connection = connectionfactory.getConnection(data.getConnectionType());
             PreparedStatement statement = connection.prepareStatement(query);
@@ -186,18 +189,18 @@ public class CheeseDAO implements CheeseDAOInterface {
                 e.printStackTrace();
             }
         }
-        logger.info("updateCheese end");
+        LOGGER.info("updateCheese end");
     }
 
     @Override
     public void deleteCheese(CheesePOJO cheese) {
-        logger.info("deleteCheese Start");
-        String query = "select * from OrderDetail where Cheese_CheeseID = ?";
+        LOGGER.info("deleteCheese Start");
+        query = "select * from OrderDetail where Cheese_CheeseID = ?";
         try {
             connection = connectionfactory.getConnection(data.getConnectionType());
-            PreparedStatement statement = connection.prepareStatement(query);
+            statement = connection.prepareStatement(query);
             statement.setInt(1, cheese.getCheeseID());
-            ResultSet resultSet = statement.executeQuery();
+            resultSet = statement.executeQuery();
 
             if (!resultSet.next()) {
                 query = "DELETE FROM Cheese WHERE CheeseID = ?";
@@ -218,7 +221,7 @@ public class CheeseDAO implements CheeseDAOInterface {
                 e.printStackTrace();
             }
         }
-        logger.info("deleteCheese end");
+        LOGGER.info("deleteCheese end");
     }
     
     

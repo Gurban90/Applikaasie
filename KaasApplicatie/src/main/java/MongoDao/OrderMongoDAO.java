@@ -86,7 +86,6 @@ public class OrderMongoDAO implements OrderDAOInterface {
                     order.setOrderID(getNextId()); 
                     collection = mongoConnector.makeConnection().getCollection("order");
                     collection.insertOne(convertOrderToDocument(order));
-                    mongoConnector.closeConnection();
                     logger.info("addOrderDetailt end");
                     return order.getOrderID();
                 }else{
@@ -95,8 +94,11 @@ public class OrderMongoDAO implements OrderDAOInterface {
                 
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        } finally {
+           mongoConnector.closeConnection();
+            }
         return null;
+        
     }
 
     @Override

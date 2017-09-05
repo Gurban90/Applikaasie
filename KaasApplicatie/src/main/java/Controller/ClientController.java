@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  */
 public class ClientController {
 
-    static final Logger LOGGER = Logger.getLogger(ClientController.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ClientController.class.getName());
     private ClientDAOInterface clientdao;
     private ClientPOJO clientpojo;
 

@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  */
 public class AddressController {
 
-    static final Logger LOGGER = Logger.getLogger(CheeseController.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(CheeseController.class.getName());
     private AddressDAOInterface addressdao;
     private AddressPOJO addresspojo;
     private ClientPOJO clientpojo;
@@ -34,7 +34,7 @@ public class AddressController {
         addresstypepojo = new AddressTypePOJO();
     }
     
-    //Voor test
+
     public AddressController(AddressDAOInterface addressdao) {
         this.addressdao = addressdao;
         this.addresspojo = new AddressPOJO();

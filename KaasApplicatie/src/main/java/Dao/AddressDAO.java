@@ -16,7 +16,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
 import java.util.logging.Logger;
 import java.util.List;
 
@@ -26,31 +25,33 @@ import java.util.List;
  */
 public class AddressDAO implements AddressDAOInterface {
 
-    Logger log = Logger.getLogger(AddressDAOInterface.class.getName());
-
+    private Logger LOGGER = Logger.getLogger(AddressDAOInterface.class.getName());
     private Connection connect;
+    private PreparedStatement statement;
+    private ResultSet resultSet;
+    private String query;
 
     @Override
     public Integer addAddress(AddressPOJO address) {
-        log.info("addAddress Start");
+        LOGGER.info("addAddress Start");
         Integer newID = 0;
         ClientPOJO client = address.getClient();
         AddressTypePOJO addresstype = address.getAddresstype();
-        String query = "select * from Client where ClientID = ?";
+        this.query = "select * from Client where ClientID = ?";
         try {
             connect = Connector.getConnection();
-            PreparedStatement statement = connect.prepareStatement(query);
+            statement = connect.prepareStatement(query);
             statement.setInt(1, client.getClientID());
-            ResultSet resultSet1 = statement.executeQuery();
-            if (resultSet1.next()) {
-                String query2 = "select * from AddressType where AddressTypeID = ?";
-                statement = connect.prepareStatement(query2);
+            this.resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                this.query = "select * from AddressType where AddressTypeID = ?";
+                statement = connect.prepareStatement(query);
                 statement.setInt(1, addresstype.getAddressTypeID());
-                ResultSet resultSet2 = statement.executeQuery();
-                if (resultSet2.next()) {
-                    String query3 = "INSERT INTO Address (StreetName, HouseNumber, HouseNumberAddition, PostalCode, City, Client_ClientID, AddressType_AddressTypeID ) VALUES (?,?,?,?,?,?,?);";
+                this.resultSet = statement.executeQuery();
+                if (resultSet.next()) {
+                    this.query = "INSERT INTO Address (StreetName, HouseNumber, HouseNumberAddition, PostalCode, City, Client_ClientID, AddressType_AddressTypeID ) VALUES (?,?,?,?,?,?,?);";
                     connect = Connector.getConnection();
-                    statement = connect.prepareStatement(query3, Statement.RETURN_GENERATED_KEYS);
+                    statement = connect.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
                     statement.setString(1, address.getStreetName());
                     statement.setInt(2, address.getHouseNumber());
                     statement.setString(3, address.getHouseNumberAddition());
@@ -83,22 +84,22 @@ public class AddressDAO implements AddressDAOInterface {
                 e.printStackTrace();
             }
         }
-        log.info("addAddress end");
+        LOGGER.info("addAddress end");
         return newID;
     }
 
     @Override
     public AddressPOJO getAddress(AddressPOJO address) {
-        log.info("getAddress Start");
-        String query = "SELECT * FROM Address WHERE AddressID=?";
+        LOGGER.info("getAddress Start");
+        query = "SELECT * FROM Address WHERE AddressID=?";
 
         AddressPOJO foundAddress = new AddressPOJO();
 
         try {
             connect = Connector.getConnection();
-            PreparedStatement statement = connect.prepareStatement(query);
+            statement = connect.prepareStatement(query);
             statement.setObject(1, address.getAddressID());
-            ResultSet resultSet = statement.executeQuery();
+            resultSet = statement.executeQuery();
 
             if (resultSet.isBeforeFirst()) {
                 resultSet.next();
@@ -123,23 +124,23 @@ public class AddressDAO implements AddressDAOInterface {
                 e.printStackTrace();
             }
         }
-        log.info("getAddress end");
+        LOGGER.info("getAddress end");
         return foundAddress;
 
     }
 
     @Override
     public List<AddressPOJO> getAddressWithClient(ClientPOJO client) {
-        log.info("getAllAddress Start");
-        String query = "SELECT * FROM Address WHERE Client_ClientID=?";
+        LOGGER.info("getAllAddress Start");
+        query = "SELECT * FROM Address WHERE Client_ClientID=?";
 
         List<AddressPOJO> returnedAddress = new ArrayList<>();
 
         try {
             connect = Connector.getConnection();
-            PreparedStatement statement = connect.prepareStatement(query);
+            statement = connect.prepareStatement(query);
             statement.setObject(1, client.getClientID());
-            ResultSet resultSet = statement.executeQuery();
+            resultSet = statement.executeQuery();
             while (resultSet.next()) {
 
                 AddressPOJO foundAddress = new AddressPOJO();
@@ -164,21 +165,21 @@ public class AddressDAO implements AddressDAOInterface {
                 e.printStackTrace();
             }
         }
-        log.info("getAllCheese end");
+        LOGGER.info("getAllCheese end");
         return returnedAddress;
     }
 
     @Override
     public List<AddressPOJO> getAllAddress() {
-        log.info("getAllAddress Start");
-        String query = "SELECT * FROM Address;";
+        LOGGER.info("getAllAddress Start");
+        query = "SELECT * FROM Address;";
 
         List<AddressPOJO> returnedAddress = new ArrayList<>();
 
         try {
             connect = Connector.getConnection();
-            PreparedStatement statement = connect.prepareStatement(query);
-            ResultSet resultSet = statement.executeQuery();
+            statement = connect.prepareStatement(query);
+            resultSet = statement.executeQuery();
             while (resultSet.next()) {
 
                 AddressPOJO foundAddress = new AddressPOJO();
@@ -203,17 +204,17 @@ public class AddressDAO implements AddressDAOInterface {
                 e.printStackTrace();
             }
         }
-        log.info("getAllCheese end");
+        LOGGER.info("getAllCheese end");
         return returnedAddress;
     }
 
     @Override
     public void updateAddress(AddressPOJO address) {
-        log.info("updateAddress Start");
-        String query = "UPDATE Address SET StreetName =? , HouseNumber = ?, HouseNumberAddition =?, PostalCode =?, City =?, Client_ClientID =?, AddressType_AddressTypeID =?  WHERE AddressID=?";
+        LOGGER.info("updateAddress Start");
+        query = "UPDATE Address SET StreetName =? , HouseNumber = ?, HouseNumberAddition =?, PostalCode =?, City =?, Client_ClientID =?, AddressType_AddressTypeID =?  WHERE AddressID=?";
         try {
             connect = Connector.getConnection();
-            PreparedStatement statement = connect.prepareStatement(query);
+            statement = connect.prepareStatement(query);
             statement.setString(1, address.getStreetName());
             statement.setInt(2, address.getHouseNumber());
             statement.setString(3, address.getHouseNumberAddition());
@@ -232,17 +233,17 @@ public class AddressDAO implements AddressDAOInterface {
                 e.printStackTrace();
             }
         }
-        log.info("updateAccount end");
+        LOGGER.info("updateAccount end");
     }
 
     @Override
     public void deleteAddress(AddressPOJO address) {
-        log.info("deleteAddress Start");
-        String query = "DELETE FROM Address where AddressID = ?";
+        LOGGER.info("deleteAddress Start");
+        query = "DELETE FROM Address where AddressID = ?";
 
         try {
             connect = Connector.getConnection();
-            PreparedStatement statement = connect.prepareStatement(query);
+            statement = connect.prepareStatement(query);
             statement.setInt(1, address.getAddressID());
             statement.executeUpdate();
 
@@ -258,7 +259,7 @@ public class AddressDAO implements AddressDAOInterface {
             }
         }
 
-        log.info("deleteAdress stop");
+        LOGGER.info("deleteAdress stop");
 
     }
 
@@ -266,13 +267,13 @@ public class AddressDAO implements AddressDAOInterface {
     public Integer addAddressType(AddressTypePOJO address) {
         Integer newID = 0;
 
-        log.info("addaddresstype Start");
-        String insertOrder = "INSERT INTO addressType"
+        LOGGER.info("addaddresstype Start");
+        query = "INSERT INTO addressType"
                 + "(type) VALUES "
                 + "(?);";
         try {
             connect = Connector.getConnection();
-            PreparedStatement statement = connect.prepareStatement(insertOrder, Statement.RETURN_GENERATED_KEYS);
+            statement = connect.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, address.getAddressType());
             statement.executeUpdate();
 
@@ -293,19 +294,19 @@ public class AddressDAO implements AddressDAOInterface {
                 e.printStackTrace();
             }
         }
-        log.info("addaddresstype end");
+        LOGGER.info("addaddresstype end");
         return newID;
     }
 
     @Override
     public List<AddressTypePOJO> getAllAddressType() {
-        log.info("getAllAddressType Start");
-        String query = "SELECT * FROM AddressType;";
+        LOGGER.info("getAllAddressType Start");
+        query = "SELECT * FROM AddressType;";
         List<AddressTypePOJO> GetAllAddressType = new ArrayList<>();
         try {
             connect = Connector.getConnection();
-            PreparedStatement statement = connect.prepareStatement(query);
-            ResultSet resultSet = statement.executeQuery();
+            statement = connect.prepareStatement(query);
+            resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 AddressTypePOJO AddressType = new AddressTypePOJO();
                 AddressType.setAddressTypeID(resultSet.getInt(1));
@@ -322,14 +323,14 @@ public class AddressDAO implements AddressDAOInterface {
                 e.printStackTrace();
             }
         }
-        log.info("getAllAdressType end");
+        LOGGER.info("getAllAdressType end");
         return GetAllAddressType;
     }
 
     @Override
     public AddressTypePOJO getAddressType(AddressTypePOJO address) {
-        log.info("getAddressType Start");
-        String query = "SELECT * FROM AddressType WHERE AddressTypeID=?";
+        LOGGER.info("getAddressType Start");
+        query = "SELECT * FROM AddressType WHERE AddressTypeID=?";
         AddressTypePOJO foundAddressType = new AddressTypePOJO();
         try {
             connect = Connector.getConnection();
@@ -352,18 +353,18 @@ public class AddressDAO implements AddressDAOInterface {
                 e.printStackTrace();
             }
         }
-        log.info("getaddressType end");
+        LOGGER.info("getaddressType end");
         return foundAddressType;
     }
 
     @Override
     public void updateAddressType(AddressTypePOJO address) {
-        log.info("updateAddressType Start");
+        LOGGER.info("updateAddressType Start");
 
-        String query = "UPDATE AddressType SET Type = ?, WHERE AddressTypeID=?"; //this is ok?
+        query = "UPDATE AddressType SET Type = ?, WHERE AddressTypeID=?";
         try {
             connect = Connector.getConnection();
-            PreparedStatement statement = connect.prepareStatement(query);
+            statement = connect.prepareStatement(query);
             statement.setString(1, address.getAddressType());
             statement.setInt(2, address.getAddressTypeID());
             statement.executeUpdate();
@@ -376,20 +377,20 @@ public class AddressDAO implements AddressDAOInterface {
                 e.printStackTrace();
             }
         }
-        log.info("updateAddressType end");
+        LOGGER.info("updateAddressType end");
     }
 
     @Override
     public void deleteAddressType(AddressTypePOJO address) {
-        log.info("deleteaddresstype Start");
-        String query = "select * from Address where AddressType_AddressTypeID = ?";
+        LOGGER.info("deleteaddresstype Start");
+        this.query = "select * from Address where AddressType_AddressTypeID = ?";
         try {
             connect = Connector.getConnection();
-            PreparedStatement statement = connect.prepareStatement(query);
+            statement = connect.prepareStatement(query);
             statement.setInt(1, address.getAddressTypeID());
-            ResultSet resultSet = statement.executeQuery();
+            resultSet = statement.executeQuery();
             if (!resultSet.next()) {
-                query = "DELETE from AddressType WHERE AddressTypeID = ?";
+                this.query = "DELETE from AddressType WHERE AddressTypeID = ?";
                 statement = connect.prepareStatement(query);
                 statement.setInt(1, address.getAddressTypeID());
                 statement.executeUpdate();
@@ -407,7 +408,7 @@ public class AddressDAO implements AddressDAOInterface {
                 e.printStackTrace();
             }
         }
-        log.info("deleteaddresstype end");
+        LOGGER.info("deleteaddresstype end");
     }
 
 }
