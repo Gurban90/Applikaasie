@@ -24,7 +24,7 @@ public class Starter {
         menu.loginMenu();
     }
     */
-     public static void main (String [] args) {
+     /*public static void main (String [] args) {
         MainMenu menu = new MainMenu();
         menu.mainMenu();
     }
@@ -34,6 +34,10 @@ public class Starter {
         menu.orderMenu();
      }
 */
+      public static void main (String [] args) {
+        ConnectionMenu menu = new ConnectionMenu();
+        menu.connectionMenu();
+    }
     
 }
 

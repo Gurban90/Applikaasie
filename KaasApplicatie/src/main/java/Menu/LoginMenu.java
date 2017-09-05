@@ -36,7 +36,6 @@ public class LoginMenu { //TESTEN
     public void loginMenu() {
 
         data = new DomXML();
-        input = new Scanner(System.in);
         controller = new AccountController(DaoFactory.createAccountDao(data.getDatabaseType()));
         validator = new Validator();
         input = new Scanner(System.in);

@@ -5,11 +5,10 @@
  */
 package DatabaseConnector;
 
-import com.mongodb.DB;
-import com.mongodb.Mongo;
+
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
-import java.util.List;
+
 
 /**
  *
@@ -25,7 +24,7 @@ public class MongoConnector {
     private MongoClient mongoClient;
 
     public MongoConnector() {
-        DomXML parser = new DomXML();
+        DomXML parser = new DomXML("Mongodb");
         this.url = parser.getUrl();
         this.port2 = parser.getPort();
         this.database = parser.getDatabase();

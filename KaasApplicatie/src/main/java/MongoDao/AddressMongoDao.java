@@ -9,14 +9,12 @@ import DatabaseConnector.MongoConnector;
 import Interface.AddressDAOInterface;
 import POJO.AddressPOJO;
 import POJO.AddressTypePOJO;
-import POJO.CheesePOJO;
 import POJO.ClientPOJO;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Indexes.descending;
 import static com.mongodb.client.model.Sorts.orderBy;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -268,18 +266,20 @@ public class AddressMongoDao implements AddressDAOInterface {
     public static void main(String[] args) {
         AddressTypePOJO type = new AddressTypePOJO();
         AddressPOJO address = new AddressPOJO();
-        address.setAddressTypeID(1);
+       
         address.setClientID(1);
         address.setStreetName("street");
         address.setHouseNumber(4);
+        address.setHouseNumberAddition("A");
         address.setPostalCode("ga");
         address.setCity("city");
+        address.setAddressTypeID(1);
 
         type.setAddressTypeID(2);
 
         AddressMongoDao dao = new AddressMongoDao();
 
-        dao.deleteAddressType(type);
+        dao.addAddress(address);
 
     }
 

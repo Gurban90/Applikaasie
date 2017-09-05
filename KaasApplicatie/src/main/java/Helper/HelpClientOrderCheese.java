@@ -10,6 +10,8 @@ import Dao.CheeseDAO;
 import Dao.ClientDAO;
 import Dao.OrderDAO;
 import Dao.OrderDetailDAO;
+import DatabaseConnector.DomXML;
+import Interface.ClientDAOInterface;
 import POJO.CheesePOJO;
 import POJO.ClientPOJO;
 import POJO.OrderDetailPOJO;
@@ -55,11 +57,12 @@ public class HelpClientOrderCheese {
     private ClientPOJO returnedClientPOJO;
     private CheesePOJO returnedCheesePOJO;
     private ClientPOJO clientPOJO;
-    private ClientDAO clientDAO;
+    private ClientDAOInterface clientDAO;
     private OrderController orderController;
+    private DomXML data;
 
     public HelpClientOrderCheese() {
-
+        data = new DomXML();
     }
 
     //first part start
@@ -67,7 +70,7 @@ public class HelpClientOrderCheese {
 
         clientPOJO = new ClientPOJO();
         returnedClientPOJO = new ClientPOJO();
-        clientDAO = new ClientDAO();
+        clientDAO = DaoFactory.createClientDao(data.getDatabaseType());
         orderPOJO = new OrderPOJO();
 
         this.clientID = clientID;
@@ -130,13 +133,13 @@ public class HelpClientOrderCheese {
 
     public void getOrder() {
 
-        orderController = new OrderController();
+        orderController = new OrderController(DaoFactory.createOrderDao(data.getDatabaseType()), DaoFactory.createOrderDetailDao(data.getDatabaseType()));
         this.orderID = orderController.setOrder(orderDate, zeroTotalPrice, processedDate, clientID);
     }
 
     public void getOrderDetail() {
 
-        orderController = new OrderController();
+        orderController = new OrderController(DaoFactory.createOrderDao(data.getDatabaseType()), DaoFactory.createOrderDetailDao(data.getDatabaseType()));
         orderDetailID = orderController.setOrderDetail(ammountCheese, orderID, cheeseID);
     }
 
