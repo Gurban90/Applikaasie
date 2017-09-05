@@ -11,14 +11,14 @@ import java.util.logging.Logger;
 
 public class MainMenu {
 
-    Logger logger = Logger.getLogger(MainMenu.class.getName());
+    private Logger LOGGER = Logger.getLogger(MainMenu.class.getName());
 
     private Scanner input;
     private int choice;
     Validator validator;
 
     public void mainMenu() {
-        logger.info("mainMenu start");
+        LOGGER.info("mainMenu start");
         validator = new Validator();
         input = new Scanner(System.in);
 
@@ -36,17 +36,17 @@ public class MainMenu {
 
         switch (choice) {
             case 1:
-                logger.info("Open OrderMenu");
+                LOGGER.info("Open OrderMenu");
                 OrderMenu ordermenu = new OrderMenu();
                 ordermenu.orderMenu();
                 break;
             case 2:
-                logger.info("Open CheeseMenu");
+                LOGGER.info("Open CheeseMenu");
                 CheeseMenu cheesemenu = new CheeseMenu();
                 cheesemenu.cheeseMenu();
                 break;
             case 3:
-                logger.info("Open ClientMenu");
+                LOGGER.info("Open ClientMenu");
                 ClientMenu clientmenu = new ClientMenu();
                 clientmenu.clientMenu();
                 break;
@@ -64,7 +64,7 @@ public class MainMenu {
             mainmenu.mainMenu();
         }
 
-        logger.info("mainMenu end");
+        LOGGER.info("mainMenu end");
     }
 
 }

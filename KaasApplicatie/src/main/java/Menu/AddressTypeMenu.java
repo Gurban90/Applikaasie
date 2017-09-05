@@ -27,7 +27,7 @@ public class AddressTypeMenu {
     private int choice;
     private String idString;
     private DomXML data;
-        private AddressTypeController controller;
+    private AddressTypeController controller;
     private Validator validator;
 
     public void addressTypeMenu() {
@@ -35,7 +35,7 @@ public class AddressTypeMenu {
         LOGGER.info("addressTypeMenu start");
 
         data = new DomXML();
-                controller = new AddressTypeController(DaoFactory.createAddressDao(data.getDatabaseType()));
+        controller = new AddressTypeController(DaoFactory.createAddressDao(data.getDatabaseType()));
         validator = new Validator();
         input = new Scanner(System.in);
 

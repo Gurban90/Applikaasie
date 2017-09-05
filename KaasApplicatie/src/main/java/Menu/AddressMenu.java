@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  */
 public class AddressMenu {
 
-    static final Logger LOGGER = Logger.getLogger(AddressMenu.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(AddressMenu.class.getName());
     private int id;
     private int housenumber;
     private String housenumberAddition;

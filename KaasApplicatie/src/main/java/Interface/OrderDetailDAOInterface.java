@@ -1,8 +1,6 @@
 package Interface;
 
-import POJO.CheesePOJO;
 import POJO.OrderDetailPOJO;
-import POJO.OrderPOJO;
 import java.util.List;
 
 public interface OrderDetailDAOInterface {
