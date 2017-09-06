@@ -33,7 +33,6 @@ public class AddressController {
         clientpojo = new ClientPOJO();
         addresstypepojo = new AddressTypePOJO();
     }
-    
 
     public AddressController(AddressDAOInterface addressdao) {
         this.addressdao = addressdao;
@@ -82,12 +81,8 @@ public class AddressController {
         addresspojo.setStreetName(streetName);
         addresspojo.setPostalCode(postalCode);
         addresspojo.setCity(city);
-
-        clientpojo.setClientID(clientID);
-        addresstypepojo.setAddressTypeID(addresstypeID);
-        addresspojo.setClient(clientpojo);
-        addresspojo.setAddresstype(addresstypepojo);
-
+        addresspojo.setClientID(clientID);
+        addresspojo.setAddressTypeID(addresstypeID);
         LOGGER.info("newAddress end");
         return addressdao.addAddress(addresspojo);
     }
@@ -102,7 +97,7 @@ public class AddressController {
 
     public String editAddress(int id, int houseNumber, String houseNumberAddition, String streetName, String postalCode, String city) {
         LOGGER.info("editAddress start");
-         AddressPOJO getAddress = new AddressPOJO();
+        AddressPOJO getAddress = new AddressPOJO();
 
         getAddress.setAddressID(id);
         addresspojo = addressdao.getAddress(getAddress);
@@ -111,7 +106,7 @@ public class AddressController {
         addresspojo.setStreetName(streetName);
         addresspojo.setPostalCode(postalCode);
         addresspojo.setCity(city);
-       
+
         addressdao.updateAddress(addresspojo);
         LOGGER.info("editAddress end");
         return "Address has been edited: ";

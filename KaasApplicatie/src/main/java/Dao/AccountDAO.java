@@ -6,6 +6,7 @@
 package Dao;
 
 import DatabaseConnector.Connector;
+import Helper.ConnectionFactory;
 import Interface.AccountDAOInterface;
 import POJO.AccountPOJO;
 import java.sql.Connection;
@@ -28,6 +29,7 @@ public class AccountDAO implements AccountDAOInterface {
     private String query;
     private PreparedStatement statement;
     private ResultSet resultSet;
+    private ConnectionFactory connectionfactory = new ConnectionFactory();
 
     @Override
     public Integer addAccount(AccountPOJO account) {
@@ -37,7 +39,7 @@ public class AccountDAO implements AccountDAOInterface {
         query = "INSERT INTO Account (AccountName, AccountPassword, AccountStatus) VALUES (?,?,?);";
 
         try {
-            connection = Connector.getConnection();
+            connection = connectionfactory.getConnection();
             statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, account.getAccountName());
             statement.setString(2, account.getAccountPassword());
@@ -72,7 +74,7 @@ public class AccountDAO implements AccountDAOInterface {
         String query = "SELECT * FROM Account;";
         List<AccountPOJO> returnedAccounts = new ArrayList<>();
         try {
-            connection = Connector.getConnection();
+            connection = connectionfactory.getConnection();
             statement = connection.prepareStatement(query);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -104,7 +106,7 @@ public class AccountDAO implements AccountDAOInterface {
         query = "SELECT * FROM Account WHERE AccountID=?";
         AccountPOJO foundaccount = new AccountPOJO();
         try {
-            connection = Connector.getConnection();
+            connection = connectionfactory.getConnection();
             statement = connection.prepareStatement(query);
             statement.setInt(1, account.getAccountID());
             resultSet = statement.executeQuery();
@@ -136,7 +138,7 @@ public class AccountDAO implements AccountDAOInterface {
         query = "SELECT * FROM Account WHERE AccountName=?";
         List<AccountPOJO> returnedAccounts = new ArrayList<>();
         try {
-            connection = Connector.getConnection();
+            connection = connectionfactory.getConnection();
             statement = connection.prepareStatement(query);
             statement.setString(1, account.getAccountName());
             resultSet = statement.executeQuery();
@@ -168,7 +170,7 @@ public class AccountDAO implements AccountDAOInterface {
         LOGGER.info("updateAccount Start");
         query = "UPDATE Account SET AccountName = ?, AccountPassword = ?, AccountStatus = ? WHERE AccountID=?";
         try {
-            connection = Connector.getConnection();
+            connection = connectionfactory.getConnection();
             statement = connection.prepareStatement(query);
             statement.setString(1, account.getAccountName());
             statement.setString(2, account.getAccountPassword());
@@ -192,7 +194,7 @@ public class AccountDAO implements AccountDAOInterface {
         LOGGER.info("deleteAccount Start");
         query = "DELETE FROM Account WHERE AccountID = ?";
         try {
-            connection = Connector.getConnection();
+            connection = connectionfactory.getConnection();
             statement = connection.prepareStatement(query);
             statement.setInt(1, account.getAccountID());
             statement.executeUpdate();

@@ -24,6 +24,7 @@ public class LoginMenu { //TESTEN
     private Scanner input;
     private int choice;
     private int id;
+    private int findId;
     private String name;
     private String password;
     private int status;
@@ -57,196 +58,25 @@ public class LoginMenu { //TESTEN
 
             switch (choice) {
                 case 1:
-                    System.out.print("Please enter your account number: ");
-                    this.accountIdString = input.nextLine();
-                    if (validator.idValidator(this.accountIdString)) {
-                        this.id = Integer.parseInt(this.accountIdString);
-                        System.out.print("Please enter your password: ");
-                        this.password = input.nextLine();
-                        if (validator.stringValidator(this.password)) {
-                            if (controller.login(id, password)) {
-                                MainMenu mainmenu = new MainMenu();
-                                mainmenu.mainMenu();
-                            } else {
-                                System.out.println("Wrong password or accountnumber, try again.");
-                                loginMenu();
-                            }
-                        } else {
-                            System.out.println("Password must have a value. ");
-                            loginMenu();
-                        }
-                    } else {
-                        System.out.println("AccountID must be an integer and between 1 and 1000. ");
-                        loginMenu();
-                    }
+                    login();
                     break;
                 case 2:
-                    System.out.print("Insert Accountname: ");
-                    this.name = input.nextLine();
-                    if (validator.stringValidator(this.name)) {
-                        System.out.print("Insert Password: ");
-                        this.password = input.nextLine();
-                        if (validator.stringValidator(this.password)) {
-                            System.out.print("Insert Accountstatus: ");
-                            this.accounStatusString = input.nextLine();
-                            if (validator.statusValidator(this.accounStatusString)) {
-                                this.status = Integer.parseInt(this.accounStatusString);
-
-                                int accountid = controller.newAccount(name, password, status);
-                                System.out.println("Account is added and has ID: " + accountid);
-                                loginMenu();
-                            } else {
-                                System.out.println("Status must be an integer and between 0 and 5. ");
-                                loginMenu();
-                            }
-                        } else {
-                            System.out.println("Password must have a value. ");
-                            loginMenu();
-                        }
-                    } else {
-                        System.out.println("Accountname must have a value. ");
-                        loginMenu();
-                    }
+                    createAccount();
                     break;
                 case 3:
-                    System.out.print("AccountID please: ");
-                    this.accountIdString = input.nextLine();
-                    if (validator.idValidator(this.accountIdString)) {
-                        this.id = Integer.parseInt(this.accountIdString);
-                        System.out.print("Please enter your password: ");
-                        this.password = input.nextLine();
-                        if (validator.stringValidator(this.password)) {
-
-                            if (controller.updateAccountCheck(id, password)) {
-                                updateAccountMenu();
-                            } else {
-                                System.out.println("Wrong password or accountnumber, returning to LoginMenu.");
-                                loginMenu();
-                            }
-                        } else {
-                            System.out.println("Password must have a value. ");
-                            loginMenu();
-                        }
-                    } else {
-                        System.out.println("AccountID must be an integer and between 1 and 1000. ");
-                        loginMenu();
-                    }
+                    updateAccount();
                     break;
                 case 4:
-                    System.out.println("THIS WILL DELETE YOUR ACCOUNT! To cancel do not fill in your password. ");
-                    System.out.print("AccountID please: ");
-                    this.accountIdString = input.nextLine();
-                    if (validator.idValidator(this.accountIdString)) {
-                        this.id = Integer.parseInt(this.accountIdString);
-                        System.out.print("Please enter your password: ");
-                        this.password = input.nextLine();
-                        if (validator.stringValidator(this.password)) {
-                            if (controller.removeAccount(id, password)) {
-                                System.out.print("Account has been deleted.");
-                                input.nextLine();
-                                loginMenu();
-                            } else {
-                                System.out.println("Wrong password or accountnumber, try again.");
-                                loginMenu();
-                            }
-                        } else {
-                            System.out.println("Password must have a value. ");
-                            loginMenu();
-                        }
-                    } else {
-                        System.out.println("AccountID must be an integer and between 1 and 1000. ");
-                        loginMenu();
-                    }
+                    deleteAccount();
                     break;
                 case 5:
-                    System.out.print("AccountID please: ");
-                    this.accountIdString = input.nextLine();
-                    if (validator.idValidator(this.accountIdString)) {
-                        this.id = Integer.parseInt(this.accountIdString);
-                        System.out.print("Please enter your password: ");
-                        this.password = input.nextLine();
-                        if (validator.stringValidator(this.password)) {
-                            System.out.print("AccountID of the account you want to find please: ");
-                            this.accountIdString = input.nextLine();
-                            if (validator.idValidator(this.accountIdString)) {
-                                int findId = Integer.parseInt(this.accountIdString);
-                                if (controller.findAccount(id, password, findId) == null) {
-                                    System.out.println("Wrong password or accountnumber, returning to LoginMenu.");
-                                    loginMenu();
-                                } else {
-                                    AccountPOJO returnedAccount = controller.findAccount(id, password, findId);
-                                    System.out.println(returnedAccount);
-                                    loginMenu();
-                                }
-                            } else {
-                                System.out.println("AccountID must be an integer and between 1 and 1000. ");
-                                loginMenu();
-                            }
-                        } else {
-                            System.out.println("Password must have a value. ");
-                            loginMenu();
-                        }
-                    } else {
-                        System.out.println("AccountID must be an integer and between 1 and 1000. ");
-                        loginMenu();
-                    }
+                    searchAccountWithID();
                     break;
                 case 6:
-                    System.out.print("AccountID please: ");
-                    this.accountIdString = input.nextLine();
-                    if (validator.idValidator(this.accountIdString)) {
-                        this.id = Integer.parseInt(this.accountIdString);
-                        System.out.print("Please enter your password: ");
-                        this.password = input.nextLine();
-                        if (validator.stringValidator(this.password)) {
-                            System.out.print("AccountName of the account you want to find please: ");
-                            this.name = input.nextLine();
-                            if (validator.stringValidator(this.name)) {
-                                if (controller.findAccountWithName(id, password, name) == null) {
-                                    System.out.println("Wrong password or accountnumber, returning to LoginMenu.");
-                                    loginMenu();
-                                } else {
-                                    List<AccountPOJO> returnedAccounts = controller.findAccountWithName(id, password, name);
-                                    System.out.println(returnedAccounts);
-                                    loginMenu();
-                                }
-                            } else {
-                                System.out.println("AccountName must have a value. ");
-                                loginMenu();
-                            }
-                        } else {
-                            System.out.println("Password must have a value. ");
-                            loginMenu();
-                        }
-                    } else {
-                        System.out.println("AccountID must be an integer and between 1 and 1000. ");
-                        loginMenu();
-                    }
+                    searchAccountWithName();
                     break;
                 case 7:
-                    System.out.print("AccountID please: ");
-                    this.accountIdString = input.nextLine();
-                    if (validator.idValidator(this.accountIdString)) {
-                        this.id = Integer.parseInt(this.accountIdString);
-                        System.out.print("Please enter your password: ");
-                        this.password = input.nextLine();
-                        if (validator.stringValidator(this.password)) {
-                            if (controller.getAllAccounts(id, password) == null) {
-                                System.out.println("Wrong password or accountnumber, returning to LoginMenu.");
-                                loginMenu();
-                            } else {
-                                List<AccountPOJO> returnedAccounts = controller.getAllAccounts(id, password);
-                                System.out.println(returnedAccounts);
-                                loginMenu();
-                            }
-                        } else {
-                            System.out.println("Password must have a value. ");
-                            loginMenu();
-                        }
-                    } else {
-                        System.out.println("AccountID must be an integer and between 1 and 1000. ");
-                        loginMenu();
-                    }
+                    getAllAccounts();
                     break;
                 case 8:
                     System.out.println("goodbye...");
@@ -277,96 +107,16 @@ public class LoginMenu { //TESTEN
 
             switch (choice2) {
                 case 1:
-                    System.out.print("Insert AccountID: ");
-                    this.accountIdString = input.nextLine();
-                    if (validator.idValidator(this.accountIdString)) {
-                        this.id = Integer.parseInt(this.accountIdString);
-                        System.out.print("Insert new AccountName: ");
-                        this.name = input.nextLine();
-                        if (validator.stringValidator(this.name)) {
-                            System.out.println(controller.editAccountName(id, name));
-                            loginMenu();
-                        } else {
-                            System.out.println("Name must have a value. ");
-                            updateAccountMenu();
-                        }
-                    } else {
-                        System.out.println("AccountID must be an integer and between 1 and 1000. ");
-                        updateAccountMenu();
-                    }
+                    editAccountName();
                     break;
                 case 2:
-                    System.out.print("Insert AccountID: ");
-                    this.accountIdString = input.nextLine();
-                    if (validator.idValidator(this.accountIdString)) {
-                        this.id = Integer.parseInt(this.accountIdString);
-                        System.out.print("Insert new password: ");
-                        String password2 = input.nextLine();
-                        if (validator.stringValidator(password2)) {
-                            System.out.println(controller.editAccountPassword(id, password2));
-                            loginMenu();
-                        } else {
-                            System.out.println("Password must have a value. ");
-                            updateAccountMenu();
-                        }
-                    } else {
-                        System.out.println("AccountID must be an integer and between 1 and 1000. ");
-                        updateAccountMenu();
-                    }
+                    editPassword();
                     break;
                 case 3:
-                    System.out.print("Insert AccountID: ");
-                    this.accountIdString = input.nextLine();
-                    if (validator.idValidator(this.accountIdString)) {
-                        this.id = Integer.parseInt(this.accountIdString);
-                        System.out.print("Insert new AccountStatus: ");
-                        this.accounStatusString = input.nextLine();
-                        if (validator.statusValidator(this.accounStatusString)) {
-                            this.status = Integer.parseInt(this.accounStatusString);
-                            System.out.println(controller.editAccountStatus(id, status));
-                            loginMenu();
-                        } else {
-                            System.out.println("Status must be an integer and between 0 and 5.  ");
-                            updateAccountMenu();
-                        }
-                    } else {
-                        System.out.println("AccountID must be an integer and between 1 and 1000. ");
-                        updateAccountMenu();
-                    }
+                    editAccountStatus();
                     break;
                 case 4:
-                    System.out.print("Insert AccountID: ");
-                    this.accountIdString = input.nextLine();
-                    if (validator.idValidator(this.accountIdString)) {
-                        this.id = Integer.parseInt(this.accountIdString);
-                        System.out.print("Insert new Accountname: ");
-                        this.name = input.nextLine();
-                        if (validator.stringValidator(this.name)) {
-                            System.out.print("Insert new Password: ");
-                            this.password = input.nextLine();
-                            if (validator.stringValidator(this.password)) {
-                                System.out.print("Insert new Accountstatus: ");
-                                this.accounStatusString = input.nextLine();
-                                if (validator.statusValidator(this.accounStatusString)) {
-                                    this.status = Integer.parseInt(this.accounStatusString);
-                                    System.out.println(controller.updateAccount(id, name, password, status));
-                                    loginMenu();
-                                } else {
-                                    System.out.println("Status must be an integer and between 0 and 5. ");
-                                    updateAccountMenu();
-                                }
-                            } else {
-                                System.out.println("Password must have a value. ");
-                                updateAccountMenu();
-                            }
-                        } else {
-                            System.out.println("Accountname must have a value. ");
-                            updateAccountMenu();
-                        }
-                    } else {
-                        System.out.println("AccountID must be an integer and between 1 and 1000. ");
-                        updateAccountMenu();
-                    }
+                    editAccountAll();
                     break;
                 case 5:
                     loginMenu();
@@ -377,6 +127,299 @@ public class LoginMenu { //TESTEN
             }
         } else {
             System.out.println("Choice must be an integer. ");
+            updateAccountMenu();
+        }
+    }
+
+    private void login() {
+        System.out.print("Please enter your account number: ");
+        this.accountIdString = input.nextLine();
+        if (validator.idValidator(this.accountIdString)) {
+            this.id = Integer.parseInt(this.accountIdString);
+        } else {
+            System.out.println("AccountID must be an integer and between 1 and 1000. ");
+            loginMenu();
+        }
+        System.out.print("Please enter your password: ");
+        this.password = input.nextLine();
+        if (validator.stringValidator(this.password)) {
+        } else {
+            System.out.println("Password must have a value. ");
+            loginMenu();
+        }
+        if (controller.login(id, password)) {
+            MainMenu mainmenu = new MainMenu();
+            mainmenu.mainMenu();
+        } else {
+            System.out.println("Wrong password or accountnumber, try again.");
+            loginMenu();
+        }
+    }
+
+    private void createAccount() {
+        System.out.print("Insert Accountname: ");
+        this.name = input.nextLine();
+        if (validator.stringValidator(this.name)) {
+        } else {
+            System.out.println("Accountname must have a value. ");
+            loginMenu();
+        }
+        System.out.print("Insert Password: ");
+        this.password = input.nextLine();
+        if (validator.stringValidator(this.password)) {
+        } else {
+            System.out.println("Password must have a value. ");
+            loginMenu();
+        }
+        System.out.print("Insert Accountstatus: ");
+        this.accounStatusString = input.nextLine();
+        if (validator.statusValidator(this.accounStatusString)) {
+            this.status = Integer.parseInt(this.accounStatusString);
+            int accountid = controller.newAccount(name, password, status);
+            System.out.println("Account is added and has ID: " + accountid);
+            loginMenu();
+        } else {
+            System.out.println("Status must be an integer and between 0 and 5. ");
+            loginMenu();
+        }
+    }
+
+    private void updateAccount() {
+        System.out.print("AccountID please: ");
+        this.accountIdString = input.nextLine();
+        if (validator.idValidator(this.accountIdString)) {
+            this.id = Integer.parseInt(this.accountIdString);
+        } else {
+            System.out.println("AccountID must be an integer and between 1 and 1000. ");
+            loginMenu();
+        }
+        System.out.print("Please enter your password: ");
+        this.password = input.nextLine();
+        if (validator.stringValidator(this.password)) {
+        } else {
+            System.out.println("Password must have a value. ");
+            loginMenu();
+        }
+        if (controller.updateAccountCheck(id, password)) {
+            updateAccountMenu();
+        } else {
+            System.out.println("Wrong password or accountnumber, returning to LoginMenu.");
+            loginMenu();
+        }
+    }
+
+    private void deleteAccount() {
+        System.out.println("THIS WILL DELETE YOUR ACCOUNT! To cancel do not fill in your password. ");
+        System.out.print("AccountID please: ");
+        this.accountIdString = input.nextLine();
+        if (validator.idValidator(this.accountIdString)) {
+            this.id = Integer.parseInt(this.accountIdString);
+        } else {
+            System.out.println("AccountID must be an integer and between 1 and 1000. ");
+            loginMenu();
+        }
+        System.out.print("Please enter your password: ");
+        this.password = input.nextLine();
+        if (validator.stringValidator(this.password)) {
+        } else {
+            System.out.println("Password must have a value. ");
+            loginMenu();
+        }
+        if (controller.removeAccount(id, password)) {
+            System.out.print("Account has been deleted.");
+            input.nextLine();
+            loginMenu();
+        } else {
+            System.out.println("Wrong password or accountnumber, try again.");
+            loginMenu();
+        }
+    }
+
+    private void searchAccountWithID() {
+        System.out.print("AccountID please: ");
+        this.accountIdString = input.nextLine();
+        if (validator.idValidator(this.accountIdString)) {
+            this.id = Integer.parseInt(this.accountIdString);
+        } else {
+            System.out.println("AccountID must be an integer and between 1 and 1000. ");
+            loginMenu();
+        }
+        System.out.print("Please enter your password: ");
+        this.password = input.nextLine();
+        if (validator.stringValidator(this.password)) {
+        } else {
+            System.out.println("Password must have a value. ");
+            loginMenu();
+        }
+        System.out.print("AccountID of the account you want to find please: ");
+        this.accountIdString = input.nextLine();
+        if (validator.idValidator(this.accountIdString)) {
+            this.findId = Integer.parseInt(this.accountIdString);
+        } else {
+            System.out.println("AccountID must be an integer and between 1 and 1000. ");
+            loginMenu();
+        }
+        if (controller.findAccount(id, password, this.findId) == null) {
+            System.out.println("Wrong password or accountnumber, returning to LoginMenu.");
+            loginMenu();
+        } else {
+            AccountPOJO returnedAccount = controller.findAccount(id, password, this.findId);
+            System.out.println(returnedAccount);
+            loginMenu();
+        }
+    }
+
+    private void searchAccountWithName() {
+        System.out.print("AccountID please: ");
+        this.accountIdString = input.nextLine();
+        if (validator.idValidator(this.accountIdString)) {
+            this.id = Integer.parseInt(this.accountIdString);
+        } else {
+            System.out.println("AccountID must be an integer and between 1 and 1000. ");
+            loginMenu();
+        }
+        System.out.print("Please enter your password: ");
+        this.password = input.nextLine();
+        if (validator.stringValidator(this.password)) {
+        } else {
+            System.out.println("Password must have a value. ");
+            loginMenu();
+        }
+        System.out.print("AccountName of the account you want to find please: ");
+        this.name = input.nextLine();
+        if (validator.stringValidator(this.name)) {
+        } else {
+            System.out.println("AccountName must have a value. ");
+            loginMenu();
+        }
+        if (controller.findAccountWithName(id, password, name) == null) {
+            System.out.println("Wrong password or accountnumber, returning to LoginMenu.");
+            loginMenu();
+        } else {
+            List<AccountPOJO> returnedAccounts = controller.findAccountWithName(id, password, name);
+            System.out.println(returnedAccounts);
+            loginMenu();
+        }
+    }
+
+    private void getAllAccounts() {
+        System.out.print("AccountID please: ");
+        this.accountIdString = input.nextLine();
+        if (validator.idValidator(this.accountIdString)) {
+            this.id = Integer.parseInt(this.accountIdString);
+        } else {
+            System.out.println("AccountID must be an integer and between 1 and 1000. ");
+            loginMenu();
+        }
+        System.out.print("Please enter your password: ");
+        this.password = input.nextLine();
+        if (validator.stringValidator(this.password)) {
+        } else {
+            System.out.println("Password must have a value. ");
+            loginMenu();
+        }
+        if (controller.getAllAccounts(id, password) == null) {
+            System.out.println("Wrong password or accountnumber, returning to LoginMenu.");
+            loginMenu();
+        } else {
+            List<AccountPOJO> returnedAccounts = controller.getAllAccounts(id, password);
+            System.out.println(returnedAccounts);
+            loginMenu();
+        }
+    }
+
+    private void editAccountName() {
+        System.out.print("Insert AccountID: ");
+        this.accountIdString = input.nextLine();
+        if (validator.idValidator(this.accountIdString)) {
+            this.id = Integer.parseInt(this.accountIdString);
+        } else {
+            System.out.println("AccountID must be an integer and between 1 and 1000. ");
+            updateAccountMenu();
+        }
+        System.out.print("Insert new AccountName: ");
+        this.name = input.nextLine();
+        if (validator.stringValidator(this.name)) {
+            System.out.println(controller.editAccountName(id, name));
+            loginMenu();
+        } else {
+            System.out.println("Name must have a value. ");
+            updateAccountMenu();
+        }
+    }
+
+    private void editPassword() {
+        System.out.print("Insert AccountID: ");
+        this.accountIdString = input.nextLine();
+        if (validator.idValidator(this.accountIdString)) {
+            this.id = Integer.parseInt(this.accountIdString);
+        } else {
+            System.out.println("AccountID must be an integer and between 1 and 1000. ");
+            updateAccountMenu();
+        }
+        System.out.print("Insert new password: ");
+        String password2 = input.nextLine();
+        if (validator.stringValidator(password2)) {
+            System.out.println(controller.editAccountPassword(id, password2));
+            loginMenu();
+        } else {
+            System.out.println("Password must have a value. ");
+            updateAccountMenu();
+        }
+    }
+
+    private void editAccountStatus() {
+        System.out.print("Insert AccountID: ");
+        this.accountIdString = input.nextLine();
+        if (validator.idValidator(this.accountIdString)) {
+            this.id = Integer.parseInt(this.accountIdString);
+        } else {
+            System.out.println("AccountID must be an integer and between 1 and 1000. ");
+            updateAccountMenu();
+        }
+        System.out.print("Insert new AccountStatus: ");
+        this.accounStatusString = input.nextLine();
+        if (validator.statusValidator(this.accounStatusString)) {
+            this.status = Integer.parseInt(this.accounStatusString);
+            System.out.println(controller.editAccountStatus(id, status));
+            loginMenu();
+        } else {
+            System.out.println("Status must be an integer and between 0 and 5.  ");
+            updateAccountMenu();
+        }
+    }
+
+    private void editAccountAll() {
+        System.out.print("Insert AccountID: ");
+        this.accountIdString = input.nextLine();
+        if (validator.idValidator(this.accountIdString)) {
+            this.id = Integer.parseInt(this.accountIdString);
+        } else {
+            System.out.println("AccountID must be an integer and between 1 and 1000. ");
+            updateAccountMenu();
+        }
+        System.out.print("Insert new Accountname: ");
+        this.name = input.nextLine();
+        if (validator.stringValidator(this.name)) {
+        } else {
+            System.out.println("Accountname must have a value. ");
+            updateAccountMenu();
+        }
+        System.out.print("Insert new Password: ");
+        this.password = input.nextLine();
+        if (validator.stringValidator(this.password)) {
+        } else {
+            System.out.println("Password must have a value. ");
+            updateAccountMenu();
+        }
+        System.out.print("Insert new Accountstatus: ");
+        this.accounStatusString = input.nextLine();
+        if (validator.statusValidator(this.accounStatusString)) {
+            this.status = Integer.parseInt(this.accounStatusString);
+            System.out.println(controller.updateAccount(id, name, password, status));
+            loginMenu();
+        } else {
+            System.out.println("Status must be an integer and between 0 and 5. ");
             updateAccountMenu();
         }
     }

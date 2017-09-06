@@ -108,7 +108,7 @@ public class AddressMongoDao implements AddressDAOInterface {
         ClientMongoDao clientMongo = new ClientMongoDao();
         try {
             MongoCollection<Document> collection = mongoConnector.makeConnection().getCollection("client");
-            Document doc = collection.find(eq("ClientID", adress.getClientID())).first();
+            Document doc = collection.find(eq("id", adress.getClientID())).first();
             ClientPOJO thisClient = clientMongo.convertDocumentToClient(doc);
             if (thisClient.getClientID() == adress.getClientID()) {
                 try {
@@ -266,8 +266,8 @@ public class AddressMongoDao implements AddressDAOInterface {
     public static void main(String[] args) {
         AddressTypePOJO type = new AddressTypePOJO();
         AddressPOJO address = new AddressPOJO();
-       
-        address.setClientID(1);
+
+        address.setClientID(2);
         address.setStreetName("street");
         address.setHouseNumber(4);
         address.setHouseNumberAddition("A");

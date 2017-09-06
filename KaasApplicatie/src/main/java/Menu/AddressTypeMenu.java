@@ -117,17 +117,17 @@ public class AddressTypeMenu {
         this.idString = input.nextLine();
         if (validator.idValidator(this.idString)) {
             this.id = Integer.parseInt(this.idString);
-            System.out.print("Insert new AddressType name: ");
-            this.addresstype = input.nextLine();
-            if (validator.stringValidator(this.addresstype)) {
-                System.out.println(controller.editAddressType(id, addresstype));
-                addressTypeMenu();
-            } else {
-                System.out.println("AddressType cannot be empty. ");
-                addressTypeMenu();
-            }
         } else {
             System.out.println("AddressTypeID must be an integer and between 0 and 1000. ");
+            addressTypeMenu();
+        }
+        System.out.print("Insert new AddressType name: ");
+        this.addresstype = input.nextLine();
+        if (validator.stringValidator(this.addresstype)) {
+            System.out.println(controller.editAddressType(id, addresstype));
+            addressTypeMenu();
+        } else {
+            System.out.println("AddressType cannot be empty. ");
             addressTypeMenu();
         }
     }

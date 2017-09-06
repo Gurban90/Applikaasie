@@ -134,27 +134,27 @@ public class CheeseMenu {
         System.out.print("Insert CheeseName: ");
         this.name = input.nextLine();
         if (validator.stringValidator(this.name)) {
-            System.out.print("Insert Price: ");
-            this.cheesePrice = input.nextLine();
-            if (validator.priceValidator(this.cheesePrice)) {
-                this.price = new BigDecimal(this.cheesePrice);
-                System.out.print("Insert Stock: ");
-                this.stockString = input.nextLine();
-                if (validator.stockValidator(this.stockString)) {
-                    this.stock = Integer.parseInt(this.stockString);
-                    int cheeseID = controller.newCheese(name, price, stock);
-                    System.out.println("Cheese is added and has ID: " + cheeseID);
-                    cheeseMenu();
-                } else {
-                    System.out.println("Stock must be an integer and between 0 and 1000. ");
-                    cheeseMenu();
-                }
-            } else {
-                System.out.println("Price must be valid type like: 12.25. ");
-                cheeseMenu();
-            }
         } else {
             System.out.println("CheeseName cannot be empty. ");
+            cheeseMenu();
+        }
+        System.out.print("Insert Price: ");
+        this.cheesePrice = input.nextLine();
+        if (validator.priceValidator(this.cheesePrice)) {
+            this.price = new BigDecimal(this.cheesePrice);
+        } else {
+            System.out.println("Price must be valid type like: 12.25. ");
+            cheeseMenu();
+        }
+        System.out.print("Insert Stock: ");
+        this.stockString = input.nextLine();
+        if (validator.stockValidator(this.stockString)) {
+            this.stock = Integer.parseInt(this.stockString);
+            int cheeseID = controller.newCheese(name, price, stock);
+            System.out.println("Cheese is added and has ID: " + cheeseID);
+            cheeseMenu();
+        } else {
+            System.out.println("Stock must be an integer and between 0 and 1000. ");
             cheeseMenu();
         }
     }
@@ -204,17 +204,17 @@ public class CheeseMenu {
         this.cheeseId = input.nextLine();
         if (validator.idValidator(this.cheeseId)) {
             this.id = Integer.parseInt(this.cheeseId);
-            System.out.print("Insert new CheeseName: ");
-            this.name = input.nextLine();
-            if (validator.stringValidator(this.name)) {
-                System.out.println(controller.editCheeseName(id, name));
-                cheeseMenu();
-            } else {
-                System.out.println("CheeseName must have a value. ");
-                editCheeseMenu();
-            }
         } else {
             System.out.println("CheeseID must be an integer and between 1 and 1000. ");
+            editCheeseMenu();
+        }
+        System.out.print("Insert new CheeseName: ");
+        this.name = input.nextLine();
+        if (validator.stringValidator(this.name)) {
+            System.out.println(controller.editCheeseName(id, name));
+            cheeseMenu();
+        } else {
+            System.out.println("CheeseName must have a value. ");
             editCheeseMenu();
         }
     }
@@ -224,18 +224,18 @@ public class CheeseMenu {
         this.cheeseId = input.nextLine();
         if (validator.idValidator(this.cheeseId)) {
             this.id = Integer.parseInt(this.cheeseId);
-            System.out.print("Insert new CheesePrice: ");
-            this.cheesePrice = input.nextLine();
-            if (validator.priceValidator(this.cheesePrice)) {
-                this.price = new BigDecimal(this.cheesePrice);
-                System.out.println(controller.editCheesePrice(id, price));
-                cheeseMenu();
-            } else {
-                System.out.println("Price must be valid type like: 12.25. ");
-                editCheeseMenu();
-            }
         } else {
             System.out.print("CheeseID must be an integer and between 1 and 1000. ");
+            editCheeseMenu();
+        }
+        System.out.print("Insert new CheesePrice: ");
+        this.cheesePrice = input.nextLine();
+        if (validator.priceValidator(this.cheesePrice)) {
+            this.price = new BigDecimal(this.cheesePrice);
+            System.out.println(controller.editCheesePrice(id, price));
+            cheeseMenu();
+        } else {
+            System.out.println("Price must be valid type like: 12.25. ");
             editCheeseMenu();
         }
     }
@@ -245,18 +245,18 @@ public class CheeseMenu {
         this.cheeseId = input.nextLine();
         if (validator.idValidator(this.cheeseId)) {
             this.id = Integer.parseInt(this.cheeseId);
-            System.out.print("Insert new CheeseStock: ");
-            this.stockString = input.nextLine();
-            if (validator.stockValidator(this.stockString)) {
-                this.stock = Integer.parseInt(this.stockString);
-                System.out.println(controller.editCheeseStock(id, stock));
-                cheeseMenu();
-            } else {
-                System.out.print("Stock must be an integer and between 0 and 1000. ");
-                editCheeseMenu();
-            }
         } else {
             System.out.println("CheeseID must be an integer and between 1 and 1000. ");
+            editCheeseMenu();
+        }
+        System.out.print("Insert new CheeseStock: ");
+        this.stockString = input.nextLine();
+        if (validator.stockValidator(this.stockString)) {
+            this.stock = Integer.parseInt(this.stockString);
+            System.out.println(controller.editCheeseStock(id, stock));
+            cheeseMenu();
+        } else {
+            System.out.print("Stock must be an integer and between 0 and 1000. ");
             editCheeseMenu();
         }
     }
@@ -266,35 +266,34 @@ public class CheeseMenu {
         this.cheeseId = input.nextLine();
         if (validator.idValidator(this.cheeseId)) {
             this.id = Integer.parseInt(this.cheeseId);
-            System.out.print("Insert CheeseName: ");
-            this.name = input.nextLine();
-            if (validator.stringValidator(this.name)) {
-                System.out.print("Insert Price: ");
-                this.cheesePrice = input.nextLine();
-                if (validator.priceValidator(this.cheesePrice)) {
-                    this.price = new BigDecimal(this.cheesePrice);
-                    System.out.print("Insert Stock: ");
-                    this.stockString = input.nextLine();
-                    if (validator.stockValidator(this.stockString)) {
-                        this.stock = Integer.parseInt(this.stockString);
-                        System.out.println(controller.editCheese(id, name, price, stock));
-                        cheeseMenu();
-                    } else {
-                        System.out.println("Stock must be an integer and between 0 and 1000. ");
-                        editCheeseMenu();
-                    }
-                } else {
-                    System.out.println("Price must be valid type like: 12.25. ");
-                    editCheeseMenu();
-                }
-            } else {
-                System.out.println("CheeseName must have a value. ");
-                editCheeseMenu();
-            }
         } else {
             System.out.println("CheeseID must be an integer and between 1 and 1000. ");
             editCheeseMenu();
         }
+        System.out.print("Insert CheeseName: ");
+        this.name = input.nextLine();
+        if (validator.stringValidator(this.name)) {
+        } else {
+            System.out.println("CheeseName must have a value. ");
+            editCheeseMenu();
+        }
+        System.out.print("Insert Price: ");
+        this.cheesePrice = input.nextLine();
+        if (validator.priceValidator(this.cheesePrice)) {
+            this.price = new BigDecimal(this.cheesePrice);
+        } else {
+            System.out.println("Price must be valid type like: 12.25. ");
+            editCheeseMenu();
+        }
+        System.out.print("Insert Stock: ");
+        this.stockString = input.nextLine();
+        if (validator.stockValidator(this.stockString)) {
+            this.stock = Integer.parseInt(this.stockString);
+            System.out.println(controller.editCheese(id, name, price, stock));
+            cheeseMenu();
+        } else {
+            System.out.println("Stock must be an integer and between 0 and 1000. ");
+            editCheeseMenu();
+        }
     }
-
 }

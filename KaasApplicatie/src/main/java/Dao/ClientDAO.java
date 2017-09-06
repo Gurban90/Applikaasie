@@ -6,6 +6,7 @@
 package Dao;
 
 import DatabaseConnector.Connector;
+import Helper.ConnectionFactory;
 import Interface.ClientDAOInterface;
 import POJO.ClientPOJO;
 import java.sql.Connection;
@@ -24,11 +25,12 @@ import java.util.logging.Logger;
 public class ClientDAO implements ClientDAOInterface {
 
     private Logger LOGGER = Logger.getLogger(ClientDAOInterface.class.getName());
-    
+
     private Connection connection;
     private PreparedStatement statement;
     private String query;
     private ResultSet resultSet;
+    private ConnectionFactory connectionfactory = new ConnectionFactory();
 
     @Override
     public Integer addClient(ClientPOJO client) {
@@ -37,14 +39,12 @@ public class ClientDAO implements ClientDAOInterface {
 
         query = "INSERT INTO Client (FirstName, LastName, Email) VALUES(?,?,?);";
         try {
-            connection = Connector.getConnection();
+            connection = connectionfactory.getConnection();
             statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-
             statement.setString(1, client.getFirstName());
             statement.setString(2, client.getLastName());
             statement.setString(3, client.getEMail());
             statement.executeUpdate();
-
             try (ResultSet resultSet = statement.getGeneratedKeys()) {
                 if (resultSet.next()) {
                     newID = resultSet.getInt(1);
@@ -53,19 +53,18 @@ public class ClientDAO implements ClientDAOInterface {
                     throw new SQLException("Inserting Client failed, no ID retrieved.");
                 }
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+            }
+        }
 
-    
-        }finally{
-                try { connection.close(); } catch (SQLException e) {}
-            }          
-        
         LOGGER.info("addClient end");
         return newID;
-        
-        
+
     }
 
     @Override
@@ -74,7 +73,7 @@ public class ClientDAO implements ClientDAOInterface {
         query = "SELECT * FROM Client;";
         List<ClientPOJO> returnedClients = new ArrayList<>();
         try {
-            connection = Connector.getConnection();
+            connection = connectionfactory.getConnection();
             statement = connection.prepareStatement(query);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -88,21 +87,23 @@ public class ClientDAO implements ClientDAOInterface {
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally{
-                try { connection.close(); } catch (SQLException e) {}
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
             }
-        
+        }
+
         LOGGER.info("getAllClient end");
         return returnedClients;
     }
-
 
     public ClientPOJO getClient(ClientPOJO client) {
         LOGGER.info("getClient Start");
         query = "SELECT * FROM Client WHERE ClientID=?";
         ClientPOJO foundClient = new ClientPOJO();
         try {
-            connection = Connector.getConnection();
+            connection = connectionfactory.getConnection();
             statement = connection.prepareStatement(query);
             statement.setObject(1, client.getClientID());
             resultSet = statement.executeQuery();
@@ -127,13 +128,14 @@ public class ClientDAO implements ClientDAOInterface {
         LOGGER.info("getClient end");
         return foundClient;
     }
+
     @Override
     public List<ClientPOJO> getClientWithFirstName(String FirstName) {
         LOGGER.info("getClientWithName Start");
         query = "SELECT * FROM Client WHERE FirstName=?";
         List<ClientPOJO> returnedClients = new ArrayList<>();
         try {
-            connection = Connector.getConnection();
+            connection = connectionfactory.getConnection();
             statement = connection.prepareStatement(query);
             statement.setString(1, FirstName);
             resultSet = statement.executeQuery();
@@ -148,10 +150,13 @@ public class ClientDAO implements ClientDAOInterface {
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally{
-                try { connection.close(); } catch (SQLException e) {}
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
             }
-        
+        }
+
         LOGGER.info("getClientWithName end");
         return returnedClients;
     }
@@ -162,7 +167,7 @@ public class ClientDAO implements ClientDAOInterface {
         query = "SELECT * FROM Client WHERE LastName=?";
         List<ClientPOJO> returnedClients = new ArrayList<>();
         try {
-            connection = Connector.getConnection();
+            connection = connectionfactory.getConnection();
             statement = connection.prepareStatement(query);
             statement.setString(1, LastName);
             resultSet = statement.executeQuery();
@@ -177,10 +182,13 @@ public class ClientDAO implements ClientDAOInterface {
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally{
-                try { connection.close(); } catch (SQLException e) {}
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
             }
-        
+        }
+
         LOGGER.info("getClientWithLastName end");
         return returnedClients;
     }
@@ -191,7 +199,7 @@ public class ClientDAO implements ClientDAOInterface {
         query = "SELECT * FROM Client WHERE Email=?";
         List<ClientPOJO> returnedClients = new ArrayList<>();
         try {
-            connection = Connector.getConnection();
+            connection = connectionfactory.getConnection();
             statement = connection.prepareStatement(query);
             statement.setString(1, eMail);
             resultSet = statement.executeQuery();
@@ -206,10 +214,13 @@ public class ClientDAO implements ClientDAOInterface {
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally{
-                try { connection.close(); } catch (SQLException e) {}
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
             }
-        
+        }
+
         LOGGER.info("getClientWithEmail end");
         return returnedClients;
     }
@@ -219,7 +230,7 @@ public class ClientDAO implements ClientDAOInterface {
         LOGGER.info("updateClient Start");
         query = "UPDATE Client SET FirstName = ?, LastName = ?, Email = ? WHERE ClientID=?";
         try {
-            connection = Connector.getConnection();
+            connection = connectionfactory.getConnection();
             statement = connection.prepareStatement(query);
             statement.setString(1, client.getFirstName());
             statement.setString(2, client.getLastName());
@@ -229,10 +240,13 @@ public class ClientDAO implements ClientDAOInterface {
         } catch (SQLException e) {
             e.printStackTrace();
 
-        }finally{
-                try { connection.close(); } catch (SQLException e) {}
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
             }
-        
+        }
+
         LOGGER.info("updateClient end");
     }
 
@@ -241,7 +255,7 @@ public class ClientDAO implements ClientDAOInterface {
         LOGGER.info("deleteClient Start");
         query = "SELECT * FROM `Order` WHERE Client_ClientID=?";
         try {
-            connection = Connector.getConnection();
+            connection = connectionfactory.getConnection();
             statement = connection.prepareStatement(query);
             statement.setInt(1, client.getClientID());
             resultSet = statement.executeQuery();
@@ -257,9 +271,12 @@ public class ClientDAO implements ClientDAOInterface {
         } catch (SQLException e) {
             e.printStackTrace();
 
-        }finally{
-                try { connection.close(); } catch (SQLException e) {}
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
             }
+        }
         LOGGER.info("deleteClient end");
     }
 

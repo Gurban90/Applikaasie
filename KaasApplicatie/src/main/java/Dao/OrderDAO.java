@@ -8,6 +8,7 @@ package Dao;
 import Helper.Converter;
 
 import DatabaseConnector.Connector;
+import Helper.ConnectionFactory;
 import Interface.ClientDAOInterface;
 import Interface.OrderDAOInterface;
 import POJO.ClientPOJO;
@@ -33,6 +34,7 @@ public class OrderDAO implements OrderDAOInterface {
     private PreparedStatement statement;
     private String query;
     private ResultSet resultSet;
+    private ConnectionFactory connectionfactory = new ConnectionFactory();
 
     @Override
     public Integer addOrder(OrderPOJO order) {
@@ -41,14 +43,14 @@ public class OrderDAO implements OrderDAOInterface {
         LOGGER.info("addorder Start");
         this.query = "select * from Client where ClientID = ?";
         try {
-            connect = Connector.getConnection();
+            connect = connectionfactory.getConnection();
             statement = connect.prepareStatement(query);
             statement.setInt(1, order.getClientID());
             this.resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 this.query = "INSERT INTO `order` (`OrderDate`, `TotalPrice`, `ProcessedDate`, `Client_ClientID`) VALUES (?,?,?,?);";
                 try {
-                    connect = Connector.getConnection();
+                    connect = connectionfactory.getConnection();
                     statement = connect.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
                     statement.setString(1, convert.convertLocalDateTime(order.getOrderDate()));
                     statement.setBigDecimal(2, order.getTotalPrice());
@@ -93,7 +95,7 @@ public class OrderDAO implements OrderDAOInterface {
         convert = new Converter();
 
         try {
-            connect = Connector.getConnection();
+            connect = connectionfactory.getConnection();
             statement = connect.prepareStatement(query);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -129,7 +131,7 @@ public class OrderDAO implements OrderDAOInterface {
         convert = new Converter();
 
         try {
-            connect = Connector.getConnection();
+            connect = connectionfactory.getConnection();
             statement = connect.prepareStatement(query);
             statement.setObject(1, order.getOrderID());
             resultSet = statement.executeQuery();
@@ -167,7 +169,7 @@ public class OrderDAO implements OrderDAOInterface {
         convert = new Converter();
 
         try {
-            connect = Connector.getConnection();
+            connect = connectionfactory.getConnection();
             statement = connect.prepareStatement(query);
             statement.setObject(1, client.getClientID());
             resultSet = statement.executeQuery();
@@ -204,7 +206,7 @@ public class OrderDAO implements OrderDAOInterface {
         convert = new Converter();
 
         try {
-            connect = Connector.getConnection();
+            connect = connectionfactory.getConnection();
             PreparedStatement updateOrder = connect.prepareStatement(query);
             updateOrder.setInt(5, order.getOrderID());
             updateOrder.setString(1, convert.convertLocalDateTime(order.getOrderDate()));
@@ -233,7 +235,7 @@ public class OrderDAO implements OrderDAOInterface {
         query = "DELETE FROM `order` where OrderID = ?";
 
         try {
-            connect = Connector.getConnection();
+            connect = connectionfactory.getConnection();
             statement = connect.prepareStatement(query);
             statement.setInt(1, order.getOrderID());
             statement.executeUpdate();
@@ -251,9 +253,5 @@ public class OrderDAO implements OrderDAOInterface {
 
         LOGGER.info("deleteOrder end");
     }
-
-   
-
-    
 
 }

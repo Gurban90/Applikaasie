@@ -6,6 +6,7 @@
 package Dao;
 
 import DatabaseConnector.Connector;
+import Helper.ConnectionFactory;
 import Interface.CheeseDAOInterface;
 import Interface.OrderDetailDAOInterface;
 import POJO.OrderDetailPOJO;
@@ -26,6 +27,7 @@ public class OrderDetailDAO implements OrderDetailDAOInterface {
 
     private Logger LOGGER = Logger.getLogger(CheeseDAOInterface.class.getName());
     private Connection connection;
+    private ConnectionFactory connectionfactory = new ConnectionFactory();
 
     @Override
     public Integer addOrderDetail(OrderDetailPOJO orderDetail) {
@@ -34,7 +36,7 @@ public class OrderDetailDAO implements OrderDetailDAOInterface {
         Integer newID = 0;
         String query = "select * from Cheese where CheeseID = ?";
         try {
-            connection = Connector.getConnection();
+            connection = connectionfactory.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, orderDetail.getCheeseID());
             ResultSet resultSet = statement.executeQuery();//Check of Cheese wel bestaat.
@@ -88,7 +90,7 @@ public class OrderDetailDAO implements OrderDetailDAOInterface {
         String query = "SELECT * FROM OrderDetail;";
         List<OrderDetailPOJO> returnedOrderDetail = new ArrayList<>();
         try {
-            connection = Connector.getConnection();
+            connection = connectionfactory.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -119,7 +121,7 @@ public class OrderDetailDAO implements OrderDetailDAOInterface {
         String query = "SELECT * FROM OrderDetail WHERE Order_OrderID =?";
         List<OrderDetailPOJO> returnedOrderDetail = new ArrayList<>();
         try {
-            connection = Connector.getConnection();
+            connection = connectionfactory.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setObject(1, orderdetail.getOrderID());
             ResultSet resultSet = statement.executeQuery();
@@ -151,7 +153,7 @@ public class OrderDetailDAO implements OrderDetailDAOInterface {
         String query = "SELECT * FROM OrderDetail WHERE OrderDetailID =?";
         OrderDetailPOJO foundOrderDetail = new OrderDetailPOJO();
         try {
-            connection = Connector.getConnection();
+            connection = connectionfactory.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setObject(1, orderdetail.getOrderDetailID());
             ResultSet resultSet = statement.executeQuery();
@@ -177,9 +179,9 @@ public class OrderDetailDAO implements OrderDetailDAOInterface {
 
     public void updateOrderDetail(OrderDetailPOJO orderDetail) {
         LOGGER.info("updateOrderDetail Start");
-                String query = "select * from Cheese where CheeseID = ?";
+        String query = "select * from Cheese where CheeseID = ?";
         try {
-            connection = Connector.getConnection();
+            connection = connectionfactory.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, orderDetail.getCheeseID());
             ResultSet resultSet = statement.executeQuery();//Check of Cheese wel bestaat.
@@ -224,7 +226,7 @@ public class OrderDetailDAO implements OrderDetailDAOInterface {
         LOGGER.info("deleteOrderDetail Start");
         String query = "DELETE FROM OrderDetail WHERE OrderDetailID = ?";
         try {
-            connection = Connector.getConnection();
+            connection = connectionfactory.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, orderdetail.getOrderDetailID());
             statement.executeUpdate();
@@ -240,7 +242,5 @@ public class OrderDetailDAO implements OrderDetailDAOInterface {
         }
         LOGGER.info("deleteOrderDetail end");
     }
-
-    
 
 }
