@@ -5,6 +5,7 @@ import DatabaseConnector.DomXML;
 import Helper.DaoFactory;
 import Helper.HelpClientOrderCheese;
 import Helper.Validator;
+import POJO.ClientPOJO;
 import POJO.OrderPOJO;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -87,7 +88,10 @@ public class OrderMenu {
                         System.out.println("clientID must have a value. ");
                         orderMenu();
                     }
-                    collection.setClientID(clientIDint);
+                   ClientPOJO returnedPOJO = collection.setClientID(clientIDint);
+                   if(returnedPOJO.getClientID() == 0){
+                       orderMenu();
+                   }
 
                     System.out.print("set the time of day when the order was made by the client: ");
                     System.out.print("enter Year: ");
