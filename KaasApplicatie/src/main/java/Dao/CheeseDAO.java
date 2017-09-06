@@ -5,8 +5,8 @@
  */
 package Dao;
 
-import DatabaseConnector.Connector;
-import DatabaseConnector.DomXML;
+
+
 import Helper.ConnectionFactory;
 
 import Interface.CheeseDAOInterface;
@@ -30,7 +30,6 @@ public class CheeseDAO implements CheeseDAOInterface {
 
     Logger logger = Logger.getLogger(CheeseDAOInterface.class.getName());
     private Connection connection;
-    private DomXML data = new DomXML();
     private ConnectionFactory connectionfactory = new ConnectionFactory();
 
     @Override
@@ -39,7 +38,7 @@ public class CheeseDAO implements CheeseDAOInterface {
         Integer newID = 0;
         String query = "INSERT INTO Cheese (Name, Price, Stock) VALUES (?,?,?);";
         try {
-            connection = connectionfactory.getConnection(data.getConnectionType());
+            connection = connectionfactory.getConnection();
             PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, cheese.getCheeseName());
             statement.setBigDecimal(2, cheese.getPrice());
@@ -75,7 +74,7 @@ public class CheeseDAO implements CheeseDAOInterface {
         List<CheesePOJO> returnedCheeses = new ArrayList<>();
         
         try {
-            connection = connectionfactory.getConnection(data.getConnectionType());
+            connection = connectionfactory.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -106,7 +105,7 @@ public class CheeseDAO implements CheeseDAOInterface {
         String query = "SELECT * FROM Cheese WHERE CheeseID=?";
         CheesePOJO foundCheese = new CheesePOJO();
         try {
-            connection = connectionfactory.getConnection(data.getConnectionType());
+            connection = connectionfactory.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setObject(1, cheese.getCheeseID());
             ResultSet resultSet = statement.executeQuery();
@@ -138,7 +137,7 @@ public class CheeseDAO implements CheeseDAOInterface {
         String query = "SELECT * FROM Cheese WHERE Name=?";
         CheesePOJO foundCheese = new CheesePOJO();
         try {
-            connection = connectionfactory.getConnection(data.getConnectionType());
+            connection = connectionfactory.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setObject(1, cheese.getCheeseName());
             ResultSet resultSet = statement.executeQuery();
@@ -170,7 +169,7 @@ public class CheeseDAO implements CheeseDAOInterface {
         logger.info("updateCheese Start");
         String query = "UPDATE Cheese SET Name = ?, Price = ?, Stock = ? WHERE CheeseID=?";
         try {
-            connection = connectionfactory.getConnection(data.getConnectionType());
+            connection = connectionfactory.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, cheese.getCheeseName());
             statement.setBigDecimal(2, cheese.getPrice());
@@ -194,7 +193,7 @@ public class CheeseDAO implements CheeseDAOInterface {
         logger.info("deleteCheese Start");
         String query = "select * from OrderDetail where Cheese_CheeseID = ?";
         try {
-            connection = connectionfactory.getConnection(data.getConnectionType());
+            connection = connectionfactory.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, cheese.getCheeseID());
             ResultSet resultSet = statement.executeQuery();

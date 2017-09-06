@@ -6,7 +6,7 @@
 package Helper;
 
 import Dao.*;
-
+import DatabaseConnector.DomXML;
 import Interface.*;
 import MongoDao.*;
 
@@ -16,8 +16,10 @@ import MongoDao.*;
  */
 public class DaoFactory {//ordermenu nog niet af.
 
+  
     
     public DaoFactory() {
+        
     }
        
     public static AccountDAOInterface createAccountDao(String database) {

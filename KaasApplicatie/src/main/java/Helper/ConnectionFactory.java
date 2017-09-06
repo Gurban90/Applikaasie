@@ -6,6 +6,7 @@
 package Helper;
 
 import DatabaseConnector.Connector;
+import DatabaseConnector.DomXML;
 import DatabaseConnector.HikariConnector;
 import java.sql.Connection;
 
@@ -16,13 +17,17 @@ import java.sql.Connection;
 public class ConnectionFactory {
 
     private HikariConnector hikari;
+    private String connection;
+    private DomXML data;
 
     public ConnectionFactory() {
         hikari = new HikariConnector();
+        data = new DomXML();
+        connection = data.getConnectionType();
     }
 
-    public Connection getConnection(String connection) { ///ALLEEN INGEVOER BIJ CHEESE
-        switch (connection) {
+    public Connection getConnection() {        
+        switch (this.connection) {
             case "jdbc":
                 return Connector.getConnection();
             case "hikari":

@@ -78,7 +78,7 @@ public class ClientMongoDao implements ClientDAOInterface {
     public List<ClientPOJO> getAllClient() {
         logger.info("getAllclient Start");
         client = new ArrayList<>();
-        collection = mongoConnector.makeConnection().getCollection("cheese");
+        collection = mongoConnector.makeConnection().getCollection("client");
         cursor = collection.find().iterator();
         while (cursor.hasNext()) {
             doc = cursor.next();
@@ -88,6 +88,7 @@ public class ClientMongoDao implements ClientDAOInterface {
         logger.info("getAllclient end");
         return client;
     }
+         
 
     @Override
     public ClientPOJO getClient(ClientPOJO client) {
@@ -165,5 +166,16 @@ public class ClientMongoDao implements ClientDAOInterface {
         collection.findOneAndDelete(eq("id", client.getClientID()));
         mongoConnector.closeConnection();
         logger.info("deleteclient End"); 
+    }
+    
+    public static void main(String[] args) {
+       
+      
+        
+        ClientMongoDao dao = new ClientMongoDao();
+
+        System.out.println(dao.getAllClient());
+
+
     }
 }

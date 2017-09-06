@@ -133,13 +133,13 @@ public class CheeseMongoDao implements CheeseDAOInterface {
 
     public static void main(String[] args) {
         CheesePOJO cheese1 = new CheesePOJO();
-
+        cheese1.setCheeseID(1);
         cheese1.setCheeseName("Kippie2");
         cheese1.setPrice(new BigDecimal(22.0));
         cheese1.setStock(222);
         CheeseMongoDao dao = new CheeseMongoDao();
 
-        dao.addCheese(cheese1);
+        System.out.println(dao.getAllCheese());
 
 
     }
