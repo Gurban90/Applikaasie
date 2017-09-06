@@ -36,6 +36,8 @@ public class ClientMongoDao implements ClientDAOInterface {
             returnClient = new ClientPOJO(doc.getInteger("id"), doc.getString("firstname"), doc.getString("lastname"), doc.getString("email"));
         } catch (NullPointerException e) {
             System.out.println("Client not found.");
+           
+            
         }
         return returnClient;
     }
@@ -72,6 +74,8 @@ public class ClientMongoDao implements ClientDAOInterface {
         mongoConnector.closeConnection();
         logger.info("addclient end");
         return client.getClientID(); 
+    
+    
     }
 
     @Override

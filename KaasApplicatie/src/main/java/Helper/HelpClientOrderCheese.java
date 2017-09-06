@@ -66,7 +66,7 @@ public class HelpClientOrderCheese {
     }
 
     //first part start
-    public void setClientID(int clientID) {
+    public ClientPOJO setClientID(int clientID) {
 
         clientPOJO = new ClientPOJO();
         returnedClientPOJO = new ClientPOJO();
@@ -78,6 +78,8 @@ public class HelpClientOrderCheese {
         clientPOJO.setClientID(clientID);
         orderPOJO.setClient(clientPOJO);
         returnedClientPOJO = clientDAO.getClient(clientPOJO);
+        
+        return returnedClientPOJO;
 
     }
 
