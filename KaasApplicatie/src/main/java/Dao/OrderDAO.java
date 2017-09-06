@@ -12,13 +12,11 @@ import Interface.ClientDAOInterface;
 import Interface.OrderDAOInterface;
 import POJO.ClientPOJO;
 import POJO.OrderPOJO;
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -29,26 +27,29 @@ import java.util.logging.Logger;
  */
 public class OrderDAO implements OrderDAOInterface {
 
-    Logger log = Logger.getLogger(ClientDAOInterface.class.getName());
+    private Logger LOGGER = Logger.getLogger(ClientDAOInterface.class.getName());
     private Connection connect;
     private Converter convert;
+    private PreparedStatement statement;
+    private String query;
+    private ResultSet resultSet;
 
     @Override
     public Integer addOrder(OrderPOJO order) {
         Integer newID = 0;
         convert = new Converter();
-        log.info("addorder Start");
-        String query = "select * from Client where ClientID = ?";
+        LOGGER.info("addorder Start");
+        this.query = "select * from Client where ClientID = ?";
         try {
             connect = Connector.getConnection();
-            PreparedStatement statement = connect.prepareStatement(query);
+            statement = connect.prepareStatement(query);
             statement.setInt(1, order.getClientID());
-            ResultSet resultSet1 = statement.executeQuery();
-            if (resultSet1.next()) {
-                String insertOrder = "INSERT INTO `order` (`OrderDate`, `TotalPrice`, `ProcessedDate`, `Client_ClientID`) VALUES (?,?,?,?);";
+            this.resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                this.query = "INSERT INTO `order` (`OrderDate`, `TotalPrice`, `ProcessedDate`, `Client_ClientID`) VALUES (?,?,?,?);";
                 try {
                     connect = Connector.getConnection();
-                    statement = connect.prepareStatement(insertOrder, Statement.RETURN_GENERATED_KEYS);
+                    statement = connect.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
                     statement.setString(1, convert.convertLocalDateTime(order.getOrderDate()));
                     statement.setBigDecimal(2, order.getTotalPrice());
                     statement.setString(3, convert.convertLocalDateTime(order.getProcessedDate()));
@@ -79,22 +80,22 @@ public class OrderDAO implements OrderDAOInterface {
             }
         }
 
-        log.info("addorder end");
+        LOGGER.info("addorder end");
         return newID;
     }
 
     @Override
     public List<OrderPOJO> getAllOrder() {
-        log.info("getAllOrder Start");
-        String query = "SELECT * FROM `order`;";
+        LOGGER.info("getAllOrder Start");
+        query = "SELECT * FROM `order`;";
 
         List<OrderPOJO> returnedOrder = new ArrayList<>();
         convert = new Converter();
 
         try {
             connect = Connector.getConnection();
-            PreparedStatement statement = connect.prepareStatement(query);
-            ResultSet resultSet = statement.executeQuery();
+            statement = connect.prepareStatement(query);
+            resultSet = statement.executeQuery();
             while (resultSet.next()) {
 
                 OrderPOJO foundOrder = new OrderPOJO();
@@ -116,27 +117,22 @@ public class OrderDAO implements OrderDAOInterface {
             }
         }
 
-        log.info("getAllOrder end");
+        LOGGER.info("getAllOrder end");
         return returnedOrder;
     }
 
-    /*
-    LocalDateTime orderDate;
-    BigDecimal totalPrice;
-    LocalDateTime processedDate;
-     */
     @Override
     public OrderPOJO getOrder(OrderPOJO order) {
-        log.info("getOrder Start");
+        LOGGER.info("getOrder Start");
         String query = "SELECT * FROM `order` WHERE OrderID=?";
         OrderPOJO foundOrder = new OrderPOJO();
         convert = new Converter();
 
         try {
             connect = Connector.getConnection();
-            PreparedStatement statement = connect.prepareStatement(query);
+            statement = connect.prepareStatement(query);
             statement.setObject(1, order.getOrderID());
-            ResultSet resultSet = statement.executeQuery();
+            resultSet = statement.executeQuery();
 
             if (resultSet.isBeforeFirst()) {
                 resultSet.next();
@@ -158,26 +154,24 @@ public class OrderDAO implements OrderDAOInterface {
             }
         }
 
-        log.info("getorder end");
+        LOGGER.info("getorder end");
         return foundOrder;
     }
 
     @Override
     public List<OrderPOJO> getOrderWithClient(ClientPOJO client
     ) {
-        log.info("getAllAddress Start");
-        String query = "SELECT * FROM `order` WHERE Client_ClientID=?";
-
+        LOGGER.info("getAllAddress Start");
+        query = "SELECT * FROM `order` WHERE Client_ClientID=?";
         List<OrderPOJO> returnedAddress = new ArrayList<>();
         convert = new Converter();
 
         try {
             connect = Connector.getConnection();
-            PreparedStatement statement = connect.prepareStatement(query);
+            statement = connect.prepareStatement(query);
             statement.setObject(1, client.getClientID());
-            ResultSet resultSet = statement.executeQuery();
+            resultSet = statement.executeQuery();
             while (resultSet.next()) {
-
                 OrderPOJO foundOrder = new OrderPOJO();
 
                 foundOrder.setOrderID(resultSet.getInt(1));
@@ -198,14 +192,14 @@ public class OrderDAO implements OrderDAOInterface {
                 e.printStackTrace();
             }
         }
-        log.info("getAllCheese end");
+        LOGGER.info("getAllCheese end");
         return returnedAddress;
     }
 
     @Override
     public void updateOrder(OrderPOJO order
     ) {
-        log.info("updateOrder Start");
+        LOGGER.info("updateOrder Start");
         String query = "UPDATE `order` SET OrderDate = ?, TotalPrice = ?, ProcessedDate = ?, Client_ClientID = ?  WHERE OrderID=?";
         convert = new Converter();
 
@@ -228,19 +222,19 @@ public class OrderDAO implements OrderDAOInterface {
             }
         }
 
-        log.info("updateOrder end");
+        LOGGER.info("updateOrder end");
     }
 
     @Override
     public void deleteOrder(OrderPOJO order
     ) {
-        log.info("deleteOrder Start");
+        LOGGER.info("deleteOrder Start");
 
-        String query = "DELETE FROM `order` where OrderID = ?";
+        query = "DELETE FROM `order` where OrderID = ?";
 
         try {
             connect = Connector.getConnection();
-            PreparedStatement statement = connect.prepareStatement(query);
+            statement = connect.prepareStatement(query);
             statement.setInt(1, order.getOrderID());
             statement.executeUpdate();
 
@@ -255,7 +249,7 @@ public class OrderDAO implements OrderDAOInterface {
             }
         }
 
-        log.info("deleteOrder end");
+        LOGGER.info("deleteOrder end");
     }
 
    

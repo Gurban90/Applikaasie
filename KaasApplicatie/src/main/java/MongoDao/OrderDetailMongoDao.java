@@ -93,7 +93,6 @@ public class OrderDetailMongoDao implements OrderDetailDAOInterface {
                 orderDetail.setOrderDetailID(getNextId());
                 collection = mongoConnector.makeConnection().getCollection("orderdetail");
                 collection.insertOne(convertOrderDetailToDocument(orderDetail));
-                mongoConnector.closeConnection();
                 logger.info("addOrderDetailt end");  
                 return orderDetail.getOrderDetailID();
             }
@@ -103,7 +102,9 @@ public class OrderDetailMongoDao implements OrderDetailDAOInterface {
             
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        } finally {
+           mongoConnector.closeConnection();
+            }
       return null;  
     }      
         

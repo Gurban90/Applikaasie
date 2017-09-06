@@ -6,11 +6,8 @@
 package Controller;
 
 import Dao.AddressDAO;
-import Dao.ClientDAO;
 import Interface.AddressDAOInterface;
-import POJO.AddressPOJO;
 import POJO.AddressTypePOJO;
-import POJO.ClientPOJO;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -20,7 +17,7 @@ import java.util.logging.Logger;
  */
 public class AddressTypeController {
 
-    static final Logger LOGGER = Logger.getLogger(CheeseController.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(CheeseController.class.getName());
     private AddressDAOInterface addressdao;
     private AddressTypePOJO addresstypepojo;
 
@@ -29,7 +26,6 @@ public class AddressTypeController {
         addresstypepojo = new AddressTypePOJO();
     }
     
-     //Voor test
     public AddressTypeController(AddressDAOInterface addressdao) {
         this.addressdao = addressdao;
         addresstypepojo = new AddressTypePOJO();

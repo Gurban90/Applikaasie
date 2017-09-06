@@ -8,9 +8,7 @@ package Dao;
 import DatabaseConnector.Connector;
 import Interface.CheeseDAOInterface;
 import Interface.OrderDetailDAOInterface;
-import POJO.CheesePOJO;
 import POJO.OrderDetailPOJO;
-import POJO.OrderPOJO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,13 +24,13 @@ import java.util.logging.Logger;
  */
 public class OrderDetailDAO implements OrderDetailDAOInterface {
 
-    Logger logger = Logger.getLogger(CheeseDAOInterface.class.getName());
+    private Logger LOGGER = Logger.getLogger(CheeseDAOInterface.class.getName());
     private Connection connection;
 
     @Override
     public Integer addOrderDetail(OrderDetailPOJO orderDetail) {
 
-        logger.info("addOrderDetail Start");
+        LOGGER.info("addOrderDetail Start");
         Integer newID = 0;
         String query = "select * from Cheese where CheeseID = ?";
         try {
@@ -79,14 +77,14 @@ public class OrderDetailDAO implements OrderDetailDAOInterface {
             }
         }
 
-        logger.info("addOrderDetail end");
+        LOGGER.info("addOrderDetail end");
         return newID;
 
     }
 
     @Override
     public List<OrderDetailPOJO> getAllOrderDetail() {
-        logger.info("getAllOrderDetail Start");
+        LOGGER.info("getAllOrderDetail Start");
         String query = "SELECT * FROM OrderDetail;";
         List<OrderDetailPOJO> returnedOrderDetail = new ArrayList<>();
         try {
@@ -111,13 +109,13 @@ public class OrderDetailDAO implements OrderDetailDAOInterface {
             }
         }
 
-        logger.info("getAllOrderDetail end");
+        LOGGER.info("getAllOrderDetail end");
         return returnedOrderDetail;
     }
 
     @Override
     public List<OrderDetailPOJO> getOrderDetail(OrderDetailPOJO orderdetail) {
-        logger.info("getOrderDetail Start");
+        LOGGER.info("getOrderDetail Start");
         String query = "SELECT * FROM OrderDetail WHERE Order_OrderID =?";
         List<OrderDetailPOJO> returnedOrderDetail = new ArrayList<>();
         try {
@@ -143,13 +141,13 @@ public class OrderDetailDAO implements OrderDetailDAOInterface {
             }
         }
 
-        logger.info("getOrderDetail end");
+        LOGGER.info("getOrderDetail end");
         return returnedOrderDetail;
     }
 
     @Override
     public OrderDetailPOJO getOrderDetailWithID(OrderDetailPOJO orderdetail) {
-        logger.info("getOrderDetail Start");
+        LOGGER.info("getOrderDetail Start");
         String query = "SELECT * FROM OrderDetail WHERE OrderDetailID =?";
         OrderDetailPOJO foundOrderDetail = new OrderDetailPOJO();
         try {
@@ -173,12 +171,12 @@ public class OrderDetailDAO implements OrderDetailDAOInterface {
             } catch (SQLException e) {
             }
         }
-        logger.info("getOrderDetail end");
+        LOGGER.info("getOrderDetail end");
         return foundOrderDetail;
     }
 
     public void updateOrderDetail(OrderDetailPOJO orderDetail) {
-        logger.info("updateOrderDetail Start");
+        LOGGER.info("updateOrderDetail Start");
                 String query = "select * from Cheese where CheeseID = ?";
         try {
             connection = Connector.getConnection();
@@ -216,14 +214,14 @@ public class OrderDetailDAO implements OrderDetailDAOInterface {
             }
         }
 
-        logger.info("updateOrderDetail end");
+        LOGGER.info("updateOrderDetail end");
 
     }
 
     @Override
     public void deleteOrderDetail(OrderDetailPOJO orderdetail
     ) {
-        logger.info("deleteOrderDetail Start");
+        LOGGER.info("deleteOrderDetail Start");
         String query = "DELETE FROM OrderDetail WHERE OrderDetailID = ?";
         try {
             connection = Connector.getConnection();
@@ -240,7 +238,7 @@ public class OrderDetailDAO implements OrderDetailDAOInterface {
             } catch (SQLException e) {
             }
         }
-        logger.info("deleteOrderDetail end");
+        LOGGER.info("deleteOrderDetail end");
     }
 
     

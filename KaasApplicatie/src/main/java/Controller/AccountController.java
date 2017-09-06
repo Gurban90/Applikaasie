@@ -7,8 +7,6 @@ package Controller;
 
 import Dao.AccountDAO;
 import Interface.AccountDAOInterface;
-import Menu.LoginMenu;
-import Menu.MainMenu;
 import POJO.AccountPOJO;
 import java.util.List;
 import java.util.Scanner;
@@ -20,8 +18,8 @@ import java.util.logging.Logger;
  */
 public class AccountController {
 
+    private Logger LOGGER = Logger.getLogger(AccountController.class.getName());
     private Scanner input = new Scanner(System.in);
-    Logger logger = Logger.getLogger(AccountController.class.getName());
     private AccountDAOInterface accountdao;
     private AccountPOJO accountpojo;
 
@@ -39,33 +37,33 @@ public class AccountController {
 
     
     public boolean login(int id, String password) {
-        logger.info("login start");
+        LOGGER.info("login start");
 
         accountpojo.setAccountID(id);
         accountpojo.setAccountPassword(password);
         AccountPOJO foundAccount = accountdao.getAccount(accountpojo);
 
         if (accountpojo.getAccountPassword().equals(foundAccount.getAccountPassword())) {
-            logger.info("login end");
+            LOGGER.info("login end");
             return true;
         } else {
-            logger.info("login end");
+            LOGGER.info("login end");
             return false;
         }
     }
 
     public int newAccount(String name, String password, int status) {
-        logger.info("newAccount start");
+        LOGGER.info("newAccount start");
 
         accountpojo.setAccountName(name);
         accountpojo.setAccountPassword(password);
         accountpojo.setAccountStatus(status);
-        logger.info("newAccount end");
+        LOGGER.info("newAccount end");
         return accountdao.addAccount(accountpojo);
     }
 
     public boolean removeAccount(int id, String password) {
-        logger.info("removeAccount start");
+        LOGGER.info("removeAccount start");
 
         accountpojo.setAccountID(id);
         accountpojo.setAccountPassword(password);
@@ -73,77 +71,77 @@ public class AccountController {
 
         if (accountpojo.getAccountPassword().equals(foundAccount.getAccountPassword())) {
             accountdao.deleteAccount(accountpojo);
-            logger.info("removeAccount end");
+            LOGGER.info("removeAccount end");
             return true;
         } else {
-            logger.info("removeAccount end");
+            LOGGER.info("removeAccount end");
             return false;
         }
     }
 
     public boolean updateAccountCheck(int id, String password) {
-        logger.info("updateAccountCheck start");
+        LOGGER.info("updateAccountCheck start");
 
         accountpojo.setAccountID(id);
         accountpojo.setAccountPassword(password);
         AccountPOJO foundAccount = accountdao.getAccount(accountpojo);
 
         if (accountpojo.getAccountPassword().equals(foundAccount.getAccountPassword())) {
-            logger.info("updateAccountCheck end");
+            LOGGER.info("updateAccountCheck end");
             return true;
         } else {
-            logger.info("updateAccountCheck end");
+            LOGGER.info("updateAccountCheck end");
             return false;
         }
     }
 
     public String updateAccount(int id, String name, String password, int status) {
-        logger.info("updateAccount start");
+        LOGGER.info("updateAccount start");
 
         accountpojo.setAccountID(id);
         accountpojo.setAccountName(name);
         accountpojo.setAccountPassword(password);
         accountpojo.setAccountStatus(status);
         accountdao.updateAccount(accountpojo);
-        logger.info("updateAccount end");
+        LOGGER.info("updateAccount end");
         return "Account has been updated.";
     }
 
     public String editAccountName(int id, String name) {
-        logger.info("editAccountName start");
+        LOGGER.info("editAccountName start");
 
         accountpojo.setAccountID(id);
         AccountPOJO accountpojo2 = accountdao.getAccount(accountpojo);
         accountpojo2.setAccountName(name);
         accountdao.updateAccount(accountpojo2);
-        logger.info("editAccountName end");
+        LOGGER.info("editAccountName end");
         return "Account has been updated.";
     }
 
     public String editAccountPassword(int id, String password) {
-        logger.info("editAccountPassword start");
+        LOGGER.info("editAccountPassword start");
 
         accountpojo.setAccountID(id);
         AccountPOJO accountpojo2 = accountdao.getAccount(accountpojo);
         accountpojo2.setAccountPassword(password);
         accountdao.updateAccount(accountpojo2);
-        logger.info("editAccountPassword end");
+        LOGGER.info("editAccountPassword end");
         return "Account has been updated.";
     }
 
     public String editAccountStatus(int id, int status) {
-        logger.info("editAccountStatus start");
+        LOGGER.info("editAccountStatus start");
 
         accountpojo.setAccountID(id);
         AccountPOJO accountpojo2 = accountdao.getAccount(accountpojo);
         accountpojo2.setAccountStatus(status);
         accountdao.updateAccount(accountpojo2);
-        logger.info("editAccountStatus end");
+        LOGGER.info("editAccountStatus end");
         return "Account has been updated.";
     }
 
     public AccountPOJO findAccount(int id, String password, int findId) {
-        logger.info("findAccount start");
+        LOGGER.info("findAccount start");
 
         accountpojo.setAccountID(id);
         accountpojo.setAccountPassword(password);
@@ -152,16 +150,16 @@ public class AccountController {
         if (accountpojo.getAccountPassword().equals(foundAccount.getAccountPassword())) {
             accountpojo.setAccountID(findId);
             AccountPOJO returnedAccount = accountdao.getAccount(accountpojo);
-            logger.info("findAccount end");
+            LOGGER.info("findAccount end");
             return returnedAccount;
         } else {
-            logger.info("findAccount end");
+            LOGGER.info("findAccount end");
             return null;
         }
     }
 
     public List<AccountPOJO> findAccountWithName(int id, String password, String name) {
-        logger.info("findAccountWithName start");
+        LOGGER.info("findAccountWithName start");
 
         accountpojo.setAccountID(id);
         accountpojo.setAccountPassword(password);
@@ -170,16 +168,16 @@ public class AccountController {
         if (accountpojo.getAccountPassword().equals(foundAccount.getAccountPassword())) {
             accountpojo.setAccountName(name);
             List<AccountPOJO> returnedAccounts = accountdao.getAccountWithName(accountpojo);
-            logger.info("findAccountWithName end");
+            LOGGER.info("findAccountWithName end");
             return returnedAccounts;
         } else {
-            logger.info("findAccountWithName end");
+            LOGGER.info("findAccountWithName end");
             return null;
         }
     }
 
     public List<AccountPOJO> getAllAccounts(int id, String password) {
-        logger.info("GetAllAccounts start");
+        LOGGER.info("GetAllAccounts start");
 
         accountpojo.setAccountID(id);
         accountpojo.setAccountPassword(password);
@@ -187,11 +185,11 @@ public class AccountController {
 
         if (accountpojo.getAccountPassword().equals(foundAccount.getAccountPassword())) {
             List<AccountPOJO> returnedAccounts = accountdao.getAllAccount();
-            logger.info("GetAllAccounts end");
+            LOGGER.info("GetAllAccounts end");
             return returnedAccounts;
 
         } else {
-            logger.info("GetAllAccounts end");
+            LOGGER.info("GetAllAccounts end");
             return null;
         }
     }
