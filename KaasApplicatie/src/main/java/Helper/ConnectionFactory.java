@@ -14,7 +14,7 @@ import java.sql.Connection;
  *
  * @author Gerben
  */
-public class ConnectionFactory {
+public class ConnectionFactory {//alleen cheese af
 
     private HikariConnector hikari;
     private String connection;

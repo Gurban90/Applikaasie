@@ -55,60 +55,16 @@ public class AddressTypeMenu {
 
             switch (choice) {
                 case 1:
-                    System.out.print("Insert AddressType name: ");
-                    this.addresstype = input.nextLine();
-                    if (validator.stringValidator(this.addresstype)) {
-                        int addressTypeID = controller.newAddressType(addresstype);
-                        System.out.println("AddressType is added and has ID: " + addressTypeID);
-                        addressTypeMenu();
-                    } else {
-                        System.out.println("AddressType cannot be empty. ");
-                        addressTypeMenu();
-                    }
+                    newAddressType();
                     break;
                 case 2:
-                    System.out.print("AddressTypeID please: ");
-                    this.idString = input.nextLine();
-                    if (validator.idValidator(this.idString)) {
-                        this.id = Integer.parseInt(this.idString);
-                        controller.removeAddressType(id);
-                        addressTypeMenu();
-                    } else {
-                        System.out.print("AddressTypeID must be an integer and between 1 and 1000. ");
-                        addressTypeMenu();
-                    }
+                    deleteAddressType();
                     break;
                 case 3:
-                    System.out.print("Insert AddressTypeID: ");
-                    this.idString = input.nextLine();
-                    if (validator.idValidator(this.idString)) {
-                        this.id = Integer.parseInt(this.idString);
-                        System.out.print("Insert new AddressType name: ");
-                        this.addresstype = input.nextLine();
-                        if (validator.stringValidator(this.addresstype)) {
-                            System.out.println(controller.editAddressType(id, addresstype));
-                            addressTypeMenu();
-                        } else {
-                            System.out.println("AddressType cannot be empty. ");
-                            addressTypeMenu();
-                        }
-                    } else {
-                        System.out.println("AddressTypeID must be an integer and between 0 and 1000. ");
-                        addressTypeMenu();
-                    }
+                    editAddressType();
                     break;
                 case 4:
-                    System.out.print("Insert AddressTypeID: ");
-                    this.idString = input.nextLine();
-                    if (validator.idValidator(this.idString)) {
-                        this.id = Integer.parseInt(this.idString);
-                        AddressTypePOJO returnedAddressType = controller.findAddressType(id);
-                        System.out.println(returnedAddressType);
-                        addressTypeMenu();
-                    } else {
-                        System.out.println("AddressTypeID must be an integer and between 1 and 1000. ");
-                        addressTypeMenu();
-                    }
+                    searchAddressTypeWithID();
                     break;
                 case 5:
                     System.out.println(controller.findAllAddressTypes());
@@ -126,6 +82,66 @@ public class AddressTypeMenu {
             LOGGER.info("addressTypeMenu end");
         } else {
             System.out.println("Choice must be an integer. ");
+            addressTypeMenu();
+        }
+    }
+
+    private void newAddressType() {
+        System.out.print("Insert AddressType name: ");
+        this.addresstype = input.nextLine();
+        if (validator.stringValidator(this.addresstype)) {
+            int addressTypeID = controller.newAddressType(addresstype);
+            System.out.println("AddressType is added and has ID: " + addressTypeID);
+            addressTypeMenu();
+        } else {
+            System.out.println("AddressType cannot be empty. ");
+            addressTypeMenu();
+        }
+    }
+
+    private void deleteAddressType() {
+        System.out.print("AddressTypeID please: ");
+        this.idString = input.nextLine();
+        if (validator.idValidator(this.idString)) {
+            this.id = Integer.parseInt(this.idString);
+            controller.removeAddressType(id);
+            addressTypeMenu();
+        } else {
+            System.out.print("AddressTypeID must be an integer and between 1 and 1000. ");
+            addressTypeMenu();
+        }
+    }
+
+    private void editAddressType() {
+        System.out.print("Insert AddressTypeID: ");
+        this.idString = input.nextLine();
+        if (validator.idValidator(this.idString)) {
+            this.id = Integer.parseInt(this.idString);
+            System.out.print("Insert new AddressType name: ");
+            this.addresstype = input.nextLine();
+            if (validator.stringValidator(this.addresstype)) {
+                System.out.println(controller.editAddressType(id, addresstype));
+                addressTypeMenu();
+            } else {
+                System.out.println("AddressType cannot be empty. ");
+                addressTypeMenu();
+            }
+        } else {
+            System.out.println("AddressTypeID must be an integer and between 0 and 1000. ");
+            addressTypeMenu();
+        }
+    }
+
+    private void searchAddressTypeWithID() {
+        System.out.print("Insert AddressTypeID: ");
+        this.idString = input.nextLine();
+        if (validator.idValidator(this.idString)) {
+            this.id = Integer.parseInt(this.idString);
+            AddressTypePOJO returnedAddressType = controller.findAddressType(id);
+            System.out.println(returnedAddressType);
+            addressTypeMenu();
+        } else {
+            System.out.println("AddressTypeID must be an integer and between 1 and 1000. ");
             addressTypeMenu();
         }
     }

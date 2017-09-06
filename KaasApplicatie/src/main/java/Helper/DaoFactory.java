@@ -6,7 +6,6 @@
 package Helper;
 
 import Dao.*;
-import DatabaseConnector.DomXML;
 import Interface.*;
 import MongoDao.*;
 
@@ -16,12 +15,9 @@ import MongoDao.*;
  */
 public class DaoFactory {//ordermenu nog niet af.
 
-  
-    
     public DaoFactory() {
-        
     }
-       
+
     public static AccountDAOInterface createAccountDao(String database) {
         switch (database.toLowerCase()) {
             case "mysql":
@@ -43,8 +39,8 @@ public class DaoFactory {//ordermenu nog niet af.
                 return new AddressDAO();
         }
     }
-    
-        public static CheeseDAOInterface createCheeseDao(String database) {
+
+    public static CheeseDAOInterface createCheeseDao(String database) {
         switch (database.toLowerCase()) {
             case "mysql":
                 return new CheeseDAO();
@@ -66,7 +62,7 @@ public class DaoFactory {//ordermenu nog niet af.
         }
     }
 
-    public static OrderDAOInterface createOrderDao(String database) {       
+    public static OrderDAOInterface createOrderDao(String database) {
         switch (database.toLowerCase()) {
             case "mysql":
                 return new OrderDAO();
