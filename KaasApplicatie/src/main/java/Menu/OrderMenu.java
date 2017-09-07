@@ -282,7 +282,8 @@ public class OrderMenu {
                             orderMenu();
                         }
 
-                        collection.setOrderDetail2(cheeseIDint, cheeseAmmountint, orderIDint);
+                        collection.setOrderDetail(cheeseIDint, cheeseAmmountint);
+                        collection.setOrderID(orderIDint);
                         collection.getSingleCheesePrice();
                         collection.getOrderDetail();
                         collection.addUpCheese();

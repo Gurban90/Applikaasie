@@ -102,21 +102,16 @@ public class HelpClientOrderCheese {
     //end first part of order
     
     
-    
-    
-    
-   
     public void setOrderDetail(int cheeseID, int ammountCheese) {
         this.ammountCheese = ammountCheese;
         this.cheeseID = cheeseID;
     }
-
-    public void setOrderDetail2(int cheeseID, int ammountCheese, int orderID) {
-        this.ammountCheese = ammountCheese;
-        this.cheeseID = cheeseID;
-        this.orderID = orderID;
-    }
-
+ 
+   
+   
+   
+   
+   
     public void getSingleCheesePrice() {
         CheeseDAO cheeseDAO = new CheeseDAO();
         CheesePOJO cheesePOJO = new CheesePOJO();
