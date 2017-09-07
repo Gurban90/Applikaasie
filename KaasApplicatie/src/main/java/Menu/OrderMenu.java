@@ -192,8 +192,8 @@ public class OrderMenu {
                     collection.setOrderDelivery(yearint, monthint, dayint, hourint, minint);
 
                     collection.getOrder();
+                    
                     makeOrderDetail = true;
-
                     while (makeOrderDetail) {
 
                         System.out.println("Select cheeseID for OrderDetail: ");
