@@ -56,10 +56,10 @@ public class ClientDAO implements ClientDAOInterface {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
+           try {
                 connection.close();
-            } catch (SQLException e) {
-            }
+           } catch (SQLException e) {
+           }
         }
 
         LOGGER.info("addClient end");

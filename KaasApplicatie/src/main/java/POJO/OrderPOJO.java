@@ -22,6 +22,7 @@ public class OrderPOJO {
     private ClientPOJO client; //id is first input
     private LocalDateTime orderDate; //when it is ordered (now time)
     private LocalDateTime processedDate; //when the order is finished and send to client
+    
     private int clientID; 
     private OrderDetailPOJO orderDetail; //zero
     private BigDecimal totalPrice; //zero

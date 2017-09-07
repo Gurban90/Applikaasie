@@ -4,6 +4,7 @@ import Controller.OrderController;
 import DatabaseConnector.DomXML;
 import Helper.DaoFactory;
 import Helper.HelpClientOrderCheese;
+import Helper.IDCheck;
 import Helper.Validator;
 import POJO.ClientPOJO;
 import POJO.OrderPOJO;
@@ -84,14 +85,16 @@ public class OrderMenu {
                     clientID = input.nextLine();
                     if (validator.idValidator(this.clientID)) {
                         this.clientIDint = Integer.parseInt(this.clientID);
+                            IDCheck idCheck = new IDCheck();
+                            Boolean boo = idCheck.checkClientID(clientIDint);
+                             if(boo){
+                                System.out.println("no client with this id found");
+                                orderMenu();
+                                }
                     } else {
                         System.out.println("clientID must have a value. ");
                         orderMenu();
                     }
-                   ClientPOJO returnedPOJO = collection.setClientID(clientIDint);
-                   if(returnedPOJO.getClientID() == 0){
-                       orderMenu();
-                   }
 
                     System.out.print("set the time of day when the order was made by the client: ");
                     System.out.print("enter Year: ");
@@ -192,18 +195,23 @@ public class OrderMenu {
                     makeOrderDetail = true;
 
                     while (makeOrderDetail) {
-                        System.out.println("adding an orderdetail");
 
                         System.out.println("Select cheeseID for OrderDetail: ");
                         cheeseID = input.nextLine();
                         if (validator.idValidator(this.cheeseID)) {
                             this.cheeseIDint = Integer.parseInt(this.cheeseID);
+                            IDCheck idCheck = new IDCheck();
+                            Boolean boo = idCheck.checkCheeseID(cheeseIDint);
+                             if(boo){
+                                System.out.println("no cheese with this id found");
+                                orderMenu();
+                                }
                         } else {
                             System.out.println("cheeseID must have a value. ");
                             orderMenu();
                         }
-
                        
+
                         System.out.println("give amount of cheese");
                         cheeseAmmount = input.nextLine();
                         if (validator.stockValidator(this.cheeseAmmount)) {
