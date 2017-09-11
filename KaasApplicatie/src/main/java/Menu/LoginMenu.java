@@ -167,6 +167,7 @@ public class LoginMenu { //TESTEN
         System.out.print("Insert Password: ");
         this.password = input.nextLine();
         if (validator.stringValidator(this.password)) {
+             char[] charPass = password.toCharArray();
         } else {
             System.out.println("Password must have a value. ");
             loginMenu();

@@ -75,321 +75,34 @@ public class OrderMenu {
 
             switch (choice) {
                 case 1:
-
-                    logger.info("newOrder start");
-
-                    System.out.print("Fill in a new order: ");
-                    collection = new HelpClientOrderCheese();
-                    System.out.println("Please select the ClientID  from the client that made the order:  ");
-                    clientID = input.nextLine();
-                    if (validator.idValidator(this.clientID)) {
-                        this.clientIDint = Integer.parseInt(this.clientID);
-                    } else {
-                        System.out.println("clientID must have a value. ");
-                        orderMenu();
-                    }
-                   ClientPOJO returnedPOJO = collection.setClientID(clientIDint);
-                   if(returnedPOJO.getClientID() == 0){
-                       orderMenu();
-                   }
-
-                    System.out.print("set the time of day when the order was made by the client: ");
-                    System.out.print("enter Year: ");
-                    this.year = input.nextLine();
-                    if (validator.yearValidator(this.year)) {
-                        this.yearint = Integer.parseInt(this.year);
-                    } else {
-                        System.out.println("year must have a correct value. ");
-                        orderMenu();
-                    }
-
-                    System.out.println("enter month: ");
-                    this.month = input.nextLine();
-                    if (validator.monthValidator(this.month)) {
-                        this.monthint = Integer.parseInt(this.month);
-                    } else {
-                        System.out.println("month must have a value. ");
-                        orderMenu();
-                    }
-
-                    System.out.println("enter day: ");
-                    this.day = input.nextLine();
-                    if (validator.dayValidator(this.day)) {
-                        this.dayint = Integer.parseInt(this.day);
-                    } else {
-                        System.out.println("day must have a correct value. ");
-                        orderMenu();
-                    }
-
-                    System.out.println("input next hour");
-                    this.hour = input.nextLine();
-                    if (validator.hourValidator(this.hour)) {
-                        this.hourint = Integer.parseInt(this.hour);
-                    } else {
-                        System.out.println("hour must have a correct value. ");
-                        orderMenu();
-                    }
-
-                    System.out.println("input next min");
-                    this.min = input.nextLine();
-                    if (validator.minValidator(this.min)) {
-                        this.minint = Integer.parseInt(this.min);
-                    } else {
-                        System.out.println("min must have a correct value. ");
-                        orderMenu();
-                    }
-
-                    collection.setNewOrderByClient(yearint, monthint, dayint, hourint, minint);
-
-                    System.out.print("set the time of day when the order will be delivered to the client: ");
-                    System.out.print("enter Year: ");
-                    this.year = input.nextLine();
-                    if (validator.yearValidator(this.year)) {
-                        this.yearint = Integer.parseInt(this.year);
-                    } else {
-                        System.out.println("year must have a correct value. ");
-                        orderMenu();
-                    }
-
-                    System.out.println("enter month: ");
-                    this.month = input.nextLine();
-                    if (validator.monthValidator(this.month)) {
-                        this.monthint = Integer.parseInt(this.month);
-                    } else {
-                        System.out.println("month must have a value. ");
-                        orderMenu();
-                    }
-
-                    System.out.println("enter day: ");
-                    this.day = input.nextLine();
-                    if (validator.dayValidator(this.day)) {
-                        this.dayint = Integer.parseInt(this.day);
-                    } else {
-                        System.out.println("day must have a correct value. ");
-                        orderMenu();
-                    }
-
-                    System.out.println("input next hour");
-                    this.hour = input.nextLine();
-                    if (validator.hourValidator(this.hour)) {
-                        this.hourint = Integer.parseInt(this.hour);
-                    } else {
-                        System.out.println("hour must have a correct value. ");
-                        orderMenu();
-                    }
-
-                    System.out.println("input next min");
-                    this.min = input.nextLine();
-                    if (validator.minValidator(this.min)) {
-                        this.minint = Integer.parseInt(this.min);
-                    } else {
-                        System.out.println("min must have a correct value. ");
-                        orderMenu();
-                    }
-                    collection.setOrderDelivery(yearint, monthint, dayint, hourint, minint);
-
-                    collection.getOrder();
-                    makeOrderDetail = true;
-
-                    while (makeOrderDetail) {
-                        System.out.println("adding an orderdetail");
-
-                        System.out.println("Select cheeseID for OrderDetail: ");
-                        cheeseID = input.nextLine();
-                        if (validator.idValidator(this.cheeseID)) {
-                            this.cheeseIDint = Integer.parseInt(this.cheeseID);
-                        } else {
-                            System.out.println("cheeseID must have a value. ");
-                            orderMenu();
-                        }
-
-                       
-                        System.out.println("give amount of cheese");
-                        cheeseAmmount = input.nextLine();
-                        if (validator.stockValidator(this.cheeseAmmount)) {
-                            this.cheeseAmmountint = Integer.parseInt(this.cheeseAmmount);
-                        } else {
-                            System.out.println("cheeseAmmount must have a value. ");
-                            orderMenu();
-                        }
-
-                        collection.setOrderDetail(cheeseIDint, cheeseAmmountint);
-                        collection.getSingleCheesePrice();
-                        collection.getOrderDetail();
-                        collection.addUpCheese();
-
-                        
-                        System.out.println("Do you want to add a new order detail? ");
-                        anwser = input.nextLine();
-
-                        if (validator.stringValidator(anwser)) {
-                            if (validator.yesnoValidator(anwser)) {
-                                makeOrderDetail = false;
-                                collection.saveTotalPrice();
-                            }
-
-                        } else {
-                            System.out.println("please enter Yes or No");
-                        }
-                    }
-
-                    orderMenu();
-                    logger.info("newOrder end");
-
+                    newOrder();
                     break;
-
                 case 2:
-                    logger.info("new OrderDetail start");
-                    orderController = new OrderController();
-                    collection = new HelpClientOrderCheese();
-                    System.out.println("Input orderID for adding new orderdetail to order");
-                    orderID = input.nextLine();
-                    if (validator.idValidator(this.orderID)) {
-                        this.orderIDint = Integer.parseInt(this.orderID);
-                    } else {
-                        System.out.println("orderID must have a value. ");
-                        orderMenu();
-                    }
-
-                    makeOrderDetail = true;
-
-                    while (makeOrderDetail) {
-                        System.out.println("adding an orderdetail");
-
-                        System.out.println("Select cheeseID for OrderDetail: ");
-                        cheeseID = input.nextLine();
-                        if (validator.idValidator(this.cheeseID)) {
-                            this.cheeseIDint = Integer.parseInt(this.cheeseID);
-                        } else {
-                            System.out.println("cheeseID must have a value. ");
-                            orderMenu();
-                        }
-
-                        System.out.println("give amount of cheese");
-                        cheeseAmmount = input.nextLine();
-                        if (validator.stockValidator(this.cheeseAmmount)) {
-                            this.cheeseAmmountint = Integer.parseInt(this.cheeseAmmount);
-                        } else {
-                            System.out.println("cheeseAmmount must have a value. ");
-                            orderMenu();
-                        }
-
-                        collection.setOrderDetail2(cheeseIDint, cheeseAmmountint, orderIDint);
-                        collection.getSingleCheesePrice();
-                        collection.getOrderDetail();
-                        collection.addUpCheese();
-
-                        input.nextLine(); //extra enter
-
-                        System.out.println("Do you want to add a new order detail? ");
-                        anwser = input.nextLine();
-
-                        if (validator.stringValidator(anwser)) {
-                            if (validator.yesnoValidator(anwser)) {
-                                makeOrderDetail = false;
-                                collection.saveTotalPrice();
-                            }
-
-                        } else {
-                            System.out.println("please enter Yes or No");
-                        }
-                    }
-                    orderMenu();
-                    logger.info("new OrderDetail end");
+                    newOrderDetail();
                     break;
-
                 case 3:
-                    logger.info("removeorder start");
-                    orderController = new OrderController();
-                    System.out.print("Enter The orderID you want to remove: ");
-                    orderID = input.nextLine();
-                    if (validator.idValidator(this.orderID)) {
-                        this.orderIDint = Integer.parseInt(this.orderID);
-                    } else {
-                        System.out.println("orderID must have a value. ");
-                        orderMenu();
-                    }
-                    outputString = orderController.removeOrder(orderIDint);
-
-                    System.out.println(outputString);
-
-                    orderMenu();
-                    logger.info("removeorder end");
+                    removeOrder();
                     break;
-
                 case 4:
-                    logger.info("removeorderdetail start");
-                    orderController = new OrderController();
-                    System.out.print("Enter The orderDetailID you want to remove: ");
-                    orderDetailID = input.nextLine();
-                    if (validator.idValidator(this.orderDetailID)) {
-                        this.orderDetailIDint = Integer.parseInt(this.orderDetailID);
-                    } else {
-                        System.out.println("orderDetailID must have a value. ");
-                        editOrderDetailMenu();
-                    }
-
-                    outputString = orderController.removeOrderDetail(orderDetailIDint);
-                    System.out.print(outputString);
-
-                    orderMenu();
-                    logger.info("removeorderdetail end");
+                    removeOrderDetail();
                     break;
                 case 5:
-
-                    //go to editordermenu
                     editOrderMenu();
-
                     break;
                 case 6:
-
-                    //goto edit orderdetailmenu
                     editOrderDetailMenu();
-
                     break;
                 case 7:
-                    logger.info("searchorder start");
-                    orderController = new OrderController();
-
-                    System.out.print("enter the order id of the order you want to search: ");
-                    orderID = input.nextLine();
-                    if (validator.idValidator(this.orderID)) {
-                        this.orderIDint = Integer.parseInt(this.orderID);
-                    } else {
-                        System.out.println("orderID must have a value. ");
-                        orderMenu();
-                    }
-                    OrderPOJO returnedOrder = orderController.searchOrder(orderIDint);
-
-                    System.out.print(returnedOrder);
-
-                    orderMenu();
-                    logger.info("searchorder end");
+                    searchOrder();
                     break;
                 case 8:
                     logger.info("searchallorder start");
-                    orderController = new OrderController();
-                    orderController.getAllOrders();
                     System.out.println(orderController.getAllOrders());
                     orderMenu();
                     logger.info("searchallorder end");
                     break;
                 case 9:
-                    logger.info("searchorderdetail start");
-                    orderController = new OrderController();
-
-                    System.out.print("enter the order id of the orderDetail you want to search: ");
-                    orderDetailID = input.nextLine();
-                    if (validator.idValidator(this.orderDetailID)) {
-                        this.orderDetailIDint = Integer.parseInt(this.orderDetailID);
-                    } else {
-                        System.out.println("orderDetailID must have a value. ");
-                        editOrderMenu();
-                    }
-                    System.out.println(orderController.searchOrderDetail(orderDetailIDint));
-
-                    orderMenu();
-                    logger.info("searchorderdetail end");
+                    searchOrderDetail();
                     break;
                 case 10:
                     logger.info("Open mainMenu");
@@ -423,137 +136,10 @@ public class OrderMenu {
 
             switch (choice) {
                 case 1:
-                    System.out.print("Edit order: ");
-                    collection = new HelpClientOrderCheese();
-                    orderController = new OrderController();
-                    System.out.println("Please select the OrderID from the order you want to change:  ");
-                    orderID = input.nextLine();
-                    if (validator.idValidator(this.orderID)) {
-                        this.orderIDint = Integer.parseInt(this.orderID);
-                    } else {
-                        System.out.println("orderID must have a value. ");
-                        editOrderDetailMenu();
-                    }
-                    collection.setOrderID(orderIDint);
-
-                    System.out.print("set the time of day when the order was made by the client: ");
-                    System.out.print("enter Year: ");
-                    this.year = input.nextLine();
-                    if (validator.yearValidator(this.year)) {
-                        this.yearint = Integer.parseInt(this.year);
-                    } else {
-                        System.out.println("year must have a correct value. ");
-                        editOrderMenu();
-                    }
-
-                    System.out.println("enter month: ");
-                    this.month = input.nextLine();
-                    if (validator.monthValidator(this.month)) {
-                        this.monthint = Integer.parseInt(this.month);
-                    } else {
-                        System.out.println("month must have a value. ");
-                        editOrderMenu();
-                    }
-
-                    System.out.println("enter day: ");
-                    this.day = input.nextLine();
-                    if (validator.dayValidator(this.day)) {
-                        this.dayint = Integer.parseInt(this.day);
-                    } else {
-                        System.out.println("day must have a correct value. ");
-                        editOrderMenu();
-                    }
-
-                    System.out.println("input next hour");
-                    this.hour = input.nextLine();
-                    if (validator.hourValidator(this.hour)) {
-                        this.hourint = Integer.parseInt(this.hour);
-                    } else {
-                        System.out.println("hour must have a correct value. ");
-                        editOrderMenu();
-                    }
-
-                    System.out.println("input next min");
-                    this.min = input.nextLine();
-                    if (validator.minValidator(this.min)) {
-                        this.minint = Integer.parseInt(this.min);
-                    } else {
-                        System.out.println("min must have a correct value. ");
-                        editOrderMenu();
-                    }
-
-                    this.returnedLocalDateTime = collection.setNewOrderByClient(yearint, monthint, dayint, hourint, minint);
-                    orderController.editOrderTime(orderIDint, returnedLocalDateTime);
-
-                    editOrderMenu();
+                    editOriginalOrderTime();
                     break;
-
                 case 2:
-                    orderController = new OrderController();
-                    System.out.print("Edit order: ");
-                    collection = new HelpClientOrderCheese();
-                    System.out.println("Please select the OrderID from the order you want to change:  ");
-                    orderID = input.nextLine();
-                    if (validator.idValidator(this.orderID)) {
-                        this.orderIDint = Integer.parseInt(this.orderID);
-                    } else {
-                        System.out.println("orderID must have a value. ");
-                        editOrderDetailMenu();
-                    }
-                    collection.setOrderID(orderIDint);
-
-                    System.out.print("set the time of day when the order will be delivered to the client: ");
-                    System.out.print("enter Year: ");
-                    System.out.print("enter Year: ");
-                    this.year = input.nextLine();
-                    if (validator.yearValidator(this.year)) {
-                        this.yearint = Integer.parseInt(this.year);
-                    } else {
-                        System.out.println("year must have a correct value. ");
-                        editOrderMenu();
-                    }
-
-                    System.out.println("enter month: ");
-                    this.month = input.nextLine();
-                    if (validator.monthValidator(this.month)) {
-                        this.monthint = Integer.parseInt(this.month);
-                    } else {
-                        System.out.println("month must have a value. ");
-                        editOrderMenu();
-                    }
-
-                    System.out.println("enter day: ");
-                    this.day = input.nextLine();
-                    if (validator.dayValidator(this.day)) {
-                        this.dayint = Integer.parseInt(this.day);
-                    } else {
-                        System.out.println("day must have a correct value. ");
-                        editOrderMenu();
-                    }
-
-                    System.out.println("input next hour");
-                    this.hour = input.nextLine();
-                    if (validator.hourValidator(this.hour)) {
-                        this.hourint = Integer.parseInt(this.hour);
-                    } else {
-                        System.out.println("hour must have a correct value. ");
-                        editOrderMenu();
-                    }
-
-                    System.out.println("input next min");
-                    this.min = input.nextLine();
-                    if (validator.minValidator(this.min)) {
-                        this.minint = Integer.parseInt(this.min);
-                    } else {
-                        System.out.println("min must have a correct value. ");
-                        editOrderMenu();
-                    }
-
-                    this.returnedLocalDateTime = collection.setOrderDelivery(yearint, monthint, dayint, hourint, minint);
-
-                    orderController.editOrderDeliverTime(orderIDint, returnedLocalDateTime);
-
-                    editOrderMenu();
+                    editDeliveryDate();
                     break;
                 case 3:
                     orderMenu();
@@ -584,53 +170,10 @@ public class OrderMenu {
 
             switch (choice) {
                 case 1:
-                    System.out.print("Edit orderDetail Cheese: ");
-                    OrderController controller = new OrderController();
-                    System.out.println("Please select the OrderDetailID from the order you want to change:  ");
-                    orderDetailID = input.nextLine();
-                    if (validator.idValidator(this.orderDetailID)) {
-                        this.orderDetailIDint = Integer.parseInt(this.orderDetailID);
-                    } else {
-                        System.out.println("orderDetailID must have a value. ");
-                        editOrderDetailMenu();
-                    }
-                    System.out.println("enter the new id of the cheese");
-                    cheeseID = input.nextLine();
-                    if (validator.idValidator(this.cheeseID)) {
-                        this.cheeseIDint = Integer.parseInt(this.cheeseID);
-                    } else {
-                        System.out.println("cheeseID must have a value. ");
-                        editOrderDetailMenu();
-                    }
-                    outputString = controller.editOrderDetailCheese(orderDetailIDint, cheeseIDint);
-                    System.out.print(outputString);
-
-                    editOrderDetailMenu();
+                    editOrderDetailCheese();
                     break;
-
                 case 2:
-                    System.out.print("Edit orderDetail Cheese Ammount: ");
-                    controller = new OrderController();
-                    System.out.println("Please select the OrderDetailID from the order you want to change:  ");
-                    orderDetailID = input.nextLine();
-                    if (validator.idValidator(this.orderDetailID)) {
-                        this.orderDetailIDint = Integer.parseInt(this.orderDetailID);
-                    } else {
-                        System.out.println("orderDetail must have a value. ");
-                        editOrderDetailMenu();
-                    }
-                    System.out.println("enter the new ammount of cheese");
-                    cheeseAmmount = input.nextLine();
-                    if (validator.stockValidator(this.cheeseAmmount)) {
-                        this.cheeseAmmountint = Integer.parseInt(this.cheeseAmmount);
-                    } else {
-                        System.out.println("cheeseAmmoun must have a value. ");
-                        editOrderDetailMenu();
-                    }
-                    outputString = controller.editOrderDetailAmmount(orderDetailIDint, cheeseAmmountint);
-                    System.out.print(outputString);
-
-                    editOrderDetailMenu();
+                    editOrderDetailCheeseQuantity();
                     break;
                 case 3:
                     orderMenu();
@@ -643,6 +186,476 @@ public class OrderMenu {
             System.out.println("Choice must be an integer. ");
             editOrderDetailMenu();
         }
+    }
+
+    private void newOrder() {
+        logger.info("newOrder start");
+
+        System.out.print("Fill in a new order: ");
+        collection = new HelpClientOrderCheese();
+        System.out.println("Please select the ClientID  from the client that made the order:  ");
+        clientID = input.nextLine();
+        if (validator.idValidator(this.clientID)) {
+            this.clientIDint = Integer.parseInt(this.clientID);
+        } else {
+            System.out.println("clientID must have a value. ");
+            orderMenu();
+        }
+        ClientPOJO returnedPOJO = collection.setClientID(clientIDint);
+        if (returnedPOJO.getClientID() == 0) {
+            orderMenu();
+        }
+
+        System.out.print("set the time of day when the order was made by the client: ");
+        System.out.print("enter Year: ");
+        this.year = input.nextLine();
+        if (validator.yearValidator(this.year)) {
+            this.yearint = Integer.parseInt(this.year);
+        } else {
+            System.out.println("year must have a correct value. ");
+            orderMenu();
+        }
+
+        System.out.println("enter month: ");
+        this.month = input.nextLine();
+        if (validator.monthValidator(this.month)) {
+            this.monthint = Integer.parseInt(this.month);
+        } else {
+            System.out.println("month must have a value. ");
+            orderMenu();
+        }
+
+        System.out.println("enter day: ");
+        this.day = input.nextLine();
+        if (validator.dayValidator(this.day)) {
+            this.dayint = Integer.parseInt(this.day);
+        } else {
+            System.out.println("day must have a correct value. ");
+            orderMenu();
+        }
+
+        System.out.println("input next hour");
+        this.hour = input.nextLine();
+        if (validator.hourValidator(this.hour)) {
+            this.hourint = Integer.parseInt(this.hour);
+        } else {
+            System.out.println("hour must have a correct value. ");
+            orderMenu();
+        }
+
+        System.out.println("input next min");
+        this.min = input.nextLine();
+        if (validator.minValidator(this.min)) {
+            this.minint = Integer.parseInt(this.min);
+        } else {
+            System.out.println("min must have a correct value. ");
+            orderMenu();
+        }
+
+        collection.setNewOrderByClient(yearint, monthint, dayint, hourint, minint);
+
+        System.out.print("set the time of day when the order will be delivered to the client: ");
+        System.out.print("enter Year: ");
+        this.year = input.nextLine();
+        if (validator.yearValidator(this.year)) {
+            this.yearint = Integer.parseInt(this.year);
+        } else {
+            System.out.println("year must have a correct value. ");
+            orderMenu();
+        }
+
+        System.out.println("enter month: ");
+        this.month = input.nextLine();
+        if (validator.monthValidator(this.month)) {
+            this.monthint = Integer.parseInt(this.month);
+        } else {
+            System.out.println("month must have a value. ");
+            orderMenu();
+        }
+
+        System.out.println("enter day: ");
+        this.day = input.nextLine();
+        if (validator.dayValidator(this.day)) {
+            this.dayint = Integer.parseInt(this.day);
+        } else {
+            System.out.println("day must have a correct value. ");
+            orderMenu();
+        }
+
+        System.out.println("input next hour");
+        this.hour = input.nextLine();
+        if (validator.hourValidator(this.hour)) {
+            this.hourint = Integer.parseInt(this.hour);
+        } else {
+            System.out.println("hour must have a correct value. ");
+            orderMenu();
+        }
+
+        System.out.println("input next min");
+        this.min = input.nextLine();
+        if (validator.minValidator(this.min)) {
+            this.minint = Integer.parseInt(this.min);
+        } else {
+            System.out.println("min must have a correct value. ");
+            orderMenu();
+        }
+        collection.setOrderDelivery(yearint, monthint, dayint, hourint, minint);
+
+        collection.getOrder();
+        makeOrderDetail = true;
+
+        while (makeOrderDetail) {
+            System.out.println("adding an orderdetail");
+
+            System.out.println("Select cheeseID for OrderDetail: ");
+            cheeseID = input.nextLine();
+            if (validator.idValidator(this.cheeseID)) {
+                this.cheeseIDint = Integer.parseInt(this.cheeseID);
+            } else {
+                System.out.println("cheeseID must have a value. ");
+                orderMenu();
+            }
+
+            System.out.println("give amount of cheese");
+            cheeseAmmount = input.nextLine();
+            if (validator.stockValidator(this.cheeseAmmount)) {
+                this.cheeseAmmountint = Integer.parseInt(this.cheeseAmmount);
+            } else {
+                System.out.println("cheeseAmmount must have a value. ");
+                orderMenu();
+            }
+
+            collection.setOrderDetail(cheeseIDint, cheeseAmmountint);
+            collection.getSingleCheesePrice();
+            collection.getOrderDetail();
+            collection.addUpCheese();
+
+            System.out.println("Do you want to add a new order detail? ");
+            anwser = input.nextLine();
+
+            if (validator.stringValidator(anwser)) {
+                if (validator.yesnoValidator(anwser)) {
+                    makeOrderDetail = false;
+                    collection.saveTotalPrice();
+                }
+
+            } else {
+                System.out.println("please enter Yes or No");
+            }
+        }
+
+        orderMenu();
+        logger.info("newOrder end");
+
+    }
+
+    private void newOrderDetail() {
+        logger.info("new OrderDetail start");
+        collection = new HelpClientOrderCheese();
+        System.out.println("Input orderID for adding new orderdetail to order");
+        orderID = input.nextLine();
+        if (validator.idValidator(this.orderID)) {
+            this.orderIDint = Integer.parseInt(this.orderID);
+        } else {
+            System.out.println("orderID must have a value. ");
+            orderMenu();
+        }
+
+        makeOrderDetail = true;
+
+        while (makeOrderDetail) {
+            System.out.println("adding an orderdetail");
+
+            System.out.println("Select cheeseID for OrderDetail: ");
+            cheeseID = input.nextLine();
+            if (validator.idValidator(this.cheeseID)) {
+                this.cheeseIDint = Integer.parseInt(this.cheeseID);
+            } else {
+                System.out.println("cheeseID must have a value. ");
+                orderMenu();
+            }
+
+            System.out.println("give amount of cheese");
+            cheeseAmmount = input.nextLine();
+            if (validator.stockValidator(this.cheeseAmmount)) {
+                this.cheeseAmmountint = Integer.parseInt(this.cheeseAmmount);
+            } else {
+                System.out.println("cheeseAmmount must have a value. ");
+                orderMenu();
+            }
+
+            collection.setOrderDetail2(cheeseIDint, cheeseAmmountint, orderIDint);
+            collection.getSingleCheesePrice();
+            collection.getOrderDetail();
+            collection.addUpCheese();
+
+            input.nextLine(); //extra enter
+
+            System.out.println("Do you want to add a new order detail? ");
+            anwser = input.nextLine();
+
+            if (validator.stringValidator(anwser)) {
+                if (validator.yesnoValidator(anwser)) {
+                    makeOrderDetail = false;
+                    collection.saveTotalPrice();
+                }
+
+            } else {
+                System.out.println("please enter Yes or No");
+            }
+        }
+        orderMenu();
+        logger.info("new OrderDetail end");
+    }
+
+    private void removeOrder() {
+        logger.info("removeorder start");
+        System.out.print("Enter The orderID you want to remove: ");
+        orderID = input.nextLine();
+        if (validator.idValidator(this.orderID)) {
+            this.orderIDint = Integer.parseInt(this.orderID);
+        } else {
+            System.out.println("orderID must have a value. ");
+            orderMenu();
+        }
+        outputString = orderController.removeOrder(orderIDint);
+
+        System.out.println(outputString);
+
+        orderMenu();
+        logger.info("removeorder end");
+    }
+
+    private void removeOrderDetail() {
+        logger.info("removeorderdetail start");
+        System.out.print("Enter The orderDetailID you want to remove: ");
+        orderDetailID = input.nextLine();
+        if (validator.idValidator(this.orderDetailID)) {
+            this.orderDetailIDint = Integer.parseInt(this.orderDetailID);
+        } else {
+            System.out.println("orderDetailID must have a value. ");
+            editOrderDetailMenu();
+        }
+
+        outputString = orderController.removeOrderDetail(orderDetailIDint);
+        System.out.print(outputString);
+
+        orderMenu();
+        logger.info("removeorderdetail end");
+    }
+
+    private void searchOrder() {
+        logger.info("searchorder start");
+
+        System.out.print("enter the order id of the order you want to search: ");
+        orderID = input.nextLine();
+        if (validator.idValidator(this.orderID)) {
+            this.orderIDint = Integer.parseInt(this.orderID);
+        } else {
+            System.out.println("orderID must have a value. ");
+            orderMenu();
+        }
+        OrderPOJO returnedOrder = orderController.searchOrder(orderIDint);
+
+        System.out.print(returnedOrder);
+
+        orderMenu();
+        logger.info("searchorder end");
+    }
+
+    private void searchOrderDetail() {
+        logger.info("searchorderdetail start");
+        System.out.print("enter the order id of the orderDetail you want to search: ");
+        orderDetailID = input.nextLine();
+        if (validator.idValidator(this.orderDetailID)) {
+            this.orderDetailIDint = Integer.parseInt(this.orderDetailID);
+        } else {
+            System.out.println("orderDetailID must have a value. ");
+            editOrderMenu();
+        }
+        System.out.println(orderController.searchOrderDetail(orderDetailIDint));
+        orderMenu();
+        logger.info("searchorderdetail end");
+    }
+
+    private void editOriginalOrderTime() {
+        System.out.print("Edit order: ");
+        collection = new HelpClientOrderCheese();
+        System.out.println("Please select the OrderID from the order you want to change:  ");
+        orderID = input.nextLine();
+        if (validator.idValidator(this.orderID)) {
+            this.orderIDint = Integer.parseInt(this.orderID);
+        } else {
+            System.out.println("orderID must have a value. ");
+            editOrderDetailMenu();
+        }
+        collection.setOrderID(orderIDint);
+
+        System.out.print("set the time of day when the order was made by the client: ");
+        System.out.print("enter Year: ");
+        this.year = input.nextLine();
+        if (validator.yearValidator(this.year)) {
+            this.yearint = Integer.parseInt(this.year);
+        } else {
+            System.out.println("year must have a correct value. ");
+            editOrderMenu();
+        }
+
+        System.out.println("enter month: ");
+        this.month = input.nextLine();
+        if (validator.monthValidator(this.month)) {
+            this.monthint = Integer.parseInt(this.month);
+        } else {
+            System.out.println("month must have a value. ");
+            editOrderMenu();
+        }
+
+        System.out.println("enter day: ");
+        this.day = input.nextLine();
+        if (validator.dayValidator(this.day)) {
+            this.dayint = Integer.parseInt(this.day);
+        } else {
+            System.out.println("day must have a correct value. ");
+            editOrderMenu();
+        }
+
+        System.out.println("input next hour");
+        this.hour = input.nextLine();
+        if (validator.hourValidator(this.hour)) {
+            this.hourint = Integer.parseInt(this.hour);
+        } else {
+            System.out.println("hour must have a correct value. ");
+            editOrderMenu();
+        }
+
+        System.out.println("input next min");
+        this.min = input.nextLine();
+        if (validator.minValidator(this.min)) {
+            this.minint = Integer.parseInt(this.min);
+        } else {
+            System.out.println("min must have a correct value. ");
+            editOrderMenu();
+        }
+
+        this.returnedLocalDateTime = collection.setNewOrderByClient(yearint, monthint, dayint, hourint, minint);
+        orderController.editOrderTime(orderIDint, returnedLocalDateTime);
+
+        editOrderMenu();
+    }
+
+    private void editDeliveryDate() {
+        System.out.print("Edit order: ");
+        collection = new HelpClientOrderCheese();
+        System.out.println("Please select the OrderID from the order you want to change:  ");
+        orderID = input.nextLine();
+        if (validator.idValidator(this.orderID)) {
+            this.orderIDint = Integer.parseInt(this.orderID);
+        } else {
+            System.out.println("orderID must have a value. ");
+            editOrderDetailMenu();
+        }
+        collection.setOrderID(orderIDint);
+
+        System.out.print("set the time of day when the order will be delivered to the client: ");
+        System.out.print("enter Year: ");
+        System.out.print("enter Year: ");
+        this.year = input.nextLine();
+        if (validator.yearValidator(this.year)) {
+            this.yearint = Integer.parseInt(this.year);
+        } else {
+            System.out.println("year must have a correct value. ");
+            editOrderMenu();
+        }
+
+        System.out.println("enter month: ");
+        this.month = input.nextLine();
+        if (validator.monthValidator(this.month)) {
+            this.monthint = Integer.parseInt(this.month);
+        } else {
+            System.out.println("month must have a value. ");
+            editOrderMenu();
+        }
+
+        System.out.println("enter day: ");
+        this.day = input.nextLine();
+        if (validator.dayValidator(this.day)) {
+            this.dayint = Integer.parseInt(this.day);
+        } else {
+            System.out.println("day must have a correct value. ");
+            editOrderMenu();
+        }
+
+        System.out.println("input next hour");
+        this.hour = input.nextLine();
+        if (validator.hourValidator(this.hour)) {
+            this.hourint = Integer.parseInt(this.hour);
+        } else {
+            System.out.println("hour must have a correct value. ");
+            editOrderMenu();
+        }
+
+        System.out.println("input next min");
+        this.min = input.nextLine();
+        if (validator.minValidator(this.min)) {
+            this.minint = Integer.parseInt(this.min);
+        } else {
+            System.out.println("min must have a correct value. ");
+            editOrderMenu();
+        }
+
+        this.returnedLocalDateTime = collection.setOrderDelivery(yearint, monthint, dayint, hourint, minint);
+
+        orderController.editOrderDeliverTime(orderIDint, returnedLocalDateTime);
+
+        editOrderMenu();
+    }
+
+    private void editOrderDetailCheese() {
+        System.out.print("Edit orderDetail Cheese: ");
+        System.out.println("Please select the OrderDetailID from the order you want to change:  ");
+        orderDetailID = input.nextLine();
+        if (validator.idValidator(this.orderDetailID)) {
+            this.orderDetailIDint = Integer.parseInt(this.orderDetailID);
+        } else {
+            System.out.println("orderDetailID must have a value. ");
+            editOrderDetailMenu();
+        }
+        System.out.println("enter the new id of the cheese");
+        cheeseID = input.nextLine();
+        if (validator.idValidator(this.cheeseID)) {
+            this.cheeseIDint = Integer.parseInt(this.cheeseID);
+        } else {
+            System.out.println("cheeseID must have a value. ");
+            editOrderDetailMenu();
+        }
+        outputString = controller.editOrderDetailCheese(orderDetailIDint, cheeseIDint);
+        System.out.print(outputString);
+
+        editOrderDetailMenu();
+    }
+
+    private void editOrderDetailCheeseQuantity() {
+        System.out.print("Edit orderDetail Cheese Ammount: ");
+        System.out.println("Please select the OrderDetailID from the order you want to change:  ");
+        orderDetailID = input.nextLine();
+        if (validator.idValidator(this.orderDetailID)) {
+            this.orderDetailIDint = Integer.parseInt(this.orderDetailID);
+        } else {
+            System.out.println("orderDetail must have a value. ");
+            editOrderDetailMenu();
+        }
+        System.out.println("enter the new ammount of cheese");
+        cheeseAmmount = input.nextLine();
+        if (validator.stockValidator(this.cheeseAmmount)) {
+            this.cheeseAmmountint = Integer.parseInt(this.cheeseAmmount);
+        } else {
+            System.out.println("cheeseAmmoun must have a value. ");
+            editOrderDetailMenu();
+        }
+        outputString = controller.editOrderDetailAmmount(orderDetailIDint, cheeseAmmountint);
+        System.out.print(outputString);
+
+        editOrderDetailMenu();
     }
 
 }

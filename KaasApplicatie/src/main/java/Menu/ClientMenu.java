@@ -93,8 +93,8 @@ public class ClientMenu {
                 + "1. Show all clients" + "\n"
                 + "2. Alter first Name" + "\n"
                 + "3. Alter last Name" + "\n"
-                + "4. alter E-mail" + "\n"
-                + "5. edit all" + "\n"
+                + "4. Alter E-mail" + "\n"
+                + "5. Edit all" + "\n"
                 + "6. Return to last menu" + "\n"
                 + "Please enter your choice: ");
 

@@ -8,6 +8,7 @@ package Controller;
 import Dao.AddressDAO;
 import Dao.ClientDAO;
 import Interface.AddressDAOInterface;
+import Interface.ClientDAOInterface;
 import POJO.AddressPOJO;
 import POJO.ClientPOJO;
 import POJO.AddressTypePOJO;
@@ -26,6 +27,7 @@ public class AddressController {
     private AddressPOJO addresspojo;
     private ClientPOJO clientpojo;
     private AddressTypePOJO addresstypepojo;
+    private ClientDAOInterface clientdao;
 
     public AddressController() {
         addressdao = new AddressDAO();
@@ -34,11 +36,12 @@ public class AddressController {
         addresstypepojo = new AddressTypePOJO();
     }
 
-    public AddressController(AddressDAOInterface addressdao) {
+    public AddressController(AddressDAOInterface addressdao, ClientDAOInterface clientdao) {
         this.addressdao = addressdao;
         this.addresspojo = new AddressPOJO();
         this.clientpojo = new ClientPOJO();
         this.addresstypepojo = new AddressTypePOJO();
+        this.clientdao = clientdao;
     }
 
     public List<AddressPOJO> findAllAddress() {
@@ -67,7 +70,6 @@ public class AddressController {
 
     public List<ClientPOJO> findAddressWithClientName(String lastName) {
         LOGGER.info("findAddressWithClientName start");
-        ClientDAO clientdao = new ClientDAO();
         List<ClientPOJO> returnedClients = clientdao.getClientWithLastName(lastName);
 
         LOGGER.info("findAddressWithClientName end");

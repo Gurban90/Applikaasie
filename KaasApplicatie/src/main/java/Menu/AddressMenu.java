@@ -46,7 +46,7 @@ public class AddressMenu {
         LOGGER.info("addressMenu start");
 
         data = new DomXML();
-        controller = new AddressController(DaoFactory.createAddressDao(data.getDatabaseType()));
+        controller = new AddressController(DaoFactory.createAddressDao(data.getDatabaseType()), DaoFactory.createClientDao(data.getDatabaseType()));
         validator = new Validator();
         input = new Scanner(System.in);
 

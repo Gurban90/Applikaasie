@@ -22,14 +22,14 @@ public class ConnectionMenu {
     private int choice;
     private Validator validator;
     private DomXML data;
-    private MainMenu menu;
+    private LoginMenu menu;
 
     public void connectionMenu() {
         logger.info("ConnectionMenu start");
         validator = new Validator();
         input = new Scanner(System.in);
         data = new DomXML();
-        menu = new MainMenu();
+        menu = new LoginMenu();
 
         System.out.print(" Connection menu, please select connection: " + "\n"
                 + "1. Hikari and MySQL" + "\n"
@@ -47,16 +47,16 @@ public class ConnectionMenu {
                 case 1:
                     data.setDatabaseType("mysql");
                     data.setConnectionType("hikari");
-                    menu.mainMenu();
+                    menu.loginMenu();
                     break;
                 case 2:
                     data.setDatabaseType("mysql");
                     data.setConnectionType("jdbc");
-                    menu.mainMenu();
+                    menu.loginMenu();
                     break;
                 case 3:
                     data.setDatabaseType("mongodb");
-                    menu.mainMenu();
+                    menu.loginMenu();
                     break;
                 case 4:
                     System.out.println("goodbye...");
