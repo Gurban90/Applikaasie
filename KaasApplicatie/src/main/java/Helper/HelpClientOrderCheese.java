@@ -65,22 +65,10 @@ public class HelpClientOrderCheese {
         data = new DomXML();
     }
 
-    //first part start
-    public ClientPOJO setClientID(int clientID) {
-
-        clientPOJO = new ClientPOJO();
-        returnedClientPOJO = new ClientPOJO();
-        clientDAO = DaoFactory.createClientDao(data.getDatabaseType());
-        orderPOJO = new OrderPOJO();
-
-        this.clientID = clientID;
-        orderPOJO.setClientID(clientID);
-        clientPOJO.setClientID(clientID);
-        orderPOJO.setClient(clientPOJO);
-        returnedClientPOJO = clientDAO.getClient(clientPOJO);
-        
-        return returnedClientPOJO;
-
+     //start first part of order
+    
+    public void setClientID(int clientID) {
+        this.clientID = clientID;     
     }
 
     public LocalDateTime setNewOrderByClient(int year, int month, int day, int hour, int min) {
@@ -92,7 +80,6 @@ public class HelpClientOrderCheese {
 
         orderDate = LocalDateTime.of(clientYear, clientMonth, clientDay, clientHour, clientMin, sec);
         return orderDate;
-
     }
 
     public LocalDateTime setOrderDelivery(int year, int month, int day, int hour, int min) {
@@ -106,18 +93,25 @@ public class HelpClientOrderCheese {
         return processedDate;
     }
 
-    //first part close
+        public void getOrder() {
+
+        orderController = new OrderController(DaoFactory.createOrderDao(data.getDatabaseType()), DaoFactory.createOrderDetailDao(data.getDatabaseType()));
+        this.orderID = orderController.setOrder(orderDate, zeroTotalPrice, processedDate, clientID);
+    }
+
+    //end first part of order
+    
+    
     public void setOrderDetail(int cheeseID, int ammountCheese) {
         this.ammountCheese = ammountCheese;
         this.cheeseID = cheeseID;
     }
-
-    public void setOrderDetail2(int cheeseID, int ammountCheese, int orderID) {
-        this.ammountCheese = ammountCheese;
-        this.cheeseID = cheeseID;
-        this.orderID = orderID;
-    }
-
+ 
+   
+   
+   
+   
+   
     public void getSingleCheesePrice() {
         CheeseDAO cheeseDAO = new CheeseDAO();
         CheesePOJO cheesePOJO = new CheesePOJO();
@@ -131,12 +125,6 @@ public class HelpClientOrderCheese {
 
     public void setOrderID(int orderID) {
         this.orderID = orderID;
-    }
-
-    public void getOrder() {
-
-        orderController = new OrderController(DaoFactory.createOrderDao(data.getDatabaseType()), DaoFactory.createOrderDetailDao(data.getDatabaseType()));
-        this.orderID = orderController.setOrder(orderDate, zeroTotalPrice, processedDate, clientID);
     }
 
     public void getOrderDetail() {

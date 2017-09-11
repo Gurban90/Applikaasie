@@ -4,6 +4,7 @@ import Controller.OrderController;
 import DatabaseConnector.DomXML;
 import Helper.DaoFactory;
 import Helper.HelpClientOrderCheese;
+import Helper.IDCheck;
 import Helper.Validator;
 import POJO.ClientPOJO;
 import POJO.OrderPOJO;
@@ -75,10 +76,242 @@ public class OrderMenu {
 
             switch (choice) {
                 case 1:
+<<<<<<< HEAD
                     newOrder();
+=======
+
+                    logger.info("newOrder start");
+
+                    System.out.print("Fill in a new order: ");
+                    collection = new HelpClientOrderCheese();
+                    System.out.println("Please select the ClientID  from the client that made the order:  ");
+                    clientID = input.nextLine();
+                    if (validator.idValidator(this.clientID)) {
+                        this.clientIDint = Integer.parseInt(this.clientID);
+                            IDCheck idCheck = new IDCheck();
+                            Boolean boo = idCheck.checkClientID(clientIDint);
+                             if(boo){
+                                System.out.println("no client with this id found");
+                                orderMenu();
+                                }
+                    } else {
+                        System.out.println("clientID must have a value. ");
+                        orderMenu();
+                    }
+
+                    System.out.print("set the time of day when the order was made by the client: ");
+                    System.out.print("enter Year: ");
+                    this.year = input.nextLine();
+                    if (validator.yearValidator(this.year)) {
+                        this.yearint = Integer.parseInt(this.year);
+                    } else {
+                        System.out.println("year must have a correct value. ");
+                        orderMenu();
+                    }
+
+                    System.out.println("enter month: ");
+                    this.month = input.nextLine();
+                    if (validator.monthValidator(this.month)) {
+                        this.monthint = Integer.parseInt(this.month);
+                    } else {
+                        System.out.println("month must have a value. ");
+                        orderMenu();
+                    }
+
+                    System.out.println("enter day: ");
+                    this.day = input.nextLine();
+                    if (validator.dayValidator(this.day)) {
+                        this.dayint = Integer.parseInt(this.day);
+                    } else {
+                        System.out.println("day must have a correct value. ");
+                        orderMenu();
+                    }
+
+                    System.out.println("input next hour");
+                    this.hour = input.nextLine();
+                    if (validator.hourValidator(this.hour)) {
+                        this.hourint = Integer.parseInt(this.hour);
+                    } else {
+                        System.out.println("hour must have a correct value. ");
+                        orderMenu();
+                    }
+
+                    System.out.println("input next min");
+                    this.min = input.nextLine();
+                    if (validator.minValidator(this.min)) {
+                        this.minint = Integer.parseInt(this.min);
+                    } else {
+                        System.out.println("min must have a correct value. ");
+                        orderMenu();
+                    }
+
+                    collection.setNewOrderByClient(yearint, monthint, dayint, hourint, minint);
+
+                    System.out.print("set the time of day when the order will be delivered to the client: ");
+                    System.out.print("enter Year: ");
+                    this.year = input.nextLine();
+                    if (validator.yearValidator(this.year)) {
+                        this.yearint = Integer.parseInt(this.year);
+                    } else {
+                        System.out.println("year must have a correct value. ");
+                        orderMenu();
+                    }
+
+                    System.out.println("enter month: ");
+                    this.month = input.nextLine();
+                    if (validator.monthValidator(this.month)) {
+                        this.monthint = Integer.parseInt(this.month);
+                    } else {
+                        System.out.println("month must have a value. ");
+                        orderMenu();
+                    }
+
+                    System.out.println("enter day: ");
+                    this.day = input.nextLine();
+                    if (validator.dayValidator(this.day)) {
+                        this.dayint = Integer.parseInt(this.day);
+                    } else {
+                        System.out.println("day must have a correct value. ");
+                        orderMenu();
+                    }
+
+                    System.out.println("input next hour");
+                    this.hour = input.nextLine();
+                    if (validator.hourValidator(this.hour)) {
+                        this.hourint = Integer.parseInt(this.hour);
+                    } else {
+                        System.out.println("hour must have a correct value. ");
+                        orderMenu();
+                    }
+
+                    System.out.println("input next min");
+                    this.min = input.nextLine();
+                    if (validator.minValidator(this.min)) {
+                        this.minint = Integer.parseInt(this.min);
+                    } else {
+                        System.out.println("min must have a correct value. ");
+                        orderMenu();
+                    }
+                    collection.setOrderDelivery(yearint, monthint, dayint, hourint, minint);
+
+                    collection.getOrder();
+                    
+                    makeOrderDetail = true;
+                    while (makeOrderDetail) {
+
+                        System.out.println("Select cheeseID for OrderDetail: ");
+                        cheeseID = input.nextLine();
+                        if (validator.idValidator(this.cheeseID)) {
+                            this.cheeseIDint = Integer.parseInt(this.cheeseID);
+                            IDCheck idCheck = new IDCheck();
+                            Boolean boo = idCheck.checkCheeseID(cheeseIDint);
+                             if(boo){
+                                System.out.println("no cheese with this id found");
+                                orderMenu();
+                                }
+                        } else {
+                            System.out.println("cheeseID must have a value. ");
+                            orderMenu();
+                        }
+                       
+
+                        System.out.println("give amount of cheese");
+                        cheeseAmmount = input.nextLine();
+                        if (validator.stockValidator(this.cheeseAmmount)) {
+                            this.cheeseAmmountint = Integer.parseInt(this.cheeseAmmount);
+                        } else {
+                            System.out.println("cheeseAmmount must have a value. ");
+                            orderMenu();
+                        }
+
+                        collection.setOrderDetail(cheeseIDint, cheeseAmmountint);
+                        collection.getSingleCheesePrice();
+                        collection.getOrderDetail();
+                        collection.addUpCheese();
+
+                        
+                        System.out.println("Do you want to add a new order detail? ");
+                        anwser = input.nextLine();
+
+                        if (validator.stringValidator(anwser)) {
+                            if (validator.yesnoValidator(anwser)) {
+                                makeOrderDetail = false;
+                                collection.saveTotalPrice();
+                            }
+
+                        } else {
+                            System.out.println("please enter Yes or No");
+                        }
+                    }
+
+                    orderMenu();
+                    logger.info("newOrder end");
+
+>>>>>>> 3303281d3ace73858b5b675175ac63a3ca25e716
                     break;
                 case 2:
+<<<<<<< HEAD
                     newOrderDetail();
+=======
+                    logger.info("new OrderDetail start");
+                    orderController = new OrderController();
+                    collection = new HelpClientOrderCheese();
+                    System.out.println("Input orderID for adding new orderdetail to order");
+                    orderID = input.nextLine();
+                    if (validator.idValidator(this.orderID)) {
+                        this.orderIDint = Integer.parseInt(this.orderID);
+                    } else {
+                        System.out.println("orderID must have a value. ");
+                        orderMenu();
+                    }
+
+                    makeOrderDetail = true;
+
+                    while (makeOrderDetail) {
+                        System.out.println("adding an orderdetail");
+
+                        System.out.println("Select cheeseID for OrderDetail: ");
+                        cheeseID = input.nextLine();
+                        if (validator.idValidator(this.cheeseID)) {
+                            this.cheeseIDint = Integer.parseInt(this.cheeseID);
+                        } else {
+                            System.out.println("cheeseID must have a value. ");
+                            orderMenu();
+                        }
+
+                        System.out.println("give amount of cheese");
+                        cheeseAmmount = input.nextLine();
+                        if (validator.stockValidator(this.cheeseAmmount)) {
+                            this.cheeseAmmountint = Integer.parseInt(this.cheeseAmmount);
+                        } else {
+                            System.out.println("cheeseAmmount must have a value. ");
+                            orderMenu();
+                        }
+
+                        collection.setOrderDetail(cheeseIDint, cheeseAmmountint);
+                        collection.setOrderID(orderIDint);
+                        collection.getSingleCheesePrice();
+                        collection.getOrderDetail();
+                        collection.addUpCheese();
+
+                        input.nextLine(); //extra enter
+
+                        System.out.println("Do you want to add a new order detail? ");
+                        anwser = input.nextLine();
+
+                        if (validator.stringValidator(anwser)) {
+                            if (validator.yesnoValidator(anwser)) {
+                                makeOrderDetail = false;
+                                collection.saveTotalPrice();
+                            }
+
+                        } else {
+                            System.out.println("please enter Yes or No");
+                        }
+                    }
+                    orderMenu();
+                    logger.info("new OrderDetail end");
+>>>>>>> 3303281d3ace73858b5b675175ac63a3ca25e716
                     break;
                 case 3:
                     removeOrder();

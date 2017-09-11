@@ -37,6 +37,10 @@ public class OrderDetailMongoDao implements OrderDetailDAOInterface {
    
     private MongoConnector mongoConnector;
     private Logger logger = Logger.getLogger(ClientMongoDao.class.getName());
+    
+    public OrderDetailMongoDao() {
+     mongoConnector = new MongoConnector();
+    }
 
     public OrderDetailPOJO convertDocumentToOrderDetail(Document doc) {
         OrderDetailPOJO returnOrderDetail = new OrderDetailPOJO();
