@@ -42,11 +42,7 @@ public class OrderMongoDAO implements OrderDAOInterface {
     
     public OrderMongoDAO() {
      mongoConnector = new MongoConnector();
-<<<<<<< HEAD
-        
-=======
    
->>>>>>> 3303281d3ace73858b5b675175ac63a3ca25e716
     }
 
     public OrderPOJO convertDocumentToOrder(Document doc) {
@@ -88,8 +84,7 @@ public class OrderMongoDAO implements OrderDAOInterface {
         mongoConnector.closeConnection();
         return id;
     }
-    
-   
+
     @Override
     public Integer addOrder(OrderPOJO order) {
         logger.info("addOrderDetail Start");
@@ -98,11 +93,7 @@ public class OrderMongoDAO implements OrderDAOInterface {
        
         try {
             collection = mongoConnector.makeConnection().getCollection("client"); //clientid
-<<<<<<< HEAD
-            this.doc = collection.find(eq("id", order.getClientID())).first();
-=======
             doc = collection.find(eq("id", order.getClientID())).first();
->>>>>>> 3303281d3ace73858b5b675175ac63a3ca25e716
             checkedClientID = clientMongo.convertDocumentToClient(doc);
                 if (checkedClientID.getClientID() == order.getClientID()) {
                     order.setOrderID(getNextId()); 
@@ -181,23 +172,6 @@ public class OrderMongoDAO implements OrderDAOInterface {
         logger.info("deleteOrde End");
     }
     
-<<<<<<< HEAD
-    public static void main(String[] args) {
-        OrderPOJO order = new OrderPOJO();
-        //order.setOrderID(1);
-        order.setClientID(1);
-        order.setOrderDate(LocalDateTime.now());
-        order.setProcessedDate(LocalDateTime.now());
-        order.setTotalPrice(new BigDecimal(3));
-        
-        
-        
-        OrderMongoDAO dao = new OrderMongoDAO();
-
-        System.out.println(dao.getAllOrder());
-
-    }
-=======
     
    /* public static void main(String[] args) {
        
@@ -225,7 +199,6 @@ public class OrderMongoDAO implements OrderDAOInterface {
         dao.addOrder(orderPOJO);
 
         
->>>>>>> 3303281d3ace73858b5b675175ac63a3ca25e716
 }
 */
 
