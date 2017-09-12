@@ -7,6 +7,7 @@ package Controller;
 
 import Dao.AccountDAO;
 import Helper.PasswordHasher;
+import Helper.TokenCreator;
 import Interface.AccountDAOInterface;
 import POJO.AccountPOJO;
 import java.util.List;
@@ -28,6 +29,7 @@ public class AccountController {
     private String salt;
     private String hashedPassword;
     private String totalPassword;
+    private TokenCreator token;
 
     public AccountController() {
         accountdao = new AccountDAO();
@@ -39,6 +41,7 @@ public class AccountController {
         this.accountdao = accountdao;
         accountpojo = new AccountPOJO();
         passwordhasher = new PasswordHasher();
+        token = new TokenCreator();
     }
 
     public boolean login(int id, String password) {
@@ -51,6 +54,7 @@ public class AccountController {
         accountpojo.setAccountPassword(totalPassword);
 
         if (accountpojo.getAccountPassword().equals(foundAccount.getAccountPassword())) {
+            token.jwtCreator(id);
             LOGGER.info("login end");
             return true;
         } else {
@@ -84,23 +88,6 @@ public class AccountController {
             return true;
         } else {
             LOGGER.info("removeAccount end");
-            return false;
-        }
-    }
-
-    public boolean updateAccountCheck(int id, String password) {
-        LOGGER.info("updateAccountCheck start");
-        accountpojo.setAccountID(id);
-        AccountPOJO foundAccount = accountdao.getAccount(accountpojo);
-        salt = foundAccount.getAccountPassword().substring(31);
-        hashedPassword = passwordhasher.noSaltPasswordHasher(password);
-        totalPassword = hashedPassword + salt;
-        accountpojo.setAccountPassword(totalPassword);
-        if (accountpojo.getAccountPassword().equals(foundAccount.getAccountPassword())) {
-            LOGGER.info("updateAccountCheck end");
-            return true;
-        } else {
-            LOGGER.info("updateAccountCheck end");
             return false;
         }
     }
@@ -151,66 +138,28 @@ public class AccountController {
         return "Account has been updated.";
     }
 
-    public AccountPOJO findAccount(int id, String password, int findId) {
+    public AccountPOJO findAccount(int findId) {
         LOGGER.info("findAccount start");
+        accountpojo.setAccountID(findId);
+        AccountPOJO returnedAccount = accountdao.getAccount(accountpojo);
+        LOGGER.info("findAccount end");
+        return returnedAccount;
 
-        accountpojo.setAccountID(id);
-        AccountPOJO foundAccount = accountdao.getAccount(accountpojo);
-        salt = foundAccount.getAccountPassword().substring(31);
-        hashedPassword = passwordhasher.noSaltPasswordHasher(password);
-        totalPassword = hashedPassword + salt;
-        accountpojo.setAccountPassword(totalPassword);
-
-        if (accountpojo.getAccountPassword().equals(foundAccount.getAccountPassword())) {
-            accountpojo.setAccountID(findId);
-            AccountPOJO returnedAccount = accountdao.getAccount(accountpojo);
-            LOGGER.info("findAccount end");
-            return returnedAccount;
-        } else {
-            LOGGER.info("findAccount end");
-            return null;
-        }
     }
 
-    public List<AccountPOJO> findAccountWithName(int id, String password, String name) {
+    public List<AccountPOJO> findAccountWithName(String name) {
         LOGGER.info("findAccountWithName start");
-
-        accountpojo.setAccountID(id);
-        AccountPOJO foundAccount = accountdao.getAccount(accountpojo);
-        salt = foundAccount.getAccountPassword().substring(31);
-        hashedPassword = passwordhasher.noSaltPasswordHasher(password);
-        totalPassword = hashedPassword + salt;
-        accountpojo.setAccountPassword(totalPassword);
-
-        if (accountpojo.getAccountPassword().equals(foundAccount.getAccountPassword())) {
-            accountpojo.setAccountName(name);
-            List<AccountPOJO> returnedAccounts = accountdao.getAccountWithName(accountpojo);
-            LOGGER.info("findAccountWithName end");
-            return returnedAccounts;
-        } else {
-            LOGGER.info("findAccountWithName end");
-            return null;
-        }
+        accountpojo.setAccountName(name);
+        List<AccountPOJO> returnedAccounts = accountdao.getAccountWithName(accountpojo);
+        LOGGER.info("findAccountWithName end");
+        return returnedAccounts;
     }
 
-    public List<AccountPOJO> getAllAccounts(int id, String password) {
+    public List<AccountPOJO> getAllAccounts() {
         LOGGER.info("GetAllAccounts start");
+        List<AccountPOJO> returnedAccounts = accountdao.getAllAccount();
+        LOGGER.info("GetAllAccounts end");
+        return returnedAccounts;
 
-        accountpojo.setAccountID(id);
-        AccountPOJO foundAccount = accountdao.getAccount(accountpojo);
-        salt = foundAccount.getAccountPassword().substring(31);
-        hashedPassword = passwordhasher.noSaltPasswordHasher(password);
-        totalPassword = hashedPassword + salt;
-        accountpojo.setAccountPassword(totalPassword);
-
-        if (accountpojo.getAccountPassword().equals(foundAccount.getAccountPassword())) {
-            List<AccountPOJO> returnedAccounts = accountdao.getAllAccount();
-            LOGGER.info("GetAllAccounts end");
-            return returnedAccounts;
-
-        } else {
-            LOGGER.info("GetAllAccounts end");
-            return null;
-        }
     }
 }
