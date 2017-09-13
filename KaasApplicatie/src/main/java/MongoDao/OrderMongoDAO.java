@@ -99,7 +99,6 @@ public class OrderMongoDAO implements OrderDAOInterface {
                 collection = mongoConnector.makeConnection().getCollection("order");
                 collection.insertOne(convertOrderToDocument(order));
                 logger.info("addOrderDetailt end");
-                return order.getOrderID();
             } else {
                 System.out.println("no orderid or cheese id");
             }
@@ -109,7 +108,7 @@ public class OrderMongoDAO implements OrderDAOInterface {
         } finally {
             mongoConnector.closeConnection();
         }
-        return null;
+        return order.getOrderID();
 
     }
 
@@ -167,6 +166,8 @@ public class OrderMongoDAO implements OrderDAOInterface {
         logger.info("deleteOrder Start");
         collection = mongoConnector.makeConnection().getCollection("order");
         collection.findOneAndDelete(eq("id", order.getOrderID()));
+        MongoCollection<Document> collection2 = mongoConnector.makeConnection().getCollection("orderdetail");
+        collection2.deleteMany(eq("orderid", order.getOrderID()));
         mongoConnector.closeConnection();
         logger.info("deleteOrde End");
     }
@@ -184,7 +185,7 @@ public class OrderMongoDAO implements OrderDAOInterface {
         orderPOJO.setTotalPrice(new BigDecimal(22.22));
         orderPOJO.setClientID(1);
 
-        dao.deleteOrder(orderPOJO);
+        dao.addOrder(orderPOJO);
     }
 
 }

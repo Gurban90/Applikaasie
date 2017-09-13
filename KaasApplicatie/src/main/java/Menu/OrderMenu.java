@@ -43,7 +43,6 @@ public class OrderMenu {
     private int hourint;
     private int minint;
     private HelpClientOrderCheese collection;
-    private OrderController orderController;
     private LocalDateTime returnedLocalDateTime;
     private DomXML data;
     private OrderController controller;
@@ -58,11 +57,11 @@ public class OrderMenu {
 
         System.out.print(" Order menu: " + "\n"
                 + "1. New Order" + "\n"
-                + "2. new OrderDetail" + "\n"
+                + "2. New OrderDetail" + "\n"
                 + "3. Remove Order" + "\n"
                 + "4. Remove OrderDetail" + "\n"
                 + "5. Edit OrderMenu" + "\n"
-                + "6. edit OrderDetailMenu" + "\n"
+                + "6. Edit OrderDetailMenu" + "\n"
                 + "7. Search Order" + "\n"
                 + "8. Get All Orders" + "\n"
                 + "9. Search orderDetail" + "\n"
@@ -76,21 +75,19 @@ public class OrderMenu {
 
             switch (choice) {
                 case 1:
-
                     logger.info("newOrder start");
-
                     System.out.print("Fill in a new order: ");
                     collection = new HelpClientOrderCheese();
                     System.out.println("Please select the ClientID  from the client that made the order:  ");
                     clientID = input.nextLine();
                     if (validator.idValidator(this.clientID)) {
                         this.clientIDint = Integer.parseInt(this.clientID);
-                            IDCheck idCheck = new IDCheck();
-                            Boolean boo = idCheck.checkClientID(clientIDint);
-                             if(boo){
-                                System.out.println("no client with this id found");
-                                orderMenu();
-                                }
+                        IDCheck idCheck = new IDCheck();
+                        Boolean boo = idCheck.checkClientID(clientIDint);
+                        if (boo) {
+                            System.out.println("no client with this id found");
+                            orderMenu();
+                        }
                     } else {
                         System.out.println("clientID must have a value. ");
                         orderMenu();
@@ -189,10 +186,10 @@ public class OrderMenu {
                         System.out.println("min must have a correct value. ");
                         orderMenu();
                     }
-                    
+
                     collection.setOrderDelivery(yearint, monthint, dayint, hourint, minint);
-                    collection.getOrder();
-                    
+                    collection.getOrder(clientIDint);
+
                     makeOrderDetail = true;
                     while (makeOrderDetail) {
 
@@ -202,15 +199,14 @@ public class OrderMenu {
                             this.cheeseIDint = Integer.parseInt(this.cheeseID);
                             IDCheck idCheck = new IDCheck();
                             Boolean boo = idCheck.checkCheeseID(cheeseIDint);
-                             if(boo){
+                            if (boo) {
                                 System.out.println("no cheese with this id found");
                                 orderMenu();
-                                }
+                            }
                         } else {
                             System.out.println("cheeseID must have a value. ");
                             orderMenu();
                         }
-                       
 
                         System.out.println("give amount of cheese");
                         cheeseAmmount = input.nextLine();
@@ -226,7 +222,6 @@ public class OrderMenu {
                         collection.getOrderDetail();
                         collection.addUpCheese();
 
-                        
                         System.out.println("Do you want to add a new order detail? ");
                         anwser = input.nextLine();
 
@@ -248,7 +243,6 @@ public class OrderMenu {
 
                 case 2:
                     logger.info("new OrderDetail start");
-                    //orderController = new OrderController();
                     collection = new HelpClientOrderCheese();
                     System.out.println("Input orderID for adding new orderdetail to order");
                     orderID = input.nextLine();
@@ -288,8 +282,6 @@ public class OrderMenu {
                         collection.getOrderDetail();
                         collection.addUpCheese();
 
-                        input.nextLine(); //extra enter
-
                         System.out.println("Do you want to add a new order detail? ");
                         anwser = input.nextLine();
 
@@ -309,7 +301,6 @@ public class OrderMenu {
 
                 case 3:
                     logger.info("removeorder start");
-                    //orderController = new OrderController();
                     System.out.print("Enter The orderID you want to remove: ");
                     orderID = input.nextLine();
                     if (validator.idValidator(this.orderID)) {
@@ -318,7 +309,8 @@ public class OrderMenu {
                         System.out.println("orderID must have a value. ");
                         orderMenu();
                     }
-                    outputString = orderController.removeOrder(orderIDint);
+
+                    outputString = controller.removeOrder(this.orderIDint);
 
                     System.out.println(outputString);
 
@@ -328,7 +320,6 @@ public class OrderMenu {
 
                 case 4:
                     logger.info("removeorderdetail start");
-                    //orderController = new OrderController();
                     System.out.print("Enter The orderDetailID you want to remove: ");
                     orderDetailID = input.nextLine();
                     if (validator.idValidator(this.orderDetailID)) {
@@ -338,28 +329,20 @@ public class OrderMenu {
                         editOrderDetailMenu();
                     }
 
-                    outputString = orderController.removeOrderDetail(orderDetailIDint);
-                    System.out.print(outputString);
+                    outputString = controller.removeOrderDetail(orderDetailIDint);
+                    System.out.println(outputString);
 
                     orderMenu();
                     logger.info("removeorderdetail end");
                     break;
                 case 5:
-
-                    //go to editordermenu
                     editOrderMenu();
-
                     break;
                 case 6:
-
-                    //goto edit orderdetailmenu
                     editOrderDetailMenu();
-
                     break;
                 case 7:
                     logger.info("searchorder start");
-                    //orderController = new OrderController();
-
                     System.out.print("enter the order id of the order you want to search: ");
                     orderID = input.nextLine();
                     if (validator.idValidator(this.orderID)) {
@@ -368,25 +351,22 @@ public class OrderMenu {
                         System.out.println("orderID must have a value. ");
                         orderMenu();
                     }
-                    OrderPOJO returnedOrder = orderController.searchOrder(orderIDint);
+                    OrderPOJO returnedOrder = controller.searchOrder(orderIDint);
 
-                    System.out.print(returnedOrder);
+                    System.out.println(returnedOrder);
 
                     orderMenu();
                     logger.info("searchorder end");
                     break;
                 case 8:
                     logger.info("searchallorder start");
-                    //orderController = new OrderController();
-                    orderController.getAllOrders();
-                    System.out.println(orderController.getAllOrders());
+                    controller.getAllOrders();
+                    System.out.println(controller.getAllOrders());
                     orderMenu();
                     logger.info("searchallorder end");
                     break;
                 case 9:
                     logger.info("searchorderdetail start");
-                    //orderController = new OrderController();
-
                     System.out.print("enter the order id of the orderDetail you want to search: ");
                     orderDetailID = input.nextLine();
                     if (validator.idValidator(this.orderDetailID)) {
@@ -395,7 +375,7 @@ public class OrderMenu {
                         System.out.println("orderDetailID must have a value. ");
                         editOrderMenu();
                     }
-                    System.out.println(orderController.searchOrderDetail(orderDetailIDint));
+                    System.out.println(controller.searchOrderDetail(orderDetailIDint));
 
                     orderMenu();
                     logger.info("searchorderdetail end");
@@ -421,8 +401,8 @@ public class OrderMenu {
         logger.info("editOrdereMenu start");
         System.out.print(" What do you want to edit? " + "\n"
                 + "1. Edit Original order time" + "\n"
-                + "2. edit Delivery Date" + "\n"
-                + "3. return to order menu " + "\n"
+                + "2. Edit Delivery Date" + "\n"
+                + "3. Return to order menu " + "\n"
                 + "Please enter your choice: ");
 
         choiceNumber = input.nextLine();
@@ -434,7 +414,7 @@ public class OrderMenu {
                 case 1:
                     System.out.print("Edit order: ");
                     collection = new HelpClientOrderCheese();
-                    //orderController = new OrderController();
+
                     System.out.println("Please select the OrderID from the order you want to change:  ");
                     orderID = input.nextLine();
                     if (validator.idValidator(this.orderID)) {
@@ -445,8 +425,8 @@ public class OrderMenu {
                     }
                     collection.setOrderID(orderIDint);
 
-                    System.out.print("set the time of day when the order was made by the client: ");
-                    System.out.print("enter Year: ");
+                    System.out.print("Set the time of day when the order was made by the client. ");
+                    System.out.print("Enter Year: ");
                     this.year = input.nextLine();
                     if (validator.yearValidator(this.year)) {
                         this.yearint = Integer.parseInt(this.year);
@@ -492,13 +472,12 @@ public class OrderMenu {
                     }
 
                     this.returnedLocalDateTime = collection.setNewOrderByClient(yearint, monthint, dayint, hourint, minint);
-                    orderController.editOrderTime(orderIDint, returnedLocalDateTime);
+                    controller.editOrderTime(orderIDint, returnedLocalDateTime);
 
                     editOrderMenu();
                     break;
 
                 case 2:
-                    //orderController = new OrderController();
                     System.out.print("Edit order: ");
                     collection = new HelpClientOrderCheese();
                     System.out.println("Please select the OrderID from the order you want to change:  ");
@@ -560,7 +539,7 @@ public class OrderMenu {
 
                     this.returnedLocalDateTime = collection.setOrderDelivery(yearint, monthint, dayint, hourint, minint);
 
-                    orderController.editOrderDeliverTime(orderIDint, returnedLocalDateTime);
+                    controller.editOrderDeliverTime(orderIDint, returnedLocalDateTime);
 
                     editOrderMenu();
                     break;
@@ -582,8 +561,8 @@ public class OrderMenu {
         logger.info("editOrdereMenu start");
         System.out.print(" What do you want to edit? " + "\n"
                 + "1. Edit orderDetailCheese" + "\n"
-                + "2. edit order DetailQuantity of cheese" + "\n"
-                + "3. return to order menu " + "\n"
+                + "2. Edit order DetailQuantity of cheese" + "\n"
+                + "3. Return to order menu " + "\n"
                 + "Please enter your choice: ");
 
         choiceNumber = input.nextLine();
@@ -593,8 +572,8 @@ public class OrderMenu {
 
             switch (choice) {
                 case 1:
-                    System.out.print("Edit orderDetail Cheese: ");
-                    //OrderController controller = new OrderController();
+                    System.out.print("Edit orderDetail Cheese. ");
+
                     System.out.println("Please select the OrderDetailID from the order you want to change:  ");
                     orderDetailID = input.nextLine();
                     if (validator.idValidator(this.orderDetailID)) {
@@ -619,7 +598,6 @@ public class OrderMenu {
 
                 case 2:
                     System.out.print("Edit orderDetail Cheese Ammount: ");
-                    //controller = new OrderController();
                     System.out.println("Please select the OrderDetailID from the order you want to change:  ");
                     orderDetailID = input.nextLine();
                     if (validator.idValidator(this.orderDetailID)) {

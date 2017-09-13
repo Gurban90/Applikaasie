@@ -8,6 +8,7 @@ package MongoDao;
 import DatabaseConnector.MongoConnector;
 import Interface.CheeseDAOInterface;
 import POJO.CheesePOJO;
+import POJO.OrderDetailPOJO;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
@@ -34,7 +35,7 @@ public class CheeseMongoDao implements CheeseDAOInterface {
         mongoConnector = new MongoConnector();
     }
 
-        CheesePOJO convertDocumentToCheese(Document doc) {
+    CheesePOJO convertDocumentToCheese(Document doc) {
         CheesePOJO returnCheese = new CheesePOJO();
         try {
             returnCheese = new CheesePOJO(doc.getInteger("id"), doc.getString("name"), new BigDecimal(doc.getString("price")), doc.getInteger("stock"));
@@ -52,7 +53,6 @@ public class CheeseMongoDao implements CheeseDAOInterface {
         document.append("stock", cheese.getStock());
         return document;
     }
-    
 
     private Integer getNextId() {
         int id = 0;
@@ -126,8 +126,20 @@ public class CheeseMongoDao implements CheeseDAOInterface {
     @Override
     public void deleteCheese(CheesePOJO cheese) {
         logger.info("deleteCheese Start");
-        MongoCollection<Document> collection = mongoConnector.makeConnection().getCollection("cheese");
-        collection.findOneAndDelete(eq("id", cheese.getCheeseID()));
+        OrderDetailMongoDao orderdetaildao = new OrderDetailMongoDao();
+        try {
+            MongoCollection<Document> collection = mongoConnector.makeConnection().getCollection("orderdetail");
+            Document doc = collection.find(eq("cheeseid", cheese.getCheeseID())).first();
+            OrderDetailPOJO thisOrderDetail = orderdetaildao.convertDocumentToOrderDetail(doc);
+            if (thisOrderDetail.getCheeseID() == 0) {
+                MongoCollection<Document> collection2 = mongoConnector.makeConnection().getCollection("cheese");
+                collection2.findOneAndDelete(eq("id", cheese.getCheeseID()));
+            } else {
+                System.out.println("Cheese is currently in use, delete not possible.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         mongoConnector.closeConnection();
         logger.info("deleteCheese End");
     }
@@ -141,7 +153,6 @@ public class CheeseMongoDao implements CheeseDAOInterface {
         CheeseMongoDao dao = new CheeseMongoDao();
 
         System.out.println(dao.getAllCheese());
-
 
     }
 }

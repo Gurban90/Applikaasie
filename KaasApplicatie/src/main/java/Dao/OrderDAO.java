@@ -161,8 +161,7 @@ public class OrderDAO implements OrderDAOInterface {
     }
 
     @Override
-    public List<OrderPOJO> getOrderWithClient(ClientPOJO client
-    ) {
+    public List<OrderPOJO> getOrderWithClient(ClientPOJO client) {
         LOGGER.info("getAllAddress Start");
         query = "SELECT * FROM `order` WHERE Client_ClientID=?";
         List<OrderPOJO> returnedAddress = new ArrayList<>();
@@ -199,8 +198,7 @@ public class OrderDAO implements OrderDAOInterface {
     }
 
     @Override
-    public void updateOrder(OrderPOJO order
-    ) {
+    public void updateOrder(OrderPOJO order) {
         LOGGER.info("updateOrder Start");
         String query = "UPDATE `order` SET OrderDate = ?, TotalPrice = ?, ProcessedDate = ?, Client_ClientID = ?  WHERE OrderID=?";
         convert = new Converter();
@@ -228,19 +226,20 @@ public class OrderDAO implements OrderDAOInterface {
     }
 
     @Override
-    public void deleteOrder(OrderPOJO order
-    ) {
+    public void deleteOrder(OrderPOJO order    ) {
         LOGGER.info("deleteOrder Start");
 
         query = "DELETE FROM `order` where OrderID = ?";
-
+        String query2 = "DELETE FROM `orderdetail` where Order_OrderID = ?";
         try {
             connect = connectionfactory.getConnection();
             statement = connect.prepareStatement(query);
             statement.setInt(1, order.getOrderID());
             statement.executeUpdate();
-
-            connect.close();
+            PreparedStatement statement2 = connect.prepareStatement(query2);
+            statement2.setInt(1, order.getOrderID());
+            statement2.executeUpdate();
+           
         } catch (SQLException e) {
             e.printStackTrace();
 
@@ -252,6 +251,15 @@ public class OrderDAO implements OrderDAOInterface {
         }
 
         LOGGER.info("deleteOrder end");
+    }
+    
+    public static void main(String[] args) {
+        OrderDAO dao = new OrderDAO();
+        OrderPOJO pojo = new OrderPOJO();
+        
+        pojo.setOrderID(1);
+       dao.deleteOrder(pojo);
+
     }
 
 }

@@ -1,9 +1,9 @@
-
 package MongoDao;
 
 import DatabaseConnector.MongoConnector;
 import Interface.ClientDAOInterface;
 import POJO.ClientPOJO;
+import POJO.OrderPOJO;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import static com.mongodb.client.model.Filters.eq;
@@ -15,19 +15,18 @@ import java.util.logging.Logger;
 import org.bson.Document;
 
 public class ClientMongoDao implements ClientDAOInterface {
-    
-   private List<ClientPOJO> client;
-   private MongoCollection<Document> collection;
-   private MongoCursor<Document> cursor;
-   private Document doc;
-    
+
+    private List<ClientPOJO> client;
+    private MongoCollection<Document> collection;
+    private MongoCursor<Document> cursor;
+    private Document doc;
+
     private MongoConnector mongoConnector;
     private Logger logger = Logger.getLogger(ClientMongoDao.class.getName());
 
-    
     public ClientMongoDao() {
-     mongoConnector = new MongoConnector();
-        
+        mongoConnector = new MongoConnector();
+
     }
 
     public ClientPOJO convertDocumentToClient(Document doc) {
@@ -36,12 +35,11 @@ public class ClientMongoDao implements ClientDAOInterface {
             returnClient = new ClientPOJO(doc.getInteger("id"), doc.getString("firstname"), doc.getString("lastname"), doc.getString("email"));
         } catch (NullPointerException e) {
             System.out.println("Client not found.");
-           
-            
+
         }
         return returnClient;
     }
-  
+
     private Document convertClientToDocument(ClientPOJO client) {
         Document document = new Document();
         document.append("id", client.getClientID());
@@ -49,12 +47,12 @@ public class ClientMongoDao implements ClientDAOInterface {
         document.append("lastname", client.getLastName());
         document.append("email", client.getEMail());
         return document;
-    } 
-  
-  private Integer getNextId() {
+    }
+
+    private Integer getNextId() {
         int id = 0;
         collection = mongoConnector.makeConnection().getCollection("client");
-        
+
         if (collection.count() > 0) {
             Document highestId = collection.find().sort(orderBy(descending("id"))).first();
             id = highestId.getInteger("id") + 1;
@@ -67,15 +65,14 @@ public class ClientMongoDao implements ClientDAOInterface {
 
     @Override
     public Integer addClient(ClientPOJO client) {
-       logger.info("addclient Start");
+        logger.info("addclient Start");
         client.setClientID(getNextId());
         collection = mongoConnector.makeConnection().getCollection("client");
         collection.insertOne(convertClientToDocument(client));
         mongoConnector.closeConnection();
         logger.info("addclient end");
-        return client.getClientID(); 
-    
-    
+        return client.getClientID();
+
     }
 
     @Override
@@ -92,11 +89,10 @@ public class ClientMongoDao implements ClientDAOInterface {
         logger.info("getAllclient end");
         return client;
     }
-         
 
     @Override
     public ClientPOJO getClient(ClientPOJO client) {
-       logger.info("getClient Start");
+        logger.info("getClient Start");
         collection = mongoConnector.makeConnection().getCollection("client");
         doc = collection.find(eq("id", client.getClientID())).first();
         mongoConnector.closeConnection();
@@ -115,15 +111,14 @@ public class ClientMongoDao implements ClientDAOInterface {
             doc = cursor.next();
             client.add(convertDocumentToClient(doc));
             logger.info("getclientfirstname end");
-            
-       
+
         }
         return client;
     }
 
-   @Override
+    @Override
     public List<ClientPOJO> getClientWithLastName(String lastname) {
-       logger.info("getclientlastname Start");
+        logger.info("getclientlastname Start");
         client = new ArrayList<>();
         collection = mongoConnector.makeConnection().getCollection("client");
         cursor = collection.find(eq("lastname", lastname)).iterator();
@@ -132,14 +127,14 @@ public class ClientMongoDao implements ClientDAOInterface {
             doc = cursor.next();
             client.add(convertDocumentToClient(doc));
             logger.info("getclientlastname end");
-            
+
         }
         return client;
     }
 
     @Override
-     public List<ClientPOJO> getClientWithEmail(String email) {
-       logger.info("getclientemail Start");
+    public List<ClientPOJO> getClientWithEmail(String email) {
+        logger.info("getclientemail Start");
         client = new ArrayList<>();
         collection = mongoConnector.makeConnection().getCollection("client");
         cursor = collection.find(eq("email", email)).iterator();
@@ -152,11 +147,10 @@ public class ClientMongoDao implements ClientDAOInterface {
         }
         return client;
     }
-        
-  
+
     @Override
     public void updateClient(ClientPOJO client) {
-       logger.info("updateclient Start");
+        logger.info("updateclient Start");
         collection = mongoConnector.makeConnection().getCollection("client");
         collection.findOneAndReplace(eq("id", client.getClientID()), convertClientToDocument(client));
         mongoConnector.closeConnection();
@@ -166,20 +160,31 @@ public class ClientMongoDao implements ClientDAOInterface {
     @Override
     public void deleteClient(ClientPOJO client) {
         logger.info("deleteClient Start");
-        collection = mongoConnector.makeConnection().getCollection("client");
-        collection.findOneAndDelete(eq("id", client.getClientID()));
+        OrderMongoDAO orderdao = new OrderMongoDAO();
+        try {
+            MongoCollection<Document> collection2 = mongoConnector.makeConnection().getCollection("order");
+            Document doc2 = collection2.find(eq("clientid", client.getClientID())).first();
+            OrderPOJO thisOrder = orderdao.convertDocumentToOrder(doc2);
+            if (thisOrder.getClientID() == 0) {
+                MongoCollection<Document> collection3 = mongoConnector.makeConnection().getCollection("client");
+                collection3.findOneAndDelete(eq("id", client.getClientID()));
+            } else {
+                System.out.println("Cheese is currently in use, delete not possible.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         mongoConnector.closeConnection();
-        logger.info("deleteclient End"); 
+        logger.info("deleteClient End");
     }
-    
+
+  
+
     public static void main(String[] args) {
-       
-      
-        
+
         ClientMongoDao dao = new ClientMongoDao();
 
         System.out.println(dao.getAllClient());
-
 
     }
 }

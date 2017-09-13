@@ -36,8 +36,7 @@ public class IDCheck {
         List<CheesePOJO> list = DAO.getAllCheese();
         for(CheesePOJO idsearch : list){
             int returnedid = idsearch.getCheeseID();
-            System.out.println(returnedid);
-            System.out.println(sendID);
+            
 
             if(sendID == returnedid){
                 return false;
@@ -52,8 +51,7 @@ public class IDCheck {
         List<ClientPOJO> list = DAO.getAllClient();
         for(ClientPOJO idsearch : list){
             int returnedid = idsearch.getClientID();
-            System.out.println(returnedid);
-            System.out.println(sendID);
+           
 
             if(sendID == returnedid){
                 return false;
