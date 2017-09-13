@@ -37,6 +37,7 @@ public class OrderController {
         this.orderdetaildao = orderdetaildao;
     }
 
+    /*
     public OrderController() {
         this.orderdao = new OrderDAO();
         this.orderdetaildao = new OrderDetailDAO();
@@ -44,6 +45,8 @@ public class OrderController {
         this.orderdetailpojo = new OrderDetailPOJO();
     }
 
+*/
+    
     public Integer setOrder(LocalDateTime orderDate, BigDecimal totalPrice, LocalDateTime processedDate, int ClientID) {
          LOGGER.info("start");
         orderpojo.setOrderDate(orderDate);
@@ -56,10 +59,13 @@ public class OrderController {
     }
 
     public Integer setOrderDetail(int quantity, int orderID, int cheeseID) {
-         LOGGER.info("setOrderDetail start");
+        LOGGER.info("setOrderDetail start");
         orderdetailpojo.setQuantity(quantity);
         orderdetailpojo.setOrderID(orderID);
         orderdetailpojo.setCheeseID(cheeseID);
+        
+        //System.out.println("ShowThis!" + quantity + " " +  orderID + " " + cheeseID);
+        
         orderDetailID = orderdetaildao.addOrderDetail(orderdetailpojo);
          LOGGER.info("setorderdetail end");
         return orderDetailID;

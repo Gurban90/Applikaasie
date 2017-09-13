@@ -189,8 +189,8 @@ public class OrderMenu {
                         System.out.println("min must have a correct value. ");
                         orderMenu();
                     }
+                    
                     collection.setOrderDelivery(yearint, monthint, dayint, hourint, minint);
-
                     collection.getOrder();
                     
                     makeOrderDetail = true;
@@ -248,7 +248,7 @@ public class OrderMenu {
 
                 case 2:
                     logger.info("new OrderDetail start");
-                    orderController = new OrderController();
+                    //orderController = new OrderController();
                     collection = new HelpClientOrderCheese();
                     System.out.println("Input orderID for adding new orderdetail to order");
                     orderID = input.nextLine();
@@ -309,7 +309,7 @@ public class OrderMenu {
 
                 case 3:
                     logger.info("removeorder start");
-                    orderController = new OrderController();
+                    //orderController = new OrderController();
                     System.out.print("Enter The orderID you want to remove: ");
                     orderID = input.nextLine();
                     if (validator.idValidator(this.orderID)) {
@@ -328,7 +328,7 @@ public class OrderMenu {
 
                 case 4:
                     logger.info("removeorderdetail start");
-                    orderController = new OrderController();
+                    //orderController = new OrderController();
                     System.out.print("Enter The orderDetailID you want to remove: ");
                     orderDetailID = input.nextLine();
                     if (validator.idValidator(this.orderDetailID)) {
@@ -358,7 +358,7 @@ public class OrderMenu {
                     break;
                 case 7:
                     logger.info("searchorder start");
-                    orderController = new OrderController();
+                    //orderController = new OrderController();
 
                     System.out.print("enter the order id of the order you want to search: ");
                     orderID = input.nextLine();
@@ -377,7 +377,7 @@ public class OrderMenu {
                     break;
                 case 8:
                     logger.info("searchallorder start");
-                    orderController = new OrderController();
+                    //orderController = new OrderController();
                     orderController.getAllOrders();
                     System.out.println(orderController.getAllOrders());
                     orderMenu();
@@ -385,7 +385,7 @@ public class OrderMenu {
                     break;
                 case 9:
                     logger.info("searchorderdetail start");
-                    orderController = new OrderController();
+                    //orderController = new OrderController();
 
                     System.out.print("enter the order id of the orderDetail you want to search: ");
                     orderDetailID = input.nextLine();
@@ -434,7 +434,7 @@ public class OrderMenu {
                 case 1:
                     System.out.print("Edit order: ");
                     collection = new HelpClientOrderCheese();
-                    orderController = new OrderController();
+                    //orderController = new OrderController();
                     System.out.println("Please select the OrderID from the order you want to change:  ");
                     orderID = input.nextLine();
                     if (validator.idValidator(this.orderID)) {
@@ -498,7 +498,7 @@ public class OrderMenu {
                     break;
 
                 case 2:
-                    orderController = new OrderController();
+                    //orderController = new OrderController();
                     System.out.print("Edit order: ");
                     collection = new HelpClientOrderCheese();
                     System.out.println("Please select the OrderID from the order you want to change:  ");
@@ -594,7 +594,7 @@ public class OrderMenu {
             switch (choice) {
                 case 1:
                     System.out.print("Edit orderDetail Cheese: ");
-                    OrderController controller = new OrderController();
+                    //OrderController controller = new OrderController();
                     System.out.println("Please select the OrderDetailID from the order you want to change:  ");
                     orderDetailID = input.nextLine();
                     if (validator.idValidator(this.orderDetailID)) {
@@ -619,7 +619,7 @@ public class OrderMenu {
 
                 case 2:
                     System.out.print("Edit orderDetail Cheese Ammount: ");
-                    controller = new OrderController();
+                    //controller = new OrderController();
                     System.out.println("Please select the OrderDetailID from the order you want to change:  ");
                     orderDetailID = input.nextLine();
                     if (validator.idValidator(this.orderDetailID)) {

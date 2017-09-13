@@ -86,11 +86,11 @@ public class OrderDetailMongoDao implements OrderDetailDAOInterface {
         
         try {
         this.collection = mongoConnector.makeConnection().getCollection("cheese"); //cheeseid
-        this.doc = collection.find(eq("cheeseid", orderDetail.getCheeseID())).first();
+        this.doc = collection.find(eq("id", orderDetail.getCheeseID())).first();
         checkedCheeseID = cheeseMongo.convertDocumentToCheese(doc);
         
         this.collection = mongoConnector.makeConnection().getCollection("order"); //orderid
-        this.doc = collection.find(eq("orderid", orderDetail.getOrderID())).first();
+        this.doc = collection.find(eq("id", orderDetail.getOrderID())).first();
         checkedOrderID = orderMongo.convertDocumentToOrder(doc);
             if (checkedOrderID.getOrderID() == orderDetail.getOrderID() && checkedCheeseID.getCheeseID() == orderDetail.getCheeseID()) {
         
@@ -172,4 +172,24 @@ public class OrderDetailMongoDao implements OrderDetailDAOInterface {
         logger.info("deleteOrderDetail End"); 
     }
     
+    public static void main(String[] args) {
+       
+      
+        
+        OrderDetailMongoDao dao = new OrderDetailMongoDao();
+        OrderDetailPOJO pojo = new OrderDetailPOJO();
+        CheesePOJO cheese = new CheesePOJO();
+        OrderPOJO order = new OrderPOJO();
+
+        
+        cheese.setCheeseID(1);
+        order.setOrderID(1);
+        
+        pojo.setCheese(cheese);
+        pojo.setOrder(order);
+        pojo.setQuantity(10);
+         dao.addOrderDetail(pojo);
+        
+        System.out.println();
+    }
 }
