@@ -5,27 +5,35 @@
  */
 package Helper;
 
-import MongoDao.CheeseMongoDao;
-import MongoDao.ClientMongoDao;
+import DatabaseConnector.DomXML;
+import Interface.CheeseDAOInterface;
+import Interface.ClientDAOInterface;
 import POJO.CheesePOJO;
 import POJO.ClientPOJO;
 import java.util.List;
+
 
 /**
  *
  * @author Jasper Thielen
  */
+
+
+
+
 public class IDCheck {
     
-     
+    private DomXML data;  
+    
     public IDCheck(){
+        data = new DomXML();
     }
     
     public boolean checkCheeseID(int sendID){
         
-        CheeseMongoDao  cheeseMongoDAO = new CheeseMongoDao();
+        CheeseDAOInterface DAO = DaoFactory.createCheeseDao(data.getDatabaseType());
         
-        List<CheesePOJO> list = cheeseMongoDAO.getAllCheese();
+        List<CheesePOJO> list = DAO.getAllCheese();
         for(CheesePOJO idsearch : list){
             int returnedid = idsearch.getCheeseID();
             System.out.println(returnedid);
@@ -38,9 +46,10 @@ public class IDCheck {
         return true;
     }
     public boolean checkClientID(int sendID){
-        ClientMongoDao  clientMongoDAO = new ClientMongoDao();
         
-        List<ClientPOJO> list = clientMongoDAO.getAllClient();
+        ClientDAOInterface DAO = DaoFactory.createClientDao(data.getDatabaseType());
+        
+        List<ClientPOJO> list = DAO.getAllClient();
         for(ClientPOJO idsearch : list){
             int returnedid = idsearch.getClientID();
             System.out.println(returnedid);
