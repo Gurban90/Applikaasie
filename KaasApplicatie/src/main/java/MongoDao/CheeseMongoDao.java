@@ -48,10 +48,11 @@ public class CheeseMongoDao implements CheeseDAOInterface {
         Document document = new Document();
         document.append("id", cheese.getCheeseID());
         document.append("name", cheese.getCheeseName());
-        document.append("price", cheese.getPrice().toPlainString());
+        document.append("price", cheese.getPrice().setScale(2, BigDecimal.ROUND_HALF_EVEN).toPlainString());
         document.append("stock", cheese.getStock());
         return document;
     }
+    
 
     private Integer getNextId() {
         int id = 0;
@@ -135,7 +136,7 @@ public class CheeseMongoDao implements CheeseDAOInterface {
         CheesePOJO cheese1 = new CheesePOJO();
         cheese1.setCheeseID(1);
         cheese1.setCheeseName("Kippie2");
-        cheese1.setPrice(new BigDecimal(22.0));
+        cheese1.setPrice(new BigDecimal(22.13));
         cheese1.setStock(222);
         CheeseMongoDao dao = new CheeseMongoDao();
 

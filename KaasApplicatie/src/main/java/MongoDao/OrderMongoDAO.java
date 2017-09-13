@@ -18,6 +18,7 @@ import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Indexes.descending;
 import static com.mongodb.client.model.Sorts.orderBy;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,19 +40,17 @@ public class OrderMongoDAO implements OrderDAOInterface {
 
     private MongoConnector mongoConnector;
     private Logger logger = Logger.getLogger(ClientMongoDao.class.getName());
-    
+
     public OrderMongoDAO() {
-     mongoConnector = new MongoConnector();
-   
+        mongoConnector = new MongoConnector();
+
     }
 
     public OrderPOJO convertDocumentToOrder(Document doc) {
         OrderPOJO returnOrder = new OrderPOJO();
         Converter converter = new Converter();
-        
-        
         try {
-           returnOrder = new OrderPOJO(doc.getInteger("id"), converter.convertDate(doc.getString("orderdate")), new BigDecimal(doc.getString("totalprice")), converter.convertDate(doc.getString("processeddate")), doc.getInteger("clientid") );
+            returnOrder = new OrderPOJO(doc.getInteger("id"), converter.convertDate(doc.getString("orderdate")), new BigDecimal(doc.getString("totalprice")), converter.convertDate(doc.getString("processeddate")), doc.getInteger("clientid"));
         } catch (NullPointerException e) {
             System.out.println("Order not found.");
         }
@@ -61,10 +60,10 @@ public class OrderMongoDAO implements OrderDAOInterface {
     private Document convertOrderToDocument(OrderPOJO order) {
         doc = new Document();
         Converter converter = new Converter();
-        
+
         doc.append("id", order.getOrderID());
         doc.append("orderdate", converter.convertLocalDateTime(order.getOrderDate()));
-        doc.append("totalprice", order.getTotalPrice());
+        doc.append("totalprice", order.getTotalPrice().setScale(2, BigDecimal.ROUND_HALF_EVEN).toPlainString());
         doc.append("processeddate", converter.convertLocalDateTime(order.getProcessedDate()));
         doc.append("clientid", order.getClientID());
 
@@ -90,28 +89,28 @@ public class OrderMongoDAO implements OrderDAOInterface {
         logger.info("addOrderDetail Start");
 
         ClientMongoDao clientMongo = new ClientMongoDao();
-       
+
         try {
             collection = mongoConnector.makeConnection().getCollection("client"); //clientid
             doc = collection.find(eq("id", order.getClientID())).first();
             checkedClientID = clientMongo.convertDocumentToClient(doc);
-                if (checkedClientID.getClientID() == order.getClientID()) {
-                    order.setOrderID(getNextId()); 
-                    collection = mongoConnector.makeConnection().getCollection("order");
-                    collection.insertOne(convertOrderToDocument(order));
-                    logger.info("addOrderDetailt end");
-                    return order.getOrderID();
-                }else{
-                    System.out.println("no orderid or cheese id");
-                }
-                
+            if (checkedClientID.getClientID() == order.getClientID()) {
+                order.setOrderID(getNextId());
+                collection = mongoConnector.makeConnection().getCollection("order");
+                collection.insertOne(convertOrderToDocument(order));
+                logger.info("addOrderDetailt end");
+                return order.getOrderID();
+            } else {
+                System.out.println("no orderid or cheese id");
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-           mongoConnector.closeConnection();
-            }
+            mongoConnector.closeConnection();
+        }
         return null;
-        
+
     }
 
     @Override
@@ -144,7 +143,7 @@ public class OrderMongoDAO implements OrderDAOInterface {
         logger.info("getAddressWithClient Start");
         order = new ArrayList<>();
         collection = mongoConnector.makeConnection().getCollection("order");
-        cursor = collection.find(eq("ClientID", client.getClientID())).iterator();
+        cursor = collection.find(eq("clientid", client.getClientID())).iterator();
         while (cursor.hasNext()) {
             doc = cursor.next();
             order.add(convertDocumentToOrder(doc));
@@ -171,35 +170,21 @@ public class OrderMongoDAO implements OrderDAOInterface {
         mongoConnector.closeConnection();
         logger.info("deleteOrde End");
     }
-    
-    
-   /* public static void main(String[] args) {
-       
-      
-        
+
+    public static void main(String[] args) {
+
         OrderMongoDAO dao = new OrderMongoDAO();
         OrderPOJO orderPOJO = new OrderPOJO();
-        ClientPOJO clientPOJO = new ClientPOJO();
-        ClientMongoDao clientDAO = new ClientMongoDao();
-        
-        clientPOJO.setEMail("a@a");
-        clientPOJO.setFirstName("firstName");
-        clientPOJO.setLastName("last");
-        clientPOJO.setClientID(1);
-        clientDAO.addClient(clientPOJO);
-        
-       
-        
-        orderPOJO.setOrderID(1);
-        orderPOJO.setOrderDate(LocalDateTime.MAX);
-        orderPOJO.setProcessedDate(LocalDateTime.MAX);
-        orderPOJO.setTotalPrice(BigDecimal.ONE);
-        orderPOJO.setClientID(1);
-        
-        dao.addOrder(orderPOJO);
+        ClientPOJO client = new ClientPOJO();
 
-        
-}
-*/
+        client.setClientID(1);
+        orderPOJO.setOrderID(2);
+        orderPOJO.setOrderDate(LocalDateTime.now());
+        orderPOJO.setProcessedDate(LocalDateTime.now());
+        orderPOJO.setTotalPrice(new BigDecimal(22.22));
+        orderPOJO.setClientID(1);
+
+        dao.deleteOrder(orderPOJO);
+    }
 
 }

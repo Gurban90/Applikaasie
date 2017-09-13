@@ -1,10 +1,10 @@
 -------------------------------------------------------------------------------
 Test set: Controller.CheeseControllerTest
 -------------------------------------------------------------------------------
-Tests run: 9, Failures: 0, Errors: 7, Skipped: 0, Time elapsed: 0.477 sec <<< FAILURE!
-testFindCheese(Controller.CheeseControllerTest)  Time elapsed: 0.228 sec  <<< ERROR!
+Tests run: 9, Failures: 0, Errors: 7, Skipped: 0, Time elapsed: 0.524 sec <<< FAILURE!
+testFindCheese(Controller.CheeseControllerTest)  Time elapsed: 0.245 sec  <<< ERROR!
 java.lang.NullPointerException
-	at Dao.CheeseDAO.getCheese(CheeseDAO.java:125)
+	at Dao.CheeseDAO.getCheese(CheeseDAO.java:122)
 	at Controller.CheeseController.findCheese(CheeseController.java:48)
 	at Controller.CheeseControllerTest.testFindCheese(CheeseControllerTest.java:73)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -40,9 +40,9 @@ java.lang.NullPointerException
 	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:175)
 	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:107)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
-testFindCheeseWithName(Controller.CheeseControllerTest)  Time elapsed: 0.002 sec  <<< ERROR!
+testFindCheeseWithName(Controller.CheeseControllerTest)  Time elapsed: 0.006 sec  <<< ERROR!
 java.lang.NullPointerException
-	at Dao.CheeseDAO.getCheeseWithName(CheeseDAO.java:157)
+	at Dao.CheeseDAO.getCheeseWithName(CheeseDAO.java:154)
 	at Controller.CheeseController.findCheeseWithName(CheeseController.java:57)
 	at Controller.CheeseControllerTest.testFindCheeseWithName(CheeseControllerTest.java:88)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -78,9 +78,9 @@ java.lang.NullPointerException
 	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:175)
 	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:107)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
-testRemoveCheese(Controller.CheeseControllerTest)  Time elapsed: 0.005 sec  <<< ERROR!
+testRemoveCheese(Controller.CheeseControllerTest)  Time elapsed: 0.007 sec  <<< ERROR!
 java.lang.NullPointerException
-	at Dao.CheeseDAO.deleteCheese(CheeseDAO.java:215)
+	at Dao.CheeseDAO.deleteCheese(CheeseDAO.java:212)
 	at Controller.CheeseController.removeCheese(CheeseController.java:76)
 	at Controller.CheeseControllerTest.testRemoveCheese(CheeseControllerTest.java:119)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -116,9 +116,9 @@ java.lang.NullPointerException
 	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:175)
 	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:107)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
-testEditCheesePrice(Controller.CheeseControllerTest)  Time elapsed: 0.007 sec  <<< ERROR!
+testEditCheesePrice(Controller.CheeseControllerTest)  Time elapsed: 0.008 sec  <<< ERROR!
 java.lang.NullPointerException
-	at Dao.CheeseDAO.getCheese(CheeseDAO.java:125)
+	at Dao.CheeseDAO.getCheese(CheeseDAO.java:122)
 	at Controller.CheeseController.editCheesePrice(CheeseController.java:109)
 	at Controller.CheeseControllerTest.testEditCheesePrice(CheeseControllerTest.java:168)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -154,9 +154,9 @@ java.lang.NullPointerException
 	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:175)
 	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:107)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
-testEditCheeseStock(Controller.CheeseControllerTest)  Time elapsed: 0.005 sec  <<< ERROR!
+testEditCheeseStock(Controller.CheeseControllerTest)  Time elapsed: 0.01 sec  <<< ERROR!
 java.lang.NullPointerException
-	at Dao.CheeseDAO.getCheese(CheeseDAO.java:125)
+	at Dao.CheeseDAO.getCheese(CheeseDAO.java:122)
 	at Controller.CheeseController.editCheeseStock(CheeseController.java:121)
 	at Controller.CheeseControllerTest.testEditCheeseStock(CheeseControllerTest.java:184)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -192,9 +192,9 @@ java.lang.NullPointerException
 	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:175)
 	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:107)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
-testEditCheese(Controller.CheeseControllerTest)  Time elapsed: 0.005 sec  <<< ERROR!
+testEditCheese(Controller.CheeseControllerTest)  Time elapsed: 0.008 sec  <<< ERROR!
 java.lang.NullPointerException
-	at Dao.CheeseDAO.updateCheese(CheeseDAO.java:183)
+	at Dao.CheeseDAO.updateCheese(CheeseDAO.java:180)
 	at Controller.CheeseController.editCheese(CheeseController.java:87)
 	at Controller.CheeseControllerTest.testEditCheese(CheeseControllerTest.java:136)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -230,9 +230,9 @@ java.lang.NullPointerException
 	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:175)
 	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:107)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
-testEditCheeseName(Controller.CheeseControllerTest)  Time elapsed: 0.005 sec  <<< ERROR!
+testEditCheeseName(Controller.CheeseControllerTest)  Time elapsed: 0.004 sec  <<< ERROR!
 java.lang.NullPointerException
-	at Dao.CheeseDAO.getCheese(CheeseDAO.java:125)
+	at Dao.CheeseDAO.getCheese(CheeseDAO.java:122)
 	at Controller.CheeseController.editCheeseName(CheeseController.java:97)
 	at Controller.CheeseControllerTest.testEditCheeseName(CheeseControllerTest.java:152)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)

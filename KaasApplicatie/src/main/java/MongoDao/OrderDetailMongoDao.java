@@ -25,33 +25,32 @@ import org.bson.Document;
  * @author Jasper Thielen
  */
 public class OrderDetailMongoDao implements OrderDetailDAOInterface {
-    
-   private List<OrderDetailPOJO> orderDetail;
-   private MongoCollection<Document> collection;
-   private MongoCursor<Document> cursor;
-   private Document doc;
-   
-   private OrderPOJO checkedOrderID;
-   private CheesePOJO checkedCheeseID;
-           
-   
+
+    private List<OrderDetailPOJO> orderDetail;
+    private MongoCollection<Document> collection;
+    private MongoCursor<Document> cursor;
+    private Document doc;
+
+    private OrderPOJO checkedOrderID;
+    private CheesePOJO checkedCheeseID;
+
     private MongoConnector mongoConnector;
     private Logger logger = Logger.getLogger(ClientMongoDao.class.getName());
-    
+
     public OrderDetailMongoDao() {
-     mongoConnector = new MongoConnector();
+        mongoConnector = new MongoConnector();
     }
 
     public OrderDetailPOJO convertDocumentToOrderDetail(Document doc) {
         OrderDetailPOJO returnOrderDetail = new OrderDetailPOJO();
         try {
-            returnOrderDetail = new OrderDetailPOJO(doc.getInteger("id"),doc.getInteger("quantity"),doc.getInteger("cheeseid"),doc.getInteger("orderid"));
+            returnOrderDetail = new OrderDetailPOJO(doc.getInteger("id"), doc.getInteger("quantity"), doc.getInteger("cheeseid"), doc.getInteger("orderid"));
         } catch (NullPointerException e) {
             System.out.println("OrderDetail not found.");
         }
         return returnOrderDetail;
     }
-  
+
     private Document convertOrderDetailToDocument(OrderDetailPOJO orderdetail) {
         doc = new Document();
         doc.append("id", orderdetail.getOrderDetailID());
@@ -59,12 +58,12 @@ public class OrderDetailMongoDao implements OrderDetailDAOInterface {
         doc.append("cheeseid", orderdetail.getCheeseID());
         doc.append("orderid", orderdetail.getOrderID());
         return doc;
-    } 
-  
-  private Integer getNextId() {
+    }
+
+    private Integer getNextId() {
         int id = 0;
         collection = mongoConnector.makeConnection().getCollection("orderdetail");
-        
+
         if (collection.count() > 0) {
             Document highestId = collection.find().sort(orderBy(descending("id"))).first();
             id = highestId.getInteger("id") + 1;
@@ -73,49 +72,45 @@ public class OrderDetailMongoDao implements OrderDetailDAOInterface {
         }
         mongoConnector.closeConnection();
         return id;
-    }    
-    
-    
-    
+    }
+
     @Override
     public Integer addOrderDetail(OrderDetailPOJO orderDetail) {
 
         logger.info("addOrderDetail Start");
         CheeseMongoDao cheeseMongo = new CheeseMongoDao();
         OrderMongoDAO orderMongo = new OrderMongoDAO();
-        
+
         try {
-        this.collection = mongoConnector.makeConnection().getCollection("cheese"); //cheeseid
-        this.doc = collection.find(eq("id", orderDetail.getCheeseID())).first();
-        checkedCheeseID = cheeseMongo.convertDocumentToCheese(doc);
-        
-        this.collection = mongoConnector.makeConnection().getCollection("order"); //orderid
-        this.doc = collection.find(eq("id", orderDetail.getOrderID())).first();
-        checkedOrderID = orderMongo.convertDocumentToOrder(doc);
+            this.collection = mongoConnector.makeConnection().getCollection("cheese"); //cheeseid
+            this.doc = collection.find(eq("id", orderDetail.getCheeseID())).first();
+            checkedCheeseID = cheeseMongo.convertDocumentToCheese(doc);
+
+            this.collection = mongoConnector.makeConnection().getCollection("order"); //orderid
+            this.doc = collection.find(eq("id", orderDetail.getOrderID())).first();
+            checkedOrderID = orderMongo.convertDocumentToOrder(doc);
             if (checkedOrderID.getOrderID() == orderDetail.getOrderID() && checkedCheeseID.getCheeseID() == orderDetail.getCheeseID()) {
-        
+
                 orderDetail.setOrderDetailID(getNextId());
                 collection = mongoConnector.makeConnection().getCollection("orderdetail");
                 collection.insertOne(convertOrderDetailToDocument(orderDetail));
-                logger.info("addOrderDetailt end");  
+                logger.info("addOrderDetailt end");
                 return orderDetail.getOrderDetailID();
-            }
-            else{
+            } else {
                 System.out.println("no orderid or cheese id");
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-           mongoConnector.closeConnection();
-            }
-      return null;  
-    }      
-        
-        
+            mongoConnector.closeConnection();
+        }
+        return null;
+    }
+
     @Override
     public List<OrderDetailPOJO> getAllOrderDetail() {
-      logger.info("getAllorderdetail Start");
+        logger.info("getAllorderdetail Start");
         orderDetail = new ArrayList<>();
         collection = mongoConnector.makeConnection().getCollection("orderdetail");
         cursor = collection.find().iterator();
@@ -125,16 +120,16 @@ public class OrderDetailMongoDao implements OrderDetailDAOInterface {
         }
         mongoConnector.closeConnection();
         logger.info("getAllorderdetailend");
-        return orderDetail;  
-    
+        return orderDetail;
+
     }
 
     @Override
     public List<OrderDetailPOJO> getOrderDetail(OrderDetailPOJO orderdetail) {
-      logger.info("getorderdetail Start");
+        logger.info("getorderdetail Start");
         orderDetail = new ArrayList<>();
         collection = mongoConnector.makeConnection().getCollection("orderdetail");
-        cursor =  (MongoCursor<Document>) collection.find(eq("orderid", orderdetail.getOrderDetailID())); //heh extra test?
+        cursor = (MongoCursor<Document>) collection.find(eq("orderid", orderdetail.getOrderID())).iterator(); 
         while (cursor.hasNext()) {
             doc = cursor.next();
             orderDetail.add(convertDocumentToOrderDetail(doc));
@@ -144,7 +139,7 @@ public class OrderDetailMongoDao implements OrderDetailDAOInterface {
         return orderDetail;
     }
 
-  @Override
+    @Override
     public OrderDetailPOJO getOrderDetailWithID(OrderDetailPOJO orderdetail) {
         logger.info("getOrderDetailWithID Start");
         collection = mongoConnector.makeConnection().getCollection("orderdetail");
@@ -153,43 +148,55 @@ public class OrderDetailMongoDao implements OrderDetailDAOInterface {
         logger.info("getOrderDetailWithID end");
         return convertDocumentToOrderDetail(doc);
     }
-    
+
     @Override
     public void deleteOrderDetail(OrderDetailPOJO orderDetail) {
-        logger.info("updateOrderDetail Start");
-        collection = mongoConnector.makeConnection().getCollection("orderdetail");
-        collection.findOneAndReplace(eq("id", orderDetail.getOrderDetailID()), convertOrderDetailToDocument(orderDetail));
-        mongoConnector.closeConnection();
-        logger.info("updateOrderDetail end");
-    }
-
-   @Override
-    public void updateOrderDetail(OrderDetailPOJO orderDetail) {
-       logger.info("deleteOrderDetail Start");
+        logger.info("deleteOrderDetail Start");
         collection = mongoConnector.makeConnection().getCollection("orderdetail");
         collection.findOneAndDelete(eq("id", orderDetail.getOrderDetailID()));
         mongoConnector.closeConnection();
-        logger.info("deleteOrderDetail End"); 
+        logger.info("deleteOrderDetail End");
     }
-    
+
+    @Override
+    public void updateOrderDetail(OrderDetailPOJO orderDetail) {
+        logger.info("updateOrderDetail Start");
+        CheeseMongoDao cheeseMongo = new CheeseMongoDao();
+        try {
+            this.collection = mongoConnector.makeConnection().getCollection("cheese"); //cheeseid
+            this.doc = collection.find(eq("id", orderDetail.getCheeseID())).first();
+            checkedCheeseID = cheeseMongo.convertDocumentToCheese(doc);
+            if (checkedCheeseID.getCheeseID() == orderDetail.getCheeseID()) {
+                collection = mongoConnector.makeConnection().getCollection("orderdetail");
+                collection.findOneAndReplace(eq("id", orderDetail.getOrderDetailID()), convertOrderDetailToDocument(orderDetail));
+                mongoConnector.closeConnection();
+                logger.info("updateOrderDetail end");
+            } else {
+                System.out.println("Cheese not in database");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            mongoConnector.closeConnection();
+        }
+    }
+
     public static void main(String[] args) {
-       
-      
-        
+
         OrderDetailMongoDao dao = new OrderDetailMongoDao();
         OrderDetailPOJO pojo = new OrderDetailPOJO();
         CheesePOJO cheese = new CheesePOJO();
         OrderPOJO order = new OrderPOJO();
 
         
-        cheese.setCheeseID(1);
-        order.setOrderID(1);
+        pojo.setCheeseID(2);
+        pojo.setOrderID(3);
+        pojo.setQuantity(66);
         
-        pojo.setCheese(cheese);
-        pojo.setOrder(order);
-        pojo.setQuantity(10);
-         dao.addOrderDetail(pojo);
+        dao.addOrderDetail(pojo);
         
-        System.out.println();
+        System.out.println(dao.getOrderDetail(pojo));
+
     }
 }
