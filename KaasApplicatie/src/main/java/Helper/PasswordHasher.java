@@ -30,28 +30,25 @@ public class PasswordHasher {
 
     public String makeSaltedPasswordHash(String password) {
         byte[] salt = generateSalt();
-        this.password = password;
+        String saltString = new String(salt);
+        this.password = password + saltString;
         try {
             MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
-            messageDigest.update(password.getBytes());
+            messageDigest.update(this.password.getBytes());
             this.encryptedPass = new String(messageDigest.digest());
-            messageDigest.reset();
-            messageDigest = MessageDigest.getInstance("SHA-256");
-            messageDigest.update(salt);
-            this.encryptedSalt = new String(messageDigest.digest());
-            this.encryptedTotal = this.encryptedPass.substring(1) + this.encryptedSalt;
+            this.encryptedTotal = this.encryptedPass + saltString;
         } catch (NoSuchAlgorithmException e) {
             System.out.println(e);
         }
         return this.encryptedTotal;
     }
 
-    public String noSaltPasswordHasher(String password) {
+    public String hasher(String password) {
         this.password = password;
         try {
             MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
             messageDigest.update(password.getBytes());
-            this.encryptedPass = new String(messageDigest.digest()).substring(1);
+            this.encryptedPass = new String(messageDigest.digest());
         } catch (NoSuchAlgorithmException e) {
             System.out.println(e);
         }
@@ -61,12 +58,7 @@ public class PasswordHasher {
     public static void main(String[] args) {
         PasswordHasher tester = new PasswordHasher();
         String wachtwoord = tester.makeSaltedPasswordHash("password");
-        String wachtwoord2 = tester.noSaltPasswordHasher("password");
-        String salt = wachtwoord.substring(31);
-
-        System.out.println(wachtwoord);
-        System.out.println(wachtwoord2);
-        System.out.println(salt);
+        String wachtwoord2 = tester.hasher("password");
 
     }
 }

@@ -48,8 +48,8 @@ public class AccountController {
         LOGGER.info("login start");
         accountpojo.setAccountID(id);
         AccountPOJO foundAccount = accountdao.getAccount(accountpojo);
-        salt = foundAccount.getAccountPassword().substring(31);
-        hashedPassword = passwordhasher.noSaltPasswordHasher(password);
+        salt = foundAccount.getAccountPassword().substring(32);
+        hashedPassword = passwordhasher.hasher(password+salt);
         totalPassword = hashedPassword + salt;
         accountpojo.setAccountPassword(totalPassword);
 
@@ -77,8 +77,8 @@ public class AccountController {
         LOGGER.info("removeAccount start");
         accountpojo.setAccountID(id);
         AccountPOJO foundAccount = accountdao.getAccount(accountpojo);
-        salt = foundAccount.getAccountPassword().substring(31);
-        hashedPassword = passwordhasher.noSaltPasswordHasher(password);
+        salt = foundAccount.getAccountPassword().substring(32);
+        hashedPassword = passwordhasher.hasher(password+salt);
         totalPassword = hashedPassword + salt;
         accountpojo.setAccountPassword(totalPassword);
 
