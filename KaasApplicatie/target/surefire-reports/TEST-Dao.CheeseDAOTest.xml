@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="5" failures="0" name="Dao.CheeseDAOTest" time="0.224" errors="5" skipped="0">
+<testsuite tests="5" failures="0" name="Dao.CheeseDAOTest" time="0.669" errors="5" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Java\Java Development Kit and Netbeans\jdk1.8.0_131\jre\bin"/>
@@ -14,6 +14,7 @@
     <property name="user.country" value="GB"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.os.patch.level" value=""/>
+    <property name="test" value="Dao.CheeseDAOTest"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
     <property name="user.dir" value="C:\Java\Githubs\Applikaasie\KaasApplicatie"/>
     <property name="java.runtime.version" value="1.8.0_131-b11"/>
@@ -44,7 +45,7 @@
     <property name="java.vm.specification.version" value="1.8"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.home" value="C:\Java\Java Development Kit and Netbeans\jdk1.8.0_131\jre"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dmaven.ext.class.path=C:\Program Files\NetBeans 8.2\java\maven-nblib\netbeans-eventspy.jar -Dfile.encoding=UTF-8 clean install"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dtest=Dao.CheeseDAOTest -Dmaven.ext.class.path=C:\Program Files\NetBeans 8.2\java\maven-nblib\netbeans-eventspy.jar -Dfile.encoding=UTF-8 surefire:test"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="user.language" value="en"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
@@ -61,7 +62,7 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="Dao.CheeseDAOTest" name="testUpdateCheese" time="0.076">
+  <testcase classname="Dao.CheeseDAOTest" name="testUpdateCheese" time="0.251">
     <error type="java.lang.NullPointerException">java.lang.NullPointerException
 	at Dao.CheeseDAO.updateCheese(CheeseDAO.java:180)
 	at Dao.CheeseDAOTest.testUpdateCheese(CheeseDAOTest.java:117)
@@ -97,11 +98,11 @@
 	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:107)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
 </error>
-    <system-err>Sep 13, 2017 11:30:41 AM Dao.CheeseDAO updateCheese
+    <system-err>Sep 14, 2017 8:37:42 PM Dao.CheeseDAO updateCheese
 INFO: updateCheese Start
 </system-err>
   </testcase>
-  <testcase classname="Dao.CheeseDAOTest" name="testDeleteCheese" time="0.033">
+  <testcase classname="Dao.CheeseDAOTest" name="testDeleteCheese" time="0.006">
     <error type="java.lang.NullPointerException">java.lang.NullPointerException
 	at Dao.CheeseDAO.deleteCheese(CheeseDAO.java:212)
 	at Dao.CheeseDAOTest.testDeleteCheese(CheeseDAOTest.java:141)
@@ -137,11 +138,11 @@ INFO: updateCheese Start
 	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:107)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
 </error>
-    <system-err>Sep 13, 2017 11:30:41 AM Dao.CheeseDAO deleteCheese
+    <system-err>Sep 14, 2017 8:37:42 PM Dao.CheeseDAO deleteCheese
 INFO: deleteCheese Start
 </system-err>
   </testcase>
-  <testcase classname="Dao.CheeseDAOTest" name="testGetAllCheese" time="0.021">
+  <testcase classname="Dao.CheeseDAOTest" name="testGetAllCheese" time="0.009">
     <error type="java.lang.NullPointerException">java.lang.NullPointerException
 	at Dao.CheeseDAO.getAllCheese(CheeseDAO.java:90)
 	at Dao.CheeseDAOTest.testGetAllCheese(CheeseDAOTest.java:75)
@@ -177,11 +178,11 @@ INFO: deleteCheese Start
 	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:107)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
 </error>
-    <system-err>Sep 13, 2017 11:30:41 AM Dao.CheeseDAO getAllCheese
+    <system-err>Sep 14, 2017 8:37:42 PM Dao.CheeseDAO getAllCheese
 INFO: getAllCheese Start
 </system-err>
   </testcase>
-  <testcase classname="Dao.CheeseDAOTest" name="testAddCheese" time="0.02">
+  <testcase classname="Dao.CheeseDAOTest" name="testAddCheese" time="0.009">
     <error type="java.lang.NullPointerException">java.lang.NullPointerException
 	at Dao.CheeseDAO.addCheese(CheeseDAO.java:57)
 	at Dao.CheeseDAOTest.testAddCheese(CheeseDAOTest.java:52)
@@ -217,11 +218,11 @@ INFO: getAllCheese Start
 	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:107)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
 </error>
-    <system-err>Sep 13, 2017 11:30:41 AM Dao.CheeseDAO addCheese
+    <system-err>Sep 14, 2017 8:37:42 PM Dao.CheeseDAO addCheese
 INFO: addCheese Start
 </system-err>
   </testcase>
-  <testcase classname="Dao.CheeseDAOTest" name="testGetCheese" time="0.001">
+  <testcase classname="Dao.CheeseDAOTest" name="testGetCheese" time="0.008">
     <error type="java.lang.NullPointerException">java.lang.NullPointerException
 	at Dao.CheeseDAO.getCheese(CheeseDAO.java:122)
 	at Dao.CheeseDAOTest.testGetCheese(CheeseDAOTest.java:100)
@@ -257,7 +258,7 @@ INFO: addCheese Start
 	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:107)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
 </error>
-    <system-err>Sep 13, 2017 11:30:41 AM Dao.CheeseDAO getCheese
+    <system-err>Sep 14, 2017 8:37:42 PM Dao.CheeseDAO getCheese
 INFO: getCheese Start
 </system-err>
   </testcase>

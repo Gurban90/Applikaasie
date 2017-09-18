@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: Dao.AddressDAOTest
 -------------------------------------------------------------------------------
-Tests run: 11, Failures: 0, Errors: 3, Skipped: 0, Time elapsed: 0.343 sec <<< FAILURE!
-testGetAddress(Dao.AddressDAOTest)  Time elapsed: 0.035 sec  <<< ERROR!
+Tests run: 11, Failures: 0, Errors: 3, Skipped: 0, Time elapsed: 0.031 sec <<< FAILURE!
+testGetAddress(Dao.AddressDAOTest)  Time elapsed: 0.001 sec  <<< ERROR!
 java.lang.NullPointerException
 	at Dao.AddressDAO.getAddress(AddressDAO.java:122)
 	at Dao.AddressDAOTest.testGetAddress(AddressDAOTest.java:115)
@@ -37,7 +37,7 @@ java.lang.NullPointerException
 	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:175)
 	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:107)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
-testAddAddress(Dao.AddressDAOTest)  Time elapsed: 0.027 sec  <<< ERROR!
+testAddAddress(Dao.AddressDAOTest)  Time elapsed: 0.001 sec  <<< ERROR!
 java.lang.NullPointerException
 	at Dao.AddressDAO.addAddress(AddressDAO.java:82)
 	at Dao.AddressDAOTest.testAddAddress(AddressDAOTest.java:86)
@@ -72,7 +72,7 @@ java.lang.NullPointerException
 	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:175)
 	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:107)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
-testGetAllAddress(Dao.AddressDAOTest)  Time elapsed: 0.026 sec  <<< ERROR!
+testGetAllAddress(Dao.AddressDAOTest)  Time elapsed: 0.013 sec  <<< ERROR!
 java.lang.NullPointerException
 	at Dao.AddressDAO.getAllAddress(AddressDAO.java:202)
 	at Dao.AddressDAOTest.testGetAllAddress(AddressDAOTest.java:137)

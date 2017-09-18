@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="5" failures="0" name="Dao.OrderDetailDAOTest" time="0.114" errors="5" skipped="0">
+<testsuite tests="5" failures="0" name="Dao.OrderDetailDAOTest" time="0.018" errors="5" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Java\Java Development Kit and Netbeans\jdk1.8.0_131\jre\bin"/>
@@ -44,7 +44,7 @@
     <property name="java.vm.specification.version" value="1.8"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.home" value="C:\Java\Java Development Kit and Netbeans\jdk1.8.0_131\jre"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dmaven.ext.class.path=C:\Program Files\NetBeans 8.2\java\maven-nblib\netbeans-eventspy.jar -Dfile.encoding=UTF-8 clean install"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dmaven.ext.class.path=C:\Program Files\NetBeans 8.2\java\maven-nblib\netbeans-eventspy.jar -Dfile.encoding=UTF-8 install"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="user.language" value="en"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
@@ -61,7 +61,7 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="Dao.OrderDetailDAOTest" name="testGetAllOrderDetail" time="0.012">
+  <testcase classname="Dao.OrderDetailDAOTest" name="testGetAllOrderDetail" time="0.004">
     <error type="java.lang.NullPointerException">java.lang.NullPointerException
 	at Dao.OrderDetailDAO.getAllOrderDetail(OrderDetailDAO.java:109)
 	at Dao.OrderDetailDAOTest.testGetAllOrderDetail(OrderDetailDAOTest.java:85)
@@ -144,11 +144,11 @@
 	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:175)
 	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:107)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
-Sep 13, 2017 11:30:42 AM Dao.OrderDetailDAO getAllOrderDetail
+Sep 14, 2017 8:35:30 PM Dao.OrderDetailDAO getAllOrderDetail
 INFO: getAllOrderDetail Start
 </system-err>
   </testcase>
-  <testcase classname="Dao.OrderDetailDAOTest" name="testGetOrderDetail" time="0.045">
+  <testcase classname="Dao.OrderDetailDAOTest" name="testGetOrderDetail" time="0.002">
     <error type="java.lang.NullPointerException">java.lang.NullPointerException
 	at Dao.OrderDetailDAO.getOrderDetail(OrderDetailDAO.java:141)
 	at Dao.OrderDetailDAOTest.testGetOrderDetail(OrderDetailDAOTest.java:107)
@@ -231,7 +231,7 @@ INFO: getAllOrderDetail Start
 	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:175)
 	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:107)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
-Sep 13, 2017 11:30:42 AM Dao.OrderDetailDAO getOrderDetail
+Sep 14, 2017 8:35:30 PM Dao.OrderDetailDAO getOrderDetail
 INFO: getOrderDetail Start
 </system-err>
   </testcase>
@@ -318,11 +318,11 @@ INFO: getOrderDetail Start
 	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:175)
 	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:107)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
-Sep 13, 2017 11:30:42 AM Dao.OrderDetailDAO updateOrderDetail
+Sep 14, 2017 8:35:30 PM Dao.OrderDetailDAO updateOrderDetail
 INFO: updateOrderDetail Start
 </system-err>
   </testcase>
-  <testcase classname="Dao.OrderDetailDAOTest" name="testDeleteClient" time="0.047">
+  <testcase classname="Dao.OrderDetailDAOTest" name="testDeleteClient" time="0.006">
     <error type="java.lang.NullPointerException">java.lang.NullPointerException
 	at Dao.OrderDetailDAO.deleteOrderDetail(OrderDetailDAO.java:239)
 	at Dao.OrderDetailDAOTest.testDeleteClient(OrderDetailDAOTest.java:161)
@@ -405,11 +405,11 @@ INFO: updateOrderDetail Start
 	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:175)
 	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:107)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
-Sep 13, 2017 11:30:42 AM Dao.OrderDetailDAO deleteOrderDetail
+Sep 14, 2017 8:35:30 PM Dao.OrderDetailDAO deleteOrderDetail
 INFO: deleteOrderDetail Start
 </system-err>
   </testcase>
-  <testcase classname="Dao.OrderDetailDAOTest" name="testAddOrderDetail" time="0">
+  <testcase classname="Dao.OrderDetailDAOTest" name="testAddOrderDetail" time="0.003">
     <error type="java.lang.NullPointerException">java.lang.NullPointerException
 	at Dao.OrderDetailDAO.addOrderDetail(OrderDetailDAO.java:77)
 	at Dao.OrderDetailDAOTest.testAddOrderDetail(OrderDetailDAOTest.java:62)
@@ -492,7 +492,7 @@ INFO: deleteOrderDetail Start
 	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:175)
 	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:107)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
-Sep 13, 2017 11:30:42 AM Dao.OrderDetailDAO addOrderDetail
+Sep 14, 2017 8:35:30 PM Dao.OrderDetailDAO addOrderDetail
 INFO: addOrderDetail Start
 </system-err>
   </testcase>

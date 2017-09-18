@@ -18,7 +18,6 @@ public class PasswordHasher {
     private SecureRandom random;
     private String password;
     private String encryptedPass;
-    private String encryptedSalt;
     private String encryptedTotal;
 
     private byte[] generateSalt() {

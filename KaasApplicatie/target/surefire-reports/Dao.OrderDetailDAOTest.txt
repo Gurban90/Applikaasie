@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: Dao.OrderDetailDAOTest
 -------------------------------------------------------------------------------
-Tests run: 5, Failures: 0, Errors: 5, Skipped: 0, Time elapsed: 0.114 sec <<< FAILURE!
-testGetAllOrderDetail(Dao.OrderDetailDAOTest)  Time elapsed: 0.012 sec  <<< ERROR!
+Tests run: 5, Failures: 0, Errors: 5, Skipped: 0, Time elapsed: 0.018 sec <<< FAILURE!
+testGetAllOrderDetail(Dao.OrderDetailDAOTest)  Time elapsed: 0.004 sec  <<< ERROR!
 java.lang.NullPointerException
 	at Dao.OrderDetailDAO.getAllOrderDetail(OrderDetailDAO.java:109)
 	at Dao.OrderDetailDAOTest.testGetAllOrderDetail(OrderDetailDAOTest.java:85)
@@ -37,7 +37,7 @@ java.lang.NullPointerException
 	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:175)
 	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:107)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
-testGetOrderDetail(Dao.OrderDetailDAOTest)  Time elapsed: 0.045 sec  <<< ERROR!
+testGetOrderDetail(Dao.OrderDetailDAOTest)  Time elapsed: 0.002 sec  <<< ERROR!
 java.lang.NullPointerException
 	at Dao.OrderDetailDAO.getOrderDetail(OrderDetailDAO.java:141)
 	at Dao.OrderDetailDAOTest.testGetOrderDetail(OrderDetailDAOTest.java:107)
@@ -107,7 +107,7 @@ java.lang.NullPointerException
 	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:175)
 	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:107)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
-testDeleteClient(Dao.OrderDetailDAOTest)  Time elapsed: 0.047 sec  <<< ERROR!
+testDeleteClient(Dao.OrderDetailDAOTest)  Time elapsed: 0.006 sec  <<< ERROR!
 java.lang.NullPointerException
 	at Dao.OrderDetailDAO.deleteOrderDetail(OrderDetailDAO.java:239)
 	at Dao.OrderDetailDAOTest.testDeleteClient(OrderDetailDAOTest.java:161)
@@ -142,7 +142,7 @@ java.lang.NullPointerException
 	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:175)
 	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:107)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
-testAddOrderDetail(Dao.OrderDetailDAOTest)  Time elapsed: 0 sec  <<< ERROR!
+testAddOrderDetail(Dao.OrderDetailDAOTest)  Time elapsed: 0.003 sec  <<< ERROR!
 java.lang.NullPointerException
 	at Dao.OrderDetailDAO.addOrderDetail(OrderDetailDAO.java:77)
 	at Dao.OrderDetailDAOTest.testAddOrderDetail(OrderDetailDAOTest.java:62)

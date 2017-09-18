@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: Dao.ClientDAOTest
 -------------------------------------------------------------------------------
-Tests run: 5, Failures: 0, Errors: 5, Skipped: 0, Time elapsed: 0.102 sec <<< FAILURE!
-testUpdateClient(Dao.ClientDAOTest)  Time elapsed: 0.012 sec  <<< ERROR!
+Tests run: 5, Failures: 0, Errors: 5, Skipped: 0, Time elapsed: 0.519 sec <<< FAILURE!
+testUpdateClient(Dao.ClientDAOTest)  Time elapsed: 0.009 sec  <<< ERROR!
 java.lang.NullPointerException
 	at Dao.ClientDAO.updateClient(ClientDAO.java:245)
 	at Dao.ClientDAOTest.testUpdateClient(ClientDAOTest.java:127)
@@ -37,7 +37,7 @@ java.lang.NullPointerException
 	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:175)
 	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:107)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
-testDeleteClient(Dao.ClientDAOTest)  Time elapsed: 0.001 sec  <<< ERROR!
+testDeleteClient(Dao.ClientDAOTest)  Time elapsed: 0.494 sec  <<< ERROR!
 java.lang.NullPointerException
 	at Dao.ClientDAO.deleteClient(ClientDAO.java:276)
 	at Dao.ClientDAOTest.testDeleteClient(ClientDAOTest.java:151)
@@ -107,7 +107,7 @@ java.lang.NullPointerException
 	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:175)
 	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:107)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
-testAddClient(Dao.ClientDAOTest)  Time elapsed: 0.007 sec  <<< ERROR!
+testAddClient(Dao.ClientDAOTest)  Time elapsed: 0.002 sec  <<< ERROR!
 java.lang.NullPointerException
 	at Dao.ClientDAO.addClient(ClientDAO.java:60)
 	at Dao.ClientDAOTest.testAddClient(ClientDAOTest.java:56)
@@ -142,7 +142,7 @@ java.lang.NullPointerException
 	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:175)
 	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:107)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
-testGetClient(Dao.ClientDAOTest)  Time elapsed: 0.001 sec  <<< ERROR!
+testGetClient(Dao.ClientDAOTest)  Time elapsed: 0.002 sec  <<< ERROR!
 java.lang.NullPointerException
 	at Dao.ClientDAO.getClient(ClientDAO.java:123)
 	at Dao.ClientDAOTest.testGetClient(ClientDAOTest.java:101)

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="11" failures="0" name="Dao.AddressDAOTest" time="0.343" errors="3" skipped="0">
+<testsuite tests="11" failures="0" name="Dao.AddressDAOTest" time="0.031" errors="3" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Java\Java Development Kit and Netbeans\jdk1.8.0_131\jre\bin"/>
@@ -44,7 +44,7 @@
     <property name="java.vm.specification.version" value="1.8"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.home" value="C:\Java\Java Development Kit and Netbeans\jdk1.8.0_131\jre"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dmaven.ext.class.path=C:\Program Files\NetBeans 8.2\java\maven-nblib\netbeans-eventspy.jar -Dfile.encoding=UTF-8 clean install"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dmaven.ext.class.path=C:\Program Files\NetBeans 8.2\java\maven-nblib\netbeans-eventspy.jar -Dfile.encoding=UTF-8 install"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="user.language" value="en"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
@@ -61,9 +61,9 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="Dao.AddressDAOTest" name="testAddAddressType" time="0.033"/>
-  <testcase classname="Dao.AddressDAOTest" name="testGetAddressWithClient" time="0.021"/>
-  <testcase classname="Dao.AddressDAOTest" name="testGetAddress" time="0.035">
+  <testcase classname="Dao.AddressDAOTest" name="testAddAddressType" time="0.001"/>
+  <testcase classname="Dao.AddressDAOTest" name="testGetAddressWithClient" time="0.001"/>
+  <testcase classname="Dao.AddressDAOTest" name="testGetAddress" time="0.001">
     <error type="java.lang.NullPointerException">java.lang.NullPointerException
 	at Dao.AddressDAO.getAddress(AddressDAO.java:122)
 	at Dao.AddressDAOTest.testGetAddress(AddressDAOTest.java:115)
@@ -146,14 +146,14 @@
 	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:175)
 	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:107)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
-Sep 13, 2017 11:30:41 AM Dao.AddressDAO getAddress
+Sep 14, 2017 8:35:29 PM Dao.AddressDAO getAddress
 INFO: getAddress Start
 </system-err>
   </testcase>
-  <testcase classname="Dao.AddressDAOTest" name="testUpdateAddress" time="0.021"/>
-  <testcase classname="Dao.AddressDAOTest" name="testUpdateAddressType" time="0.019"/>
-  <testcase classname="Dao.AddressDAOTest" name="testGetAllAddressType" time="0.019"/>
-  <testcase classname="Dao.AddressDAOTest" name="testAddAddress" time="0.028">
+  <testcase classname="Dao.AddressDAOTest" name="testUpdateAddress" time="0.003"/>
+  <testcase classname="Dao.AddressDAOTest" name="testUpdateAddressType" time="0.003"/>
+  <testcase classname="Dao.AddressDAOTest" name="testGetAllAddressType" time="0.005"/>
+  <testcase classname="Dao.AddressDAOTest" name="testAddAddress" time="0.001">
     <error type="java.lang.NullPointerException">java.lang.NullPointerException
 	at Dao.AddressDAO.addAddress(AddressDAO.java:82)
 	at Dao.AddressDAOTest.testAddAddress(AddressDAOTest.java:86)
@@ -236,14 +236,14 @@ INFO: getAddress Start
 	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:175)
 	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:107)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
-Sep 13, 2017 11:30:41 AM Dao.AddressDAO addAddress
+Sep 14, 2017 8:35:30 PM Dao.AddressDAO addAddress
 INFO: addAddress Start
 </system-err>
   </testcase>
-  <testcase classname="Dao.AddressDAOTest" name="testDeleteAddress" time="0.015"/>
-  <testcase classname="Dao.AddressDAOTest" name="testDeleteAddressType" time="0.02"/>
-  <testcase classname="Dao.AddressDAOTest" name="testGetAddressType" time="0.03"/>
-  <testcase classname="Dao.AddressDAOTest" name="testGetAllAddress" time="0.026">
+  <testcase classname="Dao.AddressDAOTest" name="testDeleteAddress" time="0"/>
+  <testcase classname="Dao.AddressDAOTest" name="testDeleteAddressType" time="0.002"/>
+  <testcase classname="Dao.AddressDAOTest" name="testGetAddressType" time="0"/>
+  <testcase classname="Dao.AddressDAOTest" name="testGetAllAddress" time="0.013">
     <error type="java.lang.NullPointerException">java.lang.NullPointerException
 	at Dao.AddressDAO.getAllAddress(AddressDAO.java:202)
 	at Dao.AddressDAOTest.testGetAllAddress(AddressDAOTest.java:137)
@@ -326,7 +326,7 @@ INFO: addAddress Start
 	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:175)
 	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:107)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
-Sep 13, 2017 11:30:41 AM Dao.AddressDAO getAllAddress
+Sep 14, 2017 8:35:30 PM Dao.AddressDAO getAllAddress
 INFO: getAllAddress Start
 </system-err>
   </testcase>

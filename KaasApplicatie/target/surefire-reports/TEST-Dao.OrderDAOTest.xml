@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="6" failures="0" name="Dao.OrderDAOTest" time="0.143" errors="0" skipped="0">
+<testsuite tests="6" failures="0" name="Dao.OrderDAOTest" time="0.04" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Java\Java Development Kit and Netbeans\jdk1.8.0_131\jre\bin"/>
@@ -44,7 +44,7 @@
     <property name="java.vm.specification.version" value="1.8"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.home" value="C:\Java\Java Development Kit and Netbeans\jdk1.8.0_131\jre"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dmaven.ext.class.path=C:\Program Files\NetBeans 8.2\java\maven-nblib\netbeans-eventspy.jar -Dfile.encoding=UTF-8 clean install"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dmaven.ext.class.path=C:\Program Files\NetBeans 8.2\java\maven-nblib\netbeans-eventspy.jar -Dfile.encoding=UTF-8 install"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="user.language" value="en"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
@@ -61,10 +61,10 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="Dao.OrderDAOTest" name="testDeleteOrder" time="0.009"/>
-  <testcase classname="Dao.OrderDAOTest" name="testGetOrder" time="0.053"/>
-  <testcase classname="Dao.OrderDAOTest" name="testUpdateOrder" time="0.044"/>
-  <testcase classname="Dao.OrderDAOTest" name="testGetAllOrder" time="0.012"/>
-  <testcase classname="Dao.OrderDAOTest" name="testAddOrder" time="0.001"/>
-  <testcase classname="Dao.OrderDAOTest" name="testGetOrderWithClient" time="0.006"/>
+  <testcase classname="Dao.OrderDAOTest" name="testDeleteOrder" time="0.001"/>
+  <testcase classname="Dao.OrderDAOTest" name="testGetOrder" time="0.008"/>
+  <testcase classname="Dao.OrderDAOTest" name="testUpdateOrder" time="0.013"/>
+  <testcase classname="Dao.OrderDAOTest" name="testGetAllOrder" time="0.006"/>
+  <testcase classname="Dao.OrderDAOTest" name="testAddOrder" time="0.006"/>
+  <testcase classname="Dao.OrderDAOTest" name="testGetOrderWithClient" time="0.005"/>
 </testsuite>
