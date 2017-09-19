@@ -13,7 +13,7 @@ import MongoDao.*;
  *
  * @author Gerben
  */
-public class DaoFactory {//ordermenu nog niet af.
+public class DaoFactory {
 
     public DaoFactory() {
     }

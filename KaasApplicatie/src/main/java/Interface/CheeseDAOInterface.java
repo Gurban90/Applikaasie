@@ -1,7 +1,6 @@
 package Interface;
 
 import POJO.CheesePOJO;
-import java.math.BigDecimal;
 import java.util.List;
 
 public interface CheeseDAOInterface {

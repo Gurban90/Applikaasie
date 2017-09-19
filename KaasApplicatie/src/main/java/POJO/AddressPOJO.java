@@ -1,15 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package POJO;
 
-/**
- *
- * @author Gerben
- */
-//ADDRESS POJO
 public class AddressPOJO {
 
     private int addressID;
@@ -23,9 +13,10 @@ public class AddressPOJO {
     private String postalCode;
     private String city;
 
-    public AddressPOJO() {};
+    public AddressPOJO() {
+    }
 
-    public AddressPOJO(Integer addressID, String Streetname, Integer HouseNumber, String HouseNumberAddition, 
+    public AddressPOJO(Integer addressID, String Streetname, Integer HouseNumber, String HouseNumberAddition,
             String PostalCode, String City, Integer ClientID, Integer AddressTypeID) {
         this.addressID = addressID;
         this.streetname = Streetname;

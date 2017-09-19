@@ -1,9 +1,5 @@
 package POJO;
 
-/**
- *
- * @author Jasper Thielen
- */
 public class AddressTypePOJO {
 
     private int addressTypeID;

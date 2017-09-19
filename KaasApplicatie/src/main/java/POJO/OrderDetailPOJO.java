@@ -5,32 +5,29 @@
  */
 package POJO;
 
-
-
 /**
  *
  * @author Gerben
  */
 //ORDERDETAILPOJO
 public class OrderDetailPOJO {
-    
-    
+
     private int orderDetailID;
     private CheesePOJO cheese;
-    private int cheeseID; 
+    private int cheeseID;
     private int quantity;
     private OrderPOJO order;
     private int orderID;
 
-        
-    public OrderDetailPOJO(){}
-    
-    public OrderDetailPOJO(int orderDetailID, int quantity, int cheeseID, int orderID ){
-      this.orderDetailID = orderDetailID;
-      this.quantity = quantity;
-      this.cheeseID = cheeseID;
-      this.orderID = orderID;
-      
+    public OrderDetailPOJO() {
+    }
+
+    public OrderDetailPOJO(int orderDetailID, int quantity, int cheeseID, int orderID) {
+        this.orderDetailID = orderDetailID;
+        this.quantity = quantity;
+        this.cheeseID = cheeseID;
+        this.orderID = orderID;
+
     }
 
     public int getOrderDetailID() {
@@ -41,24 +38,21 @@ public class OrderDetailPOJO {
         this.orderDetailID = orderDetailID;
     }
 
-     public CheesePOJO getCheese() {
+    public CheesePOJO getCheese() {
         return cheese;
     }
-    
-    
+
     public void setCheese(CheesePOJO cheese) {
         this.cheese = cheese;
     }
-    
-        
-     public void setCheeseID(int cheeseID) {
+
+    public void setCheeseID(int cheeseID) {
         this.cheeseID = cheeseID;
     }
-    
+
     public Integer getCheeseID() {
         return cheeseID;
     }
-    
 
     public int getQuantity() {
         return quantity;
@@ -75,7 +69,7 @@ public class OrderDetailPOJO {
     public void setOrder(OrderPOJO order) {
         this.order = order;
     }
-    
+
     public Integer getOrderID() {
         return orderID;
     }
@@ -83,9 +77,9 @@ public class OrderDetailPOJO {
     public void setOrderID(int orderID) {
         this.orderID = orderID;
     }
-    
+
     @Override
-    public String toString(){
-        return "OrderDetailID: "+orderDetailID+", CheeseID: " +cheeseID + ", Quantiy: "+quantity+", OrderID: " +orderID; 
+    public String toString() {
+        return "OrderDetailID: " + orderDetailID + ", CheeseID: " + cheeseID + ", Quantiy: " + quantity + ", OrderID: " + orderID;
     }
- }
+}

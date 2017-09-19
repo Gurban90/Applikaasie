@@ -177,14 +177,4 @@ public class ClientMongoDao implements ClientDAOInterface {
         mongoConnector.closeConnection();
         logger.info("deleteClient End");
     }
-
-  
-
-    public static void main(String[] args) {
-
-        ClientMongoDao dao = new ClientMongoDao();
-
-        System.out.println(dao.getAllClient());
-
-    }
 }

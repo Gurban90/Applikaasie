@@ -263,24 +263,4 @@ public class AddressMongoDao implements AddressDAOInterface {
         logger.info("deleteAddressType End");
     }
 
-    public static void main(String[] args) {
-        AddressTypePOJO type = new AddressTypePOJO();
-        AddressPOJO address = new AddressPOJO();
-
-        address.setClientID(2);
-        address.setStreetName("street");
-        address.setHouseNumber(4);
-        address.setHouseNumberAddition("A");
-        address.setPostalCode("ga");
-        address.setCity("city");
-        address.setAddressTypeID(1);
-
-        type.setAddressTypeID(2);
-
-        AddressMongoDao dao = new AddressMongoDao();
-
-        dao.addAddress(address);
-
-    }
-
 }

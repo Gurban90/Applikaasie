@@ -1,49 +1,31 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package POJO;
 
 import java.math.BigDecimal;
-import java.sql.Date;
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 
-/**
- *
- * @author Gerben
- */
-//ORDERPOJO
 public class OrderPOJO {
-    
+
     private int orderID;
     private ClientPOJO client; //id is first input
     private LocalDateTime orderDate; //when it is ordered (now time)
     private LocalDateTime processedDate; //when the order is finished and send to client
-    
-    private int clientID; 
+
+    private int clientID;
     private OrderDetailPOJO orderDetail; //zero
     private BigDecimal totalPrice; //zero
 
-
-
-    public OrderPOJO(){
-           
+    public OrderPOJO() {
     }
 
-    public OrderPOJO(int orderID, LocalDateTime orderDate, BigDecimal totalPrice, LocalDateTime processedDate , int clientID) {
-    
+    public OrderPOJO(int orderID, LocalDateTime orderDate, BigDecimal totalPrice, LocalDateTime processedDate, int clientID) {
+
         this.orderID = orderID;
         this.orderDate = orderDate;
         this.totalPrice = totalPrice;
         this.processedDate = processedDate;
         this.clientID = clientID;
-    
     }
-    
-    
+
     public int getOrderID() {
         return orderID;
     }
@@ -52,7 +34,7 @@ public class OrderPOJO {
         this.orderID = orderID;
     }
 
-    public OrderDetailPOJO getOrderDetail() { 
+    public OrderDetailPOJO getOrderDetail() {
         return orderDetail;
     }
 
@@ -60,7 +42,7 @@ public class OrderPOJO {
         this.orderDetail = orderDetail;
     }
 
-   public ClientPOJO getClient() {
+    public ClientPOJO getClient() {
         return client;
     }
 
@@ -83,7 +65,7 @@ public class OrderPOJO {
     public void setOrderDate(LocalDateTime orderDate) {
         this.orderDate = orderDate;
     }
-    
+
     public LocalDateTime getProcessedDate() {
         return processedDate;
     }
@@ -91,18 +73,18 @@ public class OrderPOJO {
     public void setProcessedDate(LocalDateTime processedDate) {
         this.processedDate = processedDate;
     }
-    
-     public int getClientID() {
+
+    public int getClientID() {
         return clientID;
     }
 
     public void setClientID(int clientID) {
         this.clientID = clientID;
     }
-      @Override
-    public String toString(){
-        return "OrderID: "+orderID+", OrderDate: " +orderDate + ", TotalPrice: "+totalPrice+", ProcessedDate: " +processedDate +", ClientID "+clientID; 
+
+    @Override
+    public String toString() {
+        return "OrderID: " + orderID + ", OrderDate: " + orderDate + ", TotalPrice: " + totalPrice + ", ProcessedDate: " + processedDate + ", ClientID " + clientID;
     }
 
 }
-    

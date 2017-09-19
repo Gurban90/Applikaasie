@@ -14,7 +14,7 @@ import java.sql.Connection;
  *
  * @author Gerben
  */
-public class ConnectionFactory {//alleen cheese af
+public class ConnectionFactory {
 
     private HikariConnector hikari;
     private String connection;
@@ -26,7 +26,7 @@ public class ConnectionFactory {//alleen cheese af
         connection = data.getConnectionType();
     }
 
-    public Connection getConnection() {        
+    public Connection getConnection() {
         switch (this.connection) {
             case "jdbc":
                 return Connector.getConnection();

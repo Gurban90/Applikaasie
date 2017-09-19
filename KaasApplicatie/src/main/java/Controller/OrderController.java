@@ -1,12 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Controller;
 
-import Dao.OrderDAO;
-import Dao.OrderDetailDAO;
 import Interface.OrderDAOInterface;
 import Interface.OrderDetailDAOInterface;
 import POJO.OrderDetailPOJO;
@@ -16,12 +9,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Jasper Thielen
- */
 public class OrderController {
-    
+
     private Logger LOGGER = Logger.getLogger(AccountController.class.getName());
     private Integer orderID;
     private Integer orderDetailID;
@@ -37,24 +26,14 @@ public class OrderController {
         this.orderdetaildao = orderdetaildao;
     }
 
-    /*
-    public OrderController() {
-        this.orderdao = new OrderDAO();
-        this.orderdetaildao = new OrderDetailDAO();
-        this.orderpojo = new OrderPOJO();
-        this.orderdetailpojo = new OrderDetailPOJO();
-    }
-
-*/
-    
     public Integer setOrder(LocalDateTime orderDate, BigDecimal totalPrice, LocalDateTime processedDate, int ClientID) {
-         LOGGER.info("start");
+        LOGGER.info("start");
         orderpojo.setOrderDate(orderDate);
         orderpojo.setProcessedDate(processedDate);
         orderpojo.setTotalPrice(totalPrice);
         orderpojo.setClientID(ClientID);
         orderID = orderdao.addOrder(orderpojo);
-         LOGGER.info("end");
+        LOGGER.info("end");
         return orderID;
     }
 
@@ -63,11 +42,9 @@ public class OrderController {
         orderdetailpojo.setQuantity(quantity);
         orderdetailpojo.setOrderID(orderID);
         orderdetailpojo.setCheeseID(cheeseID);
-        
-        //System.out.println("ShowThis!" + quantity + " " +  orderID + " " + cheeseID);
-        
+
         orderDetailID = orderdetaildao.addOrderDetail(orderdetailpojo);
-         LOGGER.info("setorderdetail end");
+        LOGGER.info("setorderdetail end");
         return orderDetailID;
     }
 
@@ -88,7 +65,7 @@ public class OrderController {
     }
 
     public List<OrderDetailPOJO> searchOrderDetail(int orderID) {
-       LOGGER.info("start");
+        LOGGER.info("start");
         orderdetailpojo.setOrderID(orderID);
         List<OrderDetailPOJO> returnedOrderDetail = orderdetaildao.getOrderDetail(orderdetailpojo);
         LOGGER.info("end");
@@ -105,11 +82,11 @@ public class OrderController {
         OrderPOJO returnedOrder = orderdao.getOrder(orderpojo);
         LOGGER.info("end");
         return returnedOrder;
-        
+
     }
 
     public void editOrderTime(int orderID, LocalDateTime x) {
-       LOGGER.info("start");
+        LOGGER.info("start");
         orderpojo.setOrderID(orderID);
         orderpojo = orderdao.getOrder(orderpojo);
         orderpojo.setOrderDate(x);
