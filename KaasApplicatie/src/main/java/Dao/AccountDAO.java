@@ -1,11 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Dao;
 
-import DatabaseConnector.Connector;
 import Helper.ConnectionFactory;
 import Interface.AccountDAOInterface;
 import POJO.AccountPOJO;
@@ -18,10 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Jasper Thielen & Gerben
- */
 public class AccountDAO implements AccountDAOInterface {
 
     private Logger LOGGER = Logger.getLogger(AccountDAOInterface.class.getName());

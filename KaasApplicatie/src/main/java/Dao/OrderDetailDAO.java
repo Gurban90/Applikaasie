@@ -5,7 +5,6 @@
  */
 package Dao;
 
-import DatabaseConnector.Connector;
 import Helper.ConnectionFactory;
 import Interface.CheeseDAOInterface;
 import Interface.OrderDetailDAOInterface;
@@ -184,12 +183,12 @@ public class OrderDetailDAO implements OrderDetailDAOInterface {
             connection = connectionfactory.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, orderDetail.getCheeseID());
-            ResultSet resultSet = statement.executeQuery();//Check of Cheese wel bestaat.
+            ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 query = "SELECT * from `order` WHERE OrderID = ?";
                 statement = connection.prepareStatement(query);
                 statement.setInt(1, orderDetail.getOrderID());
-                ResultSet resultSet2 = statement.executeQuery();//Check of Order wel bestaat.
+                ResultSet resultSet2 = statement.executeQuery();
                 if (resultSet2.next()) {
                     query = "UPDATE orderdetail SET Quantity = ?, Cheese_CheeseID = ?, Order_OrderID = ? WHERE OrderDetailID = ?;";
                     statement = connection.prepareStatement(query);

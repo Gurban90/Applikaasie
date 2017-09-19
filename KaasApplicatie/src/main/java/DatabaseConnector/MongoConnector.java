@@ -42,10 +42,4 @@ public class MongoConnector {
         mongoClient.close();
     }
 
-    public static void main(String[] args) {
-        MongoConnector connect = new MongoConnector();
-        MongoDatabase database = connect.makeConnection();
-
-    }
-
 }
