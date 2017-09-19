@@ -46,7 +46,7 @@ public class AddressTypeMenu {
                 + "4. Search AddressType with ID" + "\n"
                 + "5. Get All AddressTypes" + "\n"
                 + "6. Return to last menu" + "\n"
-                + "Please enter your choice: ");
+                + "Please enter the number of your choice: ");
 
         String choiceNumber = input.nextLine();
         if (validator.menuValidator(choiceNumber)) {
@@ -76,12 +76,12 @@ public class AddressTypeMenu {
                     menu.addressMenu();
                     break;
                 default:
-                    System.out.println("wrong number, try again");
+                    System.out.println("Wrong number, try again.");
                     addressTypeMenu();
             }
             LOGGER.info("addressTypeMenu end");
         } else {
-            System.out.println("Choice must be an integer. ");
+            System.out.println("Choice must be an integer.");
             addressTypeMenu();
         }
     }
@@ -94,7 +94,7 @@ public class AddressTypeMenu {
             System.out.println("AddressType is added and has ID: " + addressTypeID);
             addressTypeMenu();
         } else {
-            System.out.println("AddressType cannot be empty. ");
+            System.out.println("AddressType cannot be empty.");
             addressTypeMenu();
         }
     }
@@ -107,7 +107,7 @@ public class AddressTypeMenu {
             controller.removeAddressType(id);
             addressTypeMenu();
         } else {
-            System.out.print("AddressTypeID must be an integer and between 1 and 1000. ");
+            System.out.print("AddressTypeID must be an integer and between 1 and 1000.");
             addressTypeMenu();
         }
     }
@@ -118,7 +118,7 @@ public class AddressTypeMenu {
         if (validator.idValidator(this.idString)) {
             this.id = Integer.parseInt(this.idString);
         } else {
-            System.out.println("AddressTypeID must be an integer and between 0 and 1000. ");
+            System.out.println("AddressTypeID must be an integer and between 0 and 1000.");
             addressTypeMenu();
         }
         System.out.print("Insert new AddressType name: ");
@@ -127,7 +127,7 @@ public class AddressTypeMenu {
             System.out.println(controller.editAddressType(id, addresstype));
             addressTypeMenu();
         } else {
-            System.out.println("AddressType cannot be empty. ");
+            System.out.println("AddressType cannot be empty.");
             addressTypeMenu();
         }
     }
@@ -141,7 +141,7 @@ public class AddressTypeMenu {
             System.out.println(returnedAddressType);
             addressTypeMenu();
         } else {
-            System.out.println("AddressTypeID must be an integer and between 1 and 1000. ");
+            System.out.println("AddressTypeID must be an integer and between 1 and 1000.");
             addressTypeMenu();
         }
     }

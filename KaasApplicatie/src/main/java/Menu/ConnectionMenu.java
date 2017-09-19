@@ -31,12 +31,12 @@ public class ConnectionMenu {
         data = new DomXML();
         menu = new LoginMenu();
 
-        System.out.print(" Connection menu, please select connection: " + "\n"
+        System.out.print(" Connection menu, please select a connection type: " + "\n"
                 + "1. Hikari and MySQL" + "\n"
                 + "2. JDBC and MySQL" + "\n"
                 + "3. MongoDB" + "\n"
                 + "4. Exit" + "\n"
-                + "Please enter your choice: ");
+                + "Please enter the number of your choice: ");
 
         String choiceNumber = input.nextLine();
         if (validator.menuValidator(choiceNumber)) {
@@ -59,14 +59,14 @@ public class ConnectionMenu {
                     menu.loginMenu();
                     break;
                 case 4:
-                    System.out.println("goodbye...");
+                    System.out.println("Goodbye...");
                     System.exit(0);
                 default:
-                    System.out.println("wrong number, try again");
+                    System.out.println("Wrong number, try again.");
                     connectionMenu();
             }
         } else {
-            System.out.println("Choice must be an integer. ");
+            System.out.println("Choice must be an integer.");
             connectionMenu();
         }
 

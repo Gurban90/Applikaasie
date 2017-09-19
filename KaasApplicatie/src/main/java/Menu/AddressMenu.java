@@ -60,7 +60,7 @@ public class AddressMenu {
                 + "7. Get All Addresses" + "\n"
                 + "8. Go to AddressType menu" + "\n"
                 + "9. Return to last menu" + "\n"
-                + "Please enter your choice: ");
+                + "Please enter the number of your choice: ");
 
         String choiceNumber = input.nextLine();
         if (validator.menuValidator(choiceNumber)) {
@@ -100,13 +100,13 @@ public class AddressMenu {
                     ClientMenu clientMenu = new ClientMenu();
                     clientMenu.clientMenu();
                 default:
-                    System.out.println("wrong number, try again");
+                    System.out.println("Wrong number, try again.");
                     addressMenu();
 
             }
             LOGGER.info("addressMenu end");
         } else {
-            System.out.println("Choice must be an integer. ");
+            System.out.println("Choice must be an integer.");
             addressMenu();
         }
     }
@@ -121,7 +121,7 @@ public class AddressMenu {
                 + "5. City" + "\n"
                 + "6. All" + "\n"
                 + "7. Return to last menu" + "\n"
-                + "Please enter your choice: ");
+                + "Please enter the number of your choice: ");
 
         String choiceNumber2 = input.nextLine();
         if (validator.menuValidator(choiceNumber2)) {
@@ -151,25 +151,25 @@ public class AddressMenu {
                     addressMenu();
                     break;
                 default:
-                    System.out.println("wrong number, try again");
+                    System.out.println("Wrong number, try again.");
                     editAddressMenu();
             }
             LOGGER.info("editAddressMenu start");
         } else {
-            System.out.println("Choice must be an integer. ");
+            System.out.println("Choice must be an integer.");
             editAddressMenu();
         }
 
     }
 
     private void newAddress() {
-        System.out.print("To add an Address, an existing clientID and Addresstype must be used. ");
+        System.out.print("To add an Address, an existing clientID and Addresstype must be used.");
         System.out.print("Insert HouseNumber: ");
         this.houseNumberString = input.nextLine();
         if (validator.stockValidator(this.houseNumberString)) {
             this.housenumber = Integer.parseInt(this.houseNumberString);
         } else {
-            System.out.println("Housenumber must be an integer and between 0 and 1000. ");
+            System.out.println("Housenumber must be an integer and between 0 and 1000.");
             addressMenu();
         }
         System.out.print("Insert HouseNumber Addition: ");
@@ -178,21 +178,21 @@ public class AddressMenu {
         this.streetname = input.nextLine();
         if (validator.stringValidator(this.streetname)) {
         } else {
-            System.out.println("StreetName cannot be empty. ");
+            System.out.println("StreetName cannot be empty.");
             addressMenu();
         }
         System.out.print("Insert Postalcode: ");
         this.postalCode = input.nextLine();
         if (validator.stringValidator(this.postalCode)) {
         } else {
-            System.out.println("PostalCode cannot be empty. ");
+            System.out.println("PostalCode cannot be empty.");
             addressMenu();
         }
         System.out.print("Insert city: ");
         this.city = input.nextLine();
         if (validator.stringValidator(this.city)) {
         } else {
-            System.out.println("City cannot be empty. ");
+            System.out.println("City cannot be empty.");
             addressMenu();
         }
 
@@ -201,7 +201,7 @@ public class AddressMenu {
         if (validator.idValidator(this.clientIDString)) {
             this.clientID = Integer.parseInt(this.clientIDString);
         } else {
-            System.out.println("ClientID must be an integer and between 0 and 1000. ");
+            System.out.println("ClientID must be an integer and between 0 and 1000.");
             addressMenu();
         }
         System.out.print("Insert AddressTypeID: ");
@@ -212,7 +212,7 @@ public class AddressMenu {
             System.out.println("Address is added and has ID: " + addressID);
             addressMenu();
         } else {
-            System.out.println("AddressTypeID must be an integer and between 0 and 1000. ");
+            System.out.println("AddressTypeID must be an integer and between 0 and 1000.");
             addressMenu();
         }
     }
@@ -225,7 +225,7 @@ public class AddressMenu {
             controller.removeAddress(id);
             addressMenu();
         } else {
-            System.out.print("AddressID must be an integer and between 1 and 1000. ");
+            System.out.print("AddressID must be an integer and between 1 and 1000.");
             addressMenu();
         }
     }
@@ -239,7 +239,7 @@ public class AddressMenu {
             System.out.println(returnedAddress);
             addressMenu();
         } else {
-            System.out.println("AddressID must be an integer and between 1 and 1000. ");
+            System.out.println("AddressID must be an integer and between 1 and 1000.");
             addressMenu();
         }
     }
@@ -253,7 +253,7 @@ public class AddressMenu {
             System.out.println(returnedAddressess);
             addressMenu();
         } else {
-            System.out.println("ClientID must be an integer and between 1 and 1000. ");
+            System.out.println("ClientID must be an integer and between 1 and 1000.");
             addressMenu();
         }
     }
@@ -265,7 +265,7 @@ public class AddressMenu {
             List<ClientPOJO> returnedClients = controller.findAddressWithClientName(clientLastName);
             System.out.println(returnedClients);
         } else {
-            System.out.println("Client last name cannot be empty. ");
+            System.out.println("Client last name cannot be empty.");
             addressMenu();
         }
         System.out.print("ClientID please: ");
@@ -276,7 +276,7 @@ public class AddressMenu {
             System.out.println(returnedAddressess2);
             addressMenu();
         } else {
-            System.out.println("ClientID must be an integer and between 1 and 1000.  ");
+            System.out.println("ClientID must be an integer and between 1 and 1000.");
             addressMenu();
         }
     }
@@ -287,7 +287,7 @@ public class AddressMenu {
         if (validator.idValidator(this.idString)) {
             this.id = Integer.parseInt(this.idString);
         } else {
-            System.out.println("AddressID must be an integer and between 1 and 1000. ");
+            System.out.println("AddressID must be an integer and between 1 and 1000.");
             editAddressMenu();
         }
         System.out.print("Insert new HouseNumber: ");
@@ -297,7 +297,7 @@ public class AddressMenu {
             System.out.println(controller.editHouseNumber(id, housenumber));
             addressMenu();
         } else {
-            System.out.println("Housenumber must be an integer and between 1 and 1000. ");
+            System.out.println("Housenumber must be an integer and between 1 and 1000.");
             editAddressMenu();
         }
 
@@ -313,7 +313,7 @@ public class AddressMenu {
             System.out.println(controller.editHouseNumberAddition(id, housenumberAddition));
             addressMenu();
         } else {
-            System.out.print("AddressID must be an integer and between 1 and 1000. ");
+            System.out.print("AddressID must be an integer and between 1 and 1000.");
             editAddressMenu();
         }
     }
@@ -324,7 +324,7 @@ public class AddressMenu {
         if (validator.idValidator(this.idString)) {
             this.id = Integer.parseInt(this.idString);
         } else {
-            System.out.println("AddressID must be an integer and between 1 and 1000. ");
+            System.out.println("AddressID must be an integer and between 1 and 1000.");
             editAddressMenu();
         }
         System.out.print("Insert new Streetname: ");
@@ -333,7 +333,7 @@ public class AddressMenu {
             System.out.println(controller.editStreetName(id, streetname));
             addressMenu();
         } else {
-            System.out.print("Streetname cannot be empty. ");
+            System.out.print("Streetname cannot be empty.");
             editAddressMenu();
         }
     }
@@ -344,7 +344,7 @@ public class AddressMenu {
         if (validator.idValidator(this.idString)) {
             this.id = Integer.parseInt(this.idString);
         } else {
-            System.out.println("AddressID must be an integer and between 1 and 1000. ");
+            System.out.println("AddressID must be an integer and between 1 and 1000.");
             editAddressMenu();
         }
         System.out.print("Insert new Postal Code: ");
@@ -353,7 +353,7 @@ public class AddressMenu {
             System.out.println(controller.editPostalCode(id, postalCode));
             addressMenu();
         } else {
-            System.out.print("Postal Code cannot be empty. ");
+            System.out.print("Postal Code cannot be empty.");
             editAddressMenu();
         }
     }
@@ -364,7 +364,7 @@ public class AddressMenu {
         if (validator.idValidator(this.idString)) {
             this.id = Integer.parseInt(this.idString);
         } else {
-            System.out.println("AddressID must be an integer and between 1 and 1000. ");
+            System.out.println("AddressID must be an integer and between 1 and 1000.");
             editAddressMenu();
         }
         System.out.print("Insert new City: ");
@@ -373,7 +373,7 @@ public class AddressMenu {
             System.out.println(controller.editCity(id, city));
             addressMenu();
         } else {
-            System.out.print("City cannot be empty. ");
+            System.out.print("City cannot be empty.");
             editAddressMenu();
         }
     }
@@ -384,7 +384,7 @@ public class AddressMenu {
         if (validator.idValidator(this.idString)) {
             this.id = Integer.parseInt(this.idString);
         } else {
-            System.out.println("AddressID must be an integer and between 0 and 1000. ");
+            System.out.println("AddressID must be an integer and between 0 and 1000.");
             editAddressMenu();
         }
         System.out.print("Insert new HouseNumber: ");
@@ -392,7 +392,7 @@ public class AddressMenu {
         if (validator.stockValidator(this.houseNumberString)) {
             this.housenumber = Integer.parseInt(this.houseNumberString);
         } else {
-            System.out.println("Housenumber must be an integer and between 0 and 1000. ");
+            System.out.println("Housenumber must be an integer and between 0 and 1000.");
             editAddressMenu();
         }
         System.out.print("Insert new HouseNumber Addition: ");
@@ -401,14 +401,14 @@ public class AddressMenu {
         this.streetname = input.nextLine();
         if (validator.stringValidator(this.streetname)) {
         } else {
-            System.out.println("Streetname must have a value. ");
+            System.out.println("Streetname must have a value.");
             editAddressMenu();
         }
         System.out.print("Insert new Postal Code: ");
         this.postalCode = input.nextLine();
         if (validator.stringValidator(this.postalCode)) {
         } else {
-            System.out.println("Postal Code must have a value. ");
+            System.out.println("Postal Code must have a value.");
             editAddressMenu();
         }
         System.out.print("Insert new City: ");
@@ -417,7 +417,7 @@ public class AddressMenu {
             System.out.println(controller.editAddress(id, housenumber, housenumberAddition, streetname, postalCode, city));
             addressMenu();
         } else {
-            System.out.println("City must have a value. ");
+            System.out.println("City must have a value.");
             editAddressMenu();
         }
     }

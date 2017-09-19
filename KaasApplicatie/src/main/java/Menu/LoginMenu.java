@@ -45,15 +45,16 @@ public class LoginMenu {
         token = new TokenCreator();
 
         System.out.println("Welcome to Applikaasie.... " + "\n"
-                + "1. press 1 to log in with an existing account " + "\n"
-                + "2. press 2 to create account " + "\n"
-                + "3. press 3 to update your account " + "\n"
-                + "4. press 4 to remove an account " + "\n"
-                + "5. press 5 to search for an account with ID" + "\n"
-                + "6. press 6 to search for an account with Name" + "\n"
-                + "7. press 7 to get all accounts" + "\n"
-                + "8. press 8 to to go to main menu" + "\n"
-                + "9. press 9 to exit");
+                + "1. Log in with an existing account " + "\n"
+                + "2. Create account " + "\n"
+                + "3. Update account " + "\n"
+                + "4. Remove account " + "\n"
+                + "5. Search for an account with AccountID" + "\n"
+                + "6. Search for an account with Accountname" + "\n"
+                + "7. Get all accounts" + "\n"
+                + "8. Go to main menu" + "\n"
+                + "9. Exit" + "\n"
+                + "Please enter the number of your choice: ");
 
         String choiceNumber = input.nextLine();
         if (validator.menuValidator(choiceNumber)) {
@@ -89,23 +90,24 @@ public class LoginMenu {
                     System.out.println("Goodbye...");
                     System.exit(0);
                 default:
-                    System.out.println("wrong number, try again");
+                    System.out.println("Wrong number, try again.");
                     loginMenu();
             }
         } else {
-            System.out.println("Choice must be an integer. ");
+            System.out.println("Choice must be an integer.");
             loginMenu();
         }
 
     }
 
     public void updateAccountMenu() {
-        System.out.println("What do you want to edit? " + "\n"
-                + "1. press 1 to edit your accountname " + "\n"
-                + "2. press 2 to edit your password " + "\n"
-                + "3. press 3 to update your accountstatus " + "\n"
-                + "4. press 4 to edit all " + "\n"
-                + "5. press 5 to return to last menu");
+        System.out.println("What do you want to edit?" + "\n"
+                + "1. Edit accountname " + "\n"
+                + "2. Edit password " + "\n"
+                + "3. Edit accountstatus " + "\n"
+                + "4. Edit all " + "\n"
+                + "5. Return to last menu" + "\n"
+                + "Please enter the number of your choice: ");
 
         String choiceNumber2 = input.nextLine();
         if (validator.menuValidator(choiceNumber2)) {
@@ -129,7 +131,7 @@ public class LoginMenu {
                     loginMenu();
                     break;
                 default:
-                    System.out.println("wrong number, try again.");
+                    System.out.println("Wrong number, try again.");
                     updateAccountMenu();
             }
         } else {
@@ -158,7 +160,7 @@ public class LoginMenu {
                 loginMenu();
             }
             if (controller.login(id, password)) {
-                System.out.println("You are logged in");
+                System.out.println("You are logged in.");
                 loginMenu();
             } else {
                 System.out.println("Wrong password or accountnumber, try again.");
@@ -201,13 +203,13 @@ public class LoginMenu {
         if (token.checkJWT()) {
             updateAccountMenu();
         } else {
-            System.out.println("Please login first.");
+            System.out.println("Please log in first.");
             loginMenu();
         }
     }
 
     private void deleteAccount() {
-        System.out.println("THIS WILL DELETE YOUR ACCOUNT! To cancel do not fill in your password.");
+        System.out.println("THIS WILL DELETE YOUR ACCOUNT! To cancel do not fill in your AccountID or password.");
         System.out.print("AccountID please: ");
         this.accountIdString = input.nextLine();
         if (validator.idValidator(this.accountIdString)) {
@@ -236,7 +238,7 @@ public class LoginMenu {
     private void searchAccountWithID() {
         if (token.checkJWT()) {
         } else {
-            System.out.println("Please login first");
+            System.out.println("Please log in first.");
             loginMenu();
         }
         System.out.print("AccountID of the account you want to find please: ");
@@ -244,7 +246,7 @@ public class LoginMenu {
         if (validator.idValidator(this.accountIdString)) {
             this.findId = Integer.parseInt(this.accountIdString);
         } else {
-            System.out.println("AccountID must be an integer and between 1 and 1000. ");
+            System.out.println("AccountID must be an integer and between 1 and 1000.");
             loginMenu();
         }
         AccountPOJO returnedAccount = controller.findAccount(this.findId);
@@ -255,14 +257,14 @@ public class LoginMenu {
     private void searchAccountWithName() {
         if (token.checkJWT()) {
         } else {
-            System.out.println("Please login first.");
+            System.out.println("Please log in first.");
             loginMenu();
         }
         System.out.print("AccountName of the account you want to find please: ");
         this.name = input.nextLine();
         if (validator.stringValidator(this.name)) {
         } else {
-            System.out.println("AccountName must have a value. ");
+            System.out.println("AccountName must have a value.");
             loginMenu();
         }
         List<AccountPOJO> returnedAccounts = controller.findAccountWithName(name);
@@ -274,7 +276,7 @@ public class LoginMenu {
     private void getAllAccounts() {
         if (token.checkJWT()) {
         } else {
-            System.out.println("Please login first.");
+            System.out.println("Please log in first.");
             loginMenu();
         }
         List<AccountPOJO> returnedAccounts = controller.getAllAccounts();
@@ -384,7 +386,7 @@ public class LoginMenu {
             MainMenu mainmenu = new MainMenu();
             mainmenu.mainMenu();
         } else {
-            System.out.println("Please login first.");
+            System.out.println("Please log in first.");
             loginMenu();
         }
     }

@@ -9,7 +9,7 @@ package POJO;
  *
  * @author Gerben
  */
-//ORDERDETAILPOJO
+
 public class OrderDetailPOJO {
 
     private int orderDetailID;
@@ -79,7 +79,12 @@ public class OrderDetailPOJO {
     }
 
     @Override
+<<<<<<< HEAD
     public String toString() {
         return "OrderDetailID: " + orderDetailID + ", CheeseID: " + cheeseID + ", Quantiy: " + quantity + ", OrderID: " + orderID;
+=======
+    public String toString(){
+        return "OrderDetailID: "+orderDetailID+", CheeseID: " +cheeseID + ", Quantity: "+quantity+", OrderID: " +orderID; 
+>>>>>>> 92d0afb9cfd604d5ffdce9bef09865e79b9c5c9e
     }
 }
