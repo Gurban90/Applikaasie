@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  *
  * @author Gerben
  */
-public class LoginMenu { //TESTEN
+public class LoginMenu { 
 
     Logger logger = Logger.getLogger(LoginMenu.class.getName());
     private Scanner input;
@@ -86,7 +86,7 @@ public class LoginMenu { //TESTEN
                     goToMain();
                     break;
                 case 9:
-                    System.out.println("goodbye...");
+                    System.out.println("Goodbye...");
                     System.exit(0);
                 default:
                     System.out.println("wrong number, try again");
@@ -100,7 +100,7 @@ public class LoginMenu { //TESTEN
     }
 
     public void updateAccountMenu() {
-        System.out.println("What do you want ot edit? " + "\n"
+        System.out.println("What do you want to edit? " + "\n"
                 + "1. press 1 to edit your accountname " + "\n"
                 + "2. press 2 to edit your password " + "\n"
                 + "3. press 3 to update your accountstatus " + "\n"
@@ -129,7 +129,7 @@ public class LoginMenu { //TESTEN
                     loginMenu();
                     break;
                 default:
-                    System.out.println("wrong number, try again");
+                    System.out.println("wrong number, try again.");
                     updateAccountMenu();
             }
         } else {
@@ -147,14 +147,14 @@ public class LoginMenu { //TESTEN
             if (validator.idValidator(this.accountIdString)) {
                 this.id = Integer.parseInt(this.accountIdString);
             } else {
-                System.out.println("AccountID must be an integer and between 1 and 1000. ");
+                System.out.println("AccountID must be an integer and between 1 and 1000.");
                 loginMenu();
             }
             System.out.print("Please enter your password: ");
             this.password = input.nextLine();
             if (validator.stringValidator(this.password)) {
             } else {
-                System.out.println("Password must have a value. ");
+                System.out.println("Password must have a value.");
                 loginMenu();
             }
             if (controller.login(id, password)) {
@@ -165,6 +165,7 @@ public class LoginMenu { //TESTEN
                 loginMenu();
             }
         }
+        loginMenu();
     }
 
     private void createAccount() {
@@ -172,7 +173,7 @@ public class LoginMenu { //TESTEN
         this.name = input.nextLine();
         if (validator.stringValidator(this.name)) {
         } else {
-            System.out.println("Accountname must have a value. ");
+            System.out.println("Accountname must have a value.");
             loginMenu();
         }
         System.out.print("Insert Password: ");
@@ -180,7 +181,7 @@ public class LoginMenu { //TESTEN
         if (validator.stringValidator(this.password)) {
             char[] charPass = password.toCharArray();
         } else {
-            System.out.println("Password must have a value. ");
+            System.out.println("Password must have a value.");
             loginMenu();
         }
         System.out.print("Insert Accountstatus: ");
@@ -191,7 +192,7 @@ public class LoginMenu { //TESTEN
             System.out.println("Account is added and has ID: " + accountid);
             loginMenu();
         } else {
-            System.out.println("Status must be an integer and between 0 and 5. ");
+            System.out.println("Status must be an integer and between 0 and 5.");
             loginMenu();
         }
     }
@@ -200,26 +201,26 @@ public class LoginMenu { //TESTEN
         if (token.checkJWT()) {
             updateAccountMenu();
         } else {
-            System.out.println("Please login first");
+            System.out.println("Please login first.");
             loginMenu();
         }
     }
 
     private void deleteAccount() {
-        System.out.println("THIS WILL DELETE YOUR ACCOUNT! To cancel do not fill in your password. ");
+        System.out.println("THIS WILL DELETE YOUR ACCOUNT! To cancel do not fill in your password.");
         System.out.print("AccountID please: ");
         this.accountIdString = input.nextLine();
         if (validator.idValidator(this.accountIdString)) {
             this.id = Integer.parseInt(this.accountIdString);
         } else {
-            System.out.println("AccountID must be an integer and between 1 and 1000. ");
+            System.out.println("AccountID must be an integer and between 1 and 1000.");
             loginMenu();
         }
         System.out.print("Please enter your password: ");
         this.password = input.nextLine();
         if (validator.stringValidator(this.password)) {
         } else {
-            System.out.println("Password must have a value. ");
+            System.out.println("Password must have a value.");
             loginMenu();
         }
         if (controller.removeAccount(id, password)) {
@@ -254,7 +255,7 @@ public class LoginMenu { //TESTEN
     private void searchAccountWithName() {
         if (token.checkJWT()) {
         } else {
-            System.out.println("Please login first");
+            System.out.println("Please login first.");
             loginMenu();
         }
         System.out.print("AccountName of the account you want to find please: ");
@@ -273,7 +274,7 @@ public class LoginMenu { //TESTEN
     private void getAllAccounts() {
         if (token.checkJWT()) {
         } else {
-            System.out.println("Please login first");
+            System.out.println("Please login first.");
             loginMenu();
         }
         List<AccountPOJO> returnedAccounts = controller.getAllAccounts();
@@ -288,7 +289,7 @@ public class LoginMenu { //TESTEN
         if (validator.idValidator(this.accountIdString)) {
             this.id = Integer.parseInt(this.accountIdString);
         } else {
-            System.out.println("AccountID must be an integer and between 1 and 1000. ");
+            System.out.println("AccountID must be an integer and between 1 and 1000.");
             updateAccountMenu();
         }
         System.out.print("Insert new AccountName: ");
@@ -297,7 +298,7 @@ public class LoginMenu { //TESTEN
             System.out.println(controller.editAccountName(id, name));
             loginMenu();
         } else {
-            System.out.println("Name must have a value. ");
+            System.out.println("Name must have a value.");
             updateAccountMenu();
         }
     }
@@ -308,7 +309,7 @@ public class LoginMenu { //TESTEN
         if (validator.idValidator(this.accountIdString)) {
             this.id = Integer.parseInt(this.accountIdString);
         } else {
-            System.out.println("AccountID must be an integer and between 1 and 1000. ");
+            System.out.println("AccountID must be an integer and between 1 and 1000.");
             updateAccountMenu();
         }
         System.out.print("Insert new password: ");
@@ -317,7 +318,7 @@ public class LoginMenu { //TESTEN
             System.out.println(controller.editAccountPassword(id, password2));
             loginMenu();
         } else {
-            System.out.println("Password must have a value. ");
+            System.out.println("Password must have a value.");
             updateAccountMenu();
         }
     }
@@ -328,7 +329,7 @@ public class LoginMenu { //TESTEN
         if (validator.idValidator(this.accountIdString)) {
             this.id = Integer.parseInt(this.accountIdString);
         } else {
-            System.out.println("AccountID must be an integer and between 1 and 1000. ");
+            System.out.println("AccountID must be an integer and between 1 and 1000.");
             updateAccountMenu();
         }
         System.out.print("Insert new AccountStatus: ");
@@ -338,7 +339,7 @@ public class LoginMenu { //TESTEN
             System.out.println(controller.editAccountStatus(id, status));
             loginMenu();
         } else {
-            System.out.println("Status must be an integer and between 0 and 5.  ");
+            System.out.println("Status must be an integer and between 0 and 5.");
             updateAccountMenu();
         }
     }
@@ -349,21 +350,21 @@ public class LoginMenu { //TESTEN
         if (validator.idValidator(this.accountIdString)) {
             this.id = Integer.parseInt(this.accountIdString);
         } else {
-            System.out.println("AccountID must be an integer and between 1 and 1000. ");
+            System.out.println("AccountID must be an integer and between 1 and 1000.");
             updateAccountMenu();
         }
         System.out.print("Insert new Accountname: ");
         this.name = input.nextLine();
         if (validator.stringValidator(this.name)) {
         } else {
-            System.out.println("Accountname must have a value. ");
+            System.out.println("Accountname must have a value.");
             updateAccountMenu();
         }
         System.out.print("Insert new Password: ");
         this.password = input.nextLine();
         if (validator.stringValidator(this.password)) {
         } else {
-            System.out.println("Password must have a value. ");
+            System.out.println("Password must have a value.");
             updateAccountMenu();
         }
         System.out.print("Insert new Accountstatus: ");
@@ -373,7 +374,7 @@ public class LoginMenu { //TESTEN
             System.out.println(controller.updateAccount(id, name, password, status));
             loginMenu();
         } else {
-            System.out.println("Status must be an integer and between 0 and 5. ");
+            System.out.println("Status must be an integer and between 0 and 5.");
             updateAccountMenu();
         }
     }
@@ -383,7 +384,7 @@ public class LoginMenu { //TESTEN
             MainMenu mainmenu = new MainMenu();
             mainmenu.mainMenu();
         } else {
-            System.out.println("Please login first");
+            System.out.println("Please login first.");
             loginMenu();
         }
     }
