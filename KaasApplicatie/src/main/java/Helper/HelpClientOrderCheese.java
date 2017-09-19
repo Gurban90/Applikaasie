@@ -176,33 +176,35 @@ public class HelpClientOrderCheese {
         return "Total price updated";
 
     }
-    
-    
-    
-    
 
     public String adjustStock() {
-        
-       int oldStock = 0;
-       int newStock = 0;
-        
+
+        int oldStock = 0;
+        int newStock = 0;
+
         cheeseController = new CheeseController(DaoFactory.createCheeseDao(data.getDatabaseType()));
-        
-       CheesePOJO x = cheeseController.findCheese(cheeseID);
-        
-       oldStock = x.getStock();
-       
-       if(oldStock - ammountCheese > 0){
+
+        CheesePOJO x = cheeseController.findCheese(cheeseID);
+
+        oldStock = x.getStock();
+
+        if (oldStock - ammountCheese >= 0) {
             newStock = oldStock - ammountCheese;
-            cheeseController.editCheeseStock(cheeseID , newStock);
-            return "stock altered";
-            
-       } else{
-                    
-       return " Not enough stock, order still placed";                 
-       }
-       
-    
-       }
+            cheeseController.editCheeseStock(cheeseID, newStock);
+            return "stock altered ";
+
+        } else if (oldStock - ammountCheese < 0) {
+            newStock = oldStock - ammountCheese;
+            cheeseController.editCheeseStock(cheeseID, newStock);
+            return " Not enough stock, order still placed, Stock is now negative ";
+        
+        } else if (oldStock <= 0) {
+            return "Nothing in stock (maybe you can place something like a validator to prevent people from ordering?) ";
+
+        } else {
+            return "Something went wrong";
+        }
+
+    }
 
 }

@@ -1,6 +1,5 @@
 package Menu;
 
-import Controller.CheeseController;
 import Controller.OrderController;
 import DatabaseConnector.DomXML;
 import Helper.DaoFactory;
@@ -335,6 +334,9 @@ public class OrderMenu {
             collection.getSingleCheesePrice();
             collection.getOrderDetail();
             collection.addUpCheese();
+                       
+            String y = collection.adjustStock();
+            System.out.print(y);
             
 
             System.out.println("Do you want to add a new order detail?");
