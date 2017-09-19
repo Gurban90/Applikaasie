@@ -1,5 +1,6 @@
 package Menu;
 
+import Controller.CheeseController;
 import Controller.OrderController;
 import DatabaseConnector.DomXML;
 import Helper.DaoFactory;
@@ -7,7 +8,6 @@ import Helper.HelpClientOrderCheese;
 import Helper.IDCheck;
 import Helper.Validator;
 import POJO.OrderPOJO;
-import POJO.OrderDetailPOJO;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.logging.Logger;
@@ -45,13 +45,13 @@ public class OrderMenu {
     private HelpClientOrderCheese collection;
     private LocalDateTime returnedLocalDateTime;
     private DomXML data;
-    private OrderController controller;
+    private OrderController orderController;
     private Validator validator;
 
     public void orderMenu() {
 
         data = new DomXML();
-        controller = new OrderController(DaoFactory.createOrderDao(data.getDatabaseType()), DaoFactory.createOrderDetailDao(data.getDatabaseType()));
+        orderController = new OrderController(DaoFactory.createOrderDao(data.getDatabaseType()), DaoFactory.createOrderDetailDao(data.getDatabaseType()));
         validator = new Validator();
         input = new Scanner(System.in);
 
@@ -97,7 +97,7 @@ public class OrderMenu {
                     break;
                 case 8:
                     logger.info("searchallorder start");
-                    System.out.println(controller.getAllOrders());
+                    System.out.println(orderController.getAllOrders());
                     orderMenu();
                     logger.info("searchallorder end");
                     break;
@@ -330,11 +330,12 @@ public class OrderMenu {
                 System.out.println("Quantity must have a value. ");
                 orderMenu();
             }
-
+            
             collection.setOrderDetail(cheeseIDint, cheeseAmmountint);
             collection.getSingleCheesePrice();
             collection.getOrderDetail();
             collection.addUpCheese();
+            
 
             System.out.println("Do you want to add a new order detail?");
             anwser = input.nextLine();
@@ -395,7 +396,10 @@ public class OrderMenu {
             collection.getSingleCheesePrice();
             collection.getOrderDetail();
             collection.addUpCheese();
-
+            
+            String y = collection.adjustStock();
+            System.out.print(y);
+            
             System.out.println("Do you want to add a new order detail? ");
             anwser = input.nextLine();
 
@@ -424,7 +428,7 @@ public class OrderMenu {
             orderMenu();
         }
 
-        outputString = controller.removeOrder(this.orderIDint);
+        outputString = orderController.removeOrder(this.orderIDint);
 
         System.out.println(outputString);
 
@@ -454,7 +458,7 @@ public class OrderMenu {
         }
 
         collection.minusCheese(orderDetailIDint, orderIDint, false);
-        outputString = controller.removeOrderDetail(orderDetailIDint);
+        outputString = orderController.removeOrderDetail(orderDetailIDint);
         System.out.println(outputString);
 
         orderMenu();
@@ -471,7 +475,7 @@ public class OrderMenu {
             System.out.println("OrderID must have a value.");
             orderMenu();
         }
-        OrderPOJO returnedOrder = controller.searchOrder(orderIDint);
+        OrderPOJO returnedOrder = orderController.searchOrder(orderIDint);
 
         System.out.println(returnedOrder);
 
@@ -489,7 +493,7 @@ public class OrderMenu {
             System.out.println("OrderDetail must have a value. ");
             editOrderMenu();
         }
-        System.out.println(controller.searchOrderDetail(orderDetailIDint));
+        System.out.println(orderController.searchOrderDetail(orderDetailIDint));
 
         orderMenu();
         logger.info("searchorderdetail end");
@@ -556,7 +560,7 @@ public class OrderMenu {
         }
 
         this.returnedLocalDateTime = collection.setNewOrderByClient(yearint, monthint, dayint, hourint, minint);
-        controller.editOrderTime(orderIDint, returnedLocalDateTime);
+        orderController.editOrderTime(orderIDint, returnedLocalDateTime);
 
         editOrderMenu();
     }
@@ -622,7 +626,7 @@ public class OrderMenu {
 
         this.returnedLocalDateTime = collection.setOrderDelivery(yearint, monthint, dayint, hourint, minint);
 
-        controller.editOrderDeliverTime(orderIDint, returnedLocalDateTime);
+        orderController.editOrderDeliverTime(orderIDint, returnedLocalDateTime);
 
         editOrderMenu();
     }
@@ -657,7 +661,7 @@ public class OrderMenu {
             System.out.println("CheeseID must have a value.");
             editOrderDetailMenu();
         }
-        outputString = controller.editOrderDetailCheese(orderDetailIDint, cheeseIDint);
+        outputString = orderController.editOrderDetailCheese(orderDetailIDint, cheeseIDint);
         collection.minusCheese(orderDetailIDint, orderIDint, true);
         System.out.print(outputString);
 
@@ -694,7 +698,7 @@ public class OrderMenu {
             System.out.println("Quantity must have a value.");
             editOrderDetailMenu();
         }
-        outputString = controller.editOrderDetailAmmount(orderDetailIDint, cheeseAmmountint);
+        outputString = orderController.editOrderDetailAmmount(orderDetailIDint, cheeseAmmountint);
         collection.minusCheese(orderDetailIDint, orderIDint, true);
         System.out.print(outputString);
 
