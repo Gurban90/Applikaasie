@@ -43,7 +43,7 @@ public class CheeseMenu {
                 + "5. Search Cheese with CheeseName" + "\n"
                 + "6. Get All Cheese" + "\n"
                 + "7. Return to last menu" + "\n"
-                + "Please enter your choice: ");
+                + "Please enter the number of your choice: ");
 
         String choiceNumber = input.nextLine();
         if (validator.menuValidator(choiceNumber)) {
@@ -76,13 +76,13 @@ public class CheeseMenu {
                     mainmenu.mainMenu();
                     break;
                 default:
-                    System.out.println("wrong number, try again");
+                    System.out.println("Wrong number, try again.");
                     cheeseMenu();
 
             }
             LOGGER.info("CheeseMenu end");
         } else {
-            System.out.println("Choice must be an integer. ");
+            System.out.println("Choice must be an integer.");
             cheeseMenu();
         }
     }
@@ -95,7 +95,7 @@ public class CheeseMenu {
                 + "3. Stock" + "\n"
                 + "4. All" + "\n"
                 + "5. Return to last menu" + "\n"
-                + "Please enter your choice: ");
+                + "Please enter the number of your choice: ");
 
         String choiceNumber2 = input.nextLine();
         if (validator.menuValidator(choiceNumber2)) {
@@ -119,12 +119,12 @@ public class CheeseMenu {
                     cheeseMenu();
                     break;
                 default:
-                    System.out.println("wrong number, try again");
+                    System.out.println("Wrong number, try again.");
                     editCheeseMenu();
             }
             LOGGER.info("editCheeseMenu start");
         } else {
-            System.out.println("Choice must be an integer. ");
+            System.out.println("Choice must be an integer.");
             editCheeseMenu();
         }
 
@@ -135,7 +135,7 @@ public class CheeseMenu {
         this.name = input.nextLine();
         if (validator.stringValidator(this.name)) {
         } else {
-            System.out.println("CheeseName cannot be empty. ");
+            System.out.println("CheeseName cannot be empty.");
             cheeseMenu();
         }
         System.out.print("Insert Price: ");
@@ -143,7 +143,7 @@ public class CheeseMenu {
         if (validator.priceValidator(this.cheesePrice)) {
             this.price = new BigDecimal(this.cheesePrice);
         } else {
-            System.out.println("Price must be valid type like: 12.25. ");
+            System.out.println("Price must be valid type like: 12.25");
             cheeseMenu();
         }
         System.out.print("Insert Stock: ");
@@ -154,7 +154,7 @@ public class CheeseMenu {
             System.out.println("Cheese is added and has ID: " + cheeseID);
             cheeseMenu();
         } else {
-            System.out.println("Stock must be an integer and between 0 and 1000. ");
+            System.out.println("Stock must be an integer and between 0 and 1000.");
             cheeseMenu();
         }
     }
@@ -167,7 +167,7 @@ public class CheeseMenu {
             controller.removeCheese(id);
             cheeseMenu();
         } else {
-            System.out.print("CheeseID must be an integer and between 1 and 1000. ");
+            System.out.print("CheeseID must be an integer and between 1 and 1000.");
             cheeseMenu();
         }
     }
@@ -181,7 +181,7 @@ public class CheeseMenu {
             System.out.println(returnedcheese);
             cheeseMenu();
         } else {
-            System.out.println("CheeseID must be an integer and between 1 and 1000. ");
+            System.out.println("CheeseID must be an integer and between 1 and 1000.");
             cheeseMenu();
         }
     }
@@ -194,7 +194,7 @@ public class CheeseMenu {
             System.out.println(returnedcheese2);
             cheeseMenu();
         } else {
-            System.out.println("CheeseName cannot be empty. ");
+            System.out.println("CheeseName cannot be empty.");
             cheeseMenu();
         }
     }
@@ -205,7 +205,7 @@ public class CheeseMenu {
         if (validator.idValidator(this.cheeseId)) {
             this.id = Integer.parseInt(this.cheeseId);
         } else {
-            System.out.println("CheeseID must be an integer and between 1 and 1000. ");
+            System.out.println("CheeseID must be an integer and between 1 and 1000.");
             editCheeseMenu();
         }
         System.out.print("Insert new CheeseName: ");
@@ -214,7 +214,7 @@ public class CheeseMenu {
             System.out.println(controller.editCheeseName(id, name));
             cheeseMenu();
         } else {
-            System.out.println("CheeseName must have a value. ");
+            System.out.println("CheeseName must have a value.");
             editCheeseMenu();
         }
     }
@@ -225,7 +225,7 @@ public class CheeseMenu {
         if (validator.idValidator(this.cheeseId)) {
             this.id = Integer.parseInt(this.cheeseId);
         } else {
-            System.out.print("CheeseID must be an integer and between 1 and 1000. ");
+            System.out.print("CheeseID must be an integer and between 1 and 1000.");
             editCheeseMenu();
         }
         System.out.print("Insert new CheesePrice: ");
@@ -235,7 +235,7 @@ public class CheeseMenu {
             System.out.println(controller.editCheesePrice(id, price));
             cheeseMenu();
         } else {
-            System.out.println("Price must be valid type like: 12.25. ");
+            System.out.println("Price must be valid type like: 12.25");
             editCheeseMenu();
         }
     }
@@ -246,7 +246,7 @@ public class CheeseMenu {
         if (validator.idValidator(this.cheeseId)) {
             this.id = Integer.parseInt(this.cheeseId);
         } else {
-            System.out.println("CheeseID must be an integer and between 1 and 1000. ");
+            System.out.println("CheeseID must be an integer and between 1 and 1000.");
             editCheeseMenu();
         }
         System.out.print("Insert new CheeseStock: ");
@@ -256,7 +256,7 @@ public class CheeseMenu {
             System.out.println(controller.editCheeseStock(id, stock));
             cheeseMenu();
         } else {
-            System.out.print("Stock must be an integer and between 0 and 1000. ");
+            System.out.print("Stock must be an integer and between 0 and 1000.");
             editCheeseMenu();
         }
     }
@@ -270,29 +270,29 @@ public class CheeseMenu {
             System.out.println("CheeseID must be an integer and between 1 and 1000. ");
             editCheeseMenu();
         }
-        System.out.print("Insert CheeseName: ");
+        System.out.print("Insert new CheeseName: ");
         this.name = input.nextLine();
         if (validator.stringValidator(this.name)) {
         } else {
-            System.out.println("CheeseName must have a value. ");
+            System.out.println("CheeseName must have a value.");
             editCheeseMenu();
         }
-        System.out.print("Insert Price: ");
+        System.out.print("Insert new Price: ");
         this.cheesePrice = input.nextLine();
         if (validator.priceValidator(this.cheesePrice)) {
             this.price = new BigDecimal(this.cheesePrice);
         } else {
-            System.out.println("Price must be valid type like: 12.25. ");
+            System.out.println("Price must be valid type like: 12.25.");
             editCheeseMenu();
         }
-        System.out.print("Insert Stock: ");
+        System.out.print("Insert new Stock: ");
         this.stockString = input.nextLine();
         if (validator.stockValidator(this.stockString)) {
             this.stock = Integer.parseInt(this.stockString);
             System.out.println(controller.editCheese(id, name, price, stock));
             cheeseMenu();
         } else {
-            System.out.println("Stock must be an integer and between 0 and 1000. ");
+            System.out.println("Stock must be an integer and between 0 and 1000.");
             editCheeseMenu();
         }
     }

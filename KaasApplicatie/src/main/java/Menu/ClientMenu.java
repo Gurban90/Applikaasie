@@ -45,7 +45,7 @@ public class ClientMenu {
                 + "4. Search Client" + "\n"
                 + "5  Go to Address menu" + "\n"
                 + "6. Return to last menu" + "\n"
-                + "Please enter your choice: ");
+                + "Please enter the number of your choice: ");
 
         String choiceNumber = input.nextLine();
         if (validator.menuValidator(choiceNumber)) {
@@ -76,13 +76,13 @@ public class ClientMenu {
                     mainmenu.mainMenu();
                     break;
                 default:
-                    System.out.println("wrong number, try again");
+                    System.out.println("Wrong number, try again.");
                     clientMenu();
 
             }
             LOGGER.info("clientMenu end");
         } else {
-            System.out.println("Choice must be an integer. ");
+            System.out.println("Choice must be an integer.");
             clientMenu();
         }
     }
@@ -96,7 +96,7 @@ public class ClientMenu {
                 + "4. Alter E-mail" + "\n"
                 + "5. Edit all" + "\n"
                 + "6. Return to last menu" + "\n"
-                + "Please enter your choice: ");
+                + "Please enter the number of your choice: ");
 
         String choiceNumber2 = input.nextLine();
         if (validator.menuValidator(choiceNumber2)) {
@@ -127,12 +127,12 @@ public class ClientMenu {
                     clientMenu();
                     break;
                 default:
-                    System.out.println("wrong number, try again");
+                    System.out.println("Wrong number, try again.");
                     editClientMenu();
             }
             LOGGER.info("editclientMenu end");
         } else {
-            System.out.println("Choice must be an integer. ");
+            System.out.println("Choice must be an integer.");
             editClientMenu();
         }
     }
@@ -146,7 +146,7 @@ public class ClientMenu {
                 + "4  Search on last name" + "\n"
                 + "5  Search on E-Mail" + "\n"
                 + "6. Return to last menu" + "\n"
-                + "Please enter your choice: ");
+                + "Please enter the number of your choice: ");
 
         String choiceNumber3 = input.nextLine();
         if (validator.menuValidator(choiceNumber3)) {
@@ -177,11 +177,11 @@ public class ClientMenu {
                     clientMenu();
                     break;
                 default:
-                    System.out.println("wrong number, try again");
+                    System.out.println("Wrong number, try again.");
                     searchClientMenu();
             }
         } else {
-            System.out.println("Choice must be an integer. ");
+            System.out.println("Choice must be an integer.");
             searchClientMenu();
         }
     }
@@ -192,14 +192,14 @@ public class ClientMenu {
         firstName = input.nextLine();
         if (validator.stringValidator(firstName)) {
         } else {
-            System.out.println("First Name cannot be empty. ");
+            System.out.println("First name cannot be empty.");
             clientMenu();
         }
-        System.out.print("Insert Client Last Name: ");
+        System.out.print("Insert Client Last name: ");
         lastName = input.nextLine();
         if (validator.stringValidator(lastName)) {
         } else {
-            System.out.println("Last Name cannot be empty. ");
+            System.out.println("Last name cannot be empty. ");
             clientMenu();
         }
         System.out.print("Insert Client email: ");
@@ -210,7 +210,7 @@ public class ClientMenu {
             clientMenu();
             LOGGER.info("newClient end");
         } else {
-            System.out.println("E-mail must be a valid e-mail address.  ");
+            System.out.println("E-mail must be a valid e-mail address.");
             clientMenu();
         }
     }
@@ -222,7 +222,7 @@ public class ClientMenu {
         if (validator.idValidator(this.ClientIDString)) {
             clientID = Integer.parseInt(this.ClientIDString);
         } else {
-            System.out.println("ClientID must be an integer and between 1 and 1000. ");
+            System.out.println("ClientID must be an integer and between 1 and 1000.");
             clientMenu();
         }
         System.out.println("Are You Sure you want to remove clientID: " + clientID + "  enter Yes ");
@@ -232,7 +232,7 @@ public class ClientMenu {
             LOGGER.info("removeClient end");
             clientMenu();
         } else {
-            System.out.println("Answer cannot be empty. ");
+            System.out.println("Answer cannot be empty.");
             clientMenu();
         }
     }
@@ -243,7 +243,7 @@ public class ClientMenu {
         if (validator.idValidator(this.ClientIDString)) {
             clientID = Integer.parseInt(this.ClientIDString);
         } else {
-            System.out.println("ClientID must be an integer and between 1 and 1000. ");
+            System.out.println("ClientID must be an integer and between 1 and 1000.");
             editClientMenu();
         }
         System.out.print("Insert new First Name: ");
@@ -252,7 +252,7 @@ public class ClientMenu {
             System.out.println(controller.editClientFirstName(clientID, firstName));
             clientMenu();
         } else {
-            System.out.println("First Name cannot be empty. ");
+            System.out.println("First name cannot be empty.");
             editClientMenu();
         }
     }
@@ -263,7 +263,7 @@ public class ClientMenu {
         if (validator.idValidator(this.ClientIDString)) {
             clientID = Integer.parseInt(this.ClientIDString);
         } else {
-            System.out.println("ClientID must be an integer and between 1 and 1000. ");
+            System.out.println("ClientID must be an integer and between 1 and 1000.");
             editClientMenu();
         }
         System.out.print("Insert last Name: ");
@@ -272,7 +272,7 @@ public class ClientMenu {
             System.out.println(controller.editClientLastName(clientID, lastName));
             clientMenu();
         } else {
-            System.out.println("Last Name cannot be empty. ");
+            System.out.println("Last name cannot be empty. ");
             editClientMenu();
         }
     }
@@ -283,7 +283,7 @@ public class ClientMenu {
         if (validator.idValidator(this.ClientIDString)) {
             clientID = Integer.parseInt(this.ClientIDString);
         } else {
-            System.out.println("ClientID must be an integer and between 1 and 1000. ");
+            System.out.println("ClientID must be an integer and between 1 and 1000.");
             editClientMenu();
         }
         System.out.print("Insert eMail: ");
@@ -293,7 +293,7 @@ public class ClientMenu {
             System.out.println(controller.editClientEMail(clientID, eMail));
             clientMenu();
         } else {
-            System.out.println("E-mail must be a valid e-mail address. ");
+            System.out.println("E-mail must be a valid e-mail address.");
             editClientMenu();
         }
     }
@@ -305,14 +305,14 @@ public class ClientMenu {
         if (validator.idValidator(this.ClientIDString)) {
             this.clientID = Integer.parseInt(this.ClientIDString);
         } else {
-            System.out.println("ClientID must be an integer and between 1 and 1000. ");
+            System.out.println("ClientID must be an integer and between 1 and 1000.");
             editClientMenu();
         }
         System.out.print("Insert new Client First Name: ");
         this.firstName = input.nextLine();
         if (validator.stringValidator(this.firstName)) {
         } else {
-            System.out.println("First Name cannot be empty. ");
+            System.out.println("First name cannot be empty. ");
             editClientMenu();
         }
         System.out.print("Insert new Client Last Name: ");
@@ -329,13 +329,13 @@ public class ClientMenu {
             LOGGER.info("editClient end");
             clientMenu();
         } else {
-            System.out.println("E-mail must be a valid e-mail address. ");
+            System.out.println("E-mail must be a valid e-mail address.");
             editClientMenu();
         }
     }
 
     private void searchClientWithID() {
-        System.out.print("clientID please: ");
+        System.out.print("Insert client ID: ");
         ClientIDString = input.nextLine();
         if (validator.idValidator(this.ClientIDString)) {
             this.clientID = Integer.parseInt(this.ClientIDString);
@@ -343,46 +343,46 @@ public class ClientMenu {
             System.out.println(returnedClient);
             clientMenu();
         } else {
-            System.out.println("ClientID must be an integer and between 1 and 1000. ");
+            System.out.println("ClientID must be an integer and between 1 and 1000.");
             searchClientMenu();
         }
     }
 
     private void searchClientWithFirstName() {
-        System.out.print("firstName please: ");
+        System.out.print("Insert First name: ");
         this.firstName = input.nextLine();
         if (validator.stringValidator(this.firstName)) {
             this.returnedClientList = controller.findClientWithFirstName(firstName);
             System.out.println(returnedClientList);
             clientMenu();
         } else {
-            System.out.println("First Name cannot be empty. ");
+            System.out.println("First name cannot be empty.");
             searchClientMenu();
         }
     }
 
     private void searchClientWithLastName() {
-        System.out.print("lastName please: ");
+        System.out.print("Insert Last name: ");
         this.lastName = input.nextLine();
         if (validator.stringValidator(this.lastName)) {
             this.returnedClientList = controller.findClientWithLastName(lastName);
             System.out.println(returnedClientList);
             clientMenu();
         } else {
-            System.out.println("Last Name cannot be empty. ");
+            System.out.println("Last Name cannot be empty.");
             searchClientMenu();
         }
     }
 
     private void searchClientWithEmail() {
-        System.out.print("eMail please: ");
+        System.out.print("Insert E-mail address: ");
         this.eMail = input.nextLine();
         if (validator.eMailValidator(this.eMail)) {
             this.returnedClientList = controller.findClientWithEMail(eMail);
             System.out.println(returnedClientList);
             clientMenu();
         } else {
-            System.out.println("E-mail must be a valid e-mail address. ");
+            System.out.println("E-mail must be a valid e-mail address.");
             searchClientMenu();
         }
     }

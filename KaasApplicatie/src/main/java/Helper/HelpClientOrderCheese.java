@@ -15,6 +15,7 @@ import DatabaseConnector.DomXML;
 import Interface.CheeseDAOInterface;
 import Interface.ClientDAOInterface;
 import Interface.OrderDAOInterface;
+import Interface.OrderDetailDAOInterface;
 import POJO.CheesePOJO;
 import POJO.ClientPOJO;
 import POJO.OrderDetailPOJO;
@@ -149,6 +150,46 @@ public class HelpClientOrderCheese {
         orderDAO.updateOrder(returnedOrderPOJO);
 
         return "total price updated";
+
+    }
+
+    public String minusCheese(int orderDetailId, int orderId, boolean edit) {
+        OrderDetailPOJO orderdetail = new OrderDetailPOJO();
+        OrderPOJO order = new OrderPOJO();
+
+        orderdetail.setOrderDetailID(orderDetailId);
+        order.setOrderID(orderId);
+
+        OrderDAOInterface orderDAO = DaoFactory.createOrderDao(data.getDatabaseType());
+        OrderDetailDAOInterface orderDetailDAO = DaoFactory.createOrderDetailDao(data.getDatabaseType());
+        CheeseController cheesecontrol = new CheeseController(DaoFactory.createCheeseDao(data.getDatabaseType()));
+
+        OrderDetailPOJO returnOrderDetail = orderDetailDAO.getOrderDetailWithID(orderdetail);
+        OrderPOJO returnorder = orderDAO.getOrder(order);
+        if (edit) {
+            BigDecimal overallPrice = returnorder.getTotalPrice();
+            BigDecimal quantity = new BigDecimal(returnOrderDetail.getQuantity());
+            CheesePOJO cheese = cheesecontrol.findCheese(returnOrderDetail.getCheeseID());
+            BigDecimal price = cheese.getPrice();
+
+            overallPrice = overallPrice.add(price.multiply(quantity));
+
+            returnorder.setTotalPrice(overallPrice);
+            orderDAO.updateOrder(returnorder);
+
+        } else {
+            BigDecimal overallPrice = returnorder.getTotalPrice();
+            BigDecimal quantity = new BigDecimal(returnOrderDetail.getQuantity());
+            CheesePOJO cheese = cheesecontrol.findCheese(returnOrderDetail.getCheeseID());
+            BigDecimal price = cheese.getPrice();
+
+            overallPrice = overallPrice.subtract(price.multiply(quantity));
+
+            returnorder.setTotalPrice(overallPrice);
+            orderDAO.updateOrder(returnorder);
+        }
+
+        return "Total price updated";
 
     }
 

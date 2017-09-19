@@ -11,7 +11,7 @@ package POJO;
  *
  * @author Gerben
  */
-//ORDERDETAILPOJO
+
 public class OrderDetailPOJO {
     
     
@@ -86,6 +86,6 @@ public class OrderDetailPOJO {
     
     @Override
     public String toString(){
-        return "OrderDetailID: "+orderDetailID+", CheeseID: " +cheeseID + ", Quantiy: "+quantity+", OrderID: " +orderID; 
+        return "OrderDetailID: "+orderDetailID+", CheeseID: " +cheeseID + ", Quantity: "+quantity+", OrderID: " +orderID; 
     }
  }

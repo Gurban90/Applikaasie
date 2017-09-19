@@ -11,6 +11,7 @@ import java.util.Scanner;
  *
  * @author Jasper Thielen
  */
+/*
 public class OpeningScreen {
 
     private final boolean loopmenu = true;
@@ -45,3 +46,4 @@ public class OpeningScreen {
         }
     }
 }
+*/
