@@ -49,7 +49,7 @@ public class AccountController {
         accountpojo.setAccountID(id);
         AccountPOJO foundAccount = accountdao.getAccount(accountpojo);
         salt = foundAccount.getAccountPassword().substring(32);
-        hashedPassword = passwordhasher.hasher(password+salt);
+        hashedPassword = passwordhasher.hasher(password + salt);
         totalPassword = hashedPassword + salt;
         accountpojo.setAccountPassword(totalPassword);
 
@@ -78,7 +78,7 @@ public class AccountController {
         accountpojo.setAccountID(id);
         AccountPOJO foundAccount = accountdao.getAccount(accountpojo);
         salt = foundAccount.getAccountPassword().substring(32);
-        hashedPassword = passwordhasher.hasher(password+salt);
+        hashedPassword = passwordhasher.hasher(password + salt);
         totalPassword = hashedPassword + salt;
         accountpojo.setAccountPassword(totalPassword);
 

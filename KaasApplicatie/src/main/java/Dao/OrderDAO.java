@@ -7,7 +7,6 @@ package Dao;
 
 import Helper.Converter;
 
-import DatabaseConnector.Connector;
 import Helper.ConnectionFactory;
 import Interface.ClientDAOInterface;
 import Interface.OrderDAOInterface;
@@ -226,7 +225,7 @@ public class OrderDAO implements OrderDAOInterface {
     }
 
     @Override
-    public void deleteOrder(OrderPOJO order    ) {
+    public void deleteOrder(OrderPOJO order) {
         LOGGER.info("deleteOrder Start");
 
         query = "DELETE FROM `order` where OrderID = ?";
@@ -239,7 +238,7 @@ public class OrderDAO implements OrderDAOInterface {
             PreparedStatement statement2 = connect.prepareStatement(query2);
             statement2.setInt(1, order.getOrderID());
             statement2.executeUpdate();
-           
+
         } catch (SQLException e) {
             e.printStackTrace();
 
@@ -252,14 +251,4 @@ public class OrderDAO implements OrderDAOInterface {
 
         LOGGER.info("deleteOrder end");
     }
-    
-    public static void main(String[] args) {
-        OrderDAO dao = new OrderDAO();
-        OrderPOJO pojo = new OrderPOJO();
-        
-        pojo.setOrderID(1);
-       dao.deleteOrder(pojo);
-
-    }
-
 }

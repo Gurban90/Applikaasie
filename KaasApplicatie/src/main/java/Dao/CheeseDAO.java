@@ -5,8 +5,6 @@
  */
 package Dao;
 
-
-
 import Helper.ConnectionFactory;
 import Interface.CheeseDAOInterface;
 import POJO.CheesePOJO;
@@ -69,7 +67,7 @@ public class CheeseDAO implements CheeseDAOInterface {
         logger.info("getAllCheese Start");
         String query = "SELECT * FROM Cheese;";
         List<CheesePOJO> returnedCheeses = new ArrayList<>();
-        
+
         try {
             connection = connectionfactory.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
@@ -127,9 +125,9 @@ public class CheeseDAO implements CheeseDAOInterface {
         logger.info("getCheese end");
         return foundCheese;
     }
-    
+
     @Override
-    public CheesePOJO getCheeseWithName(CheesePOJO cheese){
+    public CheesePOJO getCheeseWithName(CheesePOJO cheese) {
         logger.info("getCheeseWithName Start");
         String query = "SELECT * FROM Cheese WHERE Name=?";
         CheesePOJO foundCheese = new CheesePOJO();
@@ -158,7 +156,7 @@ public class CheeseDAO implements CheeseDAOInterface {
         }
         logger.info("getCheeseWithName end");
         return foundCheese;
-    
+
     }
 
     @Override
@@ -216,7 +214,5 @@ public class CheeseDAO implements CheeseDAOInterface {
         }
         logger.info("deleteCheese end");
     }
-    
-    
-    
+
 }

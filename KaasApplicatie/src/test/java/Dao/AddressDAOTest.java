@@ -7,13 +7,10 @@ package Dao;
 
 import DatabaseConnector.Connector;
 import POJO.AddressPOJO;
-import POJO.AddressTypePOJO;
-import POJO.ClientPOJO;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,16 +21,16 @@ import static org.junit.Assert.*;
  * @author Jasper Thielen
  */
 public class AddressDAOTest {
-    
+
     public AddressDAOTest() {
     }
 
-    AddressDAO AddressDAO = new AddressDAO(); 
+    AddressDAO AddressDAO = new AddressDAO();
     private Connection connect;
-    
+
     @Before
     public void before() {
-       
+
         try {
             connect = Connector.getConnection();
             Statement statement = connect.createStatement();
@@ -45,7 +42,7 @@ public class AddressDAOTest {
         }
 
     }
-    
+
     @After
     public void after() {
         try {
@@ -64,20 +61,13 @@ public class AddressDAOTest {
         }
     }
 
-    
-    
-    
-    
-    
-    
-    
     /**
      * Test of addAddress method, of class AddressDAO.
      */
     @Test
     public void testAddAddress() {
         AddressPOJO Address = new AddressPOJO();
-        
+
         Address.setStreetName("telderslaan");
         Address.setHouseNumber(62);
         Address.setHouseNumberAddition("");
@@ -91,15 +81,15 @@ public class AddressDAOTest {
             Statement statement = connect.createStatement();
             ResultSet resultset = statement.executeQuery(query);
             resultset.next();
-            assertEquals("telderslaan" , resultset.getString(2));
-            assertEquals(62 , resultset.getInt(3));
+            assertEquals("telderslaan", resultset.getString(2));
+            assertEquals(62, resultset.getInt(3));
             assertEquals("", resultset.getString(4));
             assertEquals("3527 KH", resultset.getString(5));
             assertEquals("Utrecht", resultset.getString(6));
-            
+
             connect.close();
             resultset.close();
-            
+
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -115,8 +105,8 @@ public class AddressDAOTest {
         AddressPOJO test = AddressDAO.getAddress(address);
 
         assertEquals(2, test.getAddressID());
-        assertEquals("telderslaan" , test.getStreetName());
-        assertEquals(62 , test.getHouseNumber());
+        assertEquals("telderslaan", test.getStreetName());
+        assertEquals(62, test.getHouseNumber());
         assertEquals("", test.getHouseNumberAddition());
         assertEquals("3527 KH", test.getPostalCode());
         assertEquals("Utrecht", test.getCity());
@@ -128,6 +118,7 @@ public class AddressDAOTest {
     @Test
     public void testGetAddressWithClient() {
     }
+
     //lookup how this changes
     /**
      * Test of getAllAddress method, of class AddressDAO.
@@ -142,22 +133,22 @@ public class AddressDAOTest {
             Statement statement = connect.createStatement();
             ResultSet resultset = statement.executeQuery(query);
             resultset.next();
-            
+
             //iff not correct, increase count assertEquals 1 klopt wel rest niet?
-            assertEquals(1 , resultset.getInt(1)); 
-            assertEquals("telderslaan" , resultset.getString(2));
-            assertEquals(62 , resultset.getInt(3));
+            assertEquals(1, resultset.getInt(1));
+            assertEquals("telderslaan", resultset.getString(2));
+            assertEquals(62, resultset.getInt(3));
             assertEquals("", resultset.getString(4));
             assertEquals("3527 KH", resultset.getString(5));
             assertEquals("Utrecht", resultset.getString(6));
-            
+
             connect.close();
             resultset.close();
-            
+
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-    
+
     }
 
     /**
@@ -208,5 +199,5 @@ public class AddressDAOTest {
     @Test
     public void testDeleteAddressType() {
     }
-    
+
 }

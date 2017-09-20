@@ -5,12 +5,10 @@
  */
 package MongoDao;
 
-import Dao.ClientDAO;
 import DatabaseConnector.MongoConnector;
 import Helper.Converter;
 import Interface.OrderDAOInterface;
 import POJO.ClientPOJO;
-import POJO.OrderDetailPOJO;
 import POJO.OrderPOJO;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
@@ -18,7 +16,6 @@ import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Indexes.descending;
 import static com.mongodb.client.model.Sorts.orderBy;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -171,21 +168,4 @@ public class OrderMongoDAO implements OrderDAOInterface {
         mongoConnector.closeConnection();
         logger.info("deleteOrde End");
     }
-
-    public static void main(String[] args) {
-
-        OrderMongoDAO dao = new OrderMongoDAO();
-        OrderPOJO orderPOJO = new OrderPOJO();
-        ClientPOJO client = new ClientPOJO();
-
-        client.setClientID(1);
-        orderPOJO.setOrderID(2);
-        orderPOJO.setOrderDate(LocalDateTime.now());
-        orderPOJO.setProcessedDate(LocalDateTime.now());
-        orderPOJO.setTotalPrice(new BigDecimal(22.22));
-        orderPOJO.setClientID(1);
-
-        dao.addOrder(orderPOJO);
-    }
-
 }

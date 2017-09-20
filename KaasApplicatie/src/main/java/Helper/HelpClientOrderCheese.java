@@ -7,17 +7,10 @@ package Helper;
 
 import Controller.CheeseController;
 import Controller.OrderController;
-import Dao.CheeseDAO;
-import Dao.ClientDAO;
-import Dao.OrderDAO;
-import Dao.OrderDetailDAO;
 import DatabaseConnector.DomXML;
-import Interface.CheeseDAOInterface;
-import Interface.ClientDAOInterface;
 import Interface.OrderDAOInterface;
 import Interface.OrderDetailDAOInterface;
 import POJO.CheesePOJO;
-import POJO.ClientPOJO;
 import POJO.OrderDetailPOJO;
 import POJO.OrderPOJO;
 import java.math.BigDecimal;
@@ -29,10 +22,7 @@ import java.time.LocalDateTime;
  */
 public class HelpClientOrderCheese {
 
-    private int clientID;
     private int orderID;
-    private int returnedOrderID;
-    private int orderDetailID;
     private int cheeseID;
 
     private int clientYear;
@@ -50,7 +40,7 @@ public class HelpClientOrderCheese {
     private int deliveryMin;
     private LocalDateTime orderDate;
 
-    private BigDecimal zeroTotalPrice = new BigDecimal(0);
+    private final BigDecimal zeroTotalPrice = new BigDecimal(0);
     private BigDecimal totalPrice = new BigDecimal(0);
     private int ammountCheese;
     private BigDecimal cheesePrice;
@@ -58,16 +48,12 @@ public class HelpClientOrderCheese {
     private OrderPOJO returnedOrderPOJO;
     private CheesePOJO returnedCheesePOJO;
 
+    private CheeseController cheeseController;
     private OrderController orderController;
     private DomXML data;
 
     public HelpClientOrderCheese() {
         data = new DomXML();
-    }
-
-    //start first part of order
-    public void setClientID(int clientID) {
-        this.clientID = clientID;
     }
 
     public LocalDateTime setNewOrderByClient(int year, int month, int day, int hour, int min) {
@@ -102,7 +88,6 @@ public class HelpClientOrderCheese {
         this.orderID = orderController.setOrder(orderDate, zeroTotalPrice, processedDate, clientIDint);
     }
 
-    //end first part of order
     public void setOrderDetail(int cheeseID, int ammountCheese) {
         this.ammountCheese = ammountCheese;
         this.cheeseID = cheeseID;
@@ -120,8 +105,7 @@ public class HelpClientOrderCheese {
 
         orderController = new OrderController(DaoFactory.createOrderDao(data.getDatabaseType()), DaoFactory.createOrderDetailDao(data.getDatabaseType()));
 
-        //System.out.println("ShowThis!" + ammountCheese + " " +  orderID + " " + cheeseID);
-        this.orderDetailID = orderController.setOrderDetail(ammountCheese, orderID, cheeseID);
+        orderController.setOrderDetail(ammountCheese, orderID, cheeseID);
     }
 
     public BigDecimal addUpCheese() {
@@ -190,6 +174,36 @@ public class HelpClientOrderCheese {
         }
 
         return "Total price updated";
+
+    }
+
+    public String adjustStock() {
+
+        int oldStock = 0;
+        int newStock = 0;
+
+        cheeseController = new CheeseController(DaoFactory.createCheeseDao(data.getDatabaseType()));
+
+        CheesePOJO x = cheeseController.findCheese(cheeseID);
+
+        oldStock = x.getStock();
+
+        if (oldStock - ammountCheese >= 0) {
+            newStock = oldStock - ammountCheese;
+            cheeseController.editCheeseStock(cheeseID, newStock);
+            return "stock altered ";
+
+        } else if (oldStock - ammountCheese < 0) {
+            newStock = oldStock - ammountCheese;
+            cheeseController.editCheeseStock(cheeseID, newStock);
+            return " Not enough stock, order still placed, Stock is now negative ";
+        
+        } else if (oldStock <= 0) {
+            return "Nothing in stock (maybe you can place something like a validator to prevent people from ordering?) ";
+
+        } else {
+            return "Something went wrong";
+        }
 
     }
 

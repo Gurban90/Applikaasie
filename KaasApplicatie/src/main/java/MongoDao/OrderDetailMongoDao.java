@@ -129,7 +129,7 @@ public class OrderDetailMongoDao implements OrderDetailDAOInterface {
         logger.info("getorderdetail Start");
         orderDetail = new ArrayList<>();
         collection = mongoConnector.makeConnection().getCollection("orderdetail");
-        cursor = (MongoCursor<Document>) collection.find(eq("orderid", orderdetail.getOrderID())).iterator(); 
+        cursor = (MongoCursor<Document>) collection.find(eq("orderid", orderdetail.getOrderID())).iterator();
         while (cursor.hasNext()) {
             doc = cursor.next();
             orderDetail.add(convertDocumentToOrderDetail(doc));
@@ -180,23 +180,5 @@ public class OrderDetailMongoDao implements OrderDetailDAOInterface {
         } finally {
             mongoConnector.closeConnection();
         }
-    }
-
-    public static void main(String[] args) {
-
-        OrderDetailMongoDao dao = new OrderDetailMongoDao();
-        OrderDetailPOJO pojo = new OrderDetailPOJO();
-        CheesePOJO cheese = new CheesePOJO();
-        OrderPOJO order = new OrderPOJO();
-
-        
-        pojo.setCheeseID(2);
-        pojo.setOrderID(3);
-        pojo.setQuantity(66);
-        
-        dao.addOrderDetail(pojo);
-        
-        System.out.println(dao.getOrderDetail(pojo));
-
     }
 }

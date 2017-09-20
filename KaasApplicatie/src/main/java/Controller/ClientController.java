@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Controller;
 
 import Dao.ClientDAO;
@@ -11,10 +6,6 @@ import POJO.ClientPOJO;
 import java.util.List;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Jasper Thielen
- */
 public class ClientController {
 
     private static final Logger LOGGER = Logger.getLogger(ClientController.class.getName());
@@ -26,7 +17,6 @@ public class ClientController {
         this.clientpojo = new ClientPOJO();
     }
 
-    //Voor test
     public ClientController(ClientDAOInterface clientdao) {
         this.clientdao = clientdao;
         this.clientpojo = new ClientPOJO();

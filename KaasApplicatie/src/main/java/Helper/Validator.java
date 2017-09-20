@@ -5,12 +5,8 @@
  */
 package Helper;
 
-import Menu.CheeseMenu;
-import POJO.CheesePOJO;
 import java.math.BigDecimal;
-import java.util.Scanner;
 import org.apache.commons.validator.routines.IntegerValidator;
-import org.apache.commons.validator.GenericValidator;
 import static org.apache.commons.validator.GenericValidator.isBlankOrNull;
 import org.apache.commons.validator.routines.BigDecimalValidator;
 import org.apache.commons.validator.routines.EmailValidator;
@@ -23,8 +19,6 @@ public class Validator {
 
     private int intValidation;
     private BigDecimal bdValidation;
-
-    private static Scanner input = new Scanner(System.in);
 
     public boolean isIntegerValidator(String number) {
         boolean parsable = true;
@@ -122,16 +116,16 @@ public class Validator {
             return false;
         }
     }
-    
+
     public boolean yearValidator(String year) {
         if (isIntegerValidator(year)) {
             IntegerValidator validator = new IntegerValidator();
-            return validator.isInRange(intValidation, 1990, 3000) || validator.isInRange(intValidation, 00, 99) ;
+            return validator.isInRange(intValidation, 1990, 3000) || validator.isInRange(intValidation, 00, 99);
         } else {
             return false;
         }
     }
-    
+
     public boolean monthValidator(String month) {
         if (isIntegerValidator(month)) {
             IntegerValidator validator = new IntegerValidator();
@@ -140,8 +134,8 @@ public class Validator {
             return false;
         }
     }
-    
-     public boolean dayValidator(String day) {
+
+    public boolean dayValidator(String day) {
         if (isIntegerValidator(day)) {
             IntegerValidator validator = new IntegerValidator();
             return validator.isInRange(intValidation, 1, 366);
@@ -149,7 +143,7 @@ public class Validator {
             return false;
         }
     }
-    
+
     public boolean hourValidator(String hour) {
         if (isIntegerValidator(hour)) {
             IntegerValidator validator = new IntegerValidator();
@@ -158,6 +152,7 @@ public class Validator {
             return false;
         }
     }
+
     public boolean minValidator(String min) {
         if (isIntegerValidator(min)) {
             IntegerValidator validator = new IntegerValidator();
@@ -166,14 +161,16 @@ public class Validator {
             return false;
         }
     }
-    public boolean yesnoValidator(String no){
+
+    public boolean yesnoValidator(String no) {
         boolean check;
-        
+
         check = no.equalsIgnoreCase("no") || no.equalsIgnoreCase("n");
-        
+
         return check;
     }
-
+     
+    /*
     public static void main(String[] args) {
         String email = "iets@gmail.com";
         Validator valid = new Validator();
@@ -182,4 +179,5 @@ public class Validator {
         System.out.print(hoi);
 
     }
+     */
 }

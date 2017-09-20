@@ -1,15 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package POJO;
 
-/**
- *
- * @author Gerben
- */
-//ACCOUNTPOJO
 public class AccountPOJO {
 
     private int accountID;
@@ -17,7 +7,8 @@ public class AccountPOJO {
     private String password;
     private int accountStatus;
 
-    public AccountPOJO() {}
+    public AccountPOJO() {
+    }
 
     public AccountPOJO(Integer accountID, String accountName, String password, Integer accountStatus) {
         this.accountID = accountID;

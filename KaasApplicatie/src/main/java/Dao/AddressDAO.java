@@ -5,7 +5,6 @@
  */
 package Dao;
 
-import DatabaseConnector.Connector;
 import Helper.ConnectionFactory;
 import Interface.AddressDAOInterface;
 import POJO.AddressPOJO;
