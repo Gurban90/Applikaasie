@@ -329,27 +329,31 @@ public class OrderMenu {
                 System.out.println("Quantity must have a value. ");
                 orderMenu();
             }
-            
+
             collection.setOrderDetail(cheeseIDint, cheeseAmmountint);
             collection.getSingleCheesePrice();
             collection.getOrderDetail();
             collection.addUpCheese();
-                       
+
             String y = collection.adjustStock();
             System.out.print(y);
-            
 
-            System.out.println("Do you want to add a new order detail?");
-            anwser = input.nextLine();
+            Boolean next = true;
+            while (next) {
+                System.out.println("Do you want to add a new order detail?");
+                anwser = input.nextLine();
 
-            if (validator.stringValidator(anwser)) {
-                if (validator.yesnoValidator(anwser)) {
+                if (validator.yesValidator(anwser)) {
+                    next = false;
+                    break;
+                }
+                if (validator.noValidator(anwser)) {
+                    next = false;
                     makeOrderDetail = false;
                     collection.saveTotalPrice();
+                } else {
+                    System.out.println("Please enter Yes or No.");
                 }
-
-            } else {
-                System.out.println("Please enter Yes or No.");
             }
         }
 
@@ -398,21 +402,26 @@ public class OrderMenu {
             collection.getSingleCheesePrice();
             collection.getOrderDetail();
             collection.addUpCheese();
-            
+
             String y = collection.adjustStock();
             System.out.print(y);
-            
-            System.out.println("Do you want to add a new order detail? ");
-            anwser = input.nextLine();
 
-            if (validator.stringValidator(anwser)) {
-                if (validator.yesnoValidator(anwser)) {
+            Boolean next = true;
+            while (next) {
+                System.out.println("Do you want to add a new order detail?");
+                anwser = input.nextLine();
+
+                if (validator.yesValidator(anwser)) {
+                    next = false;
+                    break;
+                }
+                if (validator.noValidator(anwser)) {
+                    next = false;
                     makeOrderDetail = false;
                     collection.saveTotalPrice();
+                } else {
+                    System.out.println("Please enter Yes or No.");
                 }
-
-            } else {
-                System.out.println("Please enter Yes or No.");
             }
         }
         orderMenu();
@@ -636,7 +645,7 @@ public class OrderMenu {
     private void editCheeseInOrderDetail() {
         System.out.println("Edit orderDetail Cheese. ");
         collection = new HelpClientOrderCheese();
-         System.out.println("Enter The OrderID from which you want to edit an OrderDetail: ");
+        System.out.println("Enter The OrderID from which you want to edit an OrderDetail: ");
         orderID = input.nextLine();
         if (validator.idValidator(this.orderID)) {
             this.orderIDint = Integer.parseInt(this.orderID);
@@ -644,7 +653,7 @@ public class OrderMenu {
             System.out.println("OrderID must have a value. ");
             orderMenu();
         }
-        
+
         System.out.println("Please select the OrderDetailID from the order you want to edit:  ");
         orderDetailID = input.nextLine();
         if (validator.idValidator(this.orderDetailID)) {
@@ -653,7 +662,7 @@ public class OrderMenu {
             System.out.println("OrderDetailID must have a value. ");
             editOrderDetailMenu();
         }
-        
+
         collection.minusCheese(orderDetailIDint, orderIDint, false);
         System.out.println("Enter the new CheeseID: ");
         cheeseID = input.nextLine();
@@ -681,7 +690,7 @@ public class OrderMenu {
             System.out.println("OrderID must have a value. ");
             orderMenu();
         }
-        
+
         System.out.println("Please select the OrderDetailID from the order you want to change:  ");
         orderDetailID = input.nextLine();
         if (validator.idValidator(this.orderDetailID)) {
@@ -690,7 +699,7 @@ public class OrderMenu {
             System.out.println("OrderDetailID must have a value. ");
             editOrderDetailMenu();
         }
-        
+
         collection.minusCheese(orderDetailIDint, orderIDint, false);
         System.out.println("Enter the new quantity of cheese: ");
         cheeseAmmount = input.nextLine();

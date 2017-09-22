@@ -77,5 +77,9 @@ public class OrderDetailPOJO {
     public void setOrderID(int orderID) {
         this.orderID = orderID;
     }
+    @Override
+    public String toString() {
+        return "OrderDetailID: " + orderDetailID + ", Quantity: " + quantity + ", CheeseID: " + cheeseID + ", OrderID: " + orderID;
+    }
 
 }

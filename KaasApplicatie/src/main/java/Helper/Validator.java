@@ -162,10 +162,24 @@ public class Validator {
         }
     }
 
-    public boolean yesnoValidator(String no) {
-        boolean check;
-
+    public boolean noValidator(String no) {
+         boolean check;
+         if (stringValidator(no)){
+             check = false;
+         }
+       
         check = no.equalsIgnoreCase("no") || no.equalsIgnoreCase("n");
+
+        return check;
+    }
+    
+    public boolean yesValidator(String answer) {
+         boolean check;
+         if (stringValidator(answer)){
+             check = false;
+         }
+       
+        check = answer.equalsIgnoreCase("yes") || answer.equalsIgnoreCase("y");
 
         return check;
     }

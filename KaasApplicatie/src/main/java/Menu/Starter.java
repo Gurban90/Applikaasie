@@ -5,6 +5,8 @@
  */
 package Menu;
 
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 /**
  *
@@ -12,19 +14,17 @@ package Menu;
  */
 public class Starter {
 
-    
     /*
     public static void main (String [] args) {
         ClientMenu menu = new ClientMenu();
         menu.clientMenu();
-    */
-      
-    /*public static void main (String [] args) {
+     */
+ /*public static void main (String [] args) {
         LoginMenu menu = new LoginMenu();
         menu.loginMenu();
     }
-    */
-     /*public static void main (String [] args) {
+     */
+ /*public static void main (String [] args) {
         MainMenu menu = new MainMenu();
         menu.mainMenu();
     }
@@ -33,11 +33,11 @@ public class Starter {
         OrderMenu menu = new OrderMenu();
         menu.orderMenu();
      }
-*/
-      public static void main (String [] args) {
+     */
+    public static void main(String[] args) {
+        LogManager.getLogManager().reset();
         ConnectionMenu menu = new ConnectionMenu();
         menu.connectionMenu();
     }
-    
-}
 
+}
