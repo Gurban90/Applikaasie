@@ -2,12 +2,12 @@
 
 <data>
 
-<driver>com.mysql.jdbc.Driver</driver>
+<driver>org.postgresql.Driver</driver>
 
-<url>jdbc:mysql://localhost:3306/Tester?useSSL=false</url>
+<url>jdbc:postgresql://localhost:5432/Applikaasie</url>
 
-<user>root</user>
+<user>postgres</user>
 
-<password>Password</password>
-<type>mysql</type>
+<password>SQLSucks</password>
+<type>postgresql</type>
 </data>
