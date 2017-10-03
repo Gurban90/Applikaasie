@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <data>
-
 <driver>org.postgresql.Driver</driver>
-
-<url>jdbc:postgresql://localhost:5432/Applikaasie</url>
-
+<url>jdbc:postgresql://localhost:5432/Applikaasie?useSSL=false</url>
 <user>postgres</user>
-
 <password>SQLSucks</password>
 <type>postgresql</type>
 </data>
